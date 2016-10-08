@@ -8,7 +8,7 @@ import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 
 /**
- * Represents a Task in the task manager.
+ * Abstraction for all Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public abstract class Task implements ReadOnlyTask, ModifiableTask {
@@ -81,10 +81,7 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
     public String toString() {
         return getAsText();
     }
-    
-    public abstract DateTime getDateTime();
-    
-    public abstract String getDateTimeString();
-
+        
+    public abstract String getDetailsString();
 
 }
