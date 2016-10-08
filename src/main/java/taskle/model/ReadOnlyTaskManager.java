@@ -3,10 +3,10 @@ package taskle.model;
 
 import java.util.List;
 
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.UniqueTaskList;
 import taskle.model.tag.Tag;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.UniqueTaskList;
 
 /**
  * Unmodifiable view of an task manager

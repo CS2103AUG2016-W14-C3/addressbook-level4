@@ -1,7 +1,7 @@
 package taskle.testutil;
 
-import taskle.model.person.*;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.*;
 
 /**
  * A mutable person object. For testing only.

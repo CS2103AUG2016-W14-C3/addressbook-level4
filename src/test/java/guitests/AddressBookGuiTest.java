@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 import taskle.TestApp;
 import taskle.commons.core.EventsCenter;
 import taskle.model.TaskManager;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 import taskle.testutil.TestUtil;
 import taskle.testutil.TypicalTestTasks;
 

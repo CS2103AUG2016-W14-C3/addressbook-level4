@@ -4,7 +4,7 @@ import taskle.commons.core.EventsCenter;
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.ui.JumpToListRequestEvent;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 /**
  * Selects a task identified using it's last displayed index from the Task Manager.

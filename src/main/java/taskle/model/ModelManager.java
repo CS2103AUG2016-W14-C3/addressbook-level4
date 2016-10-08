@@ -1,6 +1,8 @@
 package taskle.model;
 
-import javafx.collections.ObservableList;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
@@ -8,15 +10,12 @@ import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.util.StringUtil;
-import taskle.model.person.ModifiableTask;
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
-import taskle.model.person.UniqueTaskList.TaskNotFoundException;
-
-import java.util.Set;
-import java.util.logging.Logger;
+import taskle.model.task.ModifiableTask;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
+import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -51,8 +50,6 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
     }
-    
-
 
     @Override
     public void resetData(ReadOnlyTaskManager newData) {

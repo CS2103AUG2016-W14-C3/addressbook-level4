@@ -38,12 +38,12 @@ import taskle.model.Model;
 import taskle.model.ModelManager;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
-import taskle.model.person.FloatTask;
-import taskle.model.person.ModifiableTask;
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.Task;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.FloatTask;
+import taskle.model.task.ModifiableTask;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
 import taskle.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -197,7 +197,6 @@ public class LogicManagerTest {
 
     }
 
- 
     @Test
     public void execute_list_showsAllTasks() throws Exception {
         // prepare expectations

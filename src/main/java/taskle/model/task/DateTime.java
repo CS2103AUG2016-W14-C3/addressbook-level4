@@ -1,4 +1,4 @@
-package taskle.model.person;
+package taskle.model.task;
 
 import taskle.commons.exceptions.IllegalValueException;
 

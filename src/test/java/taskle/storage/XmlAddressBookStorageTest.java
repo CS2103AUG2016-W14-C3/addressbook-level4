@@ -15,7 +15,7 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.FileUtil;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
-import taskle.model.person.FloatTask;
+import taskle.model.task.FloatTask;
 import taskle.testutil.TypicalTestTasks;
 
 public class XmlAddressBookStorageTest {

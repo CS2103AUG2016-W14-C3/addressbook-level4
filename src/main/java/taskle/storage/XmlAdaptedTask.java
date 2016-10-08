@@ -6,11 +6,11 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.model.person.FloatTask;
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.Task;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.FloatTask;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
 
 /**
  * JAXB-friendly version of the Person.

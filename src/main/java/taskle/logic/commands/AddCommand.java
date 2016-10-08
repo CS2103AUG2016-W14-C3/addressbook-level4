@@ -1,11 +1,11 @@
 package taskle.logic.commands;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.model.person.FloatTask;
-import taskle.model.person.Name;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.FloatTask;
+import taskle.model.task.Name;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
 
 /**
  * Adds a task to the Task Manager.

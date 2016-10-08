@@ -2,9 +2,9 @@ package taskle.testutil;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.TaskManager;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
 import taskle.model.tag.Tag;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Addressbook objects.

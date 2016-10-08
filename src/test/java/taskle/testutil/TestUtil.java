@@ -30,13 +30,13 @@ import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.FileUtil;
 import taskle.commons.util.XmlUtil;
 import taskle.model.TaskManager;
-import taskle.model.person.FloatTask;
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
 import taskle.model.tag.Tag;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.FloatTask;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
 import taskle.storage.XmlSerializableTaskManager;
 
 /**

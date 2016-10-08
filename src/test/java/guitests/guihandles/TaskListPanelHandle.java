@@ -13,8 +13,8 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import taskle.TestApp;
-import taskle.model.person.FloatTask;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.FloatTask;
+import taskle.model.task.ReadOnlyTask;
 import taskle.testutil.TestUtil;
 
 /**

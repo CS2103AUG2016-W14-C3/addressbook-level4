@@ -3,13 +3,28 @@ package taskle.logic.parser;
 import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static taskle.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.StringUtil;
-import taskle.logic.commands.*;
+import taskle.logic.commands.AddCommand;
+import taskle.logic.commands.ClearCommand;
+import taskle.logic.commands.Command;
+import taskle.logic.commands.EditCommand;
+import taskle.logic.commands.ExitCommand;
+import taskle.logic.commands.FindCommand;
+import taskle.logic.commands.HelpCommand;
+import taskle.logic.commands.IncorrectCommand;
+import taskle.logic.commands.ListCommand;
+import taskle.logic.commands.RemoveCommand;
+import taskle.logic.commands.SelectCommand;
 
 /**
  * Parses user input.

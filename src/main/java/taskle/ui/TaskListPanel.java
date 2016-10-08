@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.events.ui.TaskPanelSelectionChangedEvent;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 

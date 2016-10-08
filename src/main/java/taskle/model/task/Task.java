@@ -1,11 +1,11 @@
-package taskle.model.person;
+package taskle.model.task;
 
 import java.util.Objects;
 
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
 import taskle.commons.util.CollectionUtil;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
 
 /**
  * Represents a Task in the task manager.

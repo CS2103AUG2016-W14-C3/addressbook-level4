@@ -1,6 +1,12 @@
 package taskle;
 
+import java.io.IOException;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
@@ -14,17 +20,15 @@ import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StringUtil;
 import taskle.logic.Logic;
 import taskle.logic.LogicManager;
-import taskle.model.*;
+import taskle.model.Model;
+import taskle.model.ModelManager;
+import taskle.model.ReadOnlyTaskManager;
+import taskle.model.TaskManager;
+import taskle.model.UserPrefs;
 import taskle.storage.Storage;
 import taskle.storage.StorageManager;
 import taskle.ui.Ui;
 import taskle.ui.UiManager;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Map;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.

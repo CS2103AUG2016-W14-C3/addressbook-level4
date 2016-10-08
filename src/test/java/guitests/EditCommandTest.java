@@ -1,6 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.*;
 import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
@@ -8,13 +7,10 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.EditCommand;
-import taskle.model.person.FloatTask;
-import taskle.model.person.Name;
 import taskle.model.tag.UniqueTagList;
-import taskle.testutil.TestTask;
-import taskle.testutil.TestUtil;
+import taskle.model.task.FloatTask;
+import taskle.model.task.Name;
 
 public class EditCommandTest extends AddressBookGuiTest{
 

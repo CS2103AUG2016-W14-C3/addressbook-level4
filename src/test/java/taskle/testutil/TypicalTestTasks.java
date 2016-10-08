@@ -2,8 +2,8 @@ package taskle.testutil;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.TaskManager;
-import taskle.model.person.FloatTask;
-import taskle.model.person.UniqueTaskList;
+import taskle.model.task.FloatTask;
+import taskle.model.task.UniqueTaskList;
 
 /**
  *

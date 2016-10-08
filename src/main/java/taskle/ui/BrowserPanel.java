@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.util.FxViewUtil;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
