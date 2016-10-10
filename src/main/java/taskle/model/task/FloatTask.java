@@ -10,6 +10,8 @@ import taskle.model.tag.UniqueTagList;
  */
 public class FloatTask extends Task {
 
+    public static final TaskType FLOAT_TASK_TYPE = TaskType.FLOAT;
+
     public FloatTask(Name name, UniqueTagList tags) {
         super(name, tags);
     }
@@ -31,6 +33,11 @@ public class FloatTask extends Task {
     @Override
     public String getDetailsString() {
         return "";
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return FLOAT_TASK_TYPE;
     }
 
 }

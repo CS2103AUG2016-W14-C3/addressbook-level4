@@ -7,7 +7,10 @@ import taskle.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-
+    
+    public static enum TaskType { FLOAT, DEADLINE, EVENT
+    };
+    
     Name getName();
 
     /**
@@ -47,5 +50,8 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    
+    public TaskType getTaskType();
+    public String getDetailsString();
 
 }

@@ -15,6 +15,8 @@ public class TaskCard extends UiPart{
     @FXML
     private Label name;
     @FXML
+    private Label details;
+    @FXML
     private Label id;
     @FXML
     private Label tags;
@@ -36,6 +38,7 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
+        details.setText(task.getDetailsString());
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
     }

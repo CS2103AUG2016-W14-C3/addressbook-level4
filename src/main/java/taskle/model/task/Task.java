@@ -81,7 +81,4 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
     public String toString() {
         return getAsText();
     }
-        
-    public abstract String getDetailsString();
-
 }

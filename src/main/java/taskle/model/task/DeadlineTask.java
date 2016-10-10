@@ -6,6 +6,7 @@ import taskle.model.tag.UniqueTagList;
 
 public class DeadlineTask extends Task {
     
+    public static final TaskType DEADLINE_TASK_TYPE = TaskType.DEADLINE;
     private Date deadlineDate;
 
     public DeadlineTask(Name name, Date deadlineDate, UniqueTagList tags) {
@@ -23,6 +24,15 @@ public class DeadlineTask extends Task {
     @Override
     public String getDetailsString() {
         return deadlineDate.toString();
+    }
+    
+    public Date getDeadlineDate() {
+        return deadlineDate;
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return DEADLINE_TASK_TYPE;
     }
 
 }
