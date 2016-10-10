@@ -15,6 +15,7 @@ public class DateTime {
     private int day;
     private int month;
     private int year;
+    // Can be zero which represents the entire day
     private int timeInt;
 
     /**

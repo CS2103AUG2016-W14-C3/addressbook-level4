@@ -2,6 +2,9 @@ package taskle.logic.commands;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.DateTime;
+import taskle.model.task.DeadlineTask;
+import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
@@ -30,7 +33,7 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using raw name value.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -38,6 +41,31 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new FloatTask(new Name(name), stubTagList);
     }
+    
+    /**
+     * Convenience constructor using raw name 
+     * and DateTime object for deadline date. 
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, DateTime deadlineDate)
+            throws IllegalValueException {
+        this.toAdd = new DeadlineTask(new Name(name), stubTagList);
+    }
+    
+    /**
+     * Convenience constructor using raw name 
+     * and DateTime objects for start and end dates.
+     * 
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, DateTime startDate, DateTime endDate)
+            throws IllegalValueException {
+        assert startDate != null;
+        assert endDate != null;
+        this.toAdd = new EventTask(new Name(name), stubTagList);
+    }
+
 
     @Override
     public CommandResult execute() {
