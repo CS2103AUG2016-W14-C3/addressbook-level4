@@ -6,10 +6,11 @@ import static taskle.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,15 +49,17 @@ public class Parser {
             Pattern.compile("(?<targetName>.+)");
 
     // one or more keywords separated by whitespace
-    private static final Pattern KEYWORDS_ARGS_FORMAT = 
+    private static final Pattern FIND_KEYWORDS_ARGS_FORMAT = 
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
 
-    // '/' forward slashes are reserved for delimiter prefixes
-    private static final Pattern ADD_TASK_COMMAND_FORMAT = 
-            Pattern.compile("(?<name>[^/]+)");
-
-    private static final String[] KEYWORDS = new String[] { "by", "to", "from", "on" };
-
+    // Groups into name (all words until first by|from), 
+    // dateFrom (all words after from containing from at the start)
+    // or dateBy (all words after by containing by at the start).
+    private static final Pattern ADD_ARGS_FORMAT = 
+            Pattern.compile("(?<name>.+?(?=\\sby|\\sfrom|$))"
+                    + "(?<dateFrom>(?=\\sfrom).*)*"
+                    + "(?<dateBy>(?=\\sby).*)*");
+    
     private static final int EDIT_NUM_INPUT = 2;
 
     public Parser() {
@@ -121,7 +124,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        final Matcher matcher = ADD_TASK_COMMAND_FORMAT.matcher(args.trim());
+        final Matcher matcher = ADD_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(
@@ -129,8 +132,52 @@ public class Parser {
                     AddCommand.MESSAGE_USAGE));
         }
         
+        String name = matcher.group("name");
+        String eventDate = matcher.group("dateFrom");
+        String deadlineDate = matcher.group("dateBy");
+        if (!deadlineDate.isEmpty()) {
+            List<Date> dates = DateParser.parse(deadlineDate);
+            return prepareDeadlineAdd(name, dates);
+        } else if (!eventDate.isEmpty()) {
+            List<Date> dates = DateParser.parse(eventDate);
+            return prepareEventAdd(name, dates);
+        } else {
+            return prepareFloatAdd(name);
+        }
+        
+    }
+    
+    private Command prepareFloatAdd(String name) {
         try {
-            return new AddCommand(matcher.group("name"));
+            return new AddCommand(name);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    private Command prepareEventAdd(String name, List<Date> dates) {
+        if (dates == null || dates.size() != 2) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    AddCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new AddCommand(name, dates.get(0), dates.get(1));
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+    }
+    
+    private Command prepareDeadlineAdd(String name, List<Date> dates) {
+        if (dates == null || dates.size() != 1) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    AddCommand.MESSAGE_USAGE));
+        }
+        
+        try {
+            return new AddCommand(name, dates.get(0));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -262,7 +309,7 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = FIND_KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 

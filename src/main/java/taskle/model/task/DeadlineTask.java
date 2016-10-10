@@ -1,10 +1,14 @@
 package taskle.model.task;
 
+import java.util.Date;
+
 import taskle.model.tag.UniqueTagList;
 
 public class DeadlineTask extends Task {
+    
+    private Date deadlineDate;
 
-    public DeadlineTask(Name name, UniqueTagList tags) {
+    public DeadlineTask(Name name, Date deadlineDate, UniqueTagList tags) {
         super(name, tags);
     }
 
@@ -18,8 +22,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getDetailsString() {
-        // TODO Auto-generated method stub
-        return null;
+        return deadlineDate.toString();
     }
 
 }

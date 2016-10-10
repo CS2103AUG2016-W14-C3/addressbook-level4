@@ -1,8 +1,9 @@
 package taskle.logic.commands;
 
+import java.util.Date;
+
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.tag.UniqueTagList;
-import taskle.model.task.DateTime;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
@@ -48,9 +49,10 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, DateTime deadlineDate)
+    public AddCommand(String name, Date deadlineDate)
             throws IllegalValueException {
-        this.toAdd = new DeadlineTask(new Name(name), stubTagList);
+        assert deadlineDate != null;
+        this.toAdd = new DeadlineTask(new Name(name), deadlineDate, stubTagList);
     }
     
     /**
@@ -59,11 +61,11 @@ public class AddCommand extends Command {
      * 
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, DateTime startDate, DateTime endDate)
+    public AddCommand(String name, Date startDate, Date endDate)
             throws IllegalValueException {
         assert startDate != null;
         assert endDate != null;
-        this.toAdd = new EventTask(new Name(name), stubTagList);
+        this.toAdd = new EventTask(new Name(name), startDate, endDate, stubTagList);
     }
 
 

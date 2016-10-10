@@ -1,62 +1,67 @@
-package taskle.model.task;
-
-import taskle.commons.exceptions.IllegalValueException;
-
-/**
- * Represents a Task's DateTime data in the address book. Guarantees: immutable;
- * is valid as declared in {@link #isValidTime(String)}
- */
-public class DateTime {
-
-    public static final String MESSAGE_NAME_CONSTRAINTS = "DateTime Strings should be spaces or alphanumeric characters";
-    public static final String DATE_VALIDATION_REGEX = "[\\p{Alnum} ]+";
-
-    // DateTime member variable
-    private int day;
-    private int month;
-    private int year;
-    // Can be zero which represents the entire day
-    private int timeInt;
-
-    /**
-     * Validates given timeString.
-     *
-     * @throws IllegalValueException
-     *             if given name string is invalid.
-     */
-    public DateTime(String timeString) throws IllegalValueException {
-        assert timeString != null;
-        timeString = timeString.trim();
-        if (!isValidTime(timeString)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
-    }
-
-    /**
-     * Returns true if a given string is a valid time String.
-     */
-    public static boolean isValidTime(String time) {
-        return time.matches(DATE_VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(timeInt);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this
-                || (other instanceof DateTime
-                        && this.day == (((DateTime) other).day)
-                        && this.month == (((DateTime) other).month)
-                        && this.year == (((DateTime) other).year)); 
-
-    }
-
-    @Override
-    public int hashCode() {
-        return timeInt;
-    }
-
-}
+//package taskle.model.task;
+//
+//import java.util.Date;
+//
+//import taskle.commons.exceptions.IllegalValueException;
+//
+///**
+// * Represents a Task's DateTime data in the address book. Guarantees: immutable;
+// * is valid as declared in {@link #isValidTime(String)}
+// */
+//public class DateTime {
+//
+//    public static final String DATE_SPACING = "/";
+//    public static final String TIME_SPACING = " at ";
+//
+//    // Date variables
+//    private int day;
+//    private int month;
+//    private int year;
+//    
+//    // Time variables
+//    private int hours;
+//    private int mins;
+//    private int seconds;
+//
+//    private int timeInt;
+//
+//    /**
+//     * Validates given timeString.
+//     *
+//     * @throws IllegalValueException
+//     *             if given name string is invalid.
+//     */
+//    public DateTime(Date date) {
+//        assert date != null;
+//        day = date.getDay();
+//        month = date.getMonth();
+//        year = date.getYear();
+//        timeInt = date.get
+//    }
+//
+//    @Override
+//    public String toString() {
+//        String string = String.valueOf(day) + DATE_SPACING 
+//               + String.valueOf(month) + DATE_SPACING
+//               + String.valueOf(year);
+//        if (timeInt != 0) {
+//            string += String.valueOf(timeInt);
+//        }
+//        return string;
+//    }
+//
+//    @Override
+//    public boolean equals(Object other) {
+//        return other == this || 
+//                (other instanceof DateTime && this.day == (((DateTime) other).day)
+//                && this.month == (((DateTime) other).month) 
+//                && this.year == (((DateTime) other).year));
+//
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return timeInt;
+//    }
+//
+//}
