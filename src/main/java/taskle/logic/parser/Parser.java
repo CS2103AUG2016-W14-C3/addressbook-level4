@@ -15,7 +15,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.StringUtil;
 import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.ClearCommand;

@@ -60,7 +60,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         UniqueTaskList lists = new UniqueTaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
-                System.out.println("getting unique task list");
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
                 //TODO: better error handling
