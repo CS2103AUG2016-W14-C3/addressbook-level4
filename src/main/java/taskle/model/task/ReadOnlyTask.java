@@ -26,15 +26,6 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Formats the task as text, showing all task details.
-     */
-    default String getAsText() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        return builder.toString();
-    }
-
-    /**
      * Returns a string representation of this Task's tags
      */
     default String tagsString() {

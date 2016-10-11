@@ -478,10 +478,10 @@ public class LogicManagerTest {
             calendar.set(Calendar.MILLISECOND, 0);
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.HOUR, 1);
             calendar.add(Calendar.DATE, 1);
+            calendar.set(Calendar.HOUR_OF_DAY, 13);
             Date startDate = calendar.getTime();
-            calendar.set(Calendar.HOUR, 2);
+            calendar.set(Calendar.HOUR_OF_DAY, 14);
             Date endDate = calendar.getTime();
             return new EventTask(name, startDate, endDate, stubTagList);
         }

@@ -46,12 +46,16 @@ public class DeadlineTask extends Task {
         return new DeadlineTask((ReadOnlyTask) this);
     }
     
+    /**
+     * Converts the task into a string that can represent
+     * its addition in a command as well.
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(name);
         builder.append(" by ");
-        builder.append(deadlineDate);
+        builder.append(DateFormatUtil.getDateArgString(deadlineDate));
         return builder.toString();
     }
 

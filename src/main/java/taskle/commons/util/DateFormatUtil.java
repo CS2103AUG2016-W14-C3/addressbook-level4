@@ -75,5 +75,12 @@ public class DateFormatUtil {
             return SIMPLE_DATE_TIME_FORMAT.format(date);
         }
     }
-
+    
+    public static String getDateArgString(Date... dates) {
+        String[] dateStrings = new String[dates.length];
+        for (int i = 0; i < dates.length; i++) {
+            dateStrings[i] = SIMPLE_DATE_TIME_FORMAT.format(dates[i]);
+        }
+        return String.join(EVENT_DATES_DELIMITER, dateStrings);
+    }
 }

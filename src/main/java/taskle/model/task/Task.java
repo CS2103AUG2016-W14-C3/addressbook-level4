@@ -77,8 +77,14 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
         return Objects.hash(name, tags);
     }
 
+    /**
+     * Converts the task into a string that can represent
+     * its addition in a command as well.
+     */
     @Override
     public String toString() {
-        return getAsText();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        return builder.toString();
     }
 }

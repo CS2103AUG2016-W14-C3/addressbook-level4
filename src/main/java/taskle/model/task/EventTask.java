@@ -53,12 +53,17 @@ public class EventTask extends Task {
         return new EventTask((ReadOnlyTask) this);
     }
     
+    /**
+     * Converts the task into a string that can represent
+     * its addition in a command as well.
+     */
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(name);
         builder.append(" from ");
-        builder.append(getDetailsString());
+        builder.append(DateFormatUtil.getDateArgString(
+                startDate, endDate));
         return builder.toString();
     }
 

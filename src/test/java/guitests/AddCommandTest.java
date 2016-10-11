@@ -43,6 +43,11 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
+        //valid deadline add command
+        taskToAdd = td.finalExams;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
         //Invalid event add format
         commandBox.runCommand("add watch movie with friends by 7pm to 9pm");
         assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
@@ -52,9 +57,9 @@ public class AddCommandTest extends AddressBookGuiTest {
     private void assertAddSuccess(Task taskToAdd, Task... currentList) {
         commandBox.runCommand(AddCommand.COMMAND_WORD + " "
                 + taskToAdd.toString());
-
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        System.out.println(addedCard.getDetails());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
