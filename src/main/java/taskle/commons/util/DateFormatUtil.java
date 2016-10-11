@@ -18,7 +18,7 @@ public class DateFormatUtil {
     private static final String DATE_DISPLAY_PATTERN = 
             "d MMM yyyy";
     private static final String TIME_DISPLAY_PATTERN = 
-            "h:mma ";
+            "h:mma";
     private static final String DATE_TIME_DISPLAY_PATTERN = 
             "h:mma, d MMM yyyy";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = 
@@ -28,7 +28,7 @@ public class DateFormatUtil {
     private static final SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = 
             new SimpleDateFormat(DATE_TIME_DISPLAY_PATTERN);
     
-    private static final String END_START_DATE_DELIMITER = "to ";
+    private static final String EVENT_DATES_DELIMITER = " to ";
     
     private static final Calendar calendar = Calendar.getInstance();
     
@@ -52,10 +52,10 @@ public class DateFormatUtil {
         // Same day so only display from time to time, Date.
         if (endDay == startDay && endYear == startYear) {
             return SIMPLE_TIME_FORMAT.format(startDate) 
-                    + END_START_DATE_DELIMITER
+                    + EVENT_DATES_DELIMITER
                     + SIMPLE_DATE_TIME_FORMAT.format(endDate);
         } else {
-            return formatDate(startDate) + END_START_DATE_DELIMITER
+            return formatDate(startDate) + EVENT_DATES_DELIMITER
                     + formatDate(endDate);
         }
     }
