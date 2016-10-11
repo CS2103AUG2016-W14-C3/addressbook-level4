@@ -195,6 +195,22 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
+    
+    @Test
+    public void execute_addDeadlineWithDates_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.finishAssignment();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddDeadlineCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
@@ -411,6 +427,7 @@ public class LogicManagerTest {
         
         private final Calendar CALENDAR = Calendar.getInstance();
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
+        private final String ADD_SUCCESSFUL_DEADLINE_DATE = " by 31st Dec 2016 2359hours";
         
         UniqueTagList stubTagList = new UniqueTagList();
 
@@ -426,6 +443,13 @@ public class LogicManagerTest {
             CALENDAR.set(2016, 8, 12, 13, 00, 00);
             Date endDate = CALENDAR.getTime();
             return new EventTask(name, startDate, endDate, stubTagList);
+        }
+        
+        DeadlineTask finishAssignment() throws Exception {
+            Name name = new Name("Finish Assignment");
+            CALENDAR.set(2016, 11, 31, 23, 59, 00);
+            Date byDate = CALENDAR.getTime();
+            return new DeadlineTask(name, byDate, stubTagList);
         }
 
         /**
@@ -462,6 +486,7 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
+            cmd.append(ADD_SUCCESSFUL_DEADLINE_DATE);
             return cmd.toString();
         }
         
