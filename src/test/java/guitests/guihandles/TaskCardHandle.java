@@ -41,7 +41,7 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyTask person){
+    public boolean isSameTask(ReadOnlyTask person){
         return getFullName().equals(person.getName().fullName);
     }
 

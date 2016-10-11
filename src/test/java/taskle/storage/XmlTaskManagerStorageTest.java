@@ -15,11 +15,10 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.FileUtil;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
-import taskle.model.task.FloatTask;
 import taskle.testutil.TypicalTestTasks;
 
-public class XmlAddressBookStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+public class XmlTaskManagerStorageTest {
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlTaskManagerStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -28,12 +27,12 @@ public class XmlAddressBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_assertionFailure() throws Exception {
+    public void readTaskManager_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
-        readAddressBook(null);
+        readTaskManager(null);
     }
 
-    private java.util.Optional<ReadOnlyTaskManager> readAddressBook(String filePath) throws Exception {
+    private java.util.Optional<ReadOnlyTaskManager> readTaskManager(String filePath) throws Exception {
         return new XmlTaskManagerStorage(filePath).readTaskManager(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -45,14 +44,14 @@ public class XmlAddressBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        assertFalse(readTaskManager("NonExistentFile.xml").isPresent());
     }
 
     @Test
     public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
-        readAddressBook("NotXmlFormatAddressBook.xml");
+        readTaskManager("NotXmlFormatTaskManager.xml");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -60,46 +59,46 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
+    public void readAndSaveTaskManager_allInOrder_success() throws Exception {
+        String filePath = testFolder.getRoot().getPath() + "TempTaskManager.xml";
         TypicalTestTasks td = new TypicalTestTasks();
         TaskManager original = td.getTypicalTaskManager();
-        XmlTaskManagerStorage xmlAddressBookStorage = new XmlTaskManagerStorage(filePath);
+        XmlTaskManagerStorage xmlTaskManagerStorage = new XmlTaskManagerStorage(filePath);
 
         //Save in new file and read back
-        xmlAddressBookStorage.saveTaskManager(original, filePath);
-        ReadOnlyTaskManager readBack = xmlAddressBookStorage.readTaskManager(filePath).get();
+        xmlTaskManagerStorage.saveTaskManager(original, filePath);
+        ReadOnlyTaskManager readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
         assertEquals(original, new TaskManager(readBack));
 
         //Modify data, overwrite existing file, and read back
-        original.addTask(new FloatTask(TypicalTestTasks.helpFriend));
-        original.removeTask(new FloatTask(TypicalTestTasks.attendMeeting));
-        xmlAddressBookStorage.saveTaskManager(original, filePath);
-        readBack = xmlAddressBookStorage.readTaskManager(filePath).get();
+        original.addTask(td.helpFriend.copy());
+        original.removeTask(td.attendMeeting.copy());
+        xmlTaskManagerStorage.saveTaskManager(original, filePath);
+        readBack = xmlTaskManagerStorage.readTaskManager(filePath).get();
         assertEquals(original, new TaskManager(readBack));
 
         //Save and read without specifying file path
-        original.addTask(new FloatTask(TypicalTestTasks.interview));
-        xmlAddressBookStorage.saveTaskManager(original); //file path not specified
-        readBack = xmlAddressBookStorage.readTaskManager().get(); //file path not specified
+        original.addTask(td.interview.copy());
+        xmlTaskManagerStorage.saveTaskManager(original); //file path not specified
+        readBack = xmlTaskManagerStorage.readTaskManager().get(); //file path not specified
         assertEquals(original, new TaskManager(readBack));
 
     }
 
     @Test
-    public void saveAddressBook_nullAddressBook_assertionFailure() throws IOException {
+    public void saveTaskManager_nullTaskManager_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(null, "SomeFile.xml");
+        saveTaskManager(null, "SomeFile.xml");
     }
 
-    private void saveAddressBook(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
-        new XmlTaskManagerStorage(filePath).saveTaskManager(addressBook, addToTestDataPathIfNotNull(filePath));
+    private void saveTaskManager(ReadOnlyTaskManager readOnlyTaskManager, String filePath) throws IOException {
+        new XmlTaskManagerStorage(filePath).saveTaskManager(readOnlyTaskManager, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test
     public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        saveAddressBook(new TaskManager(), null);
+        saveTaskManager(new TaskManager(), null);
     }
 
 

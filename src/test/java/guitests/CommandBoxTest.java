@@ -1,14 +1,16 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import taskle.logic.commands.AddCommand;
 
 public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {
-        commandBox.runCommand(td.buyMilk.getAddCommand());
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.buyMilk.toString());
         assertEquals(commandBox.getCommandInput(), "");
     }
 

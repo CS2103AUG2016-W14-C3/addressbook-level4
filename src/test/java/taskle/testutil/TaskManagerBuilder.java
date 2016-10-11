@@ -11,20 +11,20 @@ import taskle.model.task.UniqueTaskList;
  * Example usage: <br>
  *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class TaskManagerBuilder {
 
     private TaskManager taskManager;
 
-    public AddressBookBuilder(TaskManager addressBook){
+    public TaskManagerBuilder(TaskManager addressBook){
         this.taskManager = addressBook;
     }
 
-    public AddressBookBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public TaskManagerBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
         return this;
     }
 
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
+    public TaskManagerBuilder withTag(String tagName) throws IllegalValueException {
         taskManager.addTag(new Tag(tagName));
         return this;
     }

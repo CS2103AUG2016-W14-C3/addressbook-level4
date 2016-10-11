@@ -7,7 +7,7 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.logic.commands.AddCommand;
-import taskle.testutil.TestTask;
+import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
 public class AddCommandTest extends AddressBookGuiTest {
@@ -15,8 +15,8 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() {
         //add one task
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.helpFriend;
+        Task[] currentList = td.getTypicalTasks();
+        Task taskToAdd = td.helpFriend;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
@@ -26,7 +26,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate person
-        commandBox.runCommand(td.helpFriend.getAddCommand());
+        commandBox.runCommand("add " + td.helpFriend.getName());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
@@ -39,15 +39,15 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddCommand());
+    private void assertAddSuccess(Task taskToAdd, Task... currentList) {
+        commandBox.runCommand("add " + taskToAdd.toString());
 
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd.getName().fullName);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        Task[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 

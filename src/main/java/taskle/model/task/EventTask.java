@@ -58,9 +58,7 @@ public class EventTask extends Task {
         StringBuilder builder = new StringBuilder();
         builder.append(name);
         builder.append(" from ");
-        builder.append(startDate);
-        builder.append(" to ");
-        builder.append(endDate);
+        builder.append(getDetailsString());
         return builder.toString();
     }
 
