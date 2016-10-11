@@ -52,5 +52,16 @@ public class EventTask extends Task {
     public Task copy() {
         return new EventTask((ReadOnlyTask) this);
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(name);
+        builder.append(" from ");
+        builder.append(startDate);
+        builder.append(" to ");
+        builder.append(endDate);
+        return builder.toString();
+    }
 
 }

@@ -45,5 +45,14 @@ public class DeadlineTask extends Task {
     public Task copy() {
         return new DeadlineTask((ReadOnlyTask) this);
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(name);
+        builder.append(" by ");
+        builder.append(deadlineDate);
+        return builder.toString();
+    }
 
 }

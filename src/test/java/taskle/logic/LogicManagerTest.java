@@ -35,7 +35,6 @@ import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
 import taskle.logic.commands.ListCommand;
 import taskle.logic.commands.RemoveCommand;
-import taskle.logic.commands.SelectCommand;
 import taskle.model.Model;
 import taskle.model.ModelManager;
 import taskle.model.ReadOnlyTaskManager;
@@ -267,34 +266,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
-    }
-
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
-    }
-
-    @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateTaskList(3);
-
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
-        helper.addToModel(model, threePersons);
-
-        assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getTaskList());
-        assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredTaskList().get(1), threePersons.get(1));
-    }
-
-
-    @Test
     public void execute_removeInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("remove", expectedMessage);
@@ -439,7 +410,7 @@ public class LogicManagerTest {
     class TestDataHelper{
         
         private final Calendar CALENDAR = Calendar.getInstance();
-        private final String SAMPLE_EVENT_DATE = "from 12 sep 2016 10am to 12 sep 2016 1pm";
+        private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
         
         UniqueTagList stubTagList = new UniqueTagList();
 
@@ -450,9 +421,9 @@ public class LogicManagerTest {
         
         EventTask finalExams() throws Exception {
             Name name = new Name("Final Exams");
-            CALENDAR.set(2016, 9, 12, 10, 00, 00);
+            CALENDAR.set(2016, 8, 12, 10, 00, 00);
             Date startDate = CALENDAR.getTime();
-            CALENDAR.set(2016, 9, 12, 13, 00, 00);
+            CALENDAR.set(2016, 8, 12, 13, 00, 00);
             Date endDate = CALENDAR.getTime();
             return new EventTask(name, startDate, endDate, stubTagList);
         }
@@ -482,6 +453,7 @@ public class LogicManagerTest {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
+            cmd.append(ADD_SUCCESSFUL_EVENT_DATE);
             return cmd.toString();
         }
         
