@@ -8,7 +8,9 @@ import static taskle.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -39,6 +41,8 @@ import taskle.model.ModelManager;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.DeadlineTask;
+import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.ModifiableTask;
 import taskle.model.task.Name;
@@ -165,7 +169,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        FloatTask toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
@@ -176,17 +180,33 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    
+    @Test
+    public void execute_addEventWithDates_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.finalExams();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddEventCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
 
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.adam();
+        FloatTask toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addTask(toBeAdded); // person already in internal address book
+        model.addTask(toBeAdded); // task already in internal task manager
 
         // execute command and verify result
         assertCommandBehavior(
@@ -418,11 +438,23 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
         
+        private final Calendar CALENDAR = Calendar.getInstance();
+        private final String SAMPLE_EVENT_DATE = "from 12 sep 2016 10am to 12 sep 2016 1pm";
+        
         UniqueTagList stubTagList = new UniqueTagList();
 
-        Task adam() throws Exception {
+        FloatTask adam() throws Exception {
             Name name = new Name("Adam Brown");
             return new FloatTask(name, stubTagList);
+        }
+        
+        EventTask finalExams() throws Exception {
+            Name name = new Name("Final Exams");
+            CALENDAR.set(2016, 9, 12, 10, 00, 00);
+            Date startDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 9, 12, 13, 00, 00);
+            Date endDate = CALENDAR.getTime();
+            return new EventTask(name, startDate, endDate, stubTagList);
         }
 
         /**
@@ -438,7 +470,23 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct add command based on the person given */
-        String generateAddCommand(Task p) {
+        String generateAddCommand(FloatTask p) {
+            StringBuffer cmd = new StringBuffer();
+            cmd.append("add ");
+            cmd.append(p.getName().toString());
+            return cmd.toString();
+        }
+        
+        /** Generates the correct add command based on the person given */
+        String generateAddEventCommand(EventTask p) {
+            StringBuffer cmd = new StringBuffer();
+            cmd.append("add ");
+            cmd.append(p.getName().toString());
+            return cmd.toString();
+        }
+        
+        /** Generates the correct add command based on the person given */
+        String generateAddDeadlineCommand(DeadlineTask p) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
