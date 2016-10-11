@@ -464,7 +464,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed), stubTagList);
         }
 
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add float command based on the task given */
         String generateAddCommand(FloatTask p) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
@@ -472,7 +472,7 @@ public class LogicManagerTest {
             return cmd.toString();
         }
         
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add event command based on the task given */
         String generateAddEventCommand(EventTask p) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
@@ -481,7 +481,7 @@ public class LogicManagerTest {
             return cmd.toString();
         }
         
-        /** Generates the correct add command based on the person given */
+        /** Generates the correct add deadline command based on the task given */
         String generateAddDeadlineCommand(DeadlineTask p) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
@@ -497,7 +497,7 @@ public class LogicManagerTest {
             return cmd.toString();
         }
         /**
-         * Generates an TaskManager with auto-generated persons.
+         * Generates an TaskManager with auto-generated task.
          */
         TaskManager generateTaskManager(int numGenerated) throws Exception{
             TaskManager taskManager = new TaskManager();
@@ -506,7 +506,7 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an TaskManager based on the list of Task given.
+         * Generates an TaskManager based on the list of Tasks given.
          */
         TaskManager generateTaskManager(List<Task> tasks) throws Exception{
             TaskManager taskManager = new TaskManager();
@@ -516,7 +516,7 @@ public class LogicManagerTest {
 
         /**
          * Adds auto-generated Task objects to the given TaskManager
-         * @param taskManager The AddressBook to which the Tasks will be added
+         * @param taskManager The TaskManager to which the Tasks will be added
          */
         void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
             addToTaskManager(taskManager, generateTaskList(numGenerated));
