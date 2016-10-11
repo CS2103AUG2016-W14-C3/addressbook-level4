@@ -65,6 +65,7 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         assert startDate != null;
         assert endDate != null;
+        
         this.toAdd = new EventTask(new Name(name), startDate, endDate, stubTagList);
     }
 

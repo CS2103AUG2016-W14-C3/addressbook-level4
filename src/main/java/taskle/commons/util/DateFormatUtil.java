@@ -1,0 +1,79 @@
+package taskle.commons.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ * Utilities method for formatting Dates into Strings for display.
+ * @author Abel
+ *
+ */
+public class DateFormatUtil {
+    
+    /**
+     * Patterns for formatting. One for just the date 
+     * and another with the time
+     */
+    private static final String DATE_DISPLAY_PATTERN = 
+            "d MMM yyyy";
+    private static final String TIME_DISPLAY_PATTERN = 
+            "h:mma ";
+    private static final String DATE_TIME_DISPLAY_PATTERN = 
+            "h:mma, d MMM yyyy";
+    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = 
+            new SimpleDateFormat(DATE_DISPLAY_PATTERN);
+    private static final SimpleDateFormat SIMPLE_TIME_FORMAT = 
+            new SimpleDateFormat(TIME_DISPLAY_PATTERN);
+    private static final SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = 
+            new SimpleDateFormat(DATE_TIME_DISPLAY_PATTERN);
+    
+    private static final String END_START_DATE_DELIMITER = "to ";
+    
+    private static final Calendar calendar = Calendar.getInstance();
+    
+    /**
+     * Private constructor to prevent instantiation.
+     */
+    private DateFormatUtil() {
+    }
+    
+    public static String formatEventDates(Date startDate, Date endDate) {
+        if (startDate == null || endDate == null) {
+            return "";
+        }
+        
+        calendar.setTime(startDate);
+        int startDay = calendar.get(Calendar.DAY_OF_YEAR);
+        int startYear = calendar.get(Calendar.YEAR);
+        calendar.setTime(endDate);
+        int endDay = calendar.get(Calendar.DAY_OF_YEAR);
+        int endYear = calendar.get(Calendar.YEAR);
+        // Same day so only display from time to time, Date.
+        if (endDay == startDay && endYear == startYear) {
+            return SIMPLE_TIME_FORMAT.format(startDate) 
+                    + END_START_DATE_DELIMITER
+                    + SIMPLE_DATE_TIME_FORMAT.format(endDate);
+        } else {
+            return formatDate(startDate) + END_START_DATE_DELIMITER
+                    + formatDate(endDate);
+        }
+    }
+    
+    public static String formatDate(Date date) {
+        if (date == null) {
+            return "";
+        }
+        
+        calendar.setTime(date);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int min = calendar.get(Calendar.MINUTE);
+        int sec = calendar.get(Calendar.SECOND);
+        if (hour == 0 && min == 0 && sec == 0) {
+            return SIMPLE_DATE_FORMAT.format(date);
+        } else {
+            return SIMPLE_DATE_TIME_FORMAT.format(date);
+        }
+    }
+
+}

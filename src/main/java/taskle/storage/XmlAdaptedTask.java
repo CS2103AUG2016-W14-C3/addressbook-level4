@@ -48,19 +48,14 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        switch (source.getTaskType()) {
-        case EVENT:
+        if (source instanceof EventTask) {
             EventTask eventTask = (EventTask) source;
             endDate = eventTask.getEndDate();
-            startDate = eventTask.getstartDate();
-            break;
-        case DEADLINE:
+            startDate = eventTask.getStartDate();
+        } else if (source instanceof DeadlineTask) {
             DeadlineTask deadlineTask = (DeadlineTask) source;
             endDate = deadlineTask.getDeadlineDate();
-        default:
-            break;
         }
-        
     }
 
     /**

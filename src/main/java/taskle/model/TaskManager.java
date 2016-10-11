@@ -76,7 +76,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(FloatTask::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> t.copy()).collect(Collectors.toList()));
         setTags(newTags);
     }
 

@@ -15,6 +15,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import taskle.commons.exceptions.IllegalValueException;
+import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.StringUtil;
 import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.ClearCommand;
@@ -129,16 +130,16 @@ public class Parser {
         if (!matcher.matches()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                    AddCommand.MESSAGE_USAGE));
+                                  AddCommand.MESSAGE_USAGE));
         }
         
         String name = matcher.group("name");
         String eventDate = matcher.group("dateFrom");
         String deadlineDate = matcher.group("dateBy");
-        if (!deadlineDate.isEmpty()) {
+        if (deadlineDate != null && !deadlineDate.isEmpty()) {
             List<Date> dates = DateParser.parse(deadlineDate);
             return prepareDeadlineAdd(name, dates);
-        } else if (!eventDate.isEmpty()) {
+        } else if (eventDate != null && !eventDate.isEmpty()) {
             List<Date> dates = DateParser.parse(eventDate);
             return prepareEventAdd(name, dates);
         } else {
@@ -175,12 +176,13 @@ public class Parser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     AddCommand.MESSAGE_USAGE));
         }
-        
+
         try {
             return new AddCommand(name, dates.get(0));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+        
     }
 
     /**

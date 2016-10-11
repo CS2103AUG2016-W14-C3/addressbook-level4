@@ -2,14 +2,17 @@ package taskle.model.task;
 
 import java.util.Date;
 
+import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
-import taskle.model.task.ReadOnlyTask.TaskType;
 
+/**
+ * Event task object that guarantees non-null fields for task
+ * and nullable fields for event start and end dates.
+ * @author Abel
+ *
+ */
 public class EventTask extends Task {
-    
-    public static final TaskType EVENT_TASK_TYPE = TaskType.EVENT;
-    private static final String START_END_DELIMITER = "to";
-    
+        
     private Date startDate;
     private Date endDate;
 
@@ -21,6 +24,11 @@ public class EventTask extends Task {
 
     public EventTask(ReadOnlyTask source) {
         super(source);
+        if (source instanceof EventTask) {
+            EventTask event = (EventTask) source;
+            startDate = event.getStartDate();
+            endDate = event.getEndDate();
+        }
     }
 
     public EventTask(ModifiableTask source) {
@@ -29,21 +37,20 @@ public class EventTask extends Task {
 
     @Override
     public String getDetailsString() {
-        return startDate.toString() + START_END_DELIMITER
-                + endDate.toString();
+        return DateFormatUtil.formatEventDates(startDate, endDate);
     }
     
     public Date getEndDate() {
         return endDate;
     }
     
-    public Date getstartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
     @Override
-    public TaskType getTaskType() {
-        return EVENT_TASK_TYPE;
+    public Task copy() {
+        return new EventTask((ReadOnlyTask) this);
     }
 
 }

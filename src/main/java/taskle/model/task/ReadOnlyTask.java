@@ -8,9 +8,6 @@ import taskle.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
     
-    public static enum TaskType { FLOAT, DEADLINE, EVENT
-    };
-    
     Name getName();
 
     /**
@@ -51,7 +48,8 @@ public interface ReadOnlyTask {
         }
     }
     
-    public TaskType getTaskType();
+    public abstract Task copy();
+    
     public String getDetailsString();
 
 }
