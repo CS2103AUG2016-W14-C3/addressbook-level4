@@ -190,7 +190,8 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddEventCommand(toBeAdded),
+                helper.generateAddEventCommand(toBeAdded, 
+                        helper.ADD_SUCCESSFUL_EVENT_DATE),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -206,7 +207,25 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddDeadlineCommand(toBeAdded),
+                helper.generateAddDeadlineCommand(toBeAdded, 
+                        helper.ADD_SUCCESSFUL_DEADLINE_DATE),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_addEventTmr_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.tutorialTmr();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddEventCommand(toBeAdded, 
+                        helper.ADD_TMR_SUCCESSFUL_DATE),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
@@ -428,6 +447,7 @@ public class LogicManagerTest {
         private final Calendar CALENDAR = Calendar.getInstance();
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
         private final String ADD_SUCCESSFUL_DEADLINE_DATE = " by 31st Dec 2016 2359hours";
+        private final String ADD_TMR_SUCCESSFUL_DATE = " from tmr 1 to 2pm";
         
         UniqueTagList stubTagList = new UniqueTagList();
 
@@ -451,6 +471,20 @@ public class LogicManagerTest {
             Date byDate = CALENDAR.getTime();
             return new DeadlineTask(name, byDate, stubTagList);
         }
+        
+        EventTask tutorialTmr() throws Exception {
+            Name name = new Name("2103T tutorial");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.MILLISECOND, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.HOUR, 1);
+            calendar.add(Calendar.DATE, 1);
+            Date startDate = calendar.getTime();
+            calendar.set(Calendar.HOUR, 2);
+            Date endDate = calendar.getTime();
+            return new EventTask(name, startDate, endDate, stubTagList);
+        }
 
         /**
          * Generates a valid task using the given seed.
@@ -473,20 +507,20 @@ public class LogicManagerTest {
         }
         
         /** Generates the correct add event command based on the task given */
-        String generateAddEventCommand(EventTask p) {
+        String generateAddEventCommand(EventTask p, String dateString) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
-            cmd.append(ADD_SUCCESSFUL_EVENT_DATE);
+            cmd.append(dateString);
             return cmd.toString();
         }
         
         /** Generates the correct add deadline command based on the task given */
-        String generateAddDeadlineCommand(DeadlineTask p) {
+        String generateAddDeadlineCommand(DeadlineTask p, String dateString) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
-            cmd.append(ADD_SUCCESSFUL_DEADLINE_DATE);
+            cmd.append(dateString);
             return cmd.toString();
         }
         
@@ -496,6 +530,7 @@ public class LogicManagerTest {
             cmd.append(index).append(" ").append(newName);
             return cmd.toString();
         }
+        
         /**
          * Generates an TaskManager with auto-generated task.
          */
