@@ -100,21 +100,22 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
 
-    public TaskCardHandle navigateToPerson(String name) {
+    public TaskCardHandle navigateToTask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems()
+                .stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
 
-        return navigateToPerson(task.get());
+        return navigateToTask(task.get());
     }
 
     /**
      * Navigates the listview to display and select the person.
      */
-    public TaskCardHandle navigateToPerson(ReadOnlyTask task) {
-        int index = getPersonIndex(task);
+    public TaskCardHandle navigateToTask(ReadOnlyTask task) {
+        int index = getTaskIndex(task);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
@@ -127,9 +128,9 @@ public class TaskListPanelHandle extends GuiHandle {
 
 
     /**
-     * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
+     * Returns the position of the task given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(ReadOnlyTask targetTask) {
+    public int getTaskIndex(ReadOnlyTask targetTask) {
         List<ReadOnlyTask> tasksInList = getListView().getItems();
         for (int i = 0; i < tasksInList.size(); i++) {
             if(tasksInList.get(i).getName().equals(targetTask.getName())){
@@ -147,7 +148,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     public TaskCardHandle getTaskCardHandle(int index) {
-        return getTaskCardHandle(new FloatTask(getListView().getItems().get(index)));
+        return getTaskCardHandle(getListView().getItems().get(index).copy());
     }
 
     public TaskCardHandle getTaskCardHandle(ReadOnlyTask person) {

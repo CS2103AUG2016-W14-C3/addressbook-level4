@@ -23,8 +23,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Task Manager."
-            + "Format: add task_name [by date time] [remind date time]"
-            + " or add task_name [from date time] [to date time] [remind date time]"
+            + "Format: add task_name [by date & time] [remind date time]"
+            + " or add task_name [from date & time] [to date & time] [remind date time]"
             + "Example: " + COMMAND_WORD
             + " add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
 
@@ -65,7 +65,6 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         assert startDate != null;
         assert endDate != null;
-        
         this.toAdd = new EventTask(new Name(name), startDate, endDate, stubTagList);
     }
 

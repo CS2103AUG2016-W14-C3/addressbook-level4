@@ -81,8 +81,6 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        System.out.println("commandWord: " + commandWord);
-        System.out.println("args: " + arguments);
         return prepareCommand(commandWord, arguments);
     }
     
@@ -146,7 +144,7 @@ public class Parser {
         }
         
     }
-    
+
     private Command prepareFloatAdd(String name) {
         try {
             return new AddCommand(name);
@@ -155,6 +153,13 @@ public class Parser {
         }
     }
     
+    /**
+     * Prepares an event add command. Checks that number of dates supplied
+     * is 2, otherwise returns Incorrect Command.
+     * @param name Event task name
+     * @param dates List of dates, should contain 2 dates: start and end date to be valid.
+     * @return a valid event task add command.
+     */
     private Command prepareEventAdd(String name, List<Date> dates) {
         if (dates == null || dates.size() != 2) {
             return new IncorrectCommand(
@@ -169,6 +174,13 @@ public class Parser {
         }
     }
     
+    /**
+     * Prepares a deadline task add command. Checks that number of dates
+     * supplied is 1, otherwise returns Incorrect Command.
+     * @param name Deadline task name
+     * @param dates List of dates, should be 1 in order to prepare valid add command.
+     * @return a valid deadline task add command.
+     */
     private Command prepareDeadlineAdd(String name, List<Date> dates) {
         if (dates == null || dates.size() != 1) {
             return new IncorrectCommand(

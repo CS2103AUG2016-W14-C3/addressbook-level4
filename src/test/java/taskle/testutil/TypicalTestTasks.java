@@ -19,7 +19,7 @@ import taskle.model.task.UniqueTaskList;
 public class TypicalTestTasks {
 
     public Task attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert, helpFriend, interview,
-        charityEvent, assignmentDeadline;
+        charityEvent, assignmentDeadline, finalExams;
     
     private UniqueTagList stubTagList = new UniqueTagList();
     
@@ -57,6 +57,14 @@ public class TypicalTestTasks {
         Date deadline = calendar.getTime();
         assignmentDeadline = new DeadlineTask(new Name("Assignment due"),
                 deadline, stubTagList);
+        
+        // Manually added
+        calendar.set(2016, 11, 01, 12, 00);
+        startDate = calendar.getTime();
+        calendar.set(2016, 11, 01, 14, 00);
+        endDate = calendar.getTime();
+        finalExams = new EventTask(new Name("Final exams"), 
+                startDate, endDate, stubTagList);
     }
 
     public void loadTaskManagerWithSampleData(TaskManager ab) {
