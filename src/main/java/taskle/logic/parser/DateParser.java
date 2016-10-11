@@ -8,7 +8,8 @@ import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
 
 /**
- * Parser class for handling date and time.
+ * Parser class for handling date and time using the
+ * Natty library.
  * @author Abel
  *
  */
