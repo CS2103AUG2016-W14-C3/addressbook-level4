@@ -38,6 +38,13 @@ public class DateFormatUtil {
     private DateFormatUtil() {
     }
     
+    /**
+     * Formats given start and end dates according to their respective time
+     * and dates in our desired format.
+     * @param startDate
+     * @param endDate
+     * @return
+     */
     public static String formatEventDates(Date startDate, Date endDate) {
         if (startDate == null || endDate == null) {
             return "";
@@ -46,20 +53,30 @@ public class DateFormatUtil {
         calendar.setTime(startDate);
         int startDay = calendar.get(Calendar.DAY_OF_YEAR);
         int startYear = calendar.get(Calendar.YEAR);
+        
         calendar.setTime(endDate);
         int endDay = calendar.get(Calendar.DAY_OF_YEAR);
         int endYear = calendar.get(Calendar.YEAR);
+        
         // Same day so only display from time to time, Date.
-        if (endDay == startDay && endYear == startYear) {
+        if (startDate.equals(endDate)) {
+            return SIMPLE_DATE_TIME_FORMAT.format(endDate);
+        } else if (startDay == endDay && startYear == endYear) {
             return SIMPLE_TIME_FORMAT.format(startDate) 
                     + EVENT_DATES_DELIMITER
-                    + SIMPLE_DATE_TIME_FORMAT.format(endDate);
+                    + SIMPLE_DATE_FORMAT.format(endDate);
         } else {
             return formatDate(startDate) + EVENT_DATES_DELIMITER
                     + formatDate(endDate);
         }
     }
     
+    /**
+     * Formats the date as a String such that time is not shown if its 12am.
+     * Date is also displayed in format as designed in UI.
+     * @param date Given date object to format
+     * @return formatted date time string
+     */
     public static String formatDate(Date date) {
         if (date == null) {
             return "";
@@ -76,6 +93,12 @@ public class DateFormatUtil {
         }
     }
     
+    /**
+     * Used for converting a given array of dates into
+     * an add command ready format.
+     * @param dates dates to be added to this formatted String
+     * @return command ready format for the dates
+     */
     public static String getDateArgString(Date... dates) {
         String[] dateStrings = new String[dates.length];
         for (int i = 0; i < dates.length; i++) {
