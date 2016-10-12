@@ -232,6 +232,38 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_addGardensByBay_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.gardensByTheBay();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_COMMAND_GARDENS_BY_BAY,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_addEventOnSingleDate_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.newYearDay();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_COMMAND_NEW_YEAR_DAY,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -448,8 +480,10 @@ public class LogicManagerTest {
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
         private final String ADD_SUCCESSFUL_DEADLINE_DATE = " by 31st Dec 2016 2359hours";
         private final String ADD_TMR_SUCCESSFUL_DATE = " from tmr 1 to 2pm";
-        private final String ADD_COMMAND_GARDENS_BY_BAY_WITH_QUOTATIONS = 
-                "add \"Gardens by the Bay outing\" from 12pm to 8pm on 3 December";
+        private final String ADD_COMMAND_GARDENS_BY_BAY = 
+                "add Gardens by the Bay outing from 12pm to 2pm 3 December";
+        private final String ADD_COMMAND_NEW_YEAR_DAY = 
+                "add New Year Day on 1 jan 2017";
         
         UniqueTagList stubTagList = new UniqueTagList();
 
@@ -481,6 +515,7 @@ public class LogicManagerTest {
             calendar.set(Calendar.SECOND, 0);
             calendar.set(Calendar.MINUTE, 0);
             calendar.add(Calendar.DATE, 1);
+            
             calendar.set(Calendar.HOUR_OF_DAY, 13);
             Date startDate = calendar.getTime();
             calendar.set(Calendar.HOUR_OF_DAY, 14);
@@ -493,9 +528,17 @@ public class LogicManagerTest {
             Calendar calendar = Calendar.getInstance();
             calendar.set(2016, 11, 3, 12, 00);
             Date startDate = calendar.getTime();
-            calendar.set(Calendar.HOUR_OF_DAY, 20);
+            calendar.add(Calendar.HOUR_OF_DAY, 2);
             Date endDate = calendar.getTime();
             return new EventTask(name, startDate, endDate, stubTagList);
+        }
+        
+        EventTask newYearDay() throws Exception {
+            Name name = new Name("New Year Day");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2017, 0, 1, 0, 0);
+            Date onDate = calendar.getTime();
+            return new EventTask(name, onDate, onDate, stubTagList);
         }
 
         /**
