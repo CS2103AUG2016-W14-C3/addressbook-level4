@@ -79,15 +79,15 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param toEdit
      * @return
      */
-    public void edit(ModifiableTask toEdit, Name newName) throws UniqueTaskList.DuplicateTaskException {
+    public void edit(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
+        Task toEdit = internalList.get(index - 1);
         FloatTask testTask = new FloatTask(toEdit);
         testTask.setName(newName);
         if(contains(testTask)) {
             throw new DuplicateTaskException();
         }
-        int index = internalList.indexOf(toEdit);
         toEdit.setName(newName);
-        internalList.set(index, (Task) toEdit);
+        internalList.set(index - 1, toEdit);
     }
 
     public ObservableList<Task> getInternalList() {
