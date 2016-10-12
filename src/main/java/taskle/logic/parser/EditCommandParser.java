@@ -10,13 +10,13 @@ import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.IncorrectCommand;
 
 /**
- * EditParser class to handle parsing of commands
+ * EditCommandParser class to handle parsing of commands
  * @author Abel
  *
  */
-public class EditParser extends CommandParser {
+public class EditCommandParser extends CommandParser {
 
-    public EditParser() {
+    public EditCommandParser() {
     }
 
     @Override

@@ -43,7 +43,7 @@ public class Parser {
         commandParsers = new ArrayList<>(
                 Arrays.asList(new AddCommandParser(),
                               new RemoveCommandParser(),
-                              new EditParser(),
+                              new EditCommandParser(),
                               new FindCommandParser(),
                               new ListCommandParser(),
                               new HelpCommandParser(),
