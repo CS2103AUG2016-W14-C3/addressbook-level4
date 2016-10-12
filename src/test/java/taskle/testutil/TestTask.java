@@ -31,7 +31,7 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public String toString() {
-        return getAsText();
+        return name.fullName;
     }
 
     public String getAddCommand() {

@@ -190,7 +190,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddEventCommand(toBeAdded, 
+                helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_EVENT_DATE),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
@@ -207,7 +207,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddDeadlineCommand(toBeAdded, 
+                helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_DEADLINE_DATE),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
@@ -224,13 +224,13 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(
-                helper.generateAddEventCommand(toBeAdded, 
+                helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_TMR_SUCCESSFUL_DATE),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
     }
-
+    
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -448,6 +448,8 @@ public class LogicManagerTest {
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
         private final String ADD_SUCCESSFUL_DEADLINE_DATE = " by 31st Dec 2016 2359hours";
         private final String ADD_TMR_SUCCESSFUL_DATE = " from tmr 1 to 2pm";
+        private final String ADD_COMMAND_GARDENS_BY_BAY_WITH_QUOTATIONS = 
+                "add \"Gardens by the Bay outing\" from 12pm to 8pm on 3 December";
         
         UniqueTagList stubTagList = new UniqueTagList();
 
@@ -485,6 +487,16 @@ public class LogicManagerTest {
             Date endDate = calendar.getTime();
             return new EventTask(name, startDate, endDate, stubTagList);
         }
+        
+        EventTask gardensByTheBay() throws Exception {
+            Name name = new Name("Gardens by the Bay outing");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2016, 11, 3, 12, 00);
+            Date startDate = calendar.getTime();
+            calendar.set(Calendar.HOUR_OF_DAY, 20);
+            Date endDate = calendar.getTime();
+            return new EventTask(name, startDate, endDate, stubTagList);
+        }
 
         /**
          * Generates a valid task using the given seed.
@@ -498,25 +510,16 @@ public class LogicManagerTest {
                     new Name("Task " + seed), stubTagList);
         }
 
-        /** Generates the correct add float command based on the task given */
-        String generateAddCommand(FloatTask p) {
+        /** Generates the correct add command based on the task given */
+        String generateAddCommand(Task p) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());
             return cmd.toString();
         }
         
-        /** Generates the correct add event command based on the task given */
-        String generateAddEventCommand(EventTask p, String dateString) {
-            StringBuffer cmd = new StringBuffer();
-            cmd.append("add ");
-            cmd.append(p.getName().toString());
-            cmd.append(dateString);
-            return cmd.toString();
-        }
-        
-        /** Generates the correct add deadline command based on the task given */
-        String generateAddDeadlineCommand(DeadlineTask p, String dateString) {
+        /** Generates the correct add command based on the task and date String given */
+        String generateAddCommandWithDate(Task p, String dateString) {
             StringBuffer cmd = new StringBuffer();
             cmd.append("add ");
             cmd.append(p.getName().toString());

@@ -56,9 +56,9 @@ public class Parser {
     // dateFrom (all words after from containing from at the start)
     // or dateBy (all words after by containing by at the start).
     private static final Pattern ADD_ARGS_FORMAT = 
-            Pattern.compile("(?<name>.+?(?=\\sby|\\sfrom|$))"
-                    + "(?<dateFrom>(?=\\sfrom).*)*"
-                    + "(?<dateBy>(?=\\sby).*)*");
+            Pattern.compile("(?<name>.+\\s(?=by|from|on)|.+$)"
+                    + "(?<dateFrom>(?=from|on).*)*"
+                    + "(?<dateBy>(?=by).*)*");
     
     private static final int EDIT_NUM_INPUT = 2;
 
@@ -130,14 +130,14 @@ public class Parser {
                                   AddCommand.MESSAGE_USAGE));
         }
         
-        String name = matcher.group("name");
-        String eventDate = matcher.group("dateFrom");
+        String name = matcher.group("name").trim();
+        String eventDates = matcher.group("dateFrom");
         String deadlineDate = matcher.group("dateBy");
         if (deadlineDate != null && !deadlineDate.isEmpty()) {
             List<Date> dates = DateParser.parse(deadlineDate);
             return prepareDeadlineAdd(name, dates);
-        } else if (eventDate != null && !eventDate.isEmpty()) {
-            List<Date> dates = DateParser.parse(eventDate);
+        } else if (eventDates != null && !eventDates.isEmpty()) {
+            List<Date> dates = DateParser.parse(eventDates);
             return prepareEventAdd(name, dates);
         } else {
             return prepareFloatAdd(name);

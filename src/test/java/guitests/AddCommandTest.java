@@ -3,7 +3,6 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
-import org.omg.CORBA.DynAnyPackage.Invalid;
 
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
