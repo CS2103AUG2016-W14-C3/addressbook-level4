@@ -9,7 +9,7 @@ import taskle.logic.commands.Command;
  */
 public class History {
 
-    private Stack<Command> recentCommands;
+    private static Stack<Command> recentCommands;
     
     public History() {
         recentCommands = new Stack<Command>();
@@ -19,7 +19,7 @@ public class History {
      * Inserts most recent command into history
      * @param command Most recent command
      */
-    public void insert(Command command) {
+    public static void insert(Command command) {
         recentCommands.push(command);
     }
     
@@ -27,7 +27,7 @@ public class History {
      * Removes most recent command from history
      * @return Most recent command
      */
-    public Command remove() {
+    public static Command remove() {
         return recentCommands.pop();
     }
     
@@ -35,7 +35,7 @@ public class History {
      * Checks if History contains any recent commands
      * @return true if no recent commands
      */
-    public boolean isEmpty() {
+    public static boolean isEmpty() {
         return recentCommands.isEmpty();
     }
     
