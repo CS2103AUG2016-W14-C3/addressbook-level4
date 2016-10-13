@@ -1,9 +1,12 @@
 package taskle.logic.commands;
 
+import java.util.List;
+
 import taskle.commons.core.EventsCenter;
 import taskle.commons.core.Messages;
 import taskle.commons.events.ui.IncorrectCommandAttemptedEvent;
 import taskle.model.Model;
+import taskle.model.person.Task;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -11,6 +14,8 @@ import taskle.model.Model;
 public abstract class Command {
     protected Model model;
 
+    protected List<Task> tasksAffected;
+    
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
      *
