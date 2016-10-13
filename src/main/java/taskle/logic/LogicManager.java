@@ -5,6 +5,7 @@ import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
+import taskle.logic.history.History;
 import taskle.logic.parser.Parser;
 import taskle.model.Model;
 import taskle.model.person.ReadOnlyTask;
@@ -21,11 +22,13 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Model model;
     private final Parser parser;
     private final Storage storage;
+    private final History history;
     
     public LogicManager(Model model, Storage storage) {
         this.model = model;
         this.parser = new Parser();
         this.storage = storage;
+        this.history = new History();
     }
 
     @Override
