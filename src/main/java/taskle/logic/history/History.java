@@ -9,6 +9,8 @@ import taskle.logic.commands.Command;
  */
 public class History {
 
+    public static final String MESSAGE_EMPTY_HISTORY = "Empty History. Nothing to Undo.";
+    
     private static Stack<Command> recentCommands;
     
     public History() {
