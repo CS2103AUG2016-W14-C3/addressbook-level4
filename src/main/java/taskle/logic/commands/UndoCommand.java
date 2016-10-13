@@ -5,6 +5,7 @@ import taskle.model.person.ModifiableTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
 import taskle.model.person.UniqueTaskList.DuplicateTaskException;
+import taskle.model.person.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Undo recent command entered.
@@ -32,7 +33,7 @@ public class UndoCommand extends Command {
                 case "add":
                     task = command.getTasksAffected().get(0);
                     try {
-                        taskManager.removeTask(task);
+                        model.deleteTask(task);
                     } catch (UniqueTaskList.TaskNotFoundException e) {
                         e.printStackTrace();
                     }
@@ -41,17 +42,20 @@ public class UndoCommand extends Command {
                 case "edit":
                     Task originalTask = command.getTasksAffected().get(0);
                     task = command.getTasksAffected().get(1);
+                    
                     try {
-                        taskManager.editTask((ModifiableTask)task, originalTask.getName());
+                        model.editTask((ModifiableTask)task, originalTask.getName());
                     } catch (DuplicateTaskException e) {
                         e.printStackTrace();
+                    } catch (TaskNotFoundException e) {
+                       e.printStackTrace();
                     }
                     return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandName(), command.getTasksAffected().get(0).toString()));
                     
                 case "remove":
                     task = command.getTasksAffected().get(0);
                     try {
-                        taskManager.addTask(task);
+                        model.addTask(task);
                     } catch (UniqueTaskList.DuplicateTaskException e) {
                         e.printStackTrace();
                     }
@@ -60,7 +64,7 @@ public class UndoCommand extends Command {
                 case "clear":
                     for (int i = 0; i < command.getTasksAffected().size(); i++) {
                         try {
-                            taskManager.addTask(command.getTasksAffected().get(i));
+                            model.addTask(command.getTasksAffected().get(i));
                         } catch (UniqueTaskList.DuplicateTaskException e) {
                             e.printStackTrace();
                         }
