@@ -27,14 +27,15 @@ public class EditCommandTest extends AddressBookGuiTest{
     @Test
     public void edit_existing_task() throws IllegalValueException {
         String newTaskName = "Buy Groceries";
+        String index = "1";
         Name newName = new Name(newTaskName);
-        String command = buildCommand("1", newTaskName);
+        String command = buildCommand(index, newTaskName);
         String oldName = td.attendMeeting.getName().fullName;
         assertEditResultSuccess(command, oldName + " -> " + newTaskName);
-        TaskCardHandle addedCard = taskListPanel.navigateToPerson(newTaskName);
-        FloatTask newTask = new FloatTask(newName, new UniqueTagList());
-        assertMatching(newTask, addedCard);
         
+        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
+        FloatTask newTask = new FloatTask(newName, new UniqueTagList());
+        assertMatching(newTask, addedCard);       
     }
     
     /**

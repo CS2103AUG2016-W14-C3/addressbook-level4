@@ -39,7 +39,6 @@ import taskle.model.ModelManager;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
 import taskle.model.person.FloatTask;
-import taskle.model.person.ModifiableTask;
 import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
@@ -319,9 +318,9 @@ public class LogicManagerTest {
         String index = "1";
         String taskName = "Eat dinner";
         Name newName = new Name(taskName);
-        ModifiableTask taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
         String oldName = taskToEdit.getName().fullName;
-        expectedAB.editTask(taskToEdit, newName);
+        expectedAB.editTask(Integer.parseInt(index), newName);
         helperTest.addToModel(model, threePersonsTest);
         // execute command and verify result
         assertCommandBehavior(
