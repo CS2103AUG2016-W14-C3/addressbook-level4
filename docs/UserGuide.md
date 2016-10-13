@@ -13,7 +13,7 @@ Do you have so many tasks to do everyday that you simply cannot keep track of th
 
 It is a task management application with a single text box for all your commands. Coupled with short commands, managing your tasks has never been this easy. 
 
-Stop waiting and make "Quick Start" the task on your to-do list now!
+Stop waiting and use Taskle now!
 
 ## Quick Start
 
@@ -34,7 +34,7 @@ Stop waiting and make "Quick Start" the task on your to-do list now!
 5. Some example commands you can try:
    * **`add`** `task_name` : Adds task_name to the to-do list
    * **`add`** `deadline_name by date [time][remind date time]` : Adds deadline_name to the to-do list with a deadline and an accompanying reminder
-   * **`add`** `event_name on date [time][remind date time]` OR **`add`**` event_name from date[time] to date [time][remind date time]` : Adds either event_name to the to-do list with either a flexible or fixed timeline and an accompanying reminder
+   * **`add`** `event_name on date [time][remind date time]` OR **`add`** `event_name from date[time] to date [time][remind date time]` : Adds either event_name to the to-do list with either a flexible or fixed timeline and an accompanying reminder
    * **`remove`** `task_number` : Removes the task_number shown in the current to-do list
    * **`clear`** `task_number` : Clears all tasks from the application
    * **`exit`** : Exits the application
@@ -136,7 +136,7 @@ Examples:
 
 #### Finding a Task : `find`
 Finds a task in the to-do application, based on keywords.<br><br>
-Format: `find [`**`search_query`**`][`**`-pending/-completed/-overdue`**`]`
+Format: `find [`**`search_query`**`][`**`-pending / -completed / -overdue`**`]`
 
 Examples:
 * `find `**`meeting`**
@@ -222,7 +222,7 @@ Reschedule `r` | `reschedule `**`task_number`**` to `**`date`**` [`**`time`**`] 
 Set Reminder `s` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
 Undo `u` | `undo`
-Find `f` | `find [`**`search_query`**`] [`**`-p/-c/-o`**`]`
+Find `f` | `find [`**`search_query`**`] [`**`-pending / -completed / -overdue`**`]`
 Mark as Done `d` | `done `**`task_number`**
 Clear | `clear`
 Help `h` | `help`
