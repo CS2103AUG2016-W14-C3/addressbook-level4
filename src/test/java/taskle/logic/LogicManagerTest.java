@@ -280,6 +280,22 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_addTimedTaskWith_taskAddedWithTimeAfterFromNotOn() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.getDocsFromBob();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_COMMAND_GET_DOCS_FROM_BOB,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -500,6 +516,8 @@ public class LogicManagerTest {
                 "add Gardens by the Bay outing from 12pm to 2pm 3 December";
         private final String ADD_COMMAND_NEW_YEAR_DAY = 
                 "add New Year Day on 1 jan 2017";
+        private final String ADD_COMMAND_GET_DOCS_FROM_BOB = 
+                "add Get documents from Bob on 14 Apr at 7pm";
         
         UniqueTagList stubTagList = new UniqueTagList();
 
@@ -560,6 +578,14 @@ public class LogicManagerTest {
         FloatTask getFoodFromChinatown() throws Exception {
             Name name = new Name("Get food from Chinatown");
             return new FloatTask(name, stubTagList);
+        }
+        
+        DeadlineTask getDocsFromBob() throws Exception {
+            Name name = new Name("Get documents from Bob");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(2016, 3, 14, 19, 00, 00);
+            Date deadlineDate = calendar.getTime();
+            return new DeadlineTask(name, deadlineDate, stubTagList);
         }
 
         /**
