@@ -264,6 +264,22 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void execute_addFloatTaskWithDelimiter_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.getFoodFromChinatown();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -539,6 +555,11 @@ public class LogicManagerTest {
             calendar.set(2017, 0, 1, 0, 0);
             Date onDate = calendar.getTime();
             return new EventTask(name, onDate, onDate, stubTagList);
+        }
+        
+        FloatTask getFoodFromChinatown() throws Exception {
+            Name name = new Name("Get food from Chinatown");
+            return new FloatTask(name, stubTagList);
         }
 
         /**

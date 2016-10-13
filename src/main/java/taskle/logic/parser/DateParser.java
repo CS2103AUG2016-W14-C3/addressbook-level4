@@ -1,5 +1,6 @@
 package taskle.logic.parser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +33,7 @@ public class DateParser {
         Parser parser = new Parser();
         List<DateGroup> groups = parser.parse(dateTimeString);
         if (groups.isEmpty() || groups.get(0) == null) {
-            return null;
+            return new ArrayList<>();
         }
         
         // We are only interested in the first date group
