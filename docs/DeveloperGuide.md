@@ -1,7 +1,7 @@
 # Taskle Developer Guide 
 
 ##Introduction
-Taskle is a task management application that helps users to keep track of their tasks efficiently.  It comprises a Command Line Interface (CLI) for the input of all commands and a GUI for the output.
+Taskle is a task management application that helps users keep track of their tasks efficiently.  It comprises a Command Line Interface (CLI) for the input of all commands and a GUI for the output.
 
 This guide describes the design and implementation of Taskle. It will help you understand how Taskle works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
 
@@ -546,59 +546,59 @@ The team has done a survey on existing products and analysed the strengths and w
 **Product #1: Wunderlist**<br>
 Strengths:
 
-1. Supports adding of floating tasks and deadlines → One-shot approach for Jim (floating tasks)
-2. Supports editing and deleting of existing tasks → Jim is able to reschedule and discard to-do items that cannot be completed
-3. Supports adding of deadlines and reminders → Reminder available for Jim whenever a deadline is approaching
-4. Supports searching and sorting of to-do items → Ease of finding specific to-do items
+1. Supports adding of floating tasks and deadlines â†’ One-shot approach for Jim (floating tasks)
+2. Supports editing and deleting of existing tasks â†’ Jim is able to reschedule and discard to-do items that cannot be completed
+3. Supports adding of deadlines and reminders â†’ Reminder available for Jim whenever a deadline is approaching
+4. Supports searching and sorting of to-do items â†’ Ease of finding specific to-do items
 5. Displays to-do items in a user-friendly manner
-6. Able to work offline → Jim does not have to depend on Internet access
-7. Able to view tasks that are completed → Jim is able to know what tasks are completed and yet to be completed
+6. Able to work offline â†’ Jim does not have to depend on Internet access
+7. Able to view tasks that are completed â†’ Jim is able to know what tasks are completed and yet to be completed
 
 Weakness:
 
-1. Does not work with time slots → Jim is not able to add events
+1. Does not work with time slots â†’ Jim is not able to add events
 2. Does not categorise to-do types (Events, Deadlines, Floating Tasks)
-3. Requires a few clicks to perform functions other than adding a task → Jim’s one-shot approach is not fulfilled
-4. Does not support an “Undo” option → Incorrect to-do item created has to be edited/deleted instead
-5. Does not store data into local storage files. Links with user account (online) instead → Online access still required to transfer data if Jim works with different computers
+3. Requires a few clicks to perform functions other than adding a task â†’ Jimâ€™s one-shot approach is not fulfilled
+4. Does not support an â€œUndoâ€� option â†’ Incorrect to-do item created has to be edited/deleted instead
+5. Does not store data into local storage files. Links with user account (online) instead â†’ Online access still required to transfer data if Jim works with different computers
 
 <br>
 
 **Product #2: Google Keep**<br>
 Strengths:
 
-1. Supports adding of checklist items → Jim is able to mark as done
-2. Supports time-based reminders → Jim is able to schedule reminders for his tasks deadlines
-3. Supports searching of to-do items by description and types → Jim is able to find a to-do item quickly
-4. Displays to-do items are listed in a user-friendly manner → Jim is able to periodically review his to-do items
-5. Operates even without Internet access → Jim is able to access the application even without Internet connectivity
+1. Supports adding of checklist items â†’ Jim is able to mark as done
+2. Supports time-based reminders â†’ Jim is able to schedule reminders for his tasks deadlines
+3. Supports searching of to-do items by description and types â†’ Jim is able to find a to-do item quickly
+4. Displays to-do items are listed in a user-friendly manner â†’ Jim is able to periodically review his to-do items
+5. Operates even without Internet access â†’ Jim is able to access the application even without Internet connectivity
 
 Weakness:
 
-1. Requires a few clicks to add a tasks followed by setting reminders → Jim’s one-shot preference is not met
+1. Requires a few clicks to add a tasks followed by setting reminders â†’ Jimâ€™s one-shot preference is not met
 2. Only supports reminders, does not allow Jim to block out slots for items without specific times.
-3. Does not support calendar-centric operations → Jim is not able to schedule tasks with specific start and end dates.
+3. Does not support calendar-centric operations â†’ Jim is not able to schedule tasks with specific start and end dates.
 
 <br>
 
 **Product #3: to-doist**<br>
 Strengths:
 
-1. Supports adding of tasks that can be marked as ‘done’ → Jim is able to mark completed tasks as done
-2. Supports searching of tasks by its name and project → Jim is able to quickly find a task
-3. Adding of tasks is done in a one-shot manner → Jim is able to avoid taking several clicks to add a task
-4. Operates offline and only starts syncing with other devices when there is Internet connection → Jim can access the application even without internet connectivity.
-5. Supports a desktop version → Jim is able to access the application quickly.
-6. Supports adding of tasks with no specific time tagged to it → Jim is able to add tasks that do not require a specific time to be completed.
-7. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
+1. Supports adding of tasks that can be marked as â€˜doneâ€™ â†’ Jim is able to mark completed tasks as done
+2. Supports searching of tasks by its name and project â†’ Jim is able to quickly find a task
+3. Adding of tasks is done in a one-shot manner â†’ Jim is able to avoid taking several clicks to add a task
+4. Operates offline and only starts syncing with other devices when there is Internet connection â†’ Jim can access the application even without internet connectivity.
+5. Supports a desktop version â†’ Jim is able to access the application quickly.
+6. Supports adding of tasks with no specific time tagged to it â†’ Jim is able to add tasks that do not require a specific time to be completed.
+7. Allows easy and straightforward postponement of tasks â†’ Jim can easily postpone tasks should the need arise
 
 
 Weakness:
 
-1. Does not allow for block scheduling of tasks (e.g. can only schedule tasks at 3pm and not 3 - 5pm) → Jim cannot schedule tasks in block timings
-2. Does not provide a user-friendly way to look for a suitable slot to schedule an item → Jim has to go through all existing tasks to look for an empty slot to schedule a new task
-3. Unable to block multiple slots for tasks with unconfirmed timings → Jim will find it hard to schedule tasks with unconfirmed timings
-4. Syncing of data with the cloud occurs only when there is Internet connectivity → Jim will have to require Internet connectivity if he wants to use the application with all his existing tasks on another computer
+1. Does not allow for block scheduling of tasks (e.g. can only schedule tasks at 3pm and not 3 - 5pm) â†’ Jim cannot schedule tasks in block timings
+2. Does not provide a user-friendly way to look for a suitable slot to schedule an item â†’ Jim has to go through all existing tasks to look for an empty slot to schedule a new task
+3. Unable to block multiple slots for tasks with unconfirmed timings â†’ Jim will find it hard to schedule tasks with unconfirmed timings
+4. Syncing of data with the cloud occurs only when there is Internet connectivity â†’ Jim will have to require Internet connectivity if he wants to use the application with all his existing tasks on another computer
 
 <br>
 
@@ -606,18 +606,18 @@ Weakness:
 Strengths:
 
 1. Supports marking tasks as complete
-2. Supports searching of appointments and tasks by name → Jim is able to quickly search for items in his schedule
-3. Operates even without Internet Access → Jim can access the application even without Internet connectivity
+2. Supports searching of appointments and tasks by name â†’ Jim is able to quickly search for items in his schedule
+3. Operates even without Internet Access â†’ Jim can access the application even without Internet connectivity
 4. Supports adding of tasks (without any due date)
-5. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
-6. Supports time-based reminders → Jim can schedule reminders for his deadlines
-7. Displays to-do items in a user-friendly manner → Jim can periodically review his to-do list
-8. Supports the editing and deleting of existing tasks → Jim is able to reschedule and remove any tasks
+5. Allows easy and straightforward postponement of tasks â†’ Jim can easily postpone tasks should the need arise
+6. Supports time-based reminders â†’ Jim can schedule reminders for his deadlines
+7. Displays to-do items in a user-friendly manner â†’ Jim can periodically review his to-do list
+8. Supports the editing and deleting of existing tasks â†’ Jim is able to reschedule and remove any tasks
 9. Supports setting of to-do items on repeat (for routine purposes)
 
 
 Weakness:
 
-1. Requires two clicks to add a task with its respective settings → Does not cater to Jim’s one-shot preference
-2. Does not support an "Undo" option → A task has to be manually deleted upon creation
+1. Requires two clicks to add a task with its respective settings â†’ Does not cater to Jimâ€™s one-shot preference
+2. Does not support an "Undo" option â†’ A task has to be manually deleted upon creation
 3. Does not support blocking out specific time slots (without full information)
