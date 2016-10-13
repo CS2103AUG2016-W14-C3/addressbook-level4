@@ -51,16 +51,14 @@ public class EditCommand extends Command {
         ModifiableTask taskToEdit = lastShownList.get(targetIndex - 1);
         String oldName = taskToEdit.getName().fullName;
         try {
-            try {
-                tasksAffected = new ArrayList<Task>();
-                Task originalTask = new FloatTask(taskToEdit);
-                tasksAffected.add(originalTask);
-                model.editTask(taskToEdit, newName);
-                tasksAffected.add((Task) taskToEdit);
-                History.insert(this);
-            } catch (DuplicateTaskException e) {
-                return new CommandResult(MESSAGE_DUPLICATE_TASK);
-            }
+            tasksAffected = new ArrayList<Task>();
+            Task originalTask = new FloatTask(taskToEdit);
+            tasksAffected.add(originalTask);
+            model.editTask(taskToEdit, newName);
+            tasksAffected.add((Task) taskToEdit);
+            History.insert(this);
+        } catch (DuplicateTaskException e) {
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
