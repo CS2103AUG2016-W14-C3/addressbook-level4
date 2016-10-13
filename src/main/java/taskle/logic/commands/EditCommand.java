@@ -1,12 +1,17 @@
 package taskle.logic.commands;
 
+import java.util.ArrayList;
+
 import taskle.commons.core.Messages;
 import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
+import taskle.logic.history.History;
+import taskle.model.person.FloatTask;
 import taskle.model.person.ModifiableTask;
 import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
+import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList.DuplicateTaskException;
 import taskle.model.person.UniqueTaskList.TaskNotFoundException;
 
@@ -47,7 +52,12 @@ public class EditCommand extends Command {
         String oldName = taskToEdit.getName().fullName;
         try {
             try {
+                tasksAffected = new ArrayList<Task>();
+                Task originalTask = new FloatTask(taskToEdit);
+                tasksAffected.add(originalTask);
                 model.editTask(taskToEdit, newName);
+                tasksAffected.add((Task) taskToEdit);
+                History.insert(this);
             } catch (DuplicateTaskException e) {
                 return new CommandResult(MESSAGE_DUPLICATE_TASK);
             }

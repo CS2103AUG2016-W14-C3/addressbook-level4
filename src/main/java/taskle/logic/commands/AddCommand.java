@@ -1,6 +1,9 @@
 package taskle.logic.commands;
 
+import java.util.ArrayList;
+
 import taskle.commons.exceptions.IllegalValueException;
+import taskle.logic.history.History;
 import taskle.model.person.FloatTask;
 import taskle.model.person.Name;
 import taskle.model.person.Task;
@@ -44,6 +47,9 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
+            tasksAffected = new ArrayList<Task>();
+            tasksAffected.add(toAdd);
+            History.insert(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
