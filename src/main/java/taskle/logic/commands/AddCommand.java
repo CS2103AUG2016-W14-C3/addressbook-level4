@@ -51,5 +51,10 @@ public class AddCommand extends Command {
 
     }
 
+    @Override
+    public String getCommandName() {
+        return COMMAND_WORD;
+    }
+
 }
 

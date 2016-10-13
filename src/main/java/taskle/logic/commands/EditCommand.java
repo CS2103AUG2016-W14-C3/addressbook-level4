@@ -57,5 +57,10 @@ public class EditCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, oldName + " -> " + newName));
     }
+    
+    @Override
+    public String getCommandName() {
+        return COMMAND_WORD;
+    }
 
 }

@@ -46,5 +46,10 @@ public class RemoveCommand extends Command {
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
+    
+    @Override
+    public String getCommandName() {
+        return COMMAND_WORD;
+    }
 
 }

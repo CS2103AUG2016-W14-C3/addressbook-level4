@@ -6,6 +6,7 @@ package taskle.logic.commands;
  */
 public class IncorrectCommand extends Command {
 
+    public final static String COMMAND_WORD = "Incorrect";
     public final String feedbackToUser;
 
     public IncorrectCommand(String feedbackToUser){
@@ -18,5 +19,9 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser);
     }
 
+    @Override
+    public String getCommandName() {
+        return COMMAND_WORD;
+    }
 }
 
