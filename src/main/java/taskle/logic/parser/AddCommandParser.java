@@ -60,19 +60,19 @@ public class AddCommandParser extends CommandParser {
         }
         
         // Get respective name and date Strings
-        String name = matcher.group(ADD_ARGS_NAME_GROUP).trim();
-        String eventDates = matcher.group(ADD_ARGS_DATE_EVENT_GROUP);
-        String deadlineDate = matcher.group(ADD_ARGS_DATE_DEADLINE_GROUP);
+        String nameString = matcher.group(ADD_ARGS_NAME_GROUP).trim();
+        String eventDatesString = matcher.group(ADD_ARGS_DATE_EVENT_GROUP);
+        String deadineString = matcher.group(ADD_ARGS_DATE_DEADLINE_GROUP);
         
         // Parse accordingly using DateParser and return the right command
-        if (deadlineDate != null && !deadlineDate.isEmpty()) {
-            List<Date> dates = DateParser.parse(deadlineDate);
-            return prepareDeadlineAdd(name, dates);
-        } else if (eventDates != null && !eventDates.isEmpty()) {
-            List<Date> dates = DateParser.parse(eventDates);
-            return prepareEventAdd(name, dates);
+        if (deadineString != null && !deadineString.isEmpty()) {
+            List<Date> deadlineDates = DateParser.parse(deadineString);
+            return prepareDeadlineAdd(args, nameString, deadlineDates);
+        } else if (eventDatesString != null && !eventDatesString.isEmpty()) {
+            List<Date> eventDates = DateParser.parse(eventDatesString);
+            return prepareEventAdd(args, nameString, eventDates);
         } else {
-            return prepareFloatAdd(name);
+            return prepareFloatAdd(args);
         }
         
     }
@@ -86,55 +86,82 @@ public class AddCommandParser extends CommandParser {
     }
     
     /**
+     * Prepares a deadline task add command. returns 
+     * @param name Deadline task name
+     * @param dates List of dates, should be 1 in order to prepare valid add command.
+     * @return a valid deadline task add command.
+     */
+    private Command prepareDeadlineAdd(String fullArgs, String name, List<Date> dates) {
+        if (dates == null || dates.size() > 1) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    AddCommand.MESSAGE_USAGE));
+        }
+        
+        if (dates.size() == 0) {
+            return prepareFloatAdd(fullArgs);
+        }
+
+        try {
+            return generateDeadlineAddCommand(fullArgs, name, dates);
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
+        
+    }
+    
+    /**
+     * Generates a deadline add command based on given args.
+     * @param fullArgs full argument string
+     * @param nameString name to be used for deadline add command.
+     * @param dates 
+     * @return
+     * @throws IllegalValueException
+     */
+    private AddCommand generateDeadlineAddCommand(String fullArgs, 
+            String nameString, List<Date> dates) throws IllegalValueException{
+        assert dates.size() == 1;
+        
+        return new AddCommand(nameString, dates.get(0));
+    }
+    
+    /**
      * Prepares an event add command. Checks that number of dates supplied
-     * is 2, otherwise returns Incorrect Command.
+     * is more than 2, otherwise returns Incorrect Command.
+     * Will generate float or event add command accordingly.
      * @param name Event task name
      * @param dates List of dates, should contain 2 dates: start and end date to be valid.
      * @return a valid event task add command.
      */
-    private Command prepareEventAdd(String name, List<Date> dates) {
+    private Command prepareEventAdd(String fullArgs, String name, 
+            List<Date> dates) {
         if (dates == null || dates.size() > 2) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     AddCommand.MESSAGE_USAGE));
         }
         
+        // If no dates are detected, fallback to preparing a float add
+        if (dates.size() == 0) {
+            return prepareFloatAdd(fullArgs);
+        }
+        
         try {
-            return generateAddCommand(name, dates);
+            return generateEventAddCommand(fullArgs, name, dates);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
     
-    private AddCommand generateAddCommand(String name, List<Date> dates) 
-            throws IllegalValueException{
+    private AddCommand generateEventAddCommand(String fullArgs, String name, 
+            List<Date> dates) throws IllegalValueException{
+        assert dates.size() == 1 || dates.size() == 2;
+        
         if (dates.size() == 2) {
             return new AddCommand(name, dates.get(0), dates.get(1));
         } else {
             return new AddCommand(name, dates.get(0), dates.get(0));
         }
-    }
-    
-    /**
-     * Prepares a deadline task add command. Checks that number of dates
-     * supplied is 1, otherwise returns Incorrect Command.
-     * @param name Deadline task name
-     * @param dates List of dates, should be 1 in order to prepare valid add command.
-     * @return a valid deadline task add command.
-     */
-    private Command prepareDeadlineAdd(String name, List<Date> dates) {
-        if (dates == null || dates.size() != 1) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                    AddCommand.MESSAGE_USAGE));
-        }
-
-        try {
-            return new AddCommand(name, dates.get(0));
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-        
     }
 
 }
