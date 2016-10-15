@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import taskle.model.person.FloatTask;
-import taskle.model.person.ModifiableTask;
 import taskle.model.person.Name;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.Task;
@@ -129,8 +128,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
-    public void editTask(ModifiableTask key, Name newName) throws UniqueTaskList.DuplicateTaskException {
-        tasks.edit(key, newName);
+    public void editTask(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
+        tasks.edit(index, newName);
     }
 
 //// tag-level operations
