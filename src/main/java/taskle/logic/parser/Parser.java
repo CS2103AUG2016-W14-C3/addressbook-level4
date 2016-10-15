@@ -46,7 +46,8 @@ public class Parser {
                               new ListCommandParser(),
                               new HelpCommandParser(),
                               new ClearCommandParser(),
-                              new ExitCommandParser()));
+                              new ExitCommandParser(),
+                              new RescheduleCommandParser()));
         
         // Parse a date using date parser on start up to reduce
         // command delay on first parse. (Natty library constraints)
