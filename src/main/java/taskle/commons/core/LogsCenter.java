@@ -32,17 +32,6 @@ public class LogsCenter {
     public static void init(Config config) {
         currentLogLevel = config.getLogLevel();
         logger.info("currentLogLevel: " + currentLogLevel);
-        noopNattyLogger();
-    }
-    
-    /**
-     * Natty library comes with its own logger which requires
-     * us to call it once so that it reverts to the no-op 
-     * logger.
-     */
-    private static void noopNattyLogger() {
-        Parser parser = new Parser();
-        parser.parse("");
     }
 
     /**
