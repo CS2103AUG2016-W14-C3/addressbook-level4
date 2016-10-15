@@ -89,7 +89,7 @@ public class AddCommandParser extends CommandParser {
      * Prepares a deadline task add command. returns 
      * @param name Deadline task name
      * @param dates List of dates, should be 1 in order to prepare valid add command.
-     * @return a valid deadline task add command.
+     * @return a valid add deadline or float command or an incorrectCommand
      */
     private Command prepareDeadlineAdd(String fullArgs, String name, List<Date> dates) {
         if (dates == null || dates.size() > 1) {
@@ -131,7 +131,7 @@ public class AddCommandParser extends CommandParser {
      * Will generate float or event add command accordingly.
      * @param name Event task name
      * @param dates List of dates, should contain 2 dates: start and end date to be valid.
-     * @return a valid event task add command.
+     * @return a valid add event or float command or an incorrectCommand
      */
     private Command prepareEventAdd(String fullArgs, String name, 
             List<Date> dates) {
