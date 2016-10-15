@@ -22,6 +22,7 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import taskle.commons.core.EventsCenter;
+import taskle.commons.core.Messages;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.ui.JumpToListRequestEvent;
 import taskle.commons.events.ui.ShowHelpRequestEvent;
@@ -33,6 +34,7 @@ import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
+import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.ListCommand;
 import taskle.logic.commands.RemoveCommand;
 import taskle.model.Model;
@@ -280,21 +282,27 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_addTimedTaskWith_taskAddedWithTimeAfterFromNotOn() throws Exception {
+    public void execute_addDeadlineTaskMorethanTwoDates_returnIncorrectCommand() 
+            throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        DeadlineTask toBeAdded = helper.getDocsFromBob();
+        FloatTask toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task manager
 
         // execute command and verify result
         assertCommandBehavior(
                 helper.ADD_COMMAND_GET_DOCS_FROM_BOB,
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                              AddCommand.MESSAGE_USAGE),
                 expectedAB,
                 expectedAB.getTaskList());
+
     }
-    
+
     @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
@@ -517,7 +525,7 @@ public class LogicManagerTest {
         private final String ADD_COMMAND_NEW_YEAR_DAY = 
                 "add New Year Day on 1 jan 2017";
         private final String ADD_COMMAND_GET_DOCS_FROM_BOB = 
-                "add Get documents from Bob on 14 Apr at 7pm";
+                "add Get documents from Bob by 14 Apr to 15 Apr";
         
         UniqueTagList stubTagList = new UniqueTagList();
 
@@ -578,14 +586,6 @@ public class LogicManagerTest {
         FloatTask getFoodFromChinatown() throws Exception {
             Name name = new Name("Get food from Chinatown");
             return new FloatTask(name, stubTagList);
-        }
-        
-        DeadlineTask getDocsFromBob() throws Exception {
-            Name name = new Name("Get documents from Bob");
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(2016, 3, 14, 19, 00, 00);
-            Date deadlineDate = calendar.getTime();
-            return new DeadlineTask(name, deadlineDate, stubTagList);
         }
 
         /**
