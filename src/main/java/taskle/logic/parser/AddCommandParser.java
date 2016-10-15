@@ -114,8 +114,8 @@ public class AddCommandParser extends CommandParser {
      * Generates a deadline add command based on given args.
      * @param fullArgs full argument string
      * @param nameString name to be used for deadline add command.
-     * @param dates 
-     * @return
+     * @param dates List of dates to be use to generate deadline.
+     * @return a valid deadline add command
      * @throws IllegalValueException
      */
     private AddCommand generateDeadlineAddCommand(String fullArgs, 

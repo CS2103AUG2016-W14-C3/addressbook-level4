@@ -47,6 +47,10 @@ public class Parser {
                               new HelpCommandParser(),
                               new ClearCommandParser(),
                               new ExitCommandParser()));
+        
+        // Parse a date using date parser on start up to reduce
+        // command delay on first parse. (Natty library constraints)
+        DateParser.parse("today");
     }
 
     /**

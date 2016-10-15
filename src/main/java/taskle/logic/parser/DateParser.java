@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import com.joestelmach.natty.DateGroup;
 import com.joestelmach.natty.Parser;
@@ -30,7 +31,8 @@ public class DateParser {
      * @return Array of dateTime found in String.
      */
     public static List<Date> parse(String dateTimeString) {
-        Parser parser = new Parser();
+        assert dateTimeString != null && !dateTimeString.isEmpty();
+        Parser parser = new Parser(TimeZone.getDefault());
         List<DateGroup> groups = parser.parse(dateTimeString);
         if (groups.isEmpty() || groups.get(0) == null) {
             return new ArrayList<>();
@@ -39,10 +41,14 @@ public class DateParser {
         // We are only interested in the first date group
         DateGroup group = groups.get(0);
         List<Date> dates = group.getDates();
+        
+        // If time is inferred and not explicitly stated by user
+        // We reset time because it would produce the current time
         boolean isTimeInferred = group.isTimeInferred();
         if (isTimeInferred) {
             resetTime(dates);
         }
+        
         return dates;
     }
     
