@@ -21,6 +21,20 @@ public class DateParserTest {
         calendar.clear();
     }
     
+    //---------------- Tests for DateParser.parse --------------------------
+    
+    /**
+     * Valid equivalence partitions for parsing date strings:
+     *   - any non-empty date strings
+     *   
+     * Invalid equivalence partitions for parsing date strings:
+     *   - null date string
+     *   - empty date string
+     *   
+     * The test methods below tries to verify all above with reasonably low
+     * number of test cases.
+     */
+    
     @Test
     public void parseDate_singleDate_returnDateListWithOneDate() {
         String singleDateString = "14 Feb 2016";
@@ -57,15 +71,13 @@ public class DateParserTest {
     @Test(expected= AssertionError.class)
     public void parseDate_nullInput_throwsAssertionError() {
         String singleDateString = null;
-        List<Date> expected =  new ArrayList<>();
-        List<Date> actual = DateParser.parse(singleDateString);
+        DateParser.parse(singleDateString);
     }
     
     @Test(expected= AssertionError.class)
     public void parseDate_emptyString_throwsAssertionError() {
         String singleDateString = "";
-        List<Date> expected =  new ArrayList<>();
-        List<Date> actual = DateParser.parse(singleDateString);
+        DateParser.parse(singleDateString);
     }
     
 }
