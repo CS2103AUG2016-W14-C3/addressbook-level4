@@ -55,7 +55,7 @@ public class DateFormatUtilTest {
     
     @Test
     public void formatEventDate_sameDaySameTime_returnStringWithoutTime(){
-        String expected = "3:00PM to 3:00PM, 18 Apr 2016";
+        String expected = "3:00PM, 18 Apr 2016";
         calendar.set(2016, 3, 18, 15, 0);
         Date startDate = calendar.getTime();
         calendar.set(2016, 3, 18, 15, 0);

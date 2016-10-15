@@ -41,9 +41,9 @@ public class DateFormatUtil {
     /**
      * Formats given start and end dates according to their respective time
      * and dates in our desired format.
-     * @param startDate
-     * @param endDate
-     * @return
+     * @param startDate start date object
+     * @param endDate end date object
+     * @return formatted string for date time for display to user
      */
     public static String formatEventDates(Date startDate, Date endDate) {
         if (startDate == null || endDate == null) {
@@ -63,7 +63,7 @@ public class DateFormatUtil {
         } else if (startDay == endDay && startYear == endYear) {
             return SIMPLE_TIME_FORMAT.format(startDate) 
                     + EVENT_DATES_DELIMITER
-                    + SIMPLE_DATE_FORMAT.format(endDate);
+                    + SIMPLE_DATE_TIME_FORMAT.format(endDate);
         } else {
             return formatDate(startDate) + EVENT_DATES_DELIMITER
                     + formatDate(endDate);
@@ -74,7 +74,7 @@ public class DateFormatUtil {
      * Formats the date as a String such that time is not shown if its 12am.
      * Date is also displayed in format as designed in UI.
      * @param date Given date object to format
-     * @return formatted date time string
+     * @return formatted date time string for display to user
      */
     public static String formatDate(Date date) {
         if (date == null) {
