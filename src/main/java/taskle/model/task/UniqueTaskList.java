@@ -2,10 +2,13 @@ package taskle.model.task;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import taskle.commons.core.LogsCenter;
 import taskle.commons.exceptions.DuplicateDataException;
 import taskle.commons.util.CollectionUtil;
+import taskle.ui.CommandBox;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -16,7 +19,9 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTaskList implements Iterable<Task> {
-
+    
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
+    
     /**
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
@@ -79,15 +84,16 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param toEdit
      * @return
      */
-    public void edit(ModifiableTask toEdit, Name newName) throws UniqueTaskList.DuplicateTaskException {
+    public void edit(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
+        Task toEdit = internalList.get(index - 1);
         FloatTask testTask = new FloatTask(toEdit);
         testTask.setName(newName);
         if(contains(testTask)) {
             throw new DuplicateTaskException();
         }
-        int index = internalList.indexOf(toEdit);
         toEdit.setName(newName);
-        internalList.set(index, (Task) toEdit);
+        internalList.set(index - 1, toEdit);
+        logger.info("Task " + index + " edited to " + newName);
     }
 
     public ObservableList<Task> getInternalList() {

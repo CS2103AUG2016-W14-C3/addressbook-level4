@@ -28,10 +28,6 @@ public class DeadlineTask extends Task {
         
     }
 
-    public DeadlineTask(ModifiableTask source) {
-        super(source);
-    }
-
     @Override
     public String getDetailsString() {
         return DateFormatUtil.formatDate(deadlineDate);

@@ -6,11 +6,9 @@ import java.util.logging.Logger;
 import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
-import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.util.StringUtil;
-import taskle.model.task.ModifiableTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
@@ -74,8 +72,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(ModifiableTask target, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        taskManager.editTask(target, newName);;
+    public synchronized void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+        taskManager.editTask(index, newName);;
         updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
@@ -92,11 +90,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
-    }
-    
-    @Override
-    public ModifiableObservableList<ModifiableTask> getModifiableTaskList() {
-        return new ModifiableObservableList<>(filteredTasks);
     }
     
     @Override

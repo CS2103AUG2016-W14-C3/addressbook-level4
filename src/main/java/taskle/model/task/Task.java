@@ -11,7 +11,7 @@ import taskle.model.task.ReadOnlyTask;
  * Abstraction for all Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
-public abstract class Task implements ReadOnlyTask, ModifiableTask {
+public abstract class Task implements ReadOnlyTask {
 
     protected Name name;
 
@@ -32,13 +32,6 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags());
     }
-    
-    /**
-     * Copy constructor.
-     */
-    public Task(ModifiableTask source) {
-        this(source.getName(), source.getTags());
-    }
 
     
     @Override
@@ -51,7 +44,6 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
         return new UniqueTagList(tags);
     }
     
-    @Override
     public void setName(Name name) {
         this.name = name;
     }
@@ -59,7 +51,6 @@ public abstract class Task implements ReadOnlyTask, ModifiableTask {
     /**
      * Replaces this task's tags with the tags in the argument tag list.
      */
-    @Override
     public void setTags(UniqueTagList replacement) {
         tags.setTags(replacement);
     }

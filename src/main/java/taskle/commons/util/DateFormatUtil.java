@@ -58,7 +58,6 @@ public class DateFormatUtil {
         int endDay = calendar.get(Calendar.DAY_OF_YEAR);
         int endYear = calendar.get(Calendar.YEAR);
         
-        // Same day so only display from time to time, Date.
         if (startDate.equals(endDate)) {
             return SIMPLE_DATE_TIME_FORMAT.format(endDate);
         } else if (startDay == endDay && startYear == endYear) {

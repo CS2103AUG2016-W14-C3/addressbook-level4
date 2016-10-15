@@ -31,10 +31,6 @@ public class EventTask extends Task {
         }
     }
 
-    public EventTask(ModifiableTask source) {
-        super(source);
-    }
-
     @Override
     public String getDetailsString() {
         return DateFormatUtil.formatEventDates(startDate, endDate);

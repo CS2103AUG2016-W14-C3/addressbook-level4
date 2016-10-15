@@ -21,12 +21,6 @@ public class FloatTask extends Task {
         super(source);
     }
     
-    /**
-     * Copy constructor.
-     */
-    public FloatTask(ModifiableTask source) {
-        super(source);
-    }
     
     @Override
     public String getDetailsString() {

@@ -22,7 +22,6 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import taskle.commons.core.EventsCenter;
-import taskle.commons.core.Messages;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.ui.JumpToListRequestEvent;
 import taskle.commons.events.ui.ShowHelpRequestEvent;
@@ -34,7 +33,6 @@ import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
-import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.ListCommand;
 import taskle.logic.commands.RemoveCommand;
 import taskle.model.Model;
@@ -45,7 +43,6 @@ import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
-import taskle.model.task.ModifiableTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
@@ -416,9 +413,9 @@ public class LogicManagerTest {
         String index = "1";
         String taskName = "Eat dinner";
         Name newName = new Name(taskName);
-        ModifiableTask taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
         String oldName = taskToEdit.getName().fullName;
-        expectedAB.editTask(taskToEdit, newName);
+        expectedAB.editTask(Integer.parseInt(index), newName);
         helperTest.addToModel(model, threePersonsTest);
         // execute command and verify result
         assertCommandBehavior(
