@@ -68,5 +68,9 @@ public class EditCommand extends Command {
     public String getCommandName() {
         return COMMAND_WORD;
     }
+    
+    public int getIndex() {
+        return targetIndex;
+    }
 
 }

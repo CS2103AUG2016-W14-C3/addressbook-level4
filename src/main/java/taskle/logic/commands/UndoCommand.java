@@ -1,7 +1,6 @@
 package taskle.logic.commands;
 
 import taskle.logic.history.History;
-import taskle.model.person.ModifiableTask;
 import taskle.model.person.Task;
 import taskle.model.person.UniqueTaskList;
 import taskle.model.person.UniqueTaskList.DuplicateTaskException;
@@ -42,9 +41,9 @@ public class UndoCommand extends Command {
                 case "edit":
                     Task originalTask = command.getTasksAffected().get(0);
                     task = command.getTasksAffected().get(1);
-                    
+                    EditCommand editCommand = (EditCommand) command;
                     try {
-                        model.editTask((ModifiableTask)task, originalTask.getName());
+                        model.editTask(editCommand.getIndex(), originalTask.getName());
                     } catch (DuplicateTaskException e) {
                         e.printStackTrace();
                     } catch (TaskNotFoundException e) {
