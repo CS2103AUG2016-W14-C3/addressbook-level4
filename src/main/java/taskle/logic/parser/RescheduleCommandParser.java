@@ -16,9 +16,6 @@ import taskle.logic.commands.RescheduleCommand;
 
 public class RescheduleCommandParser extends CommandParser {
 
-    private static final Pattern RESC_ARGS_FORMAT = Pattern
-            .compile("(?<taskNumber>.+\\s(?=to)|.+$)" + "(?<dateTime>(?=to).*)*");
-
     public RescheduleCommandParser() {
     }
 
