@@ -120,17 +120,21 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param dates
      */
     public void editDate(int index, List<Date> dates) throws TaskNotFoundException{
-        Optional<Task> toEditOp = Optional.of(internalList.get(index - 1));
+        int offsetIndex = index - 1;
+        Optional<Task> toEditOp = Optional.of(internalList.get(offsetIndex));
         if(!toEditOp.isPresent()) {
             throw new TaskNotFoundException();
         }
         Task toEdit = toEditOp.get();
         if (dates.size() == 0) {
             if(toEdit instanceof DeadlineTask) {
-                toEdit = ((DeadlineTask) toEdit).changeToFloatTask((DeadlineTask) toEdit);
+                FloatTask floatTask = ((DeadlineTask) toEdit).changeToFloatTask((DeadlineTask) toEdit);
+                internalList.set(offsetIndex, floatTask);
             }
             if(toEdit instanceof EventTask) {
-                toEdit = ((EventTask) toEdit).changeToDeadlineTask((EventTask) toEdit);
+                FloatTask floatTask = ((EventTask) toEdit).changeToFloatTask((EventTask) toEdit);
+                internalList.set(offsetIndex, floatTask);
+
             }
         }
         if (dates.size() == 1) {
@@ -141,12 +145,12 @@ public class UniqueTaskList implements Iterable<Task> {
             if (toEdit instanceof EventTask) {
                 DeadlineTask deadlineTask = ((EventTask) toEdit).changeToDeadlineTask((EventTask) toEdit);
                 deadlineTask.setDeadlineDate(newDate);
-                toEdit = deadlineTask;
+                internalList.set(offsetIndex, deadlineTask);
             }
             if (toEdit instanceof FloatTask) {
                 DeadlineTask deadlineTask = ((FloatTask) toEdit).changeToDeadlineTask((FloatTask) toEdit);
                 deadlineTask.setDeadlineDate(newDate);
-                toEdit = deadlineTask;
+                internalList.set(offsetIndex, deadlineTask);
             }
         }
         if (dates.size() == 2) {
@@ -160,16 +164,16 @@ public class UniqueTaskList implements Iterable<Task> {
                 EventTask eventTask = ((DeadlineTask) toEdit).changeToEventTask((DeadlineTask) toEdit);
                 eventTask.setStartDate(startDate);
                 eventTask.setEndDate(endDate);
-                toEdit = eventTask;
+                internalList.set(offsetIndex, eventTask);
             }
             if (toEdit instanceof FloatTask) {
                 EventTask eventTask = ((FloatTask) toEdit).changeToEventTask((FloatTask) toEdit);
                 eventTask.setStartDate(startDate);
                 eventTask.setEndDate(endDate);
-                toEdit = eventTask;
+                internalList.set(offsetIndex, eventTask);
             }
         } else {
-            logger.severe("Number of dates execeed 2. Unable to update.");
+            logger.severe("Number of dates exceed 2. Unable to update.");
         }
 
     }
