@@ -27,7 +27,7 @@ public class UndoCommand extends Command {
             return new CommandResult(History.MESSAGE_EMPTY_HISTORY);
         } else {
             Command command = History.remove();
-
+            
             switch (command.getCommandWord()) {
                 case AddCommand.COMMAND_WORD:
                     return undoAdd(command);
@@ -60,6 +60,8 @@ public class UndoCommand extends Command {
      * @return the command feedback
      */
     public CommandResult undoAdd(Command command) {
+        assert command != null;
+        
         Task task = command.getTasksAffected().get(0);
         try {
             model.deleteTask(task);
@@ -78,6 +80,8 @@ public class UndoCommand extends Command {
      * @return the command feedback
      */
     public CommandResult undoEdit(Command command) {
+        assert command != null;
+        
         Task task = command.getTasksAffected().get(0);
         EditCommand editCommand = (EditCommand) command;
         try {
@@ -100,6 +104,8 @@ public class UndoCommand extends Command {
      * @return the command feedback
      */
     public CommandResult undoRemove(Command command) {
+        assert command != null;
+        
         Task task = command.getTasksAffected().get(0);
         try {
             model.addTask(task);
@@ -118,6 +124,8 @@ public class UndoCommand extends Command {
      * @return the command feedback
      */
     public CommandResult undoClear(Command command) {
+        assert command != null;
+        
         for (int i = 0; i < command.getTasksAffected().size(); i++) {
             try {
                 model.addTask(command.getTasksAffected().get(i));
