@@ -42,7 +42,7 @@ public class FloatTask extends Task {
     }
     @Override
     public String getDetailsString() {
-        return "empty";
+        return "";
     }
 
     @Override

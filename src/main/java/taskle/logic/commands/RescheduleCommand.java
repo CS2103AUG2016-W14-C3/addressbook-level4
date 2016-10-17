@@ -11,7 +11,7 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
- * Reschedule command for the user to reschedule a task / event's date and/or time.
+ * Reschedule command for the user to reschedule a task / event's date and/or time or even clear it.
  * Time is optional but date is mandatory.
  * @author zhiyong
  *

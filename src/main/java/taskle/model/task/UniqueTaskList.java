@@ -112,7 +112,7 @@ public class UniqueTaskList implements Iterable<Task> {
 
     /**
      * Edits the date / time of the equivalent task in the list. 
-     * For 0 dates, it modifies the task into a float task without any dates.
+     * For null, it modifies the task into a float task without any dates.
      * For 1 date in the List, it modifies the task into a deadline task with the appropriate deadline date.
      * For 2 dates, it modifies it into an event task with the appropriate start and end dates.
      * 
@@ -134,11 +134,13 @@ public class UniqueTaskList implements Iterable<Task> {
                 FloatTask floatTask = ((EventTask) toEdit).changeToFloatTask((EventTask) toEdit);
                 internalList.set(index, floatTask);
             }
+            logger.info("Updated Task to FloatTask with no date");
         }
         else if (dates.size() == 1) {
             Date newDate = dates.get(0);
             if (toEdit instanceof DeadlineTask) {
                 ((DeadlineTask) toEdit).setDeadlineDate(newDate);
+                internalList.set(index, toEdit);
             }
             if (toEdit instanceof EventTask) {
                 DeadlineTask deadlineTask = ((EventTask) toEdit).changeToDeadlineTask((EventTask) toEdit);
@@ -150,6 +152,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 deadlineTask.setDeadlineDate(newDate);
                 internalList.set(index, deadlineTask);
             }
+            logger.info("Updated Task to DeadlineTask with 1 date");
         }
         else if (dates.size() == 2) {
             Date startDate = dates.get(0);
@@ -157,6 +160,7 @@ public class UniqueTaskList implements Iterable<Task> {
             if (toEdit instanceof EventTask) {
                 ((EventTask) toEdit).setStartDate(startDate);
                 ((EventTask) toEdit).setEndDate(endDate);
+                internalList.set(index, toEdit);
             }
             if (toEdit instanceof DeadlineTask) {
                 EventTask eventTask = ((DeadlineTask) toEdit).changeToEventTask((DeadlineTask) toEdit);
@@ -170,6 +174,8 @@ public class UniqueTaskList implements Iterable<Task> {
                 eventTask.setEndDate(endDate);
                 internalList.set(index, eventTask);
             }
+            logger.info("Updated Task to EventTask with 2 dates");
+
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }

@@ -76,14 +76,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.editTask(index, newName);;
-        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
     
     @Override
     public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
         taskManager.editTaskDate(index, dates);
-        updateFilteredListToShowAll();
         indicateTaskManagerChanged();
     }
     
