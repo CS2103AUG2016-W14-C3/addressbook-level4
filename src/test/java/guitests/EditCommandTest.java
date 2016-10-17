@@ -8,7 +8,6 @@ import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.EditCommand;
-import taskle.logic.commands.RemoveCommand;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;

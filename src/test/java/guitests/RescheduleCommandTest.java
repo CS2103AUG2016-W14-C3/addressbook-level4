@@ -9,7 +9,6 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.parser.DateParser;
 import taskle.model.tag.UniqueTagList;

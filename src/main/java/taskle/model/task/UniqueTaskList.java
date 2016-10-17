@@ -1,15 +1,18 @@
 package taskle.model.task;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.exceptions.DuplicateDataException;
 import taskle.commons.util.CollectionUtil;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 import taskle.ui.CommandBox;
-
-import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not
@@ -124,6 +127,7 @@ public class UniqueTaskList implements Iterable<Task> {
         if(!toEditOp.isPresent()) {
             throw new TaskNotFoundException();
         }
+        
         Task toEdit = toEditOp.get();
         if (dates == null) {
             if(toEdit instanceof DeadlineTask) {
@@ -135,26 +139,27 @@ public class UniqueTaskList implements Iterable<Task> {
                 internalList.set(index, floatTask);
             }
             logger.info("Updated Task to FloatTask with no date");
-        }
-        else if (dates.size() == 1) {
+        } else if (dates.size() == 1) {
             Date newDate = dates.get(0);
             if (toEdit instanceof DeadlineTask) {
                 ((DeadlineTask) toEdit).setDeadlineDate(newDate);
                 internalList.set(index, toEdit);
             }
+            
             if (toEdit instanceof EventTask) {
                 DeadlineTask deadlineTask = ((EventTask) toEdit).changeToDeadlineTask((EventTask) toEdit);
                 deadlineTask.setDeadlineDate(newDate);
                 internalList.set(index, deadlineTask);
             }
+            
             if (toEdit instanceof FloatTask) {
                 DeadlineTask deadlineTask = ((FloatTask) toEdit).changeToDeadlineTask((FloatTask) toEdit);
                 deadlineTask.setDeadlineDate(newDate);
                 internalList.set(index, deadlineTask);
             }
+            
             logger.info("Updated Task to DeadlineTask with 1 date");
-        }
-        else if (dates.size() == 2) {
+        } else if (dates.size() == 2) {
             Date startDate = dates.get(0);
             Date endDate = dates.get(1);
             if (toEdit instanceof EventTask) {
@@ -162,20 +167,22 @@ public class UniqueTaskList implements Iterable<Task> {
                 ((EventTask) toEdit).setEndDate(endDate);
                 internalList.set(index, toEdit);
             }
+            
             if (toEdit instanceof DeadlineTask) {
                 EventTask eventTask = ((DeadlineTask) toEdit).changeToEventTask((DeadlineTask) toEdit);
                 eventTask.setStartDate(startDate);
                 eventTask.setEndDate(endDate);
                 internalList.set(index, eventTask);
             }
+            
             if (toEdit instanceof FloatTask) {
                 EventTask eventTask = ((FloatTask) toEdit).changeToEventTask((FloatTask) toEdit);
                 eventTask.setStartDate(startDate);
                 eventTask.setEndDate(endDate);
                 internalList.set(index, eventTask);
             }
+            
             logger.info("Updated Task to EventTask with 2 dates");
-
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
