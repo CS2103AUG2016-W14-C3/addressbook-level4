@@ -2,8 +2,8 @@ package taskle.logic.commands;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class DoneCommand extends Command {
 	

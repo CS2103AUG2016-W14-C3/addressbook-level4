@@ -1,7 +1,7 @@
 package taskle.commons.events.ui;
 
 import taskle.commons.events.BaseEvent;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 /**
  * Represents a selection change in the Task List Panel

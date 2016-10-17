@@ -11,13 +11,12 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import taskle.model.person.FloatTask;
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
 import taskle.model.tag.Tag;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
 
 /**
  * Wraps all data at the task-manager level
@@ -75,7 +74,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
-        setTasks(newTasks.stream().map(FloatTask::new).collect(Collectors.toList()));
+        setTasks(newTasks.stream().map(t -> t.copy()).collect(Collectors.toList()));
         setTags(newTags);
     }
 

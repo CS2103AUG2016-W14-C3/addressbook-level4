@@ -553,8 +553,8 @@ Weakness:
 
 1. Does not work with time slots → Jim is not able to add events
 2. Does not categorise to-do types (Events, Deadlines, Floating Tasks)
-3. Requires a few clicks to perform functions other than adding a task → Jim’s one-shot approach is not fulfilled
-4. Does not support an “Undo” option → Incorrect to-do item created has to be edited/deleted instead
+3. Requires a few clicks to perform functions other than adding a task → Jim's one-shot approach is not fulfilled
+4. Does not support an "Undo" option → Incorrect to-do item created has to be edited/deleted instead
 5. Does not store data into local storage files. Links with user account (online) instead → Online access still required to transfer data if Jim works with different computers
 
 <br>
@@ -570,7 +570,7 @@ Strengths:
 
 Weakness:
 
-1. Requires a few clicks to add a tasks followed by setting reminders → Jim’s one-shot preference is not met
+1. Requires a few clicks to add a tasks followed by setting reminders → Jim's one-shot preference is not met
 2. Only supports reminders, does not allow Jim to block out slots for items without specific times.
 3. Does not support calendar-centric operations → Jim is not able to schedule tasks with specific start and end dates.
 
@@ -579,7 +579,7 @@ Weakness:
 **Product #3: to-doist**<br>
 Strengths:
 
-1. Supports adding of tasks that can be marked as ‘done’ → Jim is able to mark completed tasks as done
+1. Supports adding of tasks that can be marked as 'done' → Jim is able to mark completed tasks as done
 2. Supports searching of tasks by its name and project → Jim is able to quickly find a task
 3. Adding of tasks is done in a one-shot manner → Jim is able to avoid taking several clicks to add a task
 4. Operates offline and only starts syncing with other devices when there is Internet connection → Jim can access the application even without internet connectivity.
@@ -602,7 +602,7 @@ Strengths:
 
 1. Supports marking tasks as complete
 2. Supports searching of appointments and tasks by name → Jim is able to quickly search for items in his schedule
-3. Operates even without Internet Access → Jim can access the application even without Internet connectivity
+3. Operates even without Internet Access  Jim can access the application even without Internet connectivity
 4. Supports adding of tasks (without any due date)
 5. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
 6. Supports time-based reminders → Jim can schedule reminders for his deadlines
@@ -613,7 +613,7 @@ Strengths:
 
 Weakness:
 
-1. Requires two clicks to add a task with its respective settings → Does not cater to Jim’s one-shot preference
+1. Requires two clicks to add a task with its respective settings → Does not cater to Jim's one-shot preference
 2. Does not support an "Undo" option → A task has to be manually deleted upon creation
 3. Does not support blocking out specific time slots (without full information)
 

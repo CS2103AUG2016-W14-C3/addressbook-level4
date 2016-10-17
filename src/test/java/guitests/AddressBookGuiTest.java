@@ -12,7 +12,7 @@ import org.testfx.api.FxToolkit;
 import taskle.TestApp;
 import taskle.commons.core.EventsCenter;
 import taskle.model.TaskManager;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 import taskle.testutil.TestUtil;
 import taskle.testutil.TypicalTestTasks;
 
@@ -78,7 +78,7 @@ public abstract class AddressBookGuiTest {
      */
     protected TaskManager getInitialData() {
         TaskManager ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestTasks.loadAddressBookWithSampleData(ab);
+        td.loadTaskManagerWithSampleData(ab);
         return ab;
     }
 
@@ -96,10 +96,10 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyTask person, TaskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndPerson(card, person));
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**

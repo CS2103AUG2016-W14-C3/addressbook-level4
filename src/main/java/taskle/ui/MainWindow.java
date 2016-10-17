@@ -24,12 +24,12 @@ import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
 import taskle.logic.commands.CommandResult;
 import taskle.model.UserPrefs;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 import taskle.storage.StorageManager;
 
 /**
- * The Main Window. Provides the basic application layout containing a menu bar
- * and space where other JavaFX elements can be placed.
+ * The Main Window. Provides the basic application layout containing
+ * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
 

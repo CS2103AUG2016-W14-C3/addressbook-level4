@@ -1,4 +1,4 @@
-package taskle.model.person;
+package taskle.model.task;
 
 import taskle.model.tag.UniqueTagList;
 
@@ -26,15 +26,6 @@ public interface ReadOnlyTask {
     }
 
     /**
-     * Formats the task as text, showing all task details.
-     */
-    default String getAsText() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        return builder.toString();
-    }
-
-    /**
      * Returns a string representation of this Task's tags
      */
     default String tagsString() {
@@ -47,6 +38,10 @@ public interface ReadOnlyTask {
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
+    
+    public abstract Task copy();
+    
+    public String getDetailsString();
 
     boolean getTaskDone();
 

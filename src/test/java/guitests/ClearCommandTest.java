@@ -2,6 +2,8 @@ package guitests;
 
 import org.junit.Test;
 
+import taskle.logic.commands.AddCommand;
+
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends AddressBookGuiTest {
@@ -14,7 +16,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        commandBox.runCommand(td.helpFriend.getAddCommand());
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.helpFriend.toString());
         assertTrue(taskListPanel.isListMatching(td.helpFriend));
         commandBox.runCommand("remove 1");
         assertListSize(0);

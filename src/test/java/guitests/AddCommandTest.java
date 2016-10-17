@@ -1,53 +1,68 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
+import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.logic.commands.AddCommand;
-import taskle.testutil.TestTask;
+import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
 
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void add() {
         //add one task
-        TestTask[] currentList = td.getTypicalTasks();
-        TestTask taskToAdd = td.helpFriend;
+        Task[] currentList = td.getTypicalTasks();
+        Task taskToAdd = td.helpFriend;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add another person
+        //add another task
         taskToAdd = td.interview;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate person
-        commandBox.runCommand(td.helpFriend.getAddCommand());
+        //add duplicate task
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " " 
+                + td.helpFriend.getName());
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
         commandBox.runCommand("clear");
-        assertAddSuccess(td.attendMeeting);
+        currentList = new Task[0];
+        taskToAdd = td.attendMeeting;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //invalid command
         commandBox.runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        
+        //valid deadline add command
+        taskToAdd = td.finalExams;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
+        
+        //Invalid event add format
+        commandBox.runCommand("add watch movie with friends by 7pm to 9pm");
+        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
+                AddCommand.MESSAGE_USAGE));
     }
-
-    private void assertAddSuccess(TestTask taskToAdd, TestTask... currentList) {
-        commandBox.runCommand(taskToAdd.getAddCommand());
-
+    
+    private void assertAddSuccess(Task taskToAdd, Task... currentList) {
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " "
+                + taskToAdd.toString());
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToPerson(taskToAdd.getName().fullName);
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        System.out.println(addedCard.getDetails());
         assertMatching(taskToAdd, addedCard);
 
-        //confirm the list now contains all previous persons plus the new person
-        TestTask[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        //confirm the list now contains all previous tasks plus the new task
+        Task[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
         assertTrue(taskListPanel.isListMatching(expectedList));
     }
 

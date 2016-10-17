@@ -12,12 +12,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.events.ui.TaskPanelSelectionChangedEvent;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);

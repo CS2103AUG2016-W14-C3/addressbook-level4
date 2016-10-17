@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart{
 
@@ -14,6 +14,8 @@ public class TaskCard extends UiPart{
     private HBox cardPane;
     @FXML
     private Label name;
+    @FXML
+    private Label details;
     @FXML
     private Label id;
     @FXML
@@ -36,6 +38,7 @@ public class TaskCard extends UiPart{
     @FXML
     public void initialize() {
         name.setText(task.getName().fullName);
+        details.setText(task.getDetailsString());
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
     }

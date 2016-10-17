@@ -1,7 +1,13 @@
-package taskle.model.person;
+package taskle.model.task;
 
 import taskle.model.tag.UniqueTagList;
 
+/**
+ * A Task with no other details like time and dates.
+ * It only guarantees a task name.
+ * @author Abel
+ *
+ */
 public class FloatTask extends Task {
 
     public FloatTask(Name name, UniqueTagList tags) {
@@ -17,15 +23,13 @@ public class FloatTask extends Task {
     
     
     @Override
-    public DateTime getDateTime() {
-        // TODO Auto-generated method stub
-        return null;
+    public String getDetailsString() {
+        return "";
     }
 
     @Override
-    public String getDateTimeString() {
-        // TODO Auto-generated method stub
-        return null;
+    public Task copy() {
+        return new FloatTask((ReadOnlyTask) this);
     }
-
+    
 }
