@@ -95,8 +95,12 @@ public class UniqueTaskList implements Iterable<Task> {
      * @return
      */
     public void edit(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        Task toEdit = internalList.get(index - 1);
-        FloatTask testTask = new FloatTask(toEdit);
+        Optional<Task> toEditOp = Optional.of(internalList.get(index - 1));
+        if(!toEditOp.isPresent()) {
+            throw new TaskNotFoundException();
+        }
+        Task toEdit = toEditOp.get();
+        Task testTask = new FloatTask(toEdit);
         testTask.setName(newName);
         if (contains(testTask)) {
             throw new DuplicateTaskException();
@@ -116,7 +120,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param dates
      */
     public void editDate(int index, List<Date> dates) throws TaskNotFoundException{
-        Task toEdit = internalList.get(index - 1);
+        Optional<Task> toEditOp = Optional.of(internalList.get(index - 1));
+        if(!toEditOp.isPresent()) {
+            throw new TaskNotFoundException();
+        }
+        Task toEdit = toEditOp.get();
         if (dates.size() == 0) {
             if(toEdit instanceof DeadlineTask) {
                 toEdit = ((DeadlineTask) toEdit).changeToFloatTask((DeadlineTask) toEdit);
