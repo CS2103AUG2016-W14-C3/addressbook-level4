@@ -42,16 +42,17 @@ public class RescheduleCommand extends Command{
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
+        int offsetIndex = targetIndex - 1;
+        ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldDetails = taskToEdit.getDetailsString();
         try {
-            model.editTaskDate(targetIndex, dates);
+            model.editTaskDate(offsetIndex, dates);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-       
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, oldDetails + " -> " + taskToEdit.getDetailsString()));
+        ReadOnlyTask newTask = lastShownList.get(offsetIndex);
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + "\t" 
+                                            + oldDetails + " -> " + newTask.getDetailsString()));
     }
 
 }

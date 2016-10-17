@@ -43,21 +43,32 @@ public class RescheduleCommandParser extends CommandParser {
         args = args.trim();
         int endIndex = args.indexOf(" ");
         if (endIndex == -1) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
         }
         String indexValue = args.substring(0, endIndex);
         Optional<Integer> index = parseIndex(indexValue);
         String newDateTime = args.substring(endIndex).trim();
-        if (newDateTime.indexOf("to") != 0 || !index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
-        } else {
-            List<Date> dateTimeDates = DateParser.parse(newDateTime);
+        if (newDateTime.indexOf("clear") == 0) {
             try {
-                return new RescheduleCommand(index.get(), dateTimeDates);
+                return new RescheduleCommand(index.get(), null);
             } catch (IllegalValueException e) {
                 return new IncorrectCommand(e.getMessage());
             }
         }
+        if (newDateTime.indexOf("to") != 0 || !index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        }
+
+        List<Date> dates = DateParser.parse(newDateTime);
+        if(dates.size() == 0 || dates.size() > 2) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        }
+        try {
+            return new RescheduleCommand(index.get(), dates);
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+
     }
 
 }

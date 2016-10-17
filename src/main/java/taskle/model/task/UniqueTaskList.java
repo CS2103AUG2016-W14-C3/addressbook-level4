@@ -125,7 +125,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new TaskNotFoundException();
         }
         Task toEdit = toEditOp.get();
-        if (dates.size() == 0) {
+        if (dates == null) {
             if(toEdit instanceof DeadlineTask) {
                 FloatTask floatTask = ((DeadlineTask) toEdit).changeToFloatTask((DeadlineTask) toEdit);
                 internalList.set(index, floatTask);
@@ -133,10 +133,9 @@ public class UniqueTaskList implements Iterable<Task> {
             if(toEdit instanceof EventTask) {
                 FloatTask floatTask = ((EventTask) toEdit).changeToFloatTask((EventTask) toEdit);
                 internalList.set(index, floatTask);
-
             }
         }
-        if (dates.size() == 1) {
+        else if (dates.size() == 1) {
             Date newDate = dates.get(0);
             if (toEdit instanceof DeadlineTask) {
                 ((DeadlineTask) toEdit).setDeadlineDate(newDate);
@@ -152,7 +151,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 internalList.set(index, deadlineTask);
             }
         }
-        if (dates.size() == 2) {
+        else if (dates.size() == 2) {
             Date startDate = dates.get(0);
             Date endDate = dates.get(1);
             if (toEdit instanceof EventTask) {
@@ -172,7 +171,7 @@ public class UniqueTaskList implements Iterable<Task> {
                 internalList.set(index, eventTask);
             }
         } else {
-            logger.severe("Number of dates exceed 2. Unable to update.");
+            logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
 
     }
