@@ -48,6 +48,10 @@ public class RescheduleCommandParser extends CommandParser {
         String indexValue = args.substring(0, endIndex);
         Optional<Integer> index = parseIndex(indexValue);
         String newDateTime = args.substring(endIndex).trim();
+        if (!index.isPresent()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        }
+        
         if (newDateTime.indexOf("clear") == 0) {
             try {
                 return new RescheduleCommand(index.get(), null);
@@ -55,10 +59,7 @@ public class RescheduleCommandParser extends CommandParser {
                 return new IncorrectCommand(e.getMessage());
             }
         }
-        if (newDateTime.indexOf("to") != 0 || !index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
-        }
-
+        
         List<Date> dates = DateParser.parse(newDateTime);
         if(dates.size() == 0 || dates.size() > 2) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
