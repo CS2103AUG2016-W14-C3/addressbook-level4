@@ -1,10 +1,10 @@
 package taskle.logic.commands;
 
 import taskle.logic.history.History;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
-import taskle.model.person.UniqueTaskList.DuplicateTaskException;
-import taskle.model.person.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
+import taskle.model.task.UniqueTaskList.DuplicateTaskException;
+import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Undo recent command entered.

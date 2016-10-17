@@ -1,8 +1,8 @@
 package taskle.testutil;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.model.person.*;
 import taskle.model.tag.Tag;
+import taskle.model.task.*;
 
 /**
  *

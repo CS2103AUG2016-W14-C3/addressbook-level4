@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import taskle.logic.history.History;
 import taskle.model.TaskManager;
-import taskle.model.person.Task;
+import taskle.model.task.Task;
 
 /**
  * Clears the task manager.

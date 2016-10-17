@@ -1,12 +1,12 @@
 package guitests;
 
-import org.junit.Test;
-
-import taskle.testutil.TestTask;
-import taskle.testutil.TestUtil;
-
 import static org.junit.Assert.assertTrue;
 import static taskle.logic.commands.RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS;
+
+import org.junit.Test;
+
+import taskle.model.task.Task;
+import taskle.testutil.TestUtil;
 
 public class RemoveCommandTest extends AddressBookGuiTest {
 
@@ -14,17 +14,17 @@ public class RemoveCommandTest extends AddressBookGuiTest {
     public void remove() {
 
         //delete the first in the list
-        TestTask[] currentList = td.getTypicalTasks();
+        Task[] currentList = td.getTypicalTasks();
         int targetIndex = 1;
         assertRemoveSuccess(targetIndex, currentList);
 
         //delete the last in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertRemoveSuccess(targetIndex, currentList);
 
         //delete from the middle of the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertRemoveSuccess(targetIndex, currentList);
 
@@ -39,9 +39,9 @@ public class RemoveCommandTest extends AddressBookGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    private void assertRemoveSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
-        TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
+    private void assertRemoveSuccess(int targetIndexOneIndexed, final Task[] currentList) {
+        Task taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        Task[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("remove " + targetIndexOneIndexed);
 

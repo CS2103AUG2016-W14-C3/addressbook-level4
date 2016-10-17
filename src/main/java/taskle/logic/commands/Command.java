@@ -7,7 +7,7 @@ import taskle.commons.core.Messages;
 import taskle.commons.events.ui.IncorrectCommandAttemptedEvent;
 import taskle.model.Model;
 import taskle.model.TaskManager;
-import taskle.model.person.Task;
+import taskle.model.task.Task;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

@@ -8,7 +8,7 @@ import taskle.logic.commands.CommandResult;
 import taskle.logic.history.History;
 import taskle.logic.parser.Parser;
 import taskle.model.Model;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 import taskle.storage.Storage;
 
 import java.util.logging.Logger;

@@ -2,19 +2,21 @@ package guitests;
 
 import org.junit.Test;
 
+import taskle.logic.commands.AddCommand;
+import taskle.model.task.Task;
 import taskle.testutil.TestTask;
 
 public class UndoCommandTest extends AddressBookGuiTest {
 
     @Test
     public void undo() {
-        TestTask[] currentList = td.getTypicalTasks();
+        Task[] currentList = td.getTypicalTasks();
         
         //Undo with an empty history
         assertUndoSuccess(currentList);
         
         //Undo after add command
-        commandBox.runCommand(td.helpFriend.getAddCommand());
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.helpFriend.getName());
         assertUndoSuccess(currentList);
         
         //Undo after remove command
@@ -30,7 +32,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertUndoSuccess(currentList);
     }
     
-    private void assertUndoSuccess(TestTask... expectedHits) {
+    private void assertUndoSuccess(Task... expectedHits) {
         commandBox.runCommand("undo");
         
         //Confirms the list size remains the same

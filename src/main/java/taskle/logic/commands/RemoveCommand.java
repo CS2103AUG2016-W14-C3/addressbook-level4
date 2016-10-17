@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.logic.history.History;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.Task;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.

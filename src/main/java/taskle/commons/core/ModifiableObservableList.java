@@ -2,7 +2,6 @@ package taskle.commons.core;
 
 import java.text.Collator;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +15,6 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
-import taskle.model.person.Task;
 
 /**
  * Modifiable view of the observable list. Mainly used for the edit command.
