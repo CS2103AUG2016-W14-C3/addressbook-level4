@@ -520,7 +520,7 @@ public class LogicManagerTest {
         private final String ADD_COMMAND_GARDENS_BY_BAY = 
                 "add Gardens by the Bay outing from 12pm to 2pm 3 December";
         private final String ADD_COMMAND_NEW_YEAR_DAY = 
-                "add New Year Day on 1 jan 2017";
+                "add New Year Day from 1 jan 2017";
         private final String ADD_COMMAND_GET_DOCS_FROM_BOB = 
                 "add Get documents from Bob by 14 Apr to 15 Apr";
         
