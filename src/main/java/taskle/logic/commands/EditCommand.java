@@ -50,7 +50,7 @@ public class EditCommand extends Command {
         String oldName = taskToEdit.getName().fullName;
         try {
             tasksAffected = new ArrayList<Task>();
-            Task originalTask = new FloatTask(taskToEdit);
+            Task originalTask = taskToEdit.copy();
             tasksAffected.add(originalTask);
             model.editTask(targetIndex, newName);
             tasksAffected.add((Task) taskToEdit);
