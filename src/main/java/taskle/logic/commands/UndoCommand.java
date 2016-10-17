@@ -29,7 +29,7 @@ public class UndoCommand extends Command {
             Task task;
             
             switch (command.getCommandName()) {
-                case "add":
+                case AddCommand.COMMAND_WORD:
                     task = command.getTasksAffected().get(0);
                     try {
                         model.deleteTask(task);
@@ -38,7 +38,7 @@ public class UndoCommand extends Command {
                     }
                     return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandName(), command.getTasksAffected().get(0).toString()));
                    
-                case "edit":
+                case EditCommand.COMMAND_WORD:
                     Task originalTask = command.getTasksAffected().get(0);
                     task = command.getTasksAffected().get(1);
                     EditCommand editCommand = (EditCommand) command;
@@ -51,7 +51,7 @@ public class UndoCommand extends Command {
                     }
                     return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandName(), command.getTasksAffected().get(0).toString()));
                     
-                case "remove":
+                case RemoveCommand.COMMAND_WORD:
                     task = command.getTasksAffected().get(0);
                     try {
                         model.addTask(task);
@@ -60,7 +60,7 @@ public class UndoCommand extends Command {
                     }
                     return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandName(), command.getTasksAffected().get(0).toString()));
                     
-                case "clear":
+                case ClearCommand.COMMAND_WORD:
                     for (int i = 0; i < command.getTasksAffected().size(); i++) {
                         try {
                             model.addTask(command.getTasksAffected().get(i));
