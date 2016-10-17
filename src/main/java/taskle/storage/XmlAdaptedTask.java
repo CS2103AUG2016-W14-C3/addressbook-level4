@@ -19,6 +19,9 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
+    
+    @XmlElement(required = true)
+    private int isTaskDone;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -36,6 +39,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
+        isTaskDone = source.getTaskDone() ? 1 : 0;
     }
 
     /**
@@ -45,7 +49,9 @@ public class XmlAdaptedTask {
      */
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
-        return new FloatTask(name, new UniqueTagList());
+        Task task = new FloatTask(name, new UniqueTagList());
+        task.setTaskDone(isTaskDone == 1 ? true : false);
+        return task;
     }
 }
 

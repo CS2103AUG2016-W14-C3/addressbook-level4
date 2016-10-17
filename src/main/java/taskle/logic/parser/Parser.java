@@ -72,7 +72,7 @@ public class Parser {
             return prepareFind(arguments);
 
         case DoneCommand.COMMAND_WORD:
-        	return 
+        	return prepareDone(arguments); 
             
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
@@ -162,6 +162,27 @@ public class Parser {
         }
         try {
             return new EditCommand(index.get(), name.get());
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+    }
+    
+    /**
+     * Parses arguments in the context of the select task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareDone(String arguments) {
+    	String indexValue = arguments.substring(1);
+
+        Optional<Integer> index = parseIndex(indexValue);
+        if(!index.isPresent()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        }
+        try {
+        	return new DoneCommand(index.get(), true);
         } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
         }

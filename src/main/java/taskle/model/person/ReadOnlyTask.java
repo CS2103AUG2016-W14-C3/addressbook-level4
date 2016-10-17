@@ -7,9 +7,9 @@ import taskle.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-
+    
     Name getName();
-
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -48,6 +48,6 @@ public interface ReadOnlyTask {
         }
     }
 
-	boolean getTaskDone();
+    boolean getTaskDone();
 
 }
