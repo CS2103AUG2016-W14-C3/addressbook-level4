@@ -63,5 +63,5 @@ public abstract class Command {
      * Gets command name
      * @return name of command
      */
-    public abstract String getCommandName();
+    public abstract String getCommandWord();
 }

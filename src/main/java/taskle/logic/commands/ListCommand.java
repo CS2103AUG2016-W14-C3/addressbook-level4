@@ -19,7 +19,7 @@ public class ListCommand extends Command {
     }
     
     @Override
-    public String getCommandName() {
+    public String getCommandWord() {
         return COMMAND_WORD;
     }
 }

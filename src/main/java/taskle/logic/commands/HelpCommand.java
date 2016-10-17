@@ -25,7 +25,7 @@ public class HelpCommand extends Command {
     }
     
     @Override
-    public String getCommandName() {
+    public String getCommandWord() {
         return COMMAND_WORD;
     }
 }

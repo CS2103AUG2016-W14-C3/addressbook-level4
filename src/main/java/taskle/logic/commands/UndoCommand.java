@@ -28,7 +28,7 @@ public class UndoCommand extends Command {
         } else {
             Command command = History.remove();
 
-            switch (command.getCommandName()) {
+            switch (command.getCommandWord()) {
                 case AddCommand.COMMAND_WORD:
                     return undoAdd(command);
 
@@ -48,7 +48,7 @@ public class UndoCommand extends Command {
     }
 
     @Override
-    public String getCommandName() {
+    public String getCommandWord() {
         return COMMAND_WORD;
     }
 
@@ -67,7 +67,7 @@ public class UndoCommand extends Command {
             e.printStackTrace();
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandName(), command.getTasksAffected().get(0).toString()));
+                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
     }
 
     /**
@@ -88,7 +88,7 @@ public class UndoCommand extends Command {
             e.printStackTrace();
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandName(), command.getTasksAffected().get(0).toString()));
+                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
     }
 
     /**
@@ -107,7 +107,7 @@ public class UndoCommand extends Command {
             e.printStackTrace();
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandName(), command.getTasksAffected().get(0).toString()));
+                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
     }
 
     /**
@@ -125,6 +125,6 @@ public class UndoCommand extends Command {
                 e.printStackTrace();
             }
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandName(), ""));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandWord(), ""));
     }
 }

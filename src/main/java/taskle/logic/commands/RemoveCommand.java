@@ -55,7 +55,7 @@ public class RemoveCommand extends Command {
     }
     
     @Override
-    public String getCommandName() {
+    public String getCommandWord() {
         return COMMAND_WORD;
     }
 
