@@ -48,13 +48,27 @@ public class DeadlineTask extends Task {
         this.deadlineDate = deadlineDate;
     }
     
+    /**
+     * Method to return an EventTask from the given DeadlineTask
+     * @param source
+     * @return
+     */
     public EventTask changeToEventTask(DeadlineTask source) {
+        assert source != null;
+        assert source.getDeadlineDate() != null;
         return new EventTask(source);
     }
     
+    /**
+     * Method to return a FloatTAsk from the given DeadlineTask
+     * @param source
+     * @return
+     */
     public FloatTask changeToFloatTask(DeadlineTask source) {
+        assert source != null;
         return new FloatTask(source);
     }
+    
     
     @Override
     public Task copy() {

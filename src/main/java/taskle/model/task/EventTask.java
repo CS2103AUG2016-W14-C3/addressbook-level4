@@ -61,14 +61,24 @@ public class EventTask extends Task {
     }
    
     /**
-     * Method to change the EventTask to a DeadlineTask and setting the deadline date as the start date 
-     * for EventTask
+     * Method to return a DeadlineTask from the given EventTask
      * @param source
      * @return DeadlineTask
      */
     public DeadlineTask changeToDeadlineTask(EventTask source) {
-        assert source != null && source.getStartDate() != null && source.getEndDate() != null;
+        assert source != null;
+        assert source.getStartDate() != null || source.getEndDate() != null;
         return new DeadlineTask(source);               
+    }
+    
+    /**
+     * Method to return a FloatTask from the given EventTask
+     * @param source
+     * @return
+     */
+    public FloatTask changeToFloatTask(EventTask source) {
+        assert source != null;
+        return new FloatTask(source);  
     }
     
     @Override

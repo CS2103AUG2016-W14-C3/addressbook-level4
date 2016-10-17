@@ -22,7 +22,7 @@ public class FloatTask extends Task {
     }
     
     /**
-     * Method to change float task into deadline task
+     * Method to return a float task from the given deadline task
      * @param source
      * @return DeadlineTask
      */
@@ -31,6 +31,11 @@ public class FloatTask extends Task {
         return new DeadlineTask(source);
     }
     
+    /**
+     * Method to return a float task from the given event task
+     * @param source
+     * @return
+     */
     public EventTask changeToEventTask (FloatTask source) {
         assert source != null;
         return new EventTask(source);
