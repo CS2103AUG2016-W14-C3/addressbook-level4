@@ -8,6 +8,7 @@ import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.EditCommand;
+import taskle.logic.commands.RemoveCommand;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
@@ -84,12 +85,12 @@ public class EditCommandTest extends AddressBookGuiTest{
     
     private void assertEditInvalidIndex(String command) {
         commandBox.runCommand(command);
-        assertResultMessage("The task index provided is invalid");
+        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
     
     private void assertEditDuplicateName(String command) {
         commandBox.runCommand(command);
-        assertResultMessage("This task already exists in the Task Manager");
+        assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
     }
     
     private void assertEditInvalidCommandFormat(String command) {
