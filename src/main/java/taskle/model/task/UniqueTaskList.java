@@ -63,6 +63,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        refreshInternalList();
     }
 
     /**
@@ -94,8 +95,13 @@ public class UniqueTaskList implements Iterable<Task> {
         toEdit.setName(newName);
         internalList.set(index - 1, toEdit);
         logger.info("Task " + index + " edited to " + newName);
+        refreshInternalList();
     }
 
+    public void refreshInternalList() {
+        internalList.sort(new TaskComparator());
+    }
+    
     public ObservableList<Task> getInternalList() {
         return internalList;
     }
