@@ -79,6 +79,15 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
+    public void done(int index, boolean taskDone) {
+        Task toEdit = internalList.get(index - 1);
+        FloatTask testTask = new FloatTask(toEdit);
+        testTask.setTaskDone(taskDone);
+        toEdit.setTaskDone(taskDone);
+        internalList.set(index - 1, toEdit);
+        logger.info("Task " + index + " Done! ");
+    }
+    
     /**
      * Edits the equivalent task in the list.
      * @param toEdit

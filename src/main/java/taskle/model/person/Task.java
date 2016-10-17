@@ -14,6 +14,7 @@ import taskle.model.tag.UniqueTagList;
 public abstract class Task implements ReadOnlyTask {
 
     protected Name name;
+    protected boolean taskDone;
 
     protected UniqueTagList tags;
 
@@ -44,8 +45,17 @@ public abstract class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
+    @Override
+    public boolean getTaskDone() {
+        return taskDone;
+    }
+
     public void setName(Name name) {
         this.name = name;
+    }
+    
+    public void setTaskDone(boolean taskDone) {
+        this.taskDone = taskDone;
     }
 
     /**

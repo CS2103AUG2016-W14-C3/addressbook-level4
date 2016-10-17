@@ -9,6 +9,7 @@ import taskle.model.tag.UniqueTagList;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
+    private boolean taskDone;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -17,6 +18,11 @@ public class TestTask implements ReadOnlyTask {
 
     public void setName(Name name) {
         this.name = name;
+    }
+    
+    public void setTaskDone(boolean taskDone)
+    {
+    	this.taskDone = taskDone;
     }
 
     @Override
@@ -40,4 +46,9 @@ public class TestTask implements ReadOnlyTask {
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
+
+	@Override
+	public boolean getTaskDone() {
+		return taskDone;
+	}
 }

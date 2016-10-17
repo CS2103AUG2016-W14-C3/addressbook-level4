@@ -83,6 +83,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
+        taskManager.doneTask(index, targetDone);
+        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
         updateFilteredListToShowAll();

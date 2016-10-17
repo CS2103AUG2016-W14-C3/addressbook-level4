@@ -48,4 +48,6 @@ public interface ReadOnlyTask {
         }
     }
 
+	boolean getTaskDone();
+
 }

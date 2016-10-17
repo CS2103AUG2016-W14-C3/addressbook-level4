@@ -131,6 +131,10 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void editTask(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
         tasks.edit(index, newName);
     }
+    
+	public void doneTask(int index, boolean targetDone) {
+		tasks.done(index, targetDone);
+	}
 
 //// tag-level operations
 

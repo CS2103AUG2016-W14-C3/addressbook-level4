@@ -26,6 +26,8 @@ public interface Model {
     /** Edits the given task. */
     void editTask(int index, Name newName) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
     
+    void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
