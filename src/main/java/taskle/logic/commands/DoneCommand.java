@@ -2,7 +2,6 @@ package taskle.logic.commands;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.person.ReadOnlyTask;
 import taskle.model.person.UniqueTaskList.TaskNotFoundException;
 
@@ -17,7 +16,7 @@ public class DoneCommand extends Command {
     public final int targetIndex;
     public final boolean targetDone;
     
-    public DoneCommand(int targetIndex, boolean targetDone) throws IllegalValueException {
+    public DoneCommand(int targetIndex, boolean targetDone) {
         this.targetIndex = targetIndex;
         this.targetDone = targetDone;
     }

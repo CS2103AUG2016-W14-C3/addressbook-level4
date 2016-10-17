@@ -174,18 +174,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareDone(String arguments) {
-    	String indexValue = arguments.substring(1);
 
-        Optional<Integer> index = parseIndex(indexValue);
-        if(!index.isPresent()) {
+        Optional<Integer> index = parseIndex(arguments);
+        if(!index.isPresent()){
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
-        try {
-        	return new DoneCommand(index.get(), true);
-        } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
+        return new DoneCommand(index.get(), true);
     }
     
     /**
