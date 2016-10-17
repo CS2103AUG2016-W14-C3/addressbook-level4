@@ -21,7 +21,20 @@ public class FloatTask extends Task {
         super(source);
     }
     
+    /**
+     * Method to change float task into deadline task
+     * @param source
+     * @return DeadlineTask
+     */
+    public DeadlineTask changeToDeadlineTask(FloatTask source) {
+        assert source != null;
+        return new DeadlineTask(source);
+    }
     
+    public EventTask changeToEventTask (FloatTask source) {
+        assert source != null;
+        return new EventTask(source);
+    }
     @Override
     public String getDetailsString() {
         return "";

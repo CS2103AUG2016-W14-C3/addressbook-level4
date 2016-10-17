@@ -24,10 +24,18 @@ public class EventTask extends Task {
 
     public EventTask(ReadOnlyTask source) {
         super(source);
+        if (source instanceof FloatTask) {
+            startDate = null;
+            endDate = null;
+        }
         if (source instanceof EventTask) {
             EventTask event = (EventTask) source;
             startDate = event.getStartDate();
             endDate = event.getEndDate();
+        }
+        if(source instanceof DeadlineTask) {
+            startDate = ((DeadlineTask) source).getDeadlineDate();
+            endDate = ((DeadlineTask) source).getDeadlineDate();
         }
     }
 
@@ -43,7 +51,26 @@ public class EventTask extends Task {
     public Date getStartDate() {
         return startDate;
     }
-
+   
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+   
+    /**
+     * Method to change the EventTask to a DeadlineTask and setting the deadline date as the start date 
+     * for EventTask
+     * @param source
+     * @return DeadlineTask
+     */
+    public DeadlineTask changeToDeadlineTask(EventTask source) {
+        assert source != null && source.getStartDate() != null && source.getEndDate() != null;
+        return new DeadlineTask(source);               
+    }
+    
     @Override
     public Task copy() {
         return new EventTask((ReadOnlyTask) this);

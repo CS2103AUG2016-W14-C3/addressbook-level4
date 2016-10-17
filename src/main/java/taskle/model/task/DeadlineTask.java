@@ -6,13 +6,14 @@ import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
 
 /**
- * Deadline task object that guarantees non-null fields for task
- * and nullable field for deadlineDate.
+ * Deadline task object that guarantees non-null fields for task and nullable
+ * field for deadlineDate.
+ * 
  * @author Abel
  *
  */
 public class DeadlineTask extends Task {
-    
+
     private Date deadlineDate;
 
     public DeadlineTask(Name name, Date deadlineDate, UniqueTagList tags) {
@@ -22,29 +23,47 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(ReadOnlyTask source) {
         super(source);
+        if (source instanceof FloatTask) {
+            deadlineDate = null;
+        }
         if (source instanceof DeadlineTask) {
             deadlineDate = ((DeadlineTask) source).getDeadlineDate();
         }
-        
+        if (source instanceof EventTask) {
+            deadlineDate = ((EventTask) source).getStartDate();
+        }
+
     }
 
     @Override
     public String getDetailsString() {
         return DateFormatUtil.formatDate(deadlineDate);
     }
-    
+
     public Date getDeadlineDate() {
         return deadlineDate;
     }
 
+    public void setDeadlineDate(Date deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+    
+    public EventTask changeToEventTask(DeadlineTask source) {
+        return new EventTask(source);
+    }
+    
+    public FloatTask changeToFloatTask(DeadlineTask source) {
+        return new FloatTask(source);
+    }
+    
     @Override
     public Task copy() {
         return new DeadlineTask((ReadOnlyTask) this);
     }
-    
+
     /**
-     * Converts the task into a string that can represent
-     * its addition in a command as well.
+     * Converts the task into a string that can represent its addition in a
+     * command as well.
      */
     @Override
     public String toString() {
