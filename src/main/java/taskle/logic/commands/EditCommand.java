@@ -12,6 +12,7 @@ import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task
  * manager.
+ * @author zhiyong 
  */
 public class EditCommand extends Command {
 
