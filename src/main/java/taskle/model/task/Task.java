@@ -1,14 +1,14 @@
-package taskle.model.person;
+package taskle.model.task;
 
 import java.util.Objects;
 
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
 import taskle.commons.util.CollectionUtil;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
 
 /**
- * Represents a Task in the task manager.
+ * Abstraction for all Task in the task manager.
  * Guarantees: details are present and not null, field values are validated.
  */
 public abstract class Task implements ReadOnlyTask {
@@ -68,14 +68,14 @@ public abstract class Task implements ReadOnlyTask {
         return Objects.hash(name, tags);
     }
 
+    /**
+     * Converts the task into a string that can represent
+     * its addition in a command as well.
+     */
     @Override
     public String toString() {
-        return getAsText();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName());
+        return builder.toString();
     }
-    
-    public abstract DateTime getDateTime();
-    
-    public abstract String getDateTimeString();
-
-
 }

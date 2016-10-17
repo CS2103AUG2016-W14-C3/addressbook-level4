@@ -1,11 +1,15 @@
 package taskle.logic.commands;
 
+import java.util.Date;
+
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.model.person.FloatTask;
-import taskle.model.person.Name;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.DeadlineTask;
+import taskle.model.task.EventTask;
+import taskle.model.task.FloatTask;
+import taskle.model.task.Name;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
 
 /**
  * Adds a task to the Task Manager.
@@ -19,8 +23,8 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Task Manager."
-            + "Format: add task_name [by date time] [remind date time]"
-            + " or add task_name [from date time] [to date time] [remind date time]"
+            + "Format: add task_name [by date & time] [remind date time]"
+            + " or add task_name [from date & time] [to date & time] [remind date time]"
             + "Example: " + COMMAND_WORD
             + " add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
 
@@ -30,7 +34,7 @@ public class AddCommand extends Command {
     private final Task toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Convenience constructor using raw name value.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
@@ -38,6 +42,32 @@ public class AddCommand extends Command {
             throws IllegalValueException {
         this.toAdd = new FloatTask(new Name(name), stubTagList);
     }
+    
+    /**
+     * Convenience constructor using raw name 
+     * and DateTime object for deadline date. 
+     *
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, Date deadlineDate)
+            throws IllegalValueException {
+        assert deadlineDate != null;
+        this.toAdd = new DeadlineTask(new Name(name), deadlineDate, stubTagList);
+    }
+    
+    /**
+     * Convenience constructor using raw name 
+     * and DateTime objects for start and end dates.
+     * 
+     * @throws IllegalValueException if any of the raw values are invalid
+     */
+    public AddCommand(String name, Date startDate, Date endDate)
+            throws IllegalValueException {
+        assert startDate != null;
+        assert endDate != null;
+        this.toAdd = new EventTask(new Name(name), startDate, endDate, stubTagList);
+    }
+
 
     @Override
     public CommandResult execute() {

@@ -3,16 +3,14 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 /**
  * Provides a handle to a person card in the person list panel.
  */
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
-    private static final String PHONE_FIELD_ID = "#phone";
-    private static final String EMAIL_FIELD_ID = "#email";
+    private static final String DETAILS_FIELD_ID = "#details";
 
     private Node node;
 
@@ -29,20 +27,13 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getDetails() {
+        return getTextFromLabel(DETAILS_FIELD_ID);
     }
 
-    public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
-    }
-
-    public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
-    }
-
-    public boolean isSamePerson(ReadOnlyTask person){
-        return getFullName().equals(person.getName().fullName);
+    public boolean isSameTask(ReadOnlyTask task){
+        return getFullName().equals(task.getName().fullName)
+                && getDetails().equals(task.getDetailsString());
     }
 
     @Override
@@ -50,13 +41,13 @@ public class TaskCardHandle extends GuiHandle {
         if(obj instanceof TaskCardHandle) {
             TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getDetails().equals(handle.getDetails());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getDetails();
     }
 }

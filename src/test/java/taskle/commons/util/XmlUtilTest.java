@@ -8,7 +8,7 @@ import taskle.commons.util.FileUtil;
 import taskle.commons.util.XmlUtil;
 import taskle.model.TaskManager;
 import taskle.storage.XmlSerializableTaskManager;
-import taskle.testutil.AddressBookBuilder;
+import taskle.testutil.TaskManagerBuilder;
 import taskle.testutil.TestUtil;
 
 import javax.xml.bind.JAXBException;
@@ -86,7 +86,7 @@ public class XmlUtilTest {
         assertEquals((new TaskManager(dataToWrite)).toString(),(new TaskManager(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
-        AddressBookBuilder builder = new AddressBookBuilder(new TaskManager());
+        TaskManagerBuilder builder = new TaskManagerBuilder(new TaskManager());
         dataToWrite = new XmlSerializableTaskManager(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);

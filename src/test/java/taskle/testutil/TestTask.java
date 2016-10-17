@@ -1,10 +1,10 @@
 package taskle.testutil;
 
-import taskle.model.person.*;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.*;
 
 /**
- * A mutable person object. For testing only.
+ * A mutable task object. For testing only.
  */
 public class TestTask implements ReadOnlyTask {
 
@@ -31,7 +31,7 @@ public class TestTask implements ReadOnlyTask {
 
     @Override
     public String toString() {
-        return getAsText();
+        return name.fullName;
     }
 
     public String getAddCommand() {
@@ -39,5 +39,17 @@ public class TestTask implements ReadOnlyTask {
         sb.append("add " + this.getName().fullName + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+
+    @Override
+    public Task copy() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getDetailsString() {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

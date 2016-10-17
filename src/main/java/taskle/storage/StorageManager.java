@@ -1,20 +1,19 @@
 package taskle.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.events.model.TaskManagerChangedEvent;
-import taskle.commons.events.storage.StorageLocationChangedEvent;
 import taskle.commons.events.storage.DataSavingExceptionEvent;
+import taskle.commons.events.storage.StorageLocationChangedEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.UserPrefs;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Manages storage of AddressBook data in local storage.

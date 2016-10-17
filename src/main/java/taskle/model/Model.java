@@ -2,13 +2,11 @@ package taskle.model;
 
 import java.util.Set;
 
-
-import taskle.commons.core.ModifiableObservableList;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.model.person.Name;
-import taskle.model.person.ReadOnlyTask;
-import taskle.model.person.Task;
-import taskle.model.person.UniqueTaskList;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
+import taskle.model.task.UniqueTaskList;
 
 /**
  * The API of the Model component.

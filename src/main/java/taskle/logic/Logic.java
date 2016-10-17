@@ -2,7 +2,7 @@ package taskle.logic;
 
 import javafx.collections.ObservableList;
 import taskle.logic.commands.CommandResult;
-import taskle.model.person.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask;
 
 /**
  * API of the Logic component
