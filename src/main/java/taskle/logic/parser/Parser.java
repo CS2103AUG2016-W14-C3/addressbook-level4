@@ -44,6 +44,7 @@ public class Parser {
                               new EditCommandParser(),
                               new FindCommandParser(),
                               new ListCommandParser(),
+                              new UndoCommandParser(),
                               new HelpCommandParser(),
                               new ClearCommandParser(),
                               new ExitCommandParser(),
@@ -70,6 +71,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         return prepareCommand(commandWord, arguments);
     }
     
