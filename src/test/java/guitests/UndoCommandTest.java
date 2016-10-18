@@ -5,7 +5,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import taskle.logic.commands.AddCommand;
+import taskle.logic.commands.ClearCommand;
 import taskle.logic.commands.DoneCommand;
+import taskle.logic.commands.EditCommand;
+import taskle.logic.commands.RemoveCommand;
+import taskle.logic.commands.RescheduleCommand;
+import taskle.logic.commands.UndoCommand;
 import taskle.model.task.Task;
 
 public class UndoCommandTest extends AddressBookGuiTest {
@@ -22,30 +27,30 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertUndoSuccess(currentList);
         
         //Undo after remove command
-        commandBox.runCommand("remove 1");
+        commandBox.runCommand(RemoveCommand.COMMAND_WORD + " 1");
         assertUndoSuccess(currentList);
         
         //Undo after edit command
-        commandBox.enterCommand("edit 1 " + td.helpFriend.getName().fullName);
+        commandBox.enterCommand(EditCommand.COMMAND_WORD + " 1 " + td.helpFriend.getName().fullName);
         assertUndoSuccess(currentList);
         
         //Undo after clear command
-        commandBox.runCommand("clear");
+        commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertUndoSuccess(currentList);
         
         //Undo after reschedule command
-        commandBox.runCommand("reschedule 1 18 Oct");
+        commandBox.runCommand(RescheduleCommand.COMMAND_WORD + " 1 18 Oct");
         assertUndoSuccess(currentList);
         
         //Undo after done command
-        commandBox.runCommand(DoneCommand.COMMAND_WORD);
+        commandBox.runCommand(DoneCommand.COMMAND_WORD + " 1");
         assertUndoSuccess(currentList);
     }
     
     private void assertUndoSuccess(Task... expectedHits) {
-        commandBox.runCommand("undo");
+        commandBox.runCommand(UndoCommand.COMMAND_WORD);
         
-        //Confirms the list size remains the same
+        //Confirms the list size remains the same and does reverts to its original after undo
         assertListSize(expectedHits.length);
         assertTrue(taskListPanel.isListMatching(expectedHits.length));
     }
