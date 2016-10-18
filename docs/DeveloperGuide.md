@@ -1,5 +1,12 @@
-# Developer Guide 
+# Taskle Developer Guide 
 
+
+## Introduction
+Taskle is a task management application that helps users keep track of their tasks efficiently.  It comprises a Command Line Interface (CLI) for the input of all commands and a GUI for the output.  
+
+This guide describes the design and implementation of Taskle. It will help you understand how Taskle works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
+  
+## Table of Contents
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
