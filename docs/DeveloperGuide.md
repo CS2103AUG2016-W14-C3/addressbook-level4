@@ -305,12 +305,12 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 
 (For all use cases below, the **System** is the `To-do Manager` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: [UC01] Add Task
+#### Use case: [UC01] Add Float Task
 
 **MSS**
 
 1. User enters command to add a new task.
-2. System adds new task. <br/>
+2. System adds new float task. <br/>
 Use Case ends.
 
 **Extensions**
@@ -320,7 +320,52 @@ Use Case ends.
 > 1ai. System displays an error message. <br/>
 	Use Case ends.
 
-#### Use case: [UC02] Edit Task
+#### Use case: [UC02] Add Deadline Task
+
+**MSS**
+
+1. User enters command to add a new deadline task with a specified date.
+2. System adds new deadline task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br/>
+	Use Case ends.
+
+1b. User enters an invalid date.
+
+>1bi. System displays an error message. <br/>
+	Use Case ends.
+	
+#### Use case: [UC03] Add Event Task
+
+**MSS**
+
+1. User enters command to add a new event task with 2 specified dates (from and to).
+2. System adds new event task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br/>
+	Use Case ends.
+
+1b. User enters an invalid date.
+
+>1bi. System displays an error message. <br/>
+	Use Case ends.
+	
+1c. More than 3 dates entered.
+
+>1ci. System displays an error message. <br/>
+	Use Case ends.
+		
+#### Use case: [UC04] Edit Task
 
 **Preconditions**
 
@@ -344,7 +389,70 @@ Use Case ends.
 > 1bi. System displays an error message. <br>
  	Use Case ends.
 
-#### Use case: [UC03] Remove Single Task
+#### Use case: [UC05] Reschedule Task
+
+**Preconditions**
+
+Task exists in system
+
+**MSS**
+
+1. User enters command to reschedule a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+ 	
+1c. User enters an invalid date.
+
+>1ci.  System displays an error message. <br>
+ 	Use Case ends.
+ 	
+1d. More than 3 dates entered.
+
+>1di.  System displays an error message. <br>
+ 	Use Case ends.
+ 	
+#### Use case: [UC06] Add Reminder to Task
+
+**Preconditions**
+
+Task exists in system
+
+**MSS**
+
+1. User enters command to edit a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+ 	
+1c. User enters an invalid date and time.
+
+>1ci.  System displays an error message. <br>
+ 	Use Case ends. 
+	
+#### Use case: [UC07] Remove Single Task
 
 **Preconditions**
 
@@ -368,7 +476,7 @@ Use Case ends.
 > 1bi. System displays an error message. <br>
  	Use Case ends.
 
-#### Use case: [UC04] Remove All Tasks
+#### Use case: [UC08] Remove All Tasks
 
 **MSS**
 
@@ -389,7 +497,7 @@ Use Case ends.
 
 > Use Case ends.
 
-#### Use case: [UC05] Mark Task as Done
+#### Use case: [UC09] Mark Task as Done
 
 **Preconditions**
 
@@ -414,7 +522,7 @@ Use Case ends.
  	Use Case ends.
     
 
-#### Use case: [UC06] Find Task
+#### Use case: [UC10] Find Task
 
 **Preconditions**
 
@@ -437,7 +545,7 @@ Use Case ends.
 
 > Use Case ends.
 
-#### Use case: [UC07] Undo Command
+#### Use case: [UC11] Undo Command
 
 **MSS**
 
@@ -452,7 +560,7 @@ Use Case ends.
 > 1ai. System displays "Nothing to Undo" message. <br>
 	Use Case ends.
 
-#### Use case: [UC08] View Help
+#### Use case: [UC12] View Help
 
 **MSS**
 
@@ -460,7 +568,7 @@ Use Case ends.
 2. System displays list of commands available. <br/>
 Use Case ends.
 	
-#### Use case: [UC09] Change Storage File Location
+#### Use case: [UC13] Change Storage File Location
 
 **MSS**
 
@@ -477,7 +585,7 @@ Use Case ends.
 
 > Use Case ends.
 
-#### Use case: [UC10] Switch storage file
+#### Use case: [UC14] Switch storage file
 
 **MSS**
 
