@@ -58,7 +58,7 @@ public class DoneCommandTest extends AddressBookGuiTest{
 	    
 	    private void assertDoneResultSuccess(String command, String taskNumber) {
 	        commandBox.runCommand(command);
-	        assertResultMessage("Task: " + taskNumber + " Completed!");
+	        assertResultMessage("Task Completed!");
 	    }
 	    
 	    private void assertEditInvalidIndex(String command) {
