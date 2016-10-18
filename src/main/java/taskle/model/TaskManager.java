@@ -121,7 +121,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
@@ -129,13 +129,21 @@ public class TaskManager implements ReadOnlyTaskManager {
         }
     }
     
-    public void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+    public void editTask(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
         tasks.edit(index, newName);
     }
-    
+
     public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
         tasks.editDate(index, dates);
     }
+    
+     public void doneTask(int index, boolean targetDone) {
+        tasks.done(index, targetDone);
+     }
+     
+     public void unDoneTask(Task task) {
+         tasks.unDone(task);
+     }
 
 //// tag-level operations
 
