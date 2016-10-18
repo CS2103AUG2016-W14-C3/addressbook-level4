@@ -14,7 +14,11 @@ public class TaskUtil {
     public static EventTask deadlineChangeToEvent(DeadlineTask source) {
         assert source != null;
         assert source.getDeadlineDate() != null;
-        return new EventTask(source);
+        
+        EventTask eventTask = new EventTask(source);
+        eventTask.setStartDate(source.getDeadlineDate());
+        eventTask.setEndDate(source.getDeadlineDate());
+        return eventTask;
     }
     
     /**
@@ -35,7 +39,10 @@ public class TaskUtil {
     public static DeadlineTask eventChangeToDeadline(EventTask source) {
         assert source != null;
         assert source.getStartDate() != null || source.getEndDate() != null;
-        return new DeadlineTask(source);               
+        
+        DeadlineTask deadlineTask = new DeadlineTask(source);
+        deadlineTask.setDeadlineDate(source.getStartDate());
+        return deadlineTask;
     }
     
     /**

@@ -23,16 +23,10 @@ public class DeadlineTask extends Task {
 
     public DeadlineTask(ReadOnlyTask source) {
         super(source);
-        if (source instanceof FloatTask) {
-            deadlineDate = null;
-        }
+        
         if (source instanceof DeadlineTask) {
             deadlineDate = ((DeadlineTask) source).getDeadlineDate();
         }
-        if (source instanceof EventTask) {
-            deadlineDate = ((EventTask) source).getStartDate();
-        }
-
     }
 
     @Override

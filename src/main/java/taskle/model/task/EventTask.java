@@ -24,18 +24,11 @@ public class EventTask extends Task {
 
     public EventTask(ReadOnlyTask source) {
         super(source);
-        if (source instanceof FloatTask) {
-            startDate = null;
-            endDate = null;
-        }
+        
         if (source instanceof EventTask) {
             EventTask event = (EventTask) source;
             startDate = event.getStartDate();
             endDate = event.getEndDate();
-        }
-        if(source instanceof DeadlineTask) {
-            startDate = ((DeadlineTask) source).getDeadlineDate();
-            endDate = ((DeadlineTask) source).getDeadlineDate();
         }
     }
 
