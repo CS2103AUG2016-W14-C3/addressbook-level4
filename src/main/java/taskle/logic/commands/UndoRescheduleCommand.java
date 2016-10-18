@@ -38,14 +38,14 @@ public class UndoRescheduleCommand extends UndoCommand {
             List<Date> originalDates = new ArrayList<>();
             
             if (task instanceof FloatTask) {
-                model.editTaskDate(rescheduleCommand.targetIndex - 1, null);
+                model.editTaskDate(rescheduleCommand.targetIndex, null);
             } else if (task instanceof DeadlineTask) {
                 originalDates.add(((DeadlineTask) task).getDeadlineDate());
-                model.editTaskDate(rescheduleCommand.targetIndex - 1, originalDates);
+                model.editTaskDate(rescheduleCommand.targetIndex, originalDates);
             } else {
                 originalDates.add(((EventTask) task).getStartDate());
                 originalDates.add(((EventTask) task).getEndDate());
-                model.editTaskDate(rescheduleCommand.targetIndex - 1, originalDates);
+                model.editTaskDate(rescheduleCommand.targetIndex, originalDates);
             }
         
         } catch (TaskNotFoundException e) {

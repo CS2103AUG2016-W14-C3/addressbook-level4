@@ -53,7 +53,7 @@ public class RescheduleCommand extends Command{
             tasksAffected = new ArrayList<Task>();
             Task originalTask = taskToEdit.copy();
             tasksAffected.add(originalTask);
-            model.editTaskDate(offsetIndex, dates);
+            model.editTaskDate(targetIndex, dates);
             tasksAffected.add((Task) taskToEdit);
             History.insert(this);
         } catch (TaskNotFoundException pnfe) {
