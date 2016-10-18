@@ -22,12 +22,8 @@ public class DoneCommandTest extends AddressBookGuiTest{
 	        String index = "1";
 	        String command = buildCommand(index);
 	        //String oldName = td.attendMeeting.getName().fullName;
-	        System.out.println(Integer.parseInt(index));
+	        //System.out.println(Integer.parseInt(index));
 	        assertDoneResultSuccess(command, index);
-	        
-	        //TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-	        //FloatTask newTask = new FloatTask(newName, new UniqueTagList());
-	        //assertMatching(newTask, addedCard);
 	    }
 	    
 	    /**
