@@ -72,7 +72,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
-                System.out.println("getting task list");
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();

@@ -417,7 +417,7 @@ public class LogicManagerTest {
         Name newName = new Name(taskName);
         Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
         String oldName = taskToEdit.getName().fullName;
-        expectedAB.editTask(Integer.parseInt(index), newName);
+        expectedAB.editTask(0, newName);
         helperTest.addToModel(model, threePersonsTest);
         // execute command and verify result
         assertCommandBehavior(

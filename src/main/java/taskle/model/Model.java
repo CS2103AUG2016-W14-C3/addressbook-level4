@@ -28,6 +28,12 @@ public interface Model {
     
     /** Edits the date / time of the task */
     void editTaskDate(int index, List<Date> dates) throws UniqueTaskList.TaskNotFoundException;
+   
+    /** Marks the task as done*/
+    void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
+    
+    /** Marks the task as undone */
+    void unDoneTask(Task task);
     
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
@@ -37,6 +43,9 @@ public interface Model {
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show tasks that are not done*/
+    void updateFilteredListToShowAllNotDone();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
