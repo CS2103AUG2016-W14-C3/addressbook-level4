@@ -1,5 +1,12 @@
-# Developer Guide 
+# Taskle Developer Guide 
 
+
+## Introduction
+Taskle is a task management application that helps users keep track of their tasks efficiently.  It comprises a Command Line Interface (CLI) for the input of all commands and a GUI for the output.  
+
+This guide describes the design and implementation of Taskle. It will help you understand how Taskle works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
+  
+## Table of Contents
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -50,7 +57,7 @@
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/taskle/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -61,53 +68,55 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+interface and exposes its functionality using the `LogicManager.java` class.<br><br>
+<img src="images/LogicClassDiagram.png" width="800"><br><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `remove 1`.<br>
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
+<br>
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br><br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
+<br>
 The sections below give more details of each component.
 
 ### UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/taskle/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` and `TaskCard`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/taskle/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component:
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
@@ -116,14 +125,16 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/taskle/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+2. `History` saves the commands that `LogicManager` executes.
+3. `Parser` uses the CommandParser classes to parse the command.
+4. It returns a `Command` object which is executed by the `LogicManager`.
+5. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+6. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
@@ -131,28 +142,28 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/taskle/model/Model.java)
 
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+The `Model`:
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Task Manager data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Does not depend on any of the other three components.
 
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/taskle/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+The `Storage` component:
+* Can save `UserPref` objects in json format and read it back.
+* Can save the Task Manager data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `taskle.commons` package.
 
 ## Implementation
 
@@ -204,13 +215,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `taskle.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `taskle.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `taskle.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -241,7 +252,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Taskle depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -295,14 +306,29 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `To-do Manager` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Taskle` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: [UC01] Add Task
+#### Use case: [UC01] Add Float Task
 
 **MSS**
 
 1. User enters command to add a new task.
-2. System adds new task. <br/>
+2. System adds new float task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br/>
+  Use Case ends.
+
+#### Use case: [UC02] Add Deadline Task
+
+**MSS**
+
+1. User enters command to add a new deadline task with a specified date.
+2. System adds new deadline task. <br/>
 Use Case ends.
 
 **Extensions**
@@ -312,7 +338,95 @@ Use Case ends.
 > 1ai. System displays an error message. <br/>
 	Use Case ends.
 
-#### Use case: [UC02] Edit Task
+1b. User enters an invalid date.
+
+>1bi. System displays an error message. <br/>
+	Use Case ends.
+	
+#### Use case: [UC03] Add Event Task
+
+**MSS**
+
+1. User enters command to add a new event task with 2 specified dates (from and to).
+2. System adds new event task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br/>
+	Use Case ends.
+
+1b. User enters an invalid date.
+
+>1bi. System displays an error message. <br/>
+	Use Case ends.
+	
+1c. More than 3 dates entered.
+
+>1ci. System displays an error message. <br/>
+	Use Case ends.
+		
+#### Use case: [UC04] Edit Task
+
+**Preconditions**
+
+Task exists in system
+
+**MSS**
+
+1. User enters command to edit a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+  Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+  Use Case ends.
+
+#### Use case: [UC05] Reschedule Task
+
+**Preconditions**
+
+Task exists in system
+
+**MSS**
+
+1. User enters command to reschedule a task.
+2. System edits task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+	Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+ 	Use Case ends.
+ 	
+1c. User enters an invalid date.
+
+>1ci.  System displays an error message. <br>
+ 	Use Case ends.
+ 	
+1d. More than 3 dates entered.
+
+>1di.  System displays an error message. <br>
+ 	Use Case ends.
+ 	
+#### Use case: [UC06] Add Reminder to Task
 
 **Preconditions**
 
@@ -335,8 +449,13 @@ Use Case ends.
 
 > 1bi. System displays an error message. <br>
  	Use Case ends.
+ 	
+1c. User enters an invalid date and time.
 
-#### Use case: [UC03] Remove Single Task
+>1ci.  System displays an error message. <br>
+ 	Use Case ends. 
+	
+#### Use case: [UC07] Remove Single Task
 
 **Preconditions**
 
@@ -353,14 +472,14 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
+  Use Case ends.
 
-#### Use case: [UC04] Remove All Tasks
+#### Use case: [UC08] Remove All Tasks
 
 **MSS**
 
@@ -375,13 +494,13 @@ Use Case ends.
 1a. There are no pending tasks.
 
 > 1ai. System displays "No Pending Tasks" message. <br>
-	Use Case ends.
+  Use Case ends.
 
 3a. User cancels request.
 
 > Use Case ends.
 
-#### Use case: [UC05] Mark Task as Done
+#### Use case: [UC09] Mark Task as Done
 
 **Preconditions**
 
@@ -398,15 +517,15 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
+  Use Case ends.
     
 
-#### Use case: [UC06] Find Task
+#### Use case: [UC10] Find Task
 
 **Preconditions**
 
@@ -423,13 +542,13 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. No tasks matches search query.
 
 > Use Case ends.
 
-#### Use case: [UC07] Undo Command
+#### Use case: [UC11] Undo Command
 
 **MSS**
 
@@ -442,9 +561,9 @@ Use Case ends.
 1a. No commands to undo.
 
 > 1ai. System displays "Nothing to Undo" message. <br>
-	Use Case ends.
+  Use Case ends.
 
-#### Use case: [UC08] View Help
+#### Use case: [UC12] View Help
 
 **MSS**
 
@@ -452,7 +571,7 @@ Use Case ends.
 2. System displays list of commands available. <br/>
 Use Case ends.
 	
-#### Use case: [UC09] Change Storage File Location
+#### Use case: [UC13] Change Storage File Location
 
 **MSS**
 
@@ -465,11 +584,11 @@ Use Case ends.
 
 **Extensions**
 
-3a. User cancels request.
+1a. User cancels request.
 
 > Use Case ends.
 
-#### Use case: [UC10] Switch storage file
+#### Use case: [UC14] Switch storage file
 
 **MSS**
 
@@ -482,7 +601,7 @@ Use Case ends.
 
 **Extensions**
 
-3a. User cancels request.
+1a. User cancels request.
 
 > Use Case ends.
 
