@@ -14,10 +14,12 @@ public class UndoClearCommand extends UndoCommand {
  
     /**
      * Undo Clear Command by adding all tasks that were previously removed
+     * @param command clear command
+     * @param model current model
      * @return the command feedback
      */
-    public CommandResult undoClear(Command command, Model moddel) {
-        assert command != null;
+    public CommandResult undoClear(Command command, Model model) {
+        assert command != null && model != null;
         
         for (int i = 0; i < command.getTasksAffected().size(); i++) {
             try {

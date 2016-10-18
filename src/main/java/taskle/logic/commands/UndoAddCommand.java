@@ -15,10 +15,12 @@ public class UndoAddCommand extends UndoCommand {
     
     /**
      * Undo Add Command by removing tasks that were previously added
+     * @param command add command
+     * @param model current model
      * @return feedback of undo operation
      */
     public CommandResult undoAdd(Command command, Model model) {
-        assert command != null;
+        assert command != null && model != null;
         
         Task task = command.getTasksAffected().get(0);
         try {

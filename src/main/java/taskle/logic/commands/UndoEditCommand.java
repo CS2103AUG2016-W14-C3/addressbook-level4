@@ -17,10 +17,12 @@ public class UndoEditCommand extends UndoCommand {
     
     /**
      * Undo Edit Command by editing tasks to its original content
+     * @param command edit command
+     * @param model current model
      * @return feedback of undo operation
      */
     public CommandResult undoEdit(Command command, Model model) {
-        assert command != null;
+        assert command != null && model != null;
         
         Task task = command.getTasksAffected().get(0);
         EditCommand editCommand = (EditCommand) command;

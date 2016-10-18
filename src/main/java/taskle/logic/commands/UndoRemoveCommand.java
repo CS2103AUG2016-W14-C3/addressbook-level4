@@ -15,10 +15,12 @@ public class UndoRemoveCommand extends UndoCommand {
     
     /**
      * Undo Remove Command by adding most recent task that were previously removed
+     * @param command remove command
+     * @param model current model
      * @return the command feedback
      */
     public CommandResult undoRemove(Command command, Model model) {
-        assert command != null;
+        assert command != null && model != null;
         
         Task task = command.getTasksAffected().get(0);
         System.out.println(task.toString());

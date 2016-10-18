@@ -22,11 +22,18 @@ public class UndoRescheduleCommand extends UndoCommand {
 
     public UndoRescheduleCommand() {}
 
+    /**
+     * Undo Reschedule Command restores original dates into recently rescheduled tasks
+     * @param command reschedule command
+     * @param model current model
+     * @return
+     */
     public CommandResult undoReschedule(Command command, Model model) {
-        assert command != null;
+        assert command != null && model != null;
         
         Task task = command.getTasksAffected().get(0);
         RescheduleCommand rescheduleCommand = (RescheduleCommand) command;
+        
         try {
             List<Date> originalDates = new ArrayList<>();
             
