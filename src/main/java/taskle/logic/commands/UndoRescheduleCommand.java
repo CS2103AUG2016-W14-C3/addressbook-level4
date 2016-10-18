@@ -1,6 +1,13 @@
 package taskle.logic.commands;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import taskle.model.Model;
+import taskle.model.task.DeadlineTask;
+import taskle.model.task.EventTask;
+import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList;
 import taskle.model.task.UniqueTaskList.DuplicateTaskException;
@@ -21,7 +28,19 @@ public class UndoRescheduleCommand extends UndoCommand {
         Task task = command.getTasksAffected().get(0);
         RescheduleCommand rescheduleCommand = (RescheduleCommand) command;
         try {
-            model.editTaskDate(rescheduleCommand.targetIndex - 1, rescheduleCommand.dates);
+            List<Date> originalDates = new ArrayList<>();
+            
+            if (task instanceof FloatTask) {
+                model.editTaskDate(rescheduleCommand.targetIndex - 1, null);
+            } else if (task instanceof DeadlineTask) {
+                originalDates.add(((DeadlineTask) task).getDeadlineDate());
+                model.editTaskDate(rescheduleCommand.targetIndex - 1, originalDates);
+            } else {
+                originalDates.add(((EventTask) task).getStartDate());
+                originalDates.add(((EventTask) task).getEndDate());
+                model.editTaskDate(rescheduleCommand.targetIndex - 1, originalDates);
+            }
+        
         } catch (TaskNotFoundException e) {
             e.printStackTrace();
         }
