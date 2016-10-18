@@ -9,8 +9,6 @@ import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
-import taskle.model.task.UniqueTaskList.DuplicateTaskException;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**

@@ -2,7 +2,6 @@ package taskle.logic.commands;
 
 import taskle.model.Model;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
 import taskle.model.task.UniqueTaskList.DuplicateTaskException;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
