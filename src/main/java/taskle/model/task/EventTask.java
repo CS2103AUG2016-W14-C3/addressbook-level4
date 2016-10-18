@@ -24,18 +24,11 @@ public class EventTask extends Task {
 
     public EventTask(ReadOnlyTask source) {
         super(source);
-        if (source instanceof FloatTask) {
-            startDate = null;
-            endDate = null;
-        }
+        
         if (source instanceof EventTask) {
             EventTask event = (EventTask) source;
             startDate = event.getStartDate();
             endDate = event.getEndDate();
-        }
-        if(source instanceof DeadlineTask) {
-            startDate = ((DeadlineTask) source).getDeadlineDate();
-            endDate = ((DeadlineTask) source).getDeadlineDate();
         }
     }
 
@@ -60,27 +53,6 @@ public class EventTask extends Task {
         this.startDate = startDate;
     }
    
-    /**
-     * Method to return a DeadlineTask from the given EventTask
-     * @param source
-     * @return DeadlineTask
-     */
-    public DeadlineTask changeToDeadlineTask(EventTask source) {
-        assert source != null;
-        assert source.getStartDate() != null || source.getEndDate() != null;
-        return new DeadlineTask(source);               
-    }
-    
-    /**
-     * Method to return a FloatTask from the given EventTask
-     * @param source
-     * @return
-     */
-    public FloatTask changeToFloatTask(EventTask source) {
-        assert source != null;
-        return new FloatTask(source);  
-    }
-    
     @Override
     public Task copy() {
         return new EventTask(this);
