@@ -5,6 +5,7 @@ import taskle.logic.commands.CommandResult;
 import taskle.logic.commands.DoneCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.Model;
+import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
@@ -19,12 +20,8 @@ public class UndoDoneCommand extends UndoCommand {
     public CommandResult undoDone(Command command, Model model) {
         assert command != null & model != null;
         
-        DoneCommand doneCommand = (DoneCommand) command;
-        try {
-            model.doneTask(doneCommand.targetIndex, false);
-        } catch (TaskNotFoundException e) {
-            e.printStackTrace();
-        }
+        Task task = command.getTasksAffected().get(0);
+        model.unDoneTask(task);
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
     }
