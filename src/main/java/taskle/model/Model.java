@@ -39,6 +39,9 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
+    void updateFilteredListToShowAll();
+    
+    /** Updates the filter of the filtered task list to show tasks that are not done*/
     void updateFilteredListToShowAllNotDone();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
