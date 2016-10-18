@@ -296,7 +296,7 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `To-do Manager` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Taskle` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: [UC01] Add Task
 
