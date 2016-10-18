@@ -7,115 +7,107 @@
 * [Command Summary](#command-summary)
 
 ## About
-Do you have so many tasks to do everyday that you simply cannot keep track of them anymore? Do not you wish there was an easy way to stay on top of your daily tasks without feeling stressed out?
+Do you have so many tasks to do every day that you simply cannot keep track of them anymore? Don’t you wish that there was an easier way to stay on top of your daily tasks without feeling stressed out?
 
-*Taskle is here to help you with all of that.*
+Taskle is here to help you with all of that!
 
-It is a task management application with a single text box for all your commands. Coupled with short commands, managing your tasks has never been this easy. 
+It is a task management application with a single text box for all your commands. Coupled with short commands, managing your tasks has never been this easy!
 
-Stop waiting and use Taskle now!
+Re-organize your life by using Taskle now!
+
 
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
    > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
+   This application will not work with earlier versions of Java 8.
    
 1. Download the latest `Taskle.jar` from the [releases](../../../releases) tab.
 
-2. Copy the file to the folder you want to use as the home folder for your task manager application.
+2. Copy the file to the folder where you want to use Taskle.
 
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
+3. Double-click on the file to start the application. The Graphical User Interface (GUI) should appear in a few seconds.
 	> <img src="images/UI/Base.png" width="600">
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
 	> e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
  
-5. Some example commands you can try:
-   * **`add`** `task_name` : Adds task_name to the to-do list
-   * **`add`** `deadline_name by date [time][remind date time]` : Adds deadline_name to the to-do list with a deadline and an accompanying reminder
-   * **`add`** `event_name on date [time][remind date time]` OR **`add`** `event_name from date[time] to date [time][remind date time]` : Adds either event_name to the to-do list with either a flexible or fixed timeline and an accompanying reminder
-   * **`remove`** `task_number` : Removes the task_number shown in the current to-do list
-   * **`clear`** `task_number` : Clears all tasks from the application
-   * **`exit`** : Exits the application
+5. Some commands that you can try:
+   * `add` **`Buy Milk`** : Adds a "Buy Milk" task into Taskle.
+   * `add` **`Submit Proposal by 7 Nov`** : Adds a "Submit Proposal" task which is to be completed by 7 Nov.
+   * `remove` **`5`** : Removes the task with index 5 from the currently shown list.
+   * `clear`: Clears all tasks from Taskle.
+   * `exit` : Exits from Taskle.
    
-6. Refer to the [Features](#features) section below for details of each command.<br>
+6. Refer to the [Features](#features) section for details of each command.<br>
 
 
 ## Features
 
-Taskle makes it elegantly simple to manage your tasks. All of its features require only one single line of command, making it very easy to use! Furthermore, it will be easy for you to keep track of your tasks with no hassle at all!
+Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it a hassle-free experience to keep track of your tasks!
 
-> **Command Format**
-> * Words in **`BOLD`** are the parameters.
+> **Note that the following conventions are used for all command formats:**
+> * **`BOLDED`** words are parameters.
 > * Items in `[SQUARE_BRACKETS]` are optional.
 > * The order of parameters is fixed.
 
 <br>
 
 #### Add a Task / Event: `add`
-   * Adds a task / event into the to-do application, which may have its respective deadline or end-date.
-   * A reminder time can be set for tasks / events with respective deadlines or end-dates
+   * Adds a task / event into Taskle (with its respective deadline or end-date.)
+   * A reminder time can be set for tasks / events.
    * The time parameter is optional.
 
-Type | Format  
-:-------- | :-------- 
-Adds Task | `add `**`task_name`** | 
-Adds Deadline | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |
-Adds Event | `add `**`event_name`**` on `**`date`**` [`**`time`**`] [remind `**`date time`**`]` <br> OR <br> `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
+| Format  
+| :-------- 
+| `add `**`task_name`** | 
+| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |
+| `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
+
+> **`Note`**
+> * You may enter the data and time in any format that you desire, and Taskle will still be able to recognise it.
+> * Only the words after the last **by** or **from** in your input will be taken as the date and time. This allows you to continue using **by** and **from** as part of your task name as long as you enter the date and times last. For example:
+> 	* "add **Gardens by the Bay** from **9am to 9pm today**" adds a task with the name "Gardens by the Bay" with the date and time to be set to "9am to 9pm today".
+
 
 Examples:
-* `add `**`Pay Bills`**
+* `add `**`Pay Phone Bills`**
 * `add `**`Do CS2101 Assignment`**` by `**`12 Oct`**
 * `add `**`Business Trip`**` from `**`4 Oct`**` to `**`5 Oct`**` remind `**`3 Oct 2pm`**
 
 <img src="images/UI/Add.png" width="600">
-
-Note:  
-* When entering date and time, the following formats are allowed:
-	* 14 Jan, 14/01
-	* 9pm, 2100
-	* today, tmr
-	* mon, tue, wed
-
-* Words such as **by**, **on**, **from** and **to** are reserved for commands. When adding tasks, if the name consists of any of the reserved words, they should be enclosed within double quotation marks, (" "). For example:
-	* add "**Collect equipment from Mary**" **tmr**
-
-* When using reserved words **today**, **tmr** and days of the week (e.g. Monday), it is alright to omit the word **on** (applicable for events). For example:
-	* add **Club Briefing tmr** instead of:   add **Club Briefing on tmr**
 	
 <br>
 
 #### Edit a Task : `edit; reschedule; remind`
-Edits a task into the to-do application. There are 3 types of edits possible: Edit Description, Reschedule and Remind. You are required to input the **task_number** (which can be seen in the mockup) in order for the application to identify which task you are intending to edit.<br><br>
+Edits an existing task in Taskle. There are 3 types of edits possible: Edit task name, Reschedule and Remind. You are required to input the **task_number** (as indicated in the mockup) in order for Taskle to identify which task you wish to edit.<br><br>
 
 Type | Format  
 :-------- | :-------- 
-Edit Description | `edit `**`task_number new_task_name`**  
-Reschedule | `reschedule `**`task_number`**` to `**`date`**`[`**`time`**`] [remind `**`date time`**`]`  <br> OR <br> `reschedule `**`task_number`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
-Remind | `remind `**`task_number`**` on `**`date time`**
+Edit task name | `edit `**`task_number new_task_name`**  
+Reschedule | `reschedule `**`task_number` `date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Remind | `remind `**`task_number` `date time`**
+
+> **Things to Note**
+> * A  task can only have one reminder. The date and time as specified in the "remind" command would replace any existing reminder.
+> * **Time** must be specified for reminders so that Taskle can remind you based on the time given.
+> * To remove a reminder or deadline from a task, you will have to type **"clear"** after typing the task number. For example:
+>	* remind **2 clear**
+>	* reschedule **2 clear**
+
 
 Examples:
-* `edit `**`3 Pass money to Abel`**
+* `edit `**`6 Pay Abel for Chicken Rice`**
 
 <img src="images/UI/Edit.png" width="600">
 <img src="images/UI/Edit 2.png" width="600">
 
-* `reschedule `**`Submit proposal `**` to `**`13 Oct 5pm`**
+* `reschedule `**`2 7th October 7pm`**
 
 <img src="images/UI/Reschedule.png" width="600">
 <img src="images/UI/Reschedule 2.png" width="600">
 
-* `remind `**`1 3 Oct 2pm`**
-
-Note:
-* Only one reminder is supported for each task. The date and time specified in the "Remind" command will replace any existing reminder.
- 
-* Reminders need to have a **time** specified in order to know the exact time to remind you of upcoming appointments.
-
-* To remove a reminder or deadline from a task, you will have to type "**null**" after typing the task number. For example:
-	* remind **2 null**
-	* reschedule **2 null**
+* remind **2 null**
 	
 <img src="images/UI/Remind.png" width="600">
 <img src="images/UI/Remind 2.png" width="600">	
@@ -123,36 +115,43 @@ Note:
 <br>
 
 #### Remove a Task: `remove`
-Removes a task from the task management application.<br>
-Format: `remove `**`task_number`**
+Removes a task permanently from Taskle.<br>
+
+| Format  
+| :-------- 
+| `remove` **`task_number`** | 
 
 Examples:
-* `remove `**`4`**
+* `remove `**`6`**
 
-<img src="images/UI/Remove.png" width="600">
 <img src="images/UI/Remove 2.png" width="600">	
 
 <br>
 
 #### Finding a Task : `find`
-Finds a task in the to-do application, based on keywords.<br><br>
-Format: `find [`**`search_query`**`][`**`-pending / -completed / -overdue`**`]`
+Finds all tasks in Taskle that contains the keywords and fulfills the status as specified.<br><br>
+
+| Format  
+| :-------- 
+| `find` **`[keyword] [-status]`** | 
+
+> **Things to Note**
+> * The following statues are available:
+>	* **-pending**: Tasks that are still pending.
+>	* **-done**: Tasks that are marked as done.
+>	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
+> * It is optional to specify the keyword. If no keyword is specified, only the status will be used to find tasks.
+> * To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
+>	* find **-pending**
+> * To view all types of events, you can simply omit the above keywords.
+> * To display all tasks, simple type find.
 
 Examples:
-* `find `**`meeting`**
-* `find `**`submission -overdue`**
+* `find` **`books`**
 
 <img src="images/UI/Find.png" width="600">
 
-Note:
-* After typing the words to search for, you can type any of the following keywords to search for specific types of events:
-	* **-pending**: Tasks that are still pending.
-	* **-completed**: Tasks that are marked as completed.
-	* **-overdue**: Tasks that are overdue (applicable for deadlines only)
-* To view all types of events, you can simply omit the above keywords. 
-* To display all tasks, simply type `find`
-* To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
-	* `find `**`-pending`**
+* `find` **`-pending`**	
 	
 <img src="images/UI/Find Pending.png" width="600">
 
@@ -160,21 +159,35 @@ Note:
 
 #### Mark a Task as Done: `done`
 Marks a task as done. Use this command when you are finished with the task.<br>
-Format: `done`
+
+| Format  
+| :-------- 
+| `done` **`[task_number]`** | 
+
+Example:
+* `Done` **`5`**
 
 <img src="images/UI/Done.png" width="600">
 
 <br>
 
 #### Undoing a Recent Command: `undo`
-Undo a previous command. This command is used when you are finished with the task.<br><br>
-Format: `undo`
+Undo a previous command. This command is used when you wish to revert from the most recently issued command.<br><br>
+
+| Format  
+| :-------- 
+| `undo` | 
 
 <br>
 
 #### Clearing all Tasks: `clear`
-Clears all tasks from the task management application.<br><br>
-Format: `clear`
+Clears all tasks from Taskle.<br><br>
+
+| Format  
+| :-------- 
+| `clear` | 
+
+<br>
 
 <img src="images/UI/Clear.png" width="600">
 
@@ -182,33 +195,44 @@ Format: `clear`
 
 #### View Help: `help`
 Displays a list of available commands.<br>
-Format: `help`
+
+| Format  
+| :-------- 
+| `help` | 
+
+<br>
+
+> **Things to Note**
+> * Help is also shown if you enter an incorrect command. For example: `abcd`.
+> * A list of available commands is shown in a separate window so you can refer to it while using Taskle.
+
+<br>
 
 <img src="images/UI/Help.png" width="600">
-
-Note:
-* Help is also shown if you enter an incorrect command. For example: `abcd`
 
 <br>
 
 #### Exit Taskle: `exit`
-Exits the task management application.<br><br>
-Format: `exit`  
+Exits and closes Taskle.<br><br>
+
+| Format  
+| :-------- 
+| `exit` |
+ 
 <br><br>
 
 
 ## FAQ
 
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the application in the other computer and overwrite the empty data file it creates with 
-       the file created in your previous to-do application folder.
+**Q**: How do I transfer my data to another computer?<br>
+**A**: Install the application in the other computer and overwrite the empty data file it creates with the file created in your previous Taskle folder.
        
 ## Command Summary
 
 The table below shows the overall list of commands used in the application.<br>
 Note the following conventions used:
-* Words in **`BOLD`** are the parameters.
-* Items in `SQUARE_BRACKETS` are optional.
+* **`BOLDED`** words are parameters.
+* Items in `[SQUARE_BRACKETS]` are optional.
 * The order of parameters is fixed.
 
 Command `(Shortcut)` | Format  
@@ -218,12 +242,12 @@ Add `a` | `add `**`task_name`**
  | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
  |`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
 Edit Description `e` | `edit `**`task_number new_task_name`**
-Reschedule `r` | `reschedule `**`task_number`**` to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`<br> OR <br> `reschedule `**`task_number`**` from `**`date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Reschedule `r` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
-Undo `u` | `undo`
-Find `f` | `find [`**`search_query`**`] [`**`-pending / -completed / -overdue`**`]`
+Find `f` | `find [`**`search_query`**`] [`**`-status`**`]`
 Mark as Done `d` | `done `**`task_number`**
+Undo `u` | `undo`
 Clear | `clear`
 Help `h` | `help`
 Exit | `exit`
