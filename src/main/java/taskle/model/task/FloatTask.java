@@ -40,6 +40,7 @@ public class FloatTask extends Task {
         assert source != null;
         return new EventTask(source);
     }
+    
     @Override
     public String getDetailsString() {
         return "";
@@ -47,7 +48,7 @@ public class FloatTask extends Task {
 
     @Override
     public Task copy() {
-        return new FloatTask((ReadOnlyTask) this);
+        return new FloatTask(this);
     }
     
 }
