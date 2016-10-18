@@ -46,6 +46,7 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
+import taskle.model.task.TaskComparator;
 import taskle.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -685,7 +686,9 @@ public class LogicManagerTest {
         }
 
         List<Task> generateTaskList(Task... tasks) {
-            return Arrays.asList(tasks);
+            List<Task> taskList = Arrays.asList(tasks);
+            taskList.sort(new TaskComparator());
+            return taskList;
         }
 
         /**

@@ -17,7 +17,7 @@ public class TaskComparator implements Comparator<Task> {
          * Priority of Type: EventTask/DeadlineTask > FloatTask
          */
         if (mainTask instanceof FloatTask && taskToCompare instanceof FloatTask) {
-            return mainTask.getName().fullName.compareTo(taskToCompare.getName().fullName);
+            return mainTask.getName().fullName.toLowerCase().compareTo(taskToCompare.getName().fullName.toLowerCase());
         } else if (mainTask instanceof FloatTask) {
             return 1;
         } else if (taskToCompare instanceof FloatTask) {
