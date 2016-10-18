@@ -1,10 +1,11 @@
 package taskle.logic.commands;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import taskle.logic.history.History;
-import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
-import taskle.model.task.UniqueTaskList.DuplicateTaskException;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.Model;
 
 /**
  * Undo recent command entered.
@@ -17,10 +18,11 @@ public class UndoCommand extends Command {
             + COMMAND_WORD;
 
     public static final String MESSAGE_SUCCESS = "Restored previous command: [%s %s]";
-
+    
     public UndoCommand() {
+        
     }
-
+    
     @Override
     public CommandResult execute() {
         if (History.isEmpty()) {
@@ -29,18 +31,22 @@ public class UndoCommand extends Command {
             Command command = History.remove();
             
             switch (command.getCommandWord()) {
+            
                 case AddCommand.COMMAND_WORD:
-                    return undoAdd(command);
-
+                    return new UndoAddCommand().undoAdd(command, model);
+            
                 case EditCommand.COMMAND_WORD:
-                    return undoEdit(command);
-
+                    return new UndoEditCommand().undoEdit(command, model);
+            
                 case RemoveCommand.COMMAND_WORD:
-                    return undoRemove(command);
-
+                    return new UndoRemoveCommand().undoRemove(command, model);
+            
                 case ClearCommand.COMMAND_WORD:
-                    return undoClear(command);
-
+                    return new UndoClearCommand().undoClear(command, model);
+                
+                case RescheduleCommand.COMMAND_WORD:
+                    return new UndoRescheduleCommand().undoReschedule(command, model);
+                
                 default:
                     return new CommandResult(History.MESSAGE_EMPTY_HISTORY);
             }
@@ -50,89 +56,5 @@ public class UndoCommand extends Command {
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
-    }
-
-    /**
-     * Undo Add Command by removing tasks that were previously added
-     * 
-     * @param command
-     *            previous Add Command
-     * @return the command feedback
-     */
-    public CommandResult undoAdd(Command command) {
-        assert command != null;
-        
-        Task task = command.getTasksAffected().get(0);
-        try {
-            model.deleteTask(task);
-        } catch (UniqueTaskList.TaskNotFoundException e) {
-            e.printStackTrace();
-        }
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
-    }
-
-    /**
-     * Undo Edit Command by editing tasks to its original content
-     * 
-     * @param command
-     *            previous Edit Command
-     * @return the command feedback
-     */
-    public CommandResult undoEdit(Command command) {
-        assert command != null;
-        
-        Task task = command.getTasksAffected().get(0);
-        EditCommand editCommand = (EditCommand) command;
-        try {
-            model.editTask(editCommand.getIndex(), task.getName());
-        } catch (DuplicateTaskException e) {
-            e.printStackTrace();
-        } catch (TaskNotFoundException e) {
-            e.printStackTrace();
-        }
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
-    }
-
-    /**
-     * Undo Remove Command by adding most recent task that were previously
-     * removed
-     * 
-     * @param command
-     *            previous Remove Command
-     * @return the command feedback
-     */
-    public CommandResult undoRemove(Command command) {
-        assert command != null;
-        
-        Task task = command.getTasksAffected().get(0);
-        try {
-            model.addTask(task);
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            e.printStackTrace();
-        }
-        return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
-    }
-
-    /**
-     * Undo Clear Command by adding all tasks that were previously removed
-     * 
-     * @param command
-     *            previous Clear Command
-     * @return the command feedback
-     */
-    public CommandResult undoClear(Command command) {
-        assert command != null;
-        
-        for (int i = 0; i < command.getTasksAffected().size(); i++) {
-            try {
-                model.addTask(command.getTasksAffected().get(i));
-            } catch (UniqueTaskList.DuplicateTaskException e) {
-                e.printStackTrace();
-            }
-        }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandWord(), ""));
     }
 }
