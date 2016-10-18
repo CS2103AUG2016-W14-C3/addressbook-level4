@@ -90,6 +90,12 @@ public class UniqueTaskList implements Iterable<Task> {
         logger.info("Task " + index + " Done! ");
     }
     
+    public void unDone(Task taskToUndo) {
+        int targetIndex = internalList.indexOf(taskToUndo);
+        taskToUndo.setTaskDone(false);
+        internalList.set(targetIndex, taskToUndo);
+    }
+    
     /**
      * Edits the equivalent task in the list.
      * @param toEdit
