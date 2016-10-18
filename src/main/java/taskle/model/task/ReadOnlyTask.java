@@ -9,7 +9,7 @@ import taskle.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
     
     Name getName();
-
+    
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -42,5 +42,7 @@ public interface ReadOnlyTask {
     public abstract Task copy();
     
     public String getDetailsString();
+
+    boolean isTaskDone();
 
 }

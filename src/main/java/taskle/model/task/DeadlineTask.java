@@ -44,7 +44,7 @@ public class DeadlineTask extends Task {
         
     @Override
     public Task copy() {
-        return new DeadlineTask((ReadOnlyTask) this);
+        return new DeadlineTask(this);
     }
 
     /**

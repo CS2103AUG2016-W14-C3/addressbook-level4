@@ -307,7 +307,7 @@ public class TestUtil {
      * @param index The index of the task to be replaced.
      * @return
      */
-    public static TestTask[] replaceTaskFromList(TestTask[] tasks, TestTask task, int index) {
+    public static Task[] replaceTaskFromList(Task[] tasks, Task task, int index) {
         tasks[index] = task;
         return tasks;
     }
