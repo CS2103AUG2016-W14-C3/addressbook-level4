@@ -44,9 +44,11 @@ public class Parser {
                               new EditCommandParser(),
                               new FindCommandParser(),
                               new ListCommandParser(),
+                              new UndoCommandParser(),
                               new HelpCommandParser(),
                               new ClearCommandParser(),
-                              new ExitCommandParser()));
+                              new ExitCommandParser(),
+                              new RescheduleCommandParser()));
         
         // Parse a date using date parser on start up to reduce
         // command delay on first parse. (Natty library constraints)
@@ -69,6 +71,7 @@ public class Parser {
 
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
+
         return prepareCommand(commandWord, arguments);
     }
     

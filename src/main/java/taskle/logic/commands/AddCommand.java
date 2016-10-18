@@ -1,8 +1,10 @@
 package taskle.logic.commands;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import taskle.commons.exceptions.IllegalValueException;
+import taskle.logic.history.History;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
@@ -74,11 +76,19 @@ public class AddCommand extends Command {
         assert model != null;
         try {
             model.addTask(toAdd);
+            tasksAffected = new ArrayList<Task>();
+            tasksAffected.add(toAdd);
+            History.insert(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
+    }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
     }
 
 }

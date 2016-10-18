@@ -1,5 +1,7 @@
 package taskle.model;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -74,7 +76,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         taskManager.editTask(index, newName);;
-        updateFilteredListToShowAll();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
+        taskManager.editTaskDate(index, dates);
         indicateTaskManagerChanged();
     }
     
