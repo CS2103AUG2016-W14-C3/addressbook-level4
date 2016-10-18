@@ -1,8 +1,11 @@
 package taskle.logic.commands;
 
+import java.util.ArrayList;
+
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
+import taskle.logic.history.History;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
@@ -12,6 +15,7 @@ import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Edits a task identified using it's last displayed index from the task
  * manager.
+ * @author zhiyong 
  */
 public class EditCommand extends Command {
 
@@ -45,7 +49,12 @@ public class EditCommand extends Command {
         ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
         String oldName = taskToEdit.getName().fullName;
         try {
+            tasksAffected = new ArrayList<Task>();
+            Task originalTask = taskToEdit.copy();
+            tasksAffected.add(originalTask);
             model.editTask(targetIndex, newName);
+            tasksAffected.add((Task) taskToEdit);
+            History.insert(this);
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
@@ -53,6 +62,15 @@ public class EditCommand extends Command {
         }
         
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, oldName + " -> " + newName));
+    }
+    
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+    
+    public int getIndex() {
+        return targetIndex;
     }
 
 }

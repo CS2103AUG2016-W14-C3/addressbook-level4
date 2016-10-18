@@ -4,7 +4,7 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.ExitCommand;
 
 /**
- * ExitCommandParser class to handle parsing of add commands.
+ * ExitCommandParser class to handle parsing of exit commands.
  * @author Abel
  *
  */

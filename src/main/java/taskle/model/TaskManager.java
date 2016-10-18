@@ -2,6 +2,7 @@ package taskle.model;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList;
+import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Wraps all data at the task-manager level
@@ -130,6 +132,18 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void editTask(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
         tasks.edit(index, newName);
     }
+
+    public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
+        tasks.editDate(index, dates);
+    }
+    
+     public void doneTask(int index, boolean targetDone) {
+        tasks.done(index, targetDone);
+     }
+     
+     public void unDoneTask(Task task) {
+         tasks.unDone(task);
+     }
 
 //// tag-level operations
 

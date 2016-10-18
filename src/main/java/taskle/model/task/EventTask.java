@@ -24,6 +24,7 @@ public class EventTask extends Task {
 
     public EventTask(ReadOnlyTask source) {
         super(source);
+        
         if (source instanceof EventTask) {
             EventTask event = (EventTask) source;
             startDate = event.getStartDate();
@@ -43,10 +44,18 @@ public class EventTask extends Task {
     public Date getStartDate() {
         return startDate;
     }
-
+   
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+    
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+   
     @Override
     public Task copy() {
-        return new EventTask((ReadOnlyTask) this);
+        return new EventTask(this);
     }
     
     /**

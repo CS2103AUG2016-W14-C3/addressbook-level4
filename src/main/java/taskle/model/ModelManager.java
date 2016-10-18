@@ -1,6 +1,9 @@
 package taskle.model;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
@@ -38,6 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        updateFilteredListToShowAllNotDone();
     }
 
     public ModelManager() {
@@ -47,6 +51,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
+        updateFilteredListToShowAllNotDone();
     }
 
     @Override
@@ -73,15 +78,36 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
-        taskManager.editTask(index, newName);;
-        updateFilteredListToShowAll();
+        int sourceIndex = filteredTasks.getSourceIndex(index - 1);
+        taskManager.editTask(sourceIndex, newName);;
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
+        int sourceIndex = filteredTasks.getSourceIndex(index - 1);
+        taskManager.editTaskDate(sourceIndex, dates);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
+        int sourceIndex = filteredTasks.getSourceIndex(index - 1);
+        taskManager.doneTask(sourceIndex, targetDone);
+        updateFilteredListToShowAllNotDone();
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void unDoneTask(Task task) {
+        taskManager.unDoneTask(task);
+        updateFilteredListToShowAllNotDone();
     }
     
     @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
-        updateFilteredListToShowAll();
+        updateFilteredListToShowAllNotDone();
         indicateTaskManagerChanged();
     }
 
@@ -96,7 +122,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowAll() {
         filteredTasks.setPredicate(null);
     }
-
+    
+    @Override
+    public void updateFilteredListToShowAllNotDone() {
+        filteredTasks.setPredicate(getNotDonePredicate());
+    }
+    
+    private Predicate<Task> getNotDonePredicate() {
+        return p -> !p.isTaskDone();
+    }
+    
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));

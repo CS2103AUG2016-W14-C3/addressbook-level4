@@ -35,6 +35,8 @@ import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
 import taskle.logic.commands.ListCommand;
 import taskle.logic.commands.RemoveCommand;
+import taskle.logic.commands.RescheduleCommand;
+import taskle.logic.parser.DateParser;
 import taskle.model.Model;
 import taskle.model.ModelManager;
 import taskle.model.ReadOnlyTaskManager;
@@ -416,7 +418,7 @@ public class LogicManagerTest {
         Name newName = new Name(taskName);
         Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
         String oldName = taskToEdit.getName().fullName;
-        expectedAB.editTask(Integer.parseInt(index), newName);
+        expectedAB.editTask(0, newName);
         helperTest.addToModel(model, threePersonsTest);
         // execute command and verify result
         assertCommandBehavior(
@@ -435,7 +437,6 @@ public class LogicManagerTest {
         TaskManager expectedAB = helper.generateTaskManager(threePersons);
         String index = "1";
         String taskName = "Task 3";
-        Name newName = new Name(taskName);
         helper.addToModel(model, threePersons);
         // execute command and verify result
         assertCommandBehavior(
@@ -445,6 +446,140 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
+    @Test
+    public void execute_reschedule_invalid_command() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
+        assertCommandBehavior("reschedule task", expectedMessage);
+    }
+    
+    @Test
+    public void execute_reschedule_invalid_index() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
+        assertCommandBehavior("reschedule -1", expectedMessage);
+    }
+    
+    @Test
+    public void execute_reschedule_with_no_date() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.getFoodFromChinatown();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
+        assertCommandBehavior("reschedule 1 no date", 
+                expectedMessage,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_reschedule_with_more_than_2_dates() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.getFoodFromChinatown();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
+        assertCommandBehavior("reschedule 1 from 17 Oct to 18 Oct to 19 Oct", 
+                expectedMessage,
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_reschedule_to_float_task_successful() throws Exception{
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.gardensByTheBay();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+
+        String index = "1";
+        int offsetIndex = Integer.parseInt(index) - 1;
+
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedAB.editTaskDate(offsetIndex, null);
+        Task editedTask = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " clear",
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + "\t" + oldDetails + " -> " + newDetails),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_reschedule_to_deadline_task_successful() throws Exception{
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.getFoodFromChinatown();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+
+        String index = "1";
+        String dateTime = "13 dec 7pm";
+        int offsetIndex = Integer.parseInt(index) - 1;
+        List<Date> dates = DateParser.parse(dateTime);
+
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedAB.editTaskDate(offsetIndex, dates);
+        Task editedTask = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " " + dateTime,
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + "\t" + oldDetails + " -> " + newDetails),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_reschedule_to_event_task_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.getFoodFromChinatown();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+        
+        String index = "1";
+        String dateTime = "13 dec 7pm to 18 dec 10am";
+        int offsetIndex = Integer.parseInt(index) - 1;
+        List<Date> dates = DateParser.parse(dateTime);
+
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedAB.editTaskDate(offsetIndex, dates);
+        Task editedTask = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " " + dateTime,
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + "\t" + oldDetails + " -> " + newDetails),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);

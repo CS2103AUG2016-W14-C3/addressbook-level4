@@ -5,58 +5,51 @@ import java.util.ArrayList;
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.logic.history.History;
-import taskle.model.task.Task;
 import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
-/**
- * Deletes a task identified using it's last displayed index from the task manager.
- */
-public class RemoveCommand extends Command {
-
-    public static final String COMMAND_WORD = "remove";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the Task identified by the index number used in the last Task listing.\n"
-            + "Format: remove task_number\n"
-            + "Example: " + COMMAND_WORD + " 1";
-
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Task: %1$s";
+public class DoneCommand extends Command {
+	
+	public static final String COMMAND_WORD = "done";
+	public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Marks the task (identified by the index number) as done.\n"
+            + "Format: done task_number\n" + "Example: " + COMMAND_WORD + " 5";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task Completed!";
 
     public final int targetIndex;
-
-    public RemoveCommand(int targetIndex) {
+    public final boolean targetDone;
+    
+    public DoneCommand(int targetIndex, boolean targetDone) {
         this.targetIndex = targetIndex;
+        this.targetDone = targetDone;
     }
-
-
+    
     @Override
     public CommandResult execute() {
-
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
+        ReadOnlyTask taskMarkedAsDone = lastShownList.get(targetIndex - 1);
+        
         try {
-            model.deleteTask(taskToDelete);
-            tasksAffected = new ArrayList<Task>();
-            tasksAffected.add((Task)taskToDelete);
+        	model.doneTask(targetIndex, targetDone);
+        	tasksAffected = new ArrayList<Task>();
+            tasksAffected.add((Task)taskMarkedAsDone);
             History.insert(this);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, "Task " + targetIndex + ": Completed"));
     }
-    
+
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
     }
-
 }
+	
