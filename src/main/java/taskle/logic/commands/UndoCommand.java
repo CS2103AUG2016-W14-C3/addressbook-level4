@@ -47,6 +47,9 @@ public class UndoCommand extends Command {
                 case RescheduleCommand.COMMAND_WORD:
                     return new UndoRescheduleCommand().undoReschedule(command, model);
                 
+                case DoneCommand.COMMAND_WORD:
+                    return new UndoDoneCommand().undoDone(command, model);
+                    
                 default:
                     return new CommandResult(History.MESSAGE_EMPTY_HISTORY);
             }
