@@ -21,7 +21,6 @@ public class UndoRescheduleCommand extends UndoCommand {
         Task task = command.getTasksAffected().get(0);
         RescheduleCommand rescheduleCommand = (RescheduleCommand) command;
         try {
-            System.out.println("After Index: " + (rescheduleCommand.targetIndex - 1));
             model.editTaskDate(rescheduleCommand.targetIndex - 1, rescheduleCommand.dates);
         } catch (TaskNotFoundException e) {
             e.printStackTrace();
