@@ -1,5 +1,6 @@
 package taskle.commons.core;
 
+import java.io.File;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -16,7 +17,7 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFileDirectory = "data";
     private String taskManagerFileName = "taskmanager.xml";
-    private static final String DIRECTORY_DELIMITER = "\\";
+    private static final String DIRECTORY_DELIMITER = File.separator;
     private String taskManagerName = "MyTaskManager";
 
 
