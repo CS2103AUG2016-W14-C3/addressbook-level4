@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import taskle.logic.commands.AddCommand;
+import taskle.logic.commands.DoneCommand;
 import taskle.model.task.Task;
 
 public class UndoCommandTest extends AddressBookGuiTest {
@@ -34,6 +35,10 @@ public class UndoCommandTest extends AddressBookGuiTest {
         
         //Undo after reschedule command
         commandBox.runCommand("reschedule 1 18 Oct");
+        assertUndoSuccess(currentList);
+        
+        //Undo after done command
+        commandBox.runCommand(DoneCommand.COMMAND_WORD);
         assertUndoSuccess(currentList);
     }
     
