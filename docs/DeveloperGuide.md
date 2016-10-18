@@ -570,13 +570,8 @@ Use Case ends.
 1. User enters help command.
 2. System displays list of commands available. <br/>
 Use Case ends.
-<<<<<<< HEAD
 	
 #### Use case: [UC13] Change Storage File Location
-=======
-  
-#### Use case: [UC09] Change Storage File Location
->>>>>>> branch 'update-dev-guide' of https://github.com/CS2103AUG2016-W14-C3/main.git
 
 **MSS**
 
@@ -589,7 +584,7 @@ Use Case ends.
 
 **Extensions**
 
-3a. User cancels request.
+1a. User cancels request.
 
 > Use Case ends.
 
@@ -606,7 +601,7 @@ Use Case ends.
 
 **Extensions**
 
-3a. User cancels request.
+1a. User cancels request.
 
 > Use Case ends.
 
