@@ -23,7 +23,7 @@ public class UndoRemoveCommand extends UndoCommand {
         assert command != null && model != null;
         
         Task task = command.getTasksAffected().get(0);
-        System.out.println(task.toString());
+        
         try {
             model.addTask(task);
         } catch (UniqueTaskList.DuplicateTaskException e) {
