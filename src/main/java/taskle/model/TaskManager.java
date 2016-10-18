@@ -140,6 +140,10 @@ public class TaskManager implements ReadOnlyTaskManager {
      public void doneTask(int index, boolean targetDone) {
         tasks.done(index, targetDone);
      }
+     
+     public void unDoneTask(Task task) {
+         tasks.unDone(task);
+     }
 
 //// tag-level operations
 

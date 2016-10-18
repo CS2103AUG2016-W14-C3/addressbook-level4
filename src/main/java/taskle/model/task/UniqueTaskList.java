@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.exceptions.DuplicateDataException;
 import taskle.commons.util.CollectionUtil;
+import taskle.commons.util.TaskUtil;
 import taskle.ui.CommandBox;
 
 /**
@@ -90,6 +91,12 @@ public class UniqueTaskList implements Iterable<Task> {
         logger.info("Task " + index + " Done! ");
     }
     
+    public void unDone(Task taskToUndo) {
+        int targetIndex = internalList.indexOf(taskToUndo);
+        taskToUndo.setTaskDone(false);
+        internalList.set(targetIndex, taskToUndo);
+    }
+    
     /**
      * Edits the equivalent task in the list.
      * @param toEdit
@@ -124,65 +131,93 @@ public class UniqueTaskList implements Iterable<Task> {
         
         Task toEdit = toEditOp.get();
         if (dates == null) {
-            if(toEdit instanceof DeadlineTask) {
-                FloatTask floatTask = ((DeadlineTask) toEdit).changeToFloatTask((DeadlineTask) toEdit);
-                internalList.set(index, floatTask);
-            }
-            if(toEdit instanceof EventTask) {
-                FloatTask floatTask = ((EventTask) toEdit).changeToFloatTask((EventTask) toEdit);
-                internalList.set(index, floatTask);
-            }
-            logger.info("Updated Task to FloatTask with no date");
+            updateListFloat(toEdit, index);
         } else if (dates.size() == 1) {
-            Date newDate = dates.get(0);
-            if (toEdit instanceof DeadlineTask) {
-                ((DeadlineTask) toEdit).setDeadlineDate(newDate);
-                internalList.set(index, toEdit);
-            }
-            
-            if (toEdit instanceof EventTask) {
-                DeadlineTask deadlineTask = ((EventTask) toEdit).changeToDeadlineTask((EventTask) toEdit);
-                deadlineTask.setDeadlineDate(newDate);
-                internalList.set(index, deadlineTask);
-            }
-            
-            if (toEdit instanceof FloatTask) {
-                DeadlineTask deadlineTask = ((FloatTask) toEdit).changeToDeadlineTask((FloatTask) toEdit);
-                deadlineTask.setDeadlineDate(newDate);
-                internalList.set(index, deadlineTask);
-            }
-            
-            logger.info("Updated Task to DeadlineTask with 1 date");
+            updateListDeadline(toEdit, index, dates);
         } else if (dates.size() == 2) {
-            Date startDate = dates.get(0);
-            Date endDate = dates.get(1);
-            if (toEdit instanceof EventTask) {
-                ((EventTask) toEdit).setStartDate(startDate);
-                ((EventTask) toEdit).setEndDate(endDate);
-                internalList.set(index, toEdit);
-            }
-            
-            if (toEdit instanceof DeadlineTask) {
-                EventTask eventTask = ((DeadlineTask) toEdit).changeToEventTask((DeadlineTask) toEdit);
-                eventTask.setStartDate(startDate);
-                eventTask.setEndDate(endDate);
-                internalList.set(index, eventTask);
-            }
-            
-            if (toEdit instanceof FloatTask) {
-                EventTask eventTask = ((FloatTask) toEdit).changeToEventTask((FloatTask) toEdit);
-                eventTask.setStartDate(startDate);
-                eventTask.setEndDate(endDate);
-                internalList.set(index, eventTask);
-            }
-            
-            logger.info("Updated Task to EventTask with 2 dates");
+            updateListEvent(toEdit, index, dates);
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
 
     }
 
+    /**
+     * Method to update the internal list with a float task
+     * @param toEdit
+     * @param index
+     */
+    private void updateListFloat(Task toEdit, int index) {
+        if(toEdit instanceof DeadlineTask) {
+            FloatTask floatTask = TaskUtil.deadlineChangeToFloat((DeadlineTask) toEdit);
+            internalList.set(index, floatTask);
+        }
+        if(toEdit instanceof EventTask) {
+            FloatTask floatTask = TaskUtil.eventChangeToFloat((EventTask) toEdit);
+            internalList.set(index, floatTask);
+        }
+        logger.info("Updated Task to FloatTask with no date");
+    }
+    
+    /**
+     * Method to update the internal list with a deadline task
+     * @param toEdit
+     * @param index
+     * @param dates
+     */
+    private void updateListDeadline(Task toEdit, int index, List<Date> dates) {
+        Date newDate = dates.get(0);
+        if (toEdit instanceof DeadlineTask) {
+            ((DeadlineTask) toEdit).setDeadlineDate(newDate);
+            internalList.set(index, toEdit);
+        }
+        
+        if (toEdit instanceof EventTask) {
+            DeadlineTask deadlineTask = TaskUtil.eventChangeToDeadline((EventTask) toEdit);
+            deadlineTask.setDeadlineDate(newDate);
+            internalList.set(index, deadlineTask);
+        }
+        
+        if (toEdit instanceof FloatTask) {
+            DeadlineTask deadlineTask = TaskUtil.floatChangeToDeadline((FloatTask) toEdit);
+            deadlineTask.setDeadlineDate(newDate);
+            internalList.set(index, deadlineTask);
+        }
+        
+        logger.info("Updated Task to DeadlineTask with 1 date");
+    }
+    
+    /**
+     * Method to update the internal list with an event task
+     * @param toEdit
+     * @param index
+     * @param dates
+     */
+    private void updateListEvent(Task toEdit, int index, List<Date> dates) {
+        Date startDate = dates.get(0);
+        Date endDate = dates.get(1);
+        if (toEdit instanceof EventTask) {
+            ((EventTask) toEdit).setStartDate(startDate);
+            ((EventTask) toEdit).setEndDate(endDate);
+            internalList.set(index, toEdit);
+        }
+        
+        if (toEdit instanceof DeadlineTask) {
+            EventTask eventTask = TaskUtil.deadlineChangeToEvent((DeadlineTask) toEdit);
+            eventTask.setStartDate(startDate);
+            eventTask.setEndDate(endDate);
+            internalList.set(index, eventTask);
+        }
+        
+        if (toEdit instanceof FloatTask) {
+            EventTask eventTask = TaskUtil.floatChangeToEvent((FloatTask) toEdit);
+            eventTask.setStartDate(startDate);
+            eventTask.setEndDate(endDate);
+            internalList.set(index, eventTask);
+        }
+        
+        logger.info("Updated Task to EventTask with 2 dates");
+    }
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

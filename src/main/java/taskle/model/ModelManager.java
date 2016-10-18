@@ -99,6 +99,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
+    public synchronized void unDoneTask(Task task) {
+        taskManager.unDoneTask(task);
+        updateFilteredListToShowAllNotDone();
+    }
+    
+    @Override
     public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         taskManager.addTask(task);
         updateFilteredListToShowAllNotDone();
@@ -110,6 +116,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public void updateFilteredListToShowAll() {
+        filteredTasks.setPredicate(null);
     }
     
     @Override

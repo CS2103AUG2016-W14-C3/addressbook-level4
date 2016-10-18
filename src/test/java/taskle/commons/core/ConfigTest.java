@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+
 public class ConfigTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -19,7 +21,7 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Taskle\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data\\taskmanager.xml\n" +
+                "Local data file location : data" + Config.DIRECTORY_DELIMITER + "taskmanager.xml\n" +
                 "TaskManager name : MyTaskManager";
 
         assertEquals(defaultConfigAsString, new Config().toString());
