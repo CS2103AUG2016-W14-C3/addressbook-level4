@@ -57,7 +57,7 @@ This guide describes the design and implementation of Taskle. It will help you u
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/taskle/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -68,12 +68,12 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
-Each of the four components
+Each of the four components:
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
@@ -82,15 +82,16 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.<br><br>
+command `remove 1`.<br>
+
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.  
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
+ instead of asking the `Storage` to save the updates to the hard disk.
 
 <br>
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.<br><br>
+being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br><br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -104,18 +105,18 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
-**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : [`Ui.java`](../src/main/taskle/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
+`StatusBarFooter` and `TaskCard`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ For example, the layout of the [`MainWindow`](../src/main/java/taskle/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
+The `UI` component:
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
@@ -124,14 +125,16 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](../src/main/taskle/logic/Logic.java)
 
 1. `Logic` uses the `Parser` class to parse the user command.
-2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+2. `History` saves the commands that `LogicManager` executes.
+3. `Parser` uses the CommandParser classes to parse the command.
+4. It returns a `Command` object which is executed by the `LogicManager`.
+5. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+6. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
@@ -139,28 +142,28 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
-**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](../src/main/taskle/model/Model.java)
 
-The `Model`,
-* stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+The `Model`:
+* Stores a `UserPref` object that represents the user's preferences.
+* Stores the Task Manager data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* does not depend on any of the other three components.
+* Does not depend on any of the other three components.
 
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
-**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](../src/main/taskle/storage/Storage.java)
 
-The `Storage` component,
-* can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+The `Storage` component:
+* Can save `UserPref` objects in json format and read it back.
+* Can save the Task Manager data in xml format and read it back.
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `taskle.commons` package.
 
 ## Implementation
 
@@ -212,13 +215,13 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `seedu.address.commons.UrlUtilTest`
+      e.g. `taskle.commons.UrlUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
-      e.g. `seedu.address.storage.StorageManagerTest`
+      e.g. `taskle.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
       how the are connected together.<br>
-      e.g. `seedu.address.logic.LogicManagerTest`
+      e.g. `taskle.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
@@ -249,7 +252,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, Taskle depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -303,7 +306,7 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `To-do Manager` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `Taskle` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: [UC01] Add Float Task
 
@@ -318,7 +321,7 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br/>
-	Use Case ends.
+  Use Case ends.
 
 #### Use case: [UC02] Add Deadline Task
 
@@ -382,12 +385,12 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
+  Use Case ends.
 
 #### Use case: [UC05] Reschedule Task
 
@@ -469,12 +472,12 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
+  Use Case ends.
 
 #### Use case: [UC08] Remove All Tasks
 
@@ -491,7 +494,7 @@ Use Case ends.
 1a. There are no pending tasks.
 
 > 1ai. System displays "No Pending Tasks" message. <br>
-	Use Case ends.
+  Use Case ends.
 
 3a. User cancels request.
 
@@ -514,12 +517,12 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
+  Use Case ends.
     
 
 #### Use case: [UC10] Find Task
@@ -539,7 +542,7 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. No tasks matches search query.
 
@@ -558,7 +561,7 @@ Use Case ends.
 1a. No commands to undo.
 
 > 1ai. System displays "Nothing to Undo" message. <br>
-	Use Case ends.
+  Use Case ends.
 
 #### Use case: [UC12] View Help
 
@@ -567,8 +570,13 @@ Use Case ends.
 1. User enters help command.
 2. System displays list of commands available. <br/>
 Use Case ends.
+<<<<<<< HEAD
 	
 #### Use case: [UC13] Change Storage File Location
+=======
+  
+#### Use case: [UC09] Change Storage File Location
+>>>>>>> branch 'update-dev-guide' of https://github.com/CS2103AUG2016-W14-C3/main.git
 
 **MSS**
 
