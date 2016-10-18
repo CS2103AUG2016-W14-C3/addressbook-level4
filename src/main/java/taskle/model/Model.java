@@ -32,6 +32,9 @@ public interface Model {
     /** Marks the task as done*/
     void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
     
+    /** Marks the task as undone */
+    void unDoneTask(Task task);
+    
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 

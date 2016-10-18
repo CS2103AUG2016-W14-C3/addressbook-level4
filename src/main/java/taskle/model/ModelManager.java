@@ -92,13 +92,16 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
-        if (!targetDone) {
-            updateFilteredListToShowAll();
-        }
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);
         taskManager.doneTask(sourceIndex, targetDone);
         updateFilteredListToShowAllNotDone();
         indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void unDoneTask(Task task) {
+        taskManager.unDoneTask(task);
+        updateFilteredListToShowAllNotDone();
     }
     
     @Override
