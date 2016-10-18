@@ -1,14 +1,18 @@
 package taskle.model.task;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.exceptions.DuplicateDataException;
 import taskle.commons.util.CollectionUtil;
 import taskle.ui.CommandBox;
-
-import java.util.*;
-import java.util.logging.Logger;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -80,11 +84,9 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     public void done(int index, boolean taskDone) {
-        Task toEdit = internalList.get(index - 1);
-        FloatTask testTask = new FloatTask(toEdit);
-        testTask.setTaskDone(taskDone);
+        Task toEdit = internalList.get(index);
         toEdit.setTaskDone(taskDone);
-        internalList.set(index - 1, toEdit);
+        internalList.set(index, toEdit);
         logger.info("Task " + index + " Done! ");
     }
     
@@ -94,14 +96,14 @@ public class UniqueTaskList implements Iterable<Task> {
      * @return
      */
     public void edit(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
-        Task toEdit = internalList.get(index - 1);
+        Task toEdit = internalList.get(index);
         FloatTask testTask = new FloatTask(toEdit);
         testTask.setName(newName);
         if(contains(testTask)) {
             throw new DuplicateTaskException();
         }
         toEdit.setName(newName);
-        internalList.set(index - 1, toEdit);
+        internalList.set(index, toEdit);
         logger.info("Task " + index + " edited to " + newName);
     }
     

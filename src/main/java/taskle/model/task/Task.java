@@ -32,6 +32,7 @@ public abstract class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTags());
+        setTaskDone(source.isTaskDone());
     }
 
     
@@ -46,7 +47,7 @@ public abstract class Task implements ReadOnlyTask {
     }
     
     @Override
-    public boolean getTaskDone() {
+    public boolean isTaskDone() {
         return isTaskDone;
     }
 

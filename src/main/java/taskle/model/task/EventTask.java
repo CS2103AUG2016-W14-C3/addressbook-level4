@@ -83,7 +83,7 @@ public class EventTask extends Task {
     
     @Override
     public Task copy() {
-        return new EventTask((ReadOnlyTask) this);
+        return new EventTask(this);
     }
     
     /**

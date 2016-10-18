@@ -51,7 +51,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        isTaskDone = source.getTaskDone() ? 1 : 0;
+        isTaskDone = source.isTaskDone() ? 1 : 0;
         if (source instanceof EventTask) {
             EventTask eventTask = (EventTask) source;
             endDate = eventTask.getEndDate();

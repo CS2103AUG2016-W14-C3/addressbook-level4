@@ -39,7 +39,7 @@ public interface Model {
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
-    void updateFilteredListToShowAll();
+    void updateFilteredListToShowAllNotDone();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);

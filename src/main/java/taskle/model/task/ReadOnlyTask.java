@@ -43,6 +43,6 @@ public interface ReadOnlyTask {
     
     public String getDetailsString();
 
-    boolean getTaskDone();
+    boolean isTaskDone();
 
 }
