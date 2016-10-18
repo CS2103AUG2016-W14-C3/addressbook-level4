@@ -56,4 +56,9 @@ public class RescheduleCommand extends Command{
                                             + oldDetails + " -> " + newTask.getDetailsString()));
     }
 
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
+
 }

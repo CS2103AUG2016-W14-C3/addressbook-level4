@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import taskle.logic.commands.AddCommand;
 import taskle.model.task.Task;
-import taskle.testutil.TestTask;
 
 public class UndoCommandTest extends AddressBookGuiTest {
 

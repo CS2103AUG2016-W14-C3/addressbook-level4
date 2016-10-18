@@ -6,9 +6,9 @@ import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.history.History;
-import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList.DuplicateTaskException;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
