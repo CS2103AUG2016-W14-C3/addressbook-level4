@@ -5,13 +5,13 @@ import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList.DuplicateTaskException;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Edits a task identified using it's last displayed index from the task
  * manager.
+ * @author zhiyong 
  */
 public class EditCommand extends Command {
 
