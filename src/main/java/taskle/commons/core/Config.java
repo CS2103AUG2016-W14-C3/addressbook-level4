@@ -16,7 +16,7 @@ public class Config {
     private String userPrefsFilePath = "preferences.json";
     private String taskManagerFileDirectory = "data";
     private String taskManagerFileName = "taskmanager.xml";
-    private static final String DIRECTORY_DELIMITER = "\\";
+    public static final String DIRECTORY_DELIMITER = "\\";
     private String taskManagerName = "MyTaskManager";
 
 
