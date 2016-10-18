@@ -92,6 +92,9 @@ public class ModelManager extends ComponentManager implements Model {
     
     @Override
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
+        if (!targetDone) {
+            updateFilteredListToShowAll();
+        }
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);
         taskManager.doneTask(sourceIndex, targetDone);
         updateFilteredListToShowAllNotDone();
@@ -110,6 +113,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredTasks);
+    }
+    
+    @Override
+    public void updateFilteredListToShowAll() {
+        filteredTasks.setPredicate(null);
     }
     
     @Override
