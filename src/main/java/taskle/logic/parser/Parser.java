@@ -45,6 +45,7 @@ public class Parser {
                               new FindCommandParser(),
                               new ListCommandParser(),
                               new UndoCommandParser(),
+                              new DoneCommandParser(),
                               new HelpCommandParser(),
                               new ClearCommandParser(),
                               new ExitCommandParser(),

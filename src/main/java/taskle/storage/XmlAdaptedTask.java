@@ -24,6 +24,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     
+    @XmlElement(required = true)
+    private int isTaskDone;
+
     @XmlElement(required = false)
     @XmlJavaTypeAdapter(XmlDateAdapter.class)
     private Date startDate;
@@ -48,6 +51,7 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
+        isTaskDone = source.isTaskDone() ? 1 : 0;
         if (source instanceof EventTask) {
             EventTask eventTask = (EventTask) source;
             endDate = eventTask.getEndDate();
@@ -65,16 +69,19 @@ public class XmlAdaptedTask {
      */
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(this.name);
+        Task task;
         if (startDate != null && endDate != null) {
             final Date endDate = this.endDate;
             final Date startDate = this.startDate;
-            return new EventTask(name ,startDate, endDate, new UniqueTagList());
+            task = new EventTask(name ,startDate, endDate, new UniqueTagList());
         } else if (endDate != null) {
             final Date endDate = this.endDate;
-            return new DeadlineTask(name , endDate, new UniqueTagList());
+            task =  new DeadlineTask(name , endDate, new UniqueTagList());
         } else {
-            return new FloatTask(name, new UniqueTagList());
+            task =  new FloatTask(name, new UniqueTagList());
         }
+        task.setTaskDone(isTaskDone == 1);
+        return task;
     }
 }
 

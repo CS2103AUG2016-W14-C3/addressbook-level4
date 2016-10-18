@@ -47,7 +47,7 @@ public class RescheduleCommand extends Command{
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldDetails = taskToEdit.getDetailsString();
         try {
-            model.editTaskDate(offsetIndex, dates);
+            model.editTaskDate(targetIndex, dates);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
