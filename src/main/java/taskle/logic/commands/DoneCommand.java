@@ -37,5 +37,10 @@ public class DoneCommand extends Command {
         
         return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, "Task " + targetIndex + ": Completed"));
     }
+
+    @Override
+    public String getCommandWord() {
+        return COMMAND_WORD;
+    }
 }
 	

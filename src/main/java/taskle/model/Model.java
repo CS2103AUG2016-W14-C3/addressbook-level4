@@ -1,5 +1,7 @@
 package taskle.model;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import taskle.commons.core.UnmodifiableObservableList;
@@ -24,6 +26,10 @@ public interface Model {
     /** Edits the given task. */
     void editTask(int index, Name newName) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
     
+    /** Edits the date / time of the task */
+    void editTaskDate(int index, List<Date> dates) throws UniqueTaskList.TaskNotFoundException;
+   
+    /** Marks the task as done*/
     void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
     
     /** Adds the given task */
