@@ -1,5 +1,7 @@
 package guitests;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
 import taskle.logic.commands.AddCommand;
@@ -29,6 +31,10 @@ public class UndoCommandTest extends AddressBookGuiTest {
         //Undo after clear command
         commandBox.runCommand("clear");
         assertUndoSuccess(currentList);
+        
+        //Undo after reschedule command
+        commandBox.runCommand("reschedule 1 18 Oct");
+        assertUndoSuccess(currentList);
     }
     
     private void assertUndoSuccess(Task... expectedHits) {
@@ -36,5 +42,6 @@ public class UndoCommandTest extends AddressBookGuiTest {
         
         //Confirms the list size remains the same
         assertListSize(expectedHits.length);
+        assertTrue(taskListPanel.isListMatching(expectedHits.length));
     }
 }
