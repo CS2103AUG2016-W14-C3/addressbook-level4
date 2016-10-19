@@ -107,7 +107,7 @@ Examples:
 <img src="images/UI/Reschedule.png" width="600">
 <img src="images/UI/Reschedule 2.png" width="600">
 
-* remind **2 null**
+* remind **2 clear**
 	
 <img src="images/UI/Remind.png" width="600">
 <img src="images/UI/Remind 2.png" width="600">	
