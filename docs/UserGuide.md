@@ -7,7 +7,7 @@
 * [Command Summary](#command-summary)
 
 ## About
-Do you have so many tasks to do every day that you simply cannot keep track of them anymore? Don’t you wish that there was an easier way to stay on top of your daily tasks without feeling stressed out?
+Do you have so many tasks to do every day that you simply cannot keep track of them anymore? Don't you wish that there was an easier way to stay on top of your daily tasks without feeling stressed out?
 
 Taskle is here to help you with all of that!
 
@@ -27,7 +27,9 @@ Re-organize your life by using Taskle now!
 2. Copy the file to the folder where you want to use Taskle.
 
 3. Double-click on the file to start the application. The Graphical User Interface (GUI) should appear in a few seconds.
-	> <img src="images/UI/Base.png" width="600">
+	
+	> <img src="images/UI/Base.png" align="center">
+	<div align="center">Figure 1: Graphical User Interface of Taskle</div>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
 	> e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
@@ -53,7 +55,7 @@ Taskle makes it elegantly simple to manage your tasks. All of its features requi
 
 <br>
 
-#### Add a Task / Event: `add`
+### Add a Task / Event: `add`
    * Adds a task / event into Taskle (with its respective deadline or end-date.)
    * A reminder time can be set for tasks / events.
    * The time parameter is optional.
@@ -75,12 +77,13 @@ Examples:
 * `add `**`Do CS2101 Assignment`**` by `**`12 Oct`**
 * `add `**`Business Trip`**` from `**`4 Oct`**` to `**`5 Oct`**` remind `**`3 Oct 2pm`**
 
-<img src="images/UI/Add.png" width="600">
+<img align="center" src="images/UI/Add.png" >
+<div align="center">Figure 2: Adding Pay Phone Bills Task into Taskle</div>
 	
 <br>
 
-#### Edit a Task : `edit; reschedule; remind`
-Edits an existing task in Taskle. There are 3 types of edits possible: Edit task name, Reschedule and Remind. You are required to input the **task_number** (as indicated in the mockup) in order for Taskle to identify which task you wish to edit.<br><br>
+### Edit a Task : `edit; reschedule; remind`
+Edits an existing task in Taskle. There are 3 types of edits possible: Edit task name, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify which task you wish to edit.<br><br>
 
 Type | Format  
 :-------- | :-------- 
@@ -98,23 +101,32 @@ Remind | `remind `**`task_number` `date time`**
 
 Examples:
 * `edit `**`6 Pay Abel for Chicken Rice`**
-
-<img src="images/UI/Edit.png" width="600">
-<img src="images/UI/Edit 2.png" width="600">
-
-* `reschedule `**`2 7th October 7pm`**
-
-<img src="images/UI/Reschedule.png" width="600">
-<img src="images/UI/Reschedule 2.png" width="600">
-
-* remind **2 null**
-	
-<img src="images/UI/Remind.png" width="600">
-<img src="images/UI/Remind 2.png" width="600">	
-	
 <br>
 
-#### Remove a Task: `remove`
+<img align="center" src="images/UI/Edit.png">
+<div align="center">Figure 3: Edit Task 6 to Pay Abel for Chicken Rice (Before)</div><br><br>
+
+<img align="center" src="images/UI/Edit 2.png">
+<div align="center">Figure 4: Edit Task 6 to Pay Abel for Chicken Rice (After)</div><br><br>
+
+* `reschedule `**`2`**` to `**`7th October 7pm`**` remind `**`6th October 7pm`**
+
+<img align="center" src="images/UI/Reschedule.png">
+<div align="center">Figure 5: Reschedule Task 2 to 7th October 7pm and set the reminder as 6th October 7pm (Before)</div><br><br>
+
+<img align="center" src="images/UI/Reschedule 2.png">
+<div align="center">Figure 6: Reschedule Task 2 to 7th October 7pm and set the reminder as 6th October 7pm (After)</div><br><br>
+
+
+* `remind `**`2 clear`**
+	
+<img src="images/UI/Remind.png" align="center">
+<div align="center">Figure 7: Clear away the reminder for Task 2 (Before)</div><br><br>
+
+<img src="images/UI/Remind 2.png" align="center">	
+<div align="center">Figure 8: Clear away the reminder for Task 2 (After)</div><br>
+
+### Remove a Task: `remove`
 Removes a task permanently from Taskle.<br>
 
 | Format  
@@ -124,11 +136,11 @@ Removes a task permanently from Taskle.<br>
 Examples:
 * `remove `**`6`**
 
-<img src="images/UI/Remove 2.png" width="600">	
+<img src="images/UI/Remove 2.png" align="center"/>	
+<div align="center">Figure 9: Remove Task 6 from Taskle</div><br>
 
-<br>
 
-#### Finding a Task : `find`
+### Finding a Task : `find`
 Finds all tasks in Taskle that contains the keywords and fulfills the status as specified.<br><br>
 
 | Format  
@@ -149,15 +161,16 @@ Finds all tasks in Taskle that contains the keywords and fulfills the status as 
 Examples:
 * `find` **`books`**
 
-<img src="images/UI/Find.png" width="600">
+<img src="images/UI/Find.png" align="center">
+<div align="center">Figure 10: Find all Tasks that have "books" as part of the task name</div><br>
 
 * `find` **`-pending`**	
 	
-<img src="images/UI/Find Pending.png" width="600">
-
+<img src="images/UI/Find Pending.png" align="center">
+<div align="center">Figure 11: Find all pending Tasks</div><br>
 <br>
 
-#### Mark a Task as Done: `done`
+### Mark a Task as Done: `done`
 Marks a task as done. Use this command when you are finished with the task.<br>
 
 | Format  
@@ -167,11 +180,11 @@ Marks a task as done. Use this command when you are finished with the task.<br>
 Example:
 * `Done` **`5`**
 
-<img src="images/UI/Done.png" width="600">
-
+<img src="images/UI/Done.png" align="center">
+<div align="center">Figure 12: Mark Task 5 as done</div><br>
 <br>
 
-#### Undoing a Recent Command: `undo`
+### Undoing a Recent Command: `undo`
 Undo a previous command. This command is used when you wish to revert from the most recently issued command.<br><br>
 
 | Format  
@@ -180,7 +193,7 @@ Undo a previous command. This command is used when you wish to revert from the m
 
 <br>
 
-#### Clearing all Tasks: `clear`
+### Clearing all Tasks: `clear`
 Clears all tasks from Taskle.<br><br>
 
 | Format  
@@ -188,12 +201,11 @@ Clears all tasks from Taskle.<br><br>
 | `clear` | 
 
 <br>
-
-<img src="images/UI/Clear.png" width="600">
-
+<img src="images/UI/Clear.png" align="center">
+<div align="center">Figure 13: Clear all tasks from Taskle</div><br>
 <br>
 
-#### View Help: `help`
+### View Help: `help`
 Displays a list of available commands.<br>
 
 | Format  
@@ -207,12 +219,11 @@ Displays a list of available commands.<br>
 > * A list of available commands is shown in a separate window so you can refer to it while using Taskle.
 
 <br>
-
-<img src="images/UI/Help.png" width="600">
-
+<img src="images/UI/Help.png" align="center">
+<div align="center">Figure 14: View all commands in the help list</div><br>
 <br>
 
-#### Exit Taskle: `exit`
+### Exit Taskle: `exit`
 Exits and closes Taskle.<br><br>
 
 | Format  
