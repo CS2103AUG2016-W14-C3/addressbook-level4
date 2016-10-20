@@ -53,11 +53,12 @@ This guide describes the design and implementation of Taskle. It will help you u
 
 ### Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img align="center" src="images/Architecture.png">
+<div align="center">Figure 1: Architecture Diagram</div><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/taskle/MainApp.java). It is responsible for,
+`Main` has only one class called [`MainApp`](../src/main/java/taskle/MainApp.java). It is responsible for:
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke cleanup method where necessary.
 
@@ -79,12 +80,15 @@ Each of the four components:
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br><br>
-<img src="images/LogicClassDiagram.png" width="800"><br><br>
+
+<img align="center" src="images/LogicClassDiagram.png" >
+<div align="center">Figure 2: Logic Class Diagram Example</div><br><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `remove 1`.<br>
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img align="center" src="images/SDforDeletePerson.png">
+<div align="center">Figure 3: Sequence Diagram for Delete Person</div><br>
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -92,7 +96,8 @@ command `remove 1`.<br>
 <br>
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br><br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img align="center" src="images/SDforDeletePersonEventHandling.png">
+<div align="center">Figure 4: Sequence Diagram for Handling of Events</div><br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -103,7 +108,9 @@ The sections below give more details of each component.
 
 ### UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img align="center" src="images/UiClassDiagram.png">
+<div align="center">Figure 5: User Interface Class Diagram</div><br>
+
 
 **API** : [`Ui.java`](../src/main/taskle/ui/Ui.java)
 
@@ -123,7 +130,8 @@ The `UI` component:
 
 ### Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img align="center" src="images/LogicClassDiagram.png">
+<div align="center">Figure 6: Logic Class Diagram</div><br>
 
 **API** : [`Logic.java`](../src/main/taskle/logic/Logic.java)
 
@@ -134,13 +142,14 @@ The `UI` component:
 5. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 6. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")`
- API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")` API call.<br><br>
+<img align="center" src="images/DeletePersonSdForLogic.png">
+<div align="center">Figure 7: Delete Person Logic Sequence Diagram</div><br>
 
 ### Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img align="center" src="images/ModelClassDiagram.png">
+<div align="center">Figure 8: Model Class Diagram</div><br>
 
 **API** : [`Model.java`](../src/main/taskle/model/Model.java)
 
@@ -153,7 +162,8 @@ The `Model`:
 
 ### Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img align="center" src="images/StorageClassDiagram.png">
+<div align="center">Figure 9: Storage Class Diagram</div><br>
 
 **API** : [`Storage.java`](../src/main/taskle/storage/Storage.java)
 
