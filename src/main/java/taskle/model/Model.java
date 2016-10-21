@@ -41,6 +41,9 @@ public interface Model {
     /** Restores most recently stored TaskManager state */
     boolean restoreTaskManager();
     
+    /** Undo most recently restored TaskManager state */
+    boolean revertTaskManager();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
