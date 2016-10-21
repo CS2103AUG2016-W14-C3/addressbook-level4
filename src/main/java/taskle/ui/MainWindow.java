@@ -16,7 +16,6 @@ import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
 import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
-import taskle.logic.commands.CommandResult;
 import taskle.model.UserPrefs;
 
 /**
@@ -35,7 +34,10 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
+    private StatusBarFooter statusBarFooter;
+    private CommandBox commandBox;
     private Config config;
+    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -83,7 +85,6 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.taskManagerName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
 
