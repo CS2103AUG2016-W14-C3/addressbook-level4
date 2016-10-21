@@ -1,12 +1,8 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
-
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.logic.history.History;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
 public class DoneCommand extends Command {
@@ -32,14 +28,10 @@ public class DoneCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        ReadOnlyTask taskMarkedAsDone = lastShownList.get(targetIndex - 1);
         
         try {
+            model.storeTaskManager();
         	model.doneTask(targetIndex, targetDone);
-        	tasksAffected = new ArrayList<Task>();
-            tasksAffected.add((Task)taskMarkedAsDone);
-            History.insert(this);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
