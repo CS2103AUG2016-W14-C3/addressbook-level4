@@ -97,7 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized boolean revertTaskManager() {
         if (!redoTaskManagerHistory.isEmpty()) {
             TaskManager redoTaskManager = redoTaskManagerHistory.pop();
-            taskManagerHistory.push(redoTaskManager);
+            taskManagerHistory.push(new TaskManager(taskManager));
             this.resetData(redoTaskManager);
             return true;
         }
