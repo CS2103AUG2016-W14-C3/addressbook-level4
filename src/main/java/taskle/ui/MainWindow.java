@@ -1,15 +1,10 @@
 package taskle.ui;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -19,13 +14,10 @@ import javafx.stage.Stage;
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
-import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
 import taskle.logic.commands.CommandResult;
 import taskle.model.UserPrefs;
-import taskle.model.task.ReadOnlyTask;
-import taskle.storage.StorageManager;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -43,17 +35,11 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
-
-    private String taskManagerName;
-    private CommandResult mostRecentResult;
     
     @FXML
     private AnchorPane commandBoxPlaceholder;
