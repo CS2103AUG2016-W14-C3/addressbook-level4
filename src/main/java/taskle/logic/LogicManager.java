@@ -5,7 +5,6 @@ import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
-import taskle.logic.history.History;
 import taskle.logic.parser.Parser;
 import taskle.model.Model;
 import taskle.model.task.ReadOnlyTask;
