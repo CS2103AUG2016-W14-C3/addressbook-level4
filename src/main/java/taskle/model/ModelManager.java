@@ -3,6 +3,7 @@ package taskle.model;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
@@ -28,6 +29,8 @@ public class ModelManager extends ComponentManager implements Model {
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
 
+    private Stack<TaskManager> taskManagerHistory = new Stack<TaskManager>();
+    
     /**
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
