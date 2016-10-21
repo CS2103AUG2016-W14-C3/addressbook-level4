@@ -32,7 +32,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         assertUndoSuccess(currentList);
         
         //Undo after edit command
-        commandBox.enterCommand(EditCommand.COMMAND_WORD + " 1 " + td.helpFriend.getName().fullName);
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + td.helpFriend.getName());
         assertUndoSuccess(currentList);
         
         //Undo after clear command
