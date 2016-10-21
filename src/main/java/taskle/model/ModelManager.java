@@ -73,6 +73,23 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
 
+    /** Stores current TaskManager state */
+    @Override
+    public synchronized void storeTaskManager() {
+        taskManagerHistory.push(new TaskManager(taskManager));
+    }
+    
+    /** Restores recently saved TaskManager state*/
+    @Override
+    public synchronized boolean restoreTaskManager() {
+        if (!taskManagerHistory.isEmpty()) {
+            TaskManager recentTaskManager = taskManagerHistory.pop();
+            this.resetData(recentTaskManager);
+            return true;
+        }
+        return false;
+    }
+    
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);

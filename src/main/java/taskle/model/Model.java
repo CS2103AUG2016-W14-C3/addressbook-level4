@@ -38,6 +38,12 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
+    /** Stores current TaskManager state */
+    void storeTaskManager();
+    
+    /** Restores most recently stored TaskManager state */
+    boolean restoreTaskManager();
+    
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
