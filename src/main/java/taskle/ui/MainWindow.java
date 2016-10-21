@@ -181,7 +181,7 @@ public class MainWindow extends UiPart {
      * Change storage file location
      */
     @FXML
-    private void handleSettings() {
+    private void handleChangeDirectory() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(primaryStage);
         if (selectedDirectory == null) {
@@ -192,6 +192,14 @@ public class MainWindow extends UiPart {
             StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
             resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
         }
+    }
+    
+    /**
+     * Change storage file
+     */
+    @FXML
+    private void handleChangeStorageFile() {
+        
     }
 
     public TaskListPanel getTaskListPanel() {
