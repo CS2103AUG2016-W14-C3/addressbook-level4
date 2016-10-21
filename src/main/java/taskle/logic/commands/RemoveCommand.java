@@ -1,11 +1,7 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
-
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.logic.history.History;
-import taskle.model.task.Task;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -43,10 +39,8 @@ public class RemoveCommand extends Command {
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
+            model.storeTaskManager();
             model.deleteTask(taskToDelete);
-            tasksAffected = new ArrayList<Task>();
-            tasksAffected.add((Task)taskToDelete);
-            History.insert(this);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
