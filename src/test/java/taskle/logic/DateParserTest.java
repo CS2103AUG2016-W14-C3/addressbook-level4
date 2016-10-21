@@ -21,7 +21,7 @@ public class DateParserTest {
         calendar.clear();
     }
     
-    //---------------- Tests for DateParser.parse --------------------------
+    //---------------- Tests for DateParser#parse --------------------------
     
     /**
      * Valid equivalence partitions for parsing date strings:
