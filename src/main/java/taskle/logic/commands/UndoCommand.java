@@ -31,35 +31,7 @@ public class UndoCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        if (History.isEmpty()) {
-            return new CommandResult(History.MESSAGE_EMPTY_HISTORY);
-        } else {
-            Command command = History.remove();
-            
-            switch (command.getCommandWord()) {
-            
-                case AddCommand.COMMAND_WORD:
-                    return new UndoAddCommand().undoAdd(command, model);
-            
-                case EditCommand.COMMAND_WORD:
-                    return new UndoEditCommand().undoEdit(command, model);
-            
-                case RemoveCommand.COMMAND_WORD:
-                    return new UndoRemoveCommand().undoRemove(command, model);
-            
-                case ClearCommand.COMMAND_WORD:
-                    return new UndoClearCommand().undoClear(command, model);
-                
-                case RescheduleCommand.COMMAND_WORD:
-                    return new UndoRescheduleCommand().undoReschedule(command, model);
-                
-                case DoneCommand.COMMAND_WORD:
-                    return new UndoDoneCommand().undoDone(command, model);
-                    
-                default:
-                    return new CommandResult(History.MESSAGE_EMPTY_HISTORY);
-            }
-        }
+        return null;
     }
 
     @Override
