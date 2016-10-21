@@ -78,6 +78,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void storeTaskManager() {
         taskManagerHistory.push(new TaskManager(taskManager));
+        redoTaskManagerHistory.clear();
     }
     
     /** Restores recently saved TaskManager state*/
