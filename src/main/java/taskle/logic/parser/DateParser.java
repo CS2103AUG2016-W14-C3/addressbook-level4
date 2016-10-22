@@ -28,7 +28,8 @@ public class DateParser {
      * an array of date time that we are interested in capturing.
      * Usually start and end dates or just deadline date.
      * @param dateTimeString String containing date and time to be parsed.
-     * @return Array of dateTime found in String.
+     * @return A list of Dates found in String. If no dates are found, returns 
+     * an empty list.
      */
     public static List<Date> parse(String dateTimeString) {
         assert dateTimeString != null && !dateTimeString.isEmpty();

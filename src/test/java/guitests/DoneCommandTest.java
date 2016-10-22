@@ -4,7 +4,6 @@ import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.DoneCommand;
@@ -19,12 +18,8 @@ public class DoneCommandTest extends AddressBookGuiTest {
      */
     @Test
     public void done_existing_task() throws IllegalValueException {
-        // String newTaskName = "Buy Groceries";
-        // Name newName = new Name(newTaskName);
         String index = "1";
         String command = buildCommand(index);
-        // String oldName = td.attendMeeting.getName().fullName;
-        // System.out.println(Integer.parseInt(index));
         assertDoneResultSuccess(command, index);
     }
 
