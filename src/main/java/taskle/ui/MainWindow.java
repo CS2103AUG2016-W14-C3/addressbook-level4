@@ -1,9 +1,6 @@
 package taskle.ui;
 
 import java.io.File;
-import java.io.IOException;
-
-import javax.xml.bind.JAXBException;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -19,7 +16,6 @@ import javafx.stage.Stage;
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
-import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
 import taskle.model.UserPrefs;
@@ -207,8 +203,7 @@ public class MainWindow extends UiPart {
     }
     
     /**
-     * Change storage file 
-     * @throws DataConversionException 
+     * Change storage file
      */
     @FXML
     private void handleChangeStorageFile() {
