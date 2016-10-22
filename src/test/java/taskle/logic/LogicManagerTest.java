@@ -33,7 +33,6 @@ import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
-import taskle.logic.commands.ListCommand;
 import taskle.logic.commands.RemoveCommand;
 import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.parser.DateParser;
@@ -321,23 +320,6 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-
-    @Test
-    public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
