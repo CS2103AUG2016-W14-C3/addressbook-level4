@@ -12,13 +12,13 @@ import taskle.model.tag.UniqueTagList;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
-public class EditCommandTest extends AddressBookGuiTest{
-
+public class EditCommandTest extends AddressBookGuiTest {
 
     /**
-     * Edits a current task inside the TypicalTestTask to test the edit function.
-     * Check if that task has been edited correctly.
-     * @throws IllegalValueException 
+     * Edits a current task inside the TypicalTestTask to test the edit
+     * function. Check if that task has been edited correctly.
+     * 
+     * @throws IllegalValueException
      */
     @Test
     public void edit_existing_task() throws IllegalValueException {
@@ -28,12 +28,12 @@ public class EditCommandTest extends AddressBookGuiTest{
         String command = buildCommand(index, newTaskName);
         String oldName = td.attendMeeting.getName().fullName;
         assertEditResultSuccess(command, oldName + " -> " + newTaskName);
-        
+
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         FloatTask newTask = new FloatTask(newName, new UniqueTagList());
         assertMatching(newTask, addedCard);
     }
-    
+
     /**
      * Edits an inexistent task
      */
@@ -41,12 +41,12 @@ public class EditCommandTest extends AddressBookGuiTest{
     public void edit_inexistent_task() {
         String commandInvalidIntegerIndex = buildCommand("10", "Buy dinner home");
         assertEditInvalidIndex(commandInvalidIntegerIndex);
-        
+
         String commandInvalidStringIndex = buildCommand("ABC", "Buy dinner home");
         assertEditInvalidCommandFormat(commandInvalidStringIndex);
 
     }
-    
+
     /**
      * Edits a valid task without giving a new task name
      */
@@ -55,6 +55,7 @@ public class EditCommandTest extends AddressBookGuiTest{
         String command = EditCommand.COMMAND_WORD + " 1";
         assertEditInvalidCommandFormat(command);
     }
+
     /**
      * Invalid edit command "edits"
      */
@@ -63,36 +64,44 @@ public class EditCommandTest extends AddressBookGuiTest{
         String command = "edits 1 Walk dog";
         assertEditInvalidCommand(command);
     }
+
     /**
      * Edits a task such that the new name is a duplicate of another task
+     * 
+     * @throws IllegalValueException
      */
     @Test
-    public void edit_duplicate_task() {
+    public void edit_duplicate_task() throws IllegalValueException {
         String newName = "Go Concert";
         String command = buildCommand("1", newName);
-        assertEditResultSuccess(command, newName);
+        assertEditResultSuccess(command, "Attend Meeting" + " -> " + newName);
+
+        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(0);
+        FloatTask newTask = new FloatTask(new Name(newName), 
+                                          new UniqueTagList());
+        assertMatching(newTask, addedCard);
     }
-    
+
     private String buildCommand(String taskNumber, String newName) {
         String command = EditCommand.COMMAND_WORD + " " + taskNumber + " " + newName;
         return command;
     }
-    
+
     private void assertEditResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
         assertResultMessage("Edited Task: " + newName);
     }
-    
+
     private void assertEditInvalidIndex(String command) {
         commandBox.runCommand(command);
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
-    
+
     private void assertEditInvalidCommandFormat(String command) {
         commandBox.runCommand(command);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
-    
+
     private void assertEditInvalidCommand(String command) {
         commandBox.runCommand(command);
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
