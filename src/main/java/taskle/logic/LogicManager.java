@@ -8,6 +8,8 @@ import taskle.logic.commands.CommandResult;
 import taskle.logic.history.History;
 import taskle.logic.parser.Parser;
 import taskle.model.Model;
+import taskle.model.ReadOnlyTaskManager;
+import taskle.model.TaskManager;
 import taskle.model.task.ReadOnlyTask;
 import taskle.storage.Storage;
 
@@ -48,5 +50,10 @@ public class LogicManager extends ComponentManager implements Logic {
     public void changeDirectory(String filePath) {
         logger.info("----------------[CHANGE DIRECTORY][" + filePath + "]");
         storage.setTaskManagerFilePath(filePath);
+    }
+    
+    @Override
+    public void resetModel(ReadOnlyTaskManager taskManager) {
+        model.resetData(taskManager);
     }
 }
