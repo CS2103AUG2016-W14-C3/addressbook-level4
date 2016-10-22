@@ -1,6 +1,9 @@
 package taskle.ui;
 
 import java.io.File;
+import java.io.IOException;
+
+import javax.xml.bind.JAXBException;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -10,10 +13,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
+import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
 import taskle.model.UserPrefs;
@@ -29,6 +35,12 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
+    private static final String FILE_CHOOSER_NAME = "Taskle Data Files";
+    private static final String FILE_CHOOSER_TYPE = "*.xml";
+    private static final String CHANGE_FILE_SUCCESS = "Storage File has been changed.";
+    private static final String CHANGE_FILE_ERROR = "Invalid File Format detected.";
+    private static final String CHANGE_DIRECTORY_SUCCESS = "Storage Directory has been changed to ";
+    
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -190,16 +202,28 @@ public class MainWindow extends UiPart {
             ExistingFileDialog.load(resultDisplay, primaryStage, config, logic, selectedDirectory);
         } else {
             StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
-            resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
+            resultDisplay.postMessage(CHANGE_DIRECTORY_SUCCESS + config.getTaskManagerFileDirectory());
         }
     }
     
     /**
-     * Change storage file
+     * Change storage file 
+     * @throws DataConversionException 
      */
     @FXML
     private void handleChangeStorageFile() {
-        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile == null || selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
+        } else {
+            if (StorageDirectoryUtil.updateFile(config, logic, selectedFile)) {
+                resultDisplay.postMessage(CHANGE_FILE_SUCCESS);
+            } else {
+                resultDisplay.postMessage(CHANGE_FILE_ERROR);
+            }
+        }
     }
 
     public TaskListPanel getTaskListPanel() {
