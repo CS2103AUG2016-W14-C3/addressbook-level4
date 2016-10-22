@@ -6,7 +6,6 @@ import taskle.logic.commands.RemoveCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.Model;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
 
 /**
  * UndoRemoveCommand to handle undo of remove commands
@@ -28,11 +27,8 @@ public class UndoRemoveCommand extends UndoCommand {
         
         Task task = command.getTasksAffected().get(0);
         
-        try {
-            model.addTask(task);
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            e.printStackTrace();
-        }
+        model.addTask(task);
+
         return new CommandResult(
                 String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
     }

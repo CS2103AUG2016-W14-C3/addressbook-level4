@@ -9,8 +9,7 @@ import taskle.logic.history.History;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.DuplicateTaskException;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Edits a task identified using it's last displayed index from the task
@@ -55,8 +54,6 @@ public class EditCommand extends Command {
             model.editTask(targetIndex, newName);
             tasksAffected.add((Task) taskToEdit);
             History.insert(this);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

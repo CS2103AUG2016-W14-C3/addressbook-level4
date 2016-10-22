@@ -4,12 +4,11 @@ import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.TaskManager;
 import taskle.model.tag.Tag;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building TaskManager objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TaskManager taskManager = new TaskManagerBuilder().withTask("Dinner", "Lunch").withTag("Friend").build();}
  */
 public class TaskManagerBuilder {
 
@@ -19,7 +18,7 @@ public class TaskManagerBuilder {
         this.taskManager = addressBook;
     }
 
-    public TaskManagerBuilder withPerson(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public TaskManagerBuilder withPerson(Task task) {
         taskManager.addTask(task);
         return this;
     }

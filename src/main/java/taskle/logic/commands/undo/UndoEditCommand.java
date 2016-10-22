@@ -6,8 +6,7 @@ import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.Model;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.DuplicateTaskException;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * UndoEditCommand to handle undo of edit commands
@@ -31,8 +30,6 @@ public class UndoEditCommand extends UndoCommand {
         EditCommand editCommand = (EditCommand) command;
         try {
             model.editTask(editCommand.getIndex(), task.getName());
-        } catch (DuplicateTaskException e) {
-            e.printStackTrace();
         } catch (TaskNotFoundException e) {
             e.printStackTrace();
         }

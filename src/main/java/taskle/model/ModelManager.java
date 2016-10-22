@@ -15,8 +15,7 @@ import taskle.commons.util.StringUtil;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -77,7 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+    public synchronized void editTask(int index, Name newName) throws TaskNotFoundException {
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);
         taskManager.editTask(sourceIndex, newName);;
         indicateTaskManagerChanged();
@@ -105,7 +104,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) {
         taskManager.addTask(task);
         updateFilteredListToShowAllNotDone();
         indicateTaskManagerChanged();

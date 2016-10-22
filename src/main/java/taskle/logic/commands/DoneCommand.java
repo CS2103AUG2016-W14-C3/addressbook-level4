@@ -7,7 +7,7 @@ import taskle.commons.core.UnmodifiableObservableList;
 import taskle.logic.history.History;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 public class DoneCommand extends Command {
 	

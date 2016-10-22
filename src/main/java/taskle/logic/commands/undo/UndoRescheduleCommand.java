@@ -13,7 +13,7 @@ import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * UndoRescheduleCommand to handle undo of reschedule commands

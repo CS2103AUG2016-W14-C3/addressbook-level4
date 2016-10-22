@@ -5,7 +5,6 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.Model;
-import taskle.model.task.UniqueTaskList;
 
 /**
  * UndoClearCommand to handle undo of clear Commands
@@ -26,11 +25,7 @@ public class UndoClearCommand extends UndoCommand {
         assert command != null && model != null;
         
         for (int i = 0; i < command.getTasksAffected().size(); i++) {
-            try {
-                model.addTask(command.getTasksAffected().get(i));
-            } catch (UniqueTaskList.DuplicateTaskException e) {
-                e.printStackTrace();
-            }
+            model.addTask(command.getTasksAffected().get(i));
         }
         return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandWord(), ""));
     }

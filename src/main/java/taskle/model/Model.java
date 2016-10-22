@@ -8,7 +8,7 @@ import taskle.commons.core.UnmodifiableObservableList;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
+import taskle.model.task.TaskList;
 
 /**
  * The API of the Model component.
@@ -21,22 +21,22 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws TaskList.TaskNotFoundException;
 
     /** Edits the given task. */
-    void editTask(int index, Name newName) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
+    void editTask(int index, Name newName) throws TaskList.TaskNotFoundException;
     
     /** Edits the date / time of the task */
-    void editTaskDate(int index, List<Date> dates) throws UniqueTaskList.TaskNotFoundException;
+    void editTaskDate(int index, List<Date> dates) throws TaskList.TaskNotFoundException;
    
     /** Marks the task as done*/
-    void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
+    void doneTask(int index, boolean targetDone) throws TaskList.TaskNotFoundException;
     
     /** Marks the task as undone */
     void unDoneTask(Task task);
     
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task);
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();

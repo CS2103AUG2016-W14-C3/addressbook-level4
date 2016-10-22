@@ -6,7 +6,7 @@ import taskle.logic.commands.CommandResult;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.Model;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
+import taskle.model.task.TaskList;
 
 /**
  * UndoAddCommand to handle undo of Add commands
@@ -29,7 +29,7 @@ public class UndoAddCommand extends UndoCommand {
         Task task = command.getTasksAffected().get(0);
         try {
             model.deleteTask(task);
-        } catch (UniqueTaskList.TaskNotFoundException e) {
+        } catch (TaskList.TaskNotFoundException e) {
             e.printStackTrace();
         }
         return new CommandResult(

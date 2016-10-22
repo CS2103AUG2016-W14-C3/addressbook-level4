@@ -11,7 +11,6 @@ import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
 
 /**
  * Adds a task to the Task Manager.
@@ -74,16 +73,12 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        try {
-            model.addTask(toAdd);
-            tasksAffected = new ArrayList<Task>();
-            tasksAffected.add(toAdd);
-            History.insert(this);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-
+        
+        model.addTask(toAdd);
+        tasksAffected = new ArrayList<Task>();
+        tasksAffected.add(toAdd);
+        History.insert(this);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override

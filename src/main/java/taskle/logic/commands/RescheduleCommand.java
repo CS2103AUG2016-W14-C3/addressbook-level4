@@ -10,7 +10,7 @@ import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.history.History;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Reschedule command for the user to reschedule a task / event's date and/or time or even clear it.

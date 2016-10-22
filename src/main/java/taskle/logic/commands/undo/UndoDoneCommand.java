@@ -6,7 +6,7 @@ import taskle.logic.commands.DoneCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.Model;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * UndoDoneCommand to handle undo of done commands

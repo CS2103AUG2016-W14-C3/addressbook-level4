@@ -36,7 +36,7 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
+import taskle.model.task.TaskList;
 import taskle.storage.XmlSerializableTaskManager;
 
 /**
@@ -141,7 +141,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyAddressBook() {
-        return new TaskManager(new UniqueTaskList(), new UniqueTagList());
+        return new TaskManager(new TaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageAddressBook() {

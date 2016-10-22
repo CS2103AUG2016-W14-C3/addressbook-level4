@@ -22,14 +22,12 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //add another task
         taskToAdd = td.interview;
-        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate task
-        commandBox.runCommand(AddCommand.COMMAND_WORD + " " 
-                + td.helpFriend.getName());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        //add duplicate task successful
+        taskToAdd = td.helpFriend;
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add to empty list
         commandBox.runCommand("clear");

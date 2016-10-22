@@ -68,8 +68,9 @@ public class EditCommandTest extends AddressBookGuiTest{
      */
     @Test
     public void edit_duplicate_task() {
-        String command = buildCommand("1", "Go Concert");
-        assertEditDuplicateName(command);
+        String newName = "Go Concert";
+        String command = buildCommand("1", newName);
+        assertEditResultSuccess(command, newName);
     }
     
     private String buildCommand(String taskNumber, String newName) {
@@ -85,11 +86,6 @@ public class EditCommandTest extends AddressBookGuiTest{
     private void assertEditInvalidIndex(String command) {
         commandBox.runCommand(command);
         assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-    }
-    
-    private void assertEditDuplicateName(String command) {
-        commandBox.runCommand(command);
-        assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
     }
     
     private void assertEditInvalidCommandFormat(String command) {
