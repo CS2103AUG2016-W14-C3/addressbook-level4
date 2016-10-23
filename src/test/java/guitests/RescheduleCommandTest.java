@@ -28,7 +28,7 @@ public class RescheduleCommandTest extends AddressBookGuiTest {
      */
     @Test
     public void reschedule_task_to_floattask() throws IllegalValueException {
-        String index = "1";
+        String index = "3";
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
         assertRescheduleResultSuccess("reschedule " + index + " clear", name + "\t" + oldDate + " -> " + "");
@@ -48,7 +48,7 @@ public class RescheduleCommandTest extends AddressBookGuiTest {
     @Test
     public void reschedule_task_to_deadlinetask() throws IllegalValueException {
         String newDate = "21 Oct 3pm";
-        String index = "1";
+        String index = "3";
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
@@ -70,7 +70,7 @@ public class RescheduleCommandTest extends AddressBookGuiTest {
     @Test
     public void reschedule_task_to_eventtask() throws IllegalValueException {
         String newDate = "21 Oct 3pm to 31 Oct 5pm";
-        String index = "1";
+        String index = "3";
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();

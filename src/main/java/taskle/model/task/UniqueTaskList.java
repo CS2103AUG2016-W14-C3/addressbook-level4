@@ -68,6 +68,7 @@ public class UniqueTaskList implements Iterable<Task> {
             throw new DuplicateTaskException();
         }
         internalList.add(toAdd);
+        refreshInternalList();
     }
 
     /**
@@ -112,6 +113,7 @@ public class UniqueTaskList implements Iterable<Task> {
         toEdit.setName(newName);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited to " + newName);
+        refreshInternalList();
     }
     
     /**
@@ -139,7 +141,10 @@ public class UniqueTaskList implements Iterable<Task> {
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
-
+    }
+    
+    public void refreshInternalList() {
+        internalList.sort(new TaskComparator());
     }
 
     /**
@@ -218,6 +223,7 @@ public class UniqueTaskList implements Iterable<Task> {
         
         logger.info("Updated Task to EventTask with 2 dates");
     }
+    
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

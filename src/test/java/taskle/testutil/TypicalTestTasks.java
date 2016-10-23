@@ -70,6 +70,9 @@ public class TypicalTestTasks {
     public void loadTaskManagerWithSampleData(TaskManager ab) {
 
         try {
+
+            ab.addTask(charityEvent.copy());
+            ab.addTask(assignmentDeadline.copy());
             ab.addTask(attendMeeting.copy());
             ab.addTask(buyMilk.copy());
             ab.addTask(createPlan.copy());
@@ -77,15 +80,13 @@ public class TypicalTestTasks {
             ab.addTask(eatDinner.copy());
             ab.addTask(flyKite.copy());
             ab.addTask(goConcert.copy());
-            ab.addTask(charityEvent.copy());
-            ab.addTask(assignmentDeadline.copy());
         } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
     public Task[] getTypicalTasks() {
-        return new Task[]{attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert, charityEvent, assignmentDeadline};
+        return new Task[]{charityEvent, assignmentDeadline, attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert};
     }
 
     public TaskManager getTypicalTaskManager(){
