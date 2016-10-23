@@ -44,11 +44,18 @@ public class HelpWindow extends UiPart {
                             "new_task_name"),
                     new CommandGuide("", "reschedule", "task_number", 
                             "(Date & Time)"),
+                    new CommandGuide("", "reschedule", "task_number", 
+                            "clear"),
                     new CommandGuide("", "remind", "task_number", 
                             "(Date & Time)"),
-                    new CommandGuide("", "remind", "task_number", "null"),
+                    new CommandGuide("", "remind", "task_number", "clear"),
                     new CommandGuide("Removing", "remove", "task_number"), 
-                    new CommandGuide("Finding", "find", "search_query")));
+                    new CommandGuide("Undo Previous Command", "undo"),
+                    new CommandGuide("Finding", "find", "search_query"),
+                    new CommandGuide("Mark as Done", "done", "task_number"),
+                    new CommandGuide("Clearing All Tasks", "clear"),
+                    new CommandGuide("Showing Help Window", "help"),
+                    new CommandGuide("Exiting from Taskle", "exit")));
 
     private AnchorPane mainPane;
     private Stage dialogStage;

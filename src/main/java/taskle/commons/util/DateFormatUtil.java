@@ -94,7 +94,7 @@ public class DateFormatUtil {
     
     /**
      * Used for converting a given array of dates into
-     * an add command ready format.
+     * an add command friendly format.
      * @param dates dates to be added to this formatted String
      * @return command ready format for the dates
      */

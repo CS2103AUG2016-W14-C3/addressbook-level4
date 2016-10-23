@@ -27,8 +27,8 @@ public class AddCommandParser extends CommandParser {
     // dateFrom (all words after from containing from at the start)
     // or dateBy (all words after by containing by at the start).
     private static final Pattern ADD_ARGS_FORMAT = 
-            Pattern.compile("(?<name>.+\\s(?=by|from|on)|.+$)"
-                    + "(?<dateEvent>(?=from|on).*)*"
+            Pattern.compile("(?<name>.+\\s(?=by|from)|.+$)"
+                    + "(?<dateEvent>(?=from).*)*"
                     + "(?<dateDeadline>(?=by).*)*");
 
     public AddCommandParser() {
