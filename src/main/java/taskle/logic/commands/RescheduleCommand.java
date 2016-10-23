@@ -24,8 +24,8 @@ public class RescheduleCommand extends Command{
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Reschedules or remove the date of the Task identified by the index number used in the last Task listing.\n"
-            + "Format: " + COMMAND_WORD + " task_number to new_date new_time(optional)\n" + "Example: " 
-            + COMMAND_WORD + " 1 to 11 Nov 3pm --- for rescheduling\tOR\t"
+            + "Format: " + COMMAND_WORD + " task_number new_date new_time(optional)\n" + "Example: " 
+            + COMMAND_WORD + " 1 25 Nov 3pm --- for rescheduling\tOR\t"
             + COMMAND_WORD + " 1 clear --- for removing the date";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Rescheduled Task: %1$s";
