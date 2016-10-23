@@ -1,5 +1,7 @@
 package taskle.model.task;
 
+import java.util.Date;
+
 import taskle.model.tag.UniqueTagList;
 
 /**
@@ -12,6 +14,10 @@ public class FloatTask extends Task {
 
     public FloatTask(Name name, UniqueTagList tags) {
         super(name, tags);
+    }
+    
+    public FloatTask(Name name, Date remindDate, UniqueTagList tags) {
+        super(name, remindDate, tags);
     }
     
     /**

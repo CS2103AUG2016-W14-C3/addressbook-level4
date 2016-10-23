@@ -15,13 +15,19 @@ public class EventTask extends Task {
         
     private Date startDate;
     private Date endDate;
-
+    
     public EventTask(Name name, Date startDateTime, Date endDateTime, UniqueTagList tags) {
         super(name, tags);
         this.startDate = startDateTime;
         this.endDate = endDateTime;
     }
 
+    public EventTask(Name name, Date startDateTime, Date endDateTime, Date remindDate, UniqueTagList tags) {
+        super(name, remindDate, tags);
+        this.startDate = startDateTime;
+        this.endDate = endDateTime;
+    }
+    
     public EventTask(ReadOnlyTask source) {
         super(source);
         

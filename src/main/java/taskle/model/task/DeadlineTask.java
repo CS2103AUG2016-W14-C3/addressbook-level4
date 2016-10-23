@@ -20,6 +20,12 @@ public class DeadlineTask extends Task {
         super(name, tags);
         this.deadlineDate = deadlineDate;
     }
+    
+    public DeadlineTask(Name name, Date deadlineDate, Date remindDate, UniqueTagList tags) {
+        super(name, remindDate, tags);
+        this.deadlineDate = deadlineDate;
+    }
+    
 
     public DeadlineTask(ReadOnlyTask source) {
         super(source);
