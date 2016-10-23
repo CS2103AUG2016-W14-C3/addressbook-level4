@@ -85,7 +85,7 @@ public class AddCommandParser extends CommandParser {
                 return prepareDeadlineAdd(args, nameString, deadlineDates);
             }            
         } else if (eventDatesString != null && !eventDatesString.isEmpty()) {
-            String[] dates = parseReminder(deadlineString);
+            String[] dates = parseReminder(eventDatesString);
             String dateString = dates[0];
             String reminderString = dates[1];
             List<Date> eventDates = DateParser.parse(dateString);
