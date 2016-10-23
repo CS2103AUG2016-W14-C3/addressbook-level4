@@ -93,7 +93,7 @@ Remind | `remind `**`task_number date`**`[`**` time`**`]`
 
 > **Things to Note**
 > * A  task can only have one reminder. The date and time as specified in the "remind" command would replace any existing reminder.
-> * **Time** must be specified for reminders so that Taskle can remind you based on the time given.
+> * If **Time** is not specified for reminders, Taskle will automatically assign the reminder time as 00:00 for the specified reminder date.
 > * To remove a reminder or deadline from a task, you will have to type **"clear"** after typing the task number. For example:
 >	* remind **2 clear**
 >	* reschedule **2 clear**
