@@ -62,7 +62,7 @@ Taskle makes it elegantly simple to manage your tasks. All of its features requi
 
 | Format  
 | :-------- 
-| `add `**`task_name`** | 
+| `add `**`task_name`**` [remind `**`date time`**`]` | 
 | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |
 | `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
 
@@ -248,10 +248,10 @@ Note the following conventions used:
 
 Command `(Shortcut)` | Format  
 :-------- | :-------- 
-Add `a` | `add `**`task_name`**  
- | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
- | `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
- |`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+Add `a` | `add `**`task_name`**` [remind `**`date time`**`]`
+ 		| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
+ 		| `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
+ 		|`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
 Edit Description `e` | `edit `**`task_number new_task_name`**
 Reschedule `r` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**
