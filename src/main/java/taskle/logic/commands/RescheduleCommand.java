@@ -25,8 +25,8 @@ public class RescheduleCommand extends Command{
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Reschedules or remove the date of the Task identified by the index number used in the last Task listing.\n"
             + "Format: " + COMMAND_WORD + " task_number new_date new_time(optional)\n" + "Example: " 
-            + COMMAND_WORD + " 1 25 Nov 3pm --- for rescheduling\tOR\t"
-            + COMMAND_WORD + " 1 clear --- for removing the date";
+            + COMMAND_WORD + " 1 25 Nov 3pm ---> for rescheduling\tOR\t"
+            + COMMAND_WORD + " 1 clear ---> for removing the date";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Rescheduled Task: %1$s";
 
@@ -53,7 +53,7 @@ public class RescheduleCommand extends Command{
             tasksAffected = new ArrayList<Task>();
             Task originalTask = taskToEdit.copy();
             tasksAffected.add(originalTask);
-            model.editTaskDate(targetIndex, dates);
+            model.editTaskDate(offsetIndex, dates);
             tasksAffected.add((Task) taskToEdit);
             History.insert(this);
         } catch (TaskNotFoundException pnfe) {

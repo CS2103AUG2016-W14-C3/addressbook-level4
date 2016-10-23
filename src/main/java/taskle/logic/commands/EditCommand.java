@@ -45,14 +45,14 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
-
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        String oldName = taskToEdit.getName().fullName;
+        int offsetIndex = targetIndex - 1;
+        ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
+        String oldName = taskToEdit.getName().fullName; 
         try {
             tasksAffected = new ArrayList<Task>();
             Task originalTask = taskToEdit.copy();
             tasksAffected.add(originalTask);
-            model.editTask(targetIndex, newName);
+            model.editTask(offsetIndex, newName);
             tasksAffected.add((Task) taskToEdit);
             History.insert(this);
         } catch (DuplicateTaskException e) {
