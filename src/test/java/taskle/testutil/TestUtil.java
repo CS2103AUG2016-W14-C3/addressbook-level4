@@ -36,6 +36,7 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
+import taskle.model.task.TaskComparator;
 import taskle.model.task.TaskList;
 import taskle.storage.XmlSerializableTaskManager;
 
@@ -321,6 +322,7 @@ public class TestUtil {
     public static Task[] addTasksToList(final Task[] tasks, Task... tasksToAdd) {
         List<Task> listOfTasks = asList(tasks);
         listOfTasks.addAll(asList(tasksToAdd));
+        listOfTasks.sort(new TaskComparator());
         return listOfTasks.toArray(new Task[listOfTasks.size()]);
     }
 

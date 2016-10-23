@@ -11,6 +11,7 @@ import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
+import taskle.model.task.TaskList;
 
 /**
  *
@@ -80,7 +81,7 @@ public class TypicalTestTasks {
     }
 
     public Task[] getTypicalTasks() {
-        return new Task[]{attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert, charityEvent, assignmentDeadline};
+        return new Task[]{charityEvent, assignmentDeadline, attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert};
     }
 
     public TaskManager getTypicalTaskManager(){
