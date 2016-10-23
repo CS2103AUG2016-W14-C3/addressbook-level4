@@ -60,7 +60,7 @@ public class RescheduleCommand extends Command{
             assert false : "The target task cannot be missing";
         }
         ReadOnlyTask newTask = lastShownList.get(offsetIndex);
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + "\t" 
+        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + " " 
                                             + oldDetails + " -> " + newTask.getDetailsString()));
     }
 
