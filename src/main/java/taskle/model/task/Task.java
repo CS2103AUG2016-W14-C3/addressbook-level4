@@ -105,8 +105,6 @@ public abstract class Task implements ReadOnlyTask {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
-        builder.append(" Reminder on: ");
-        builder.append(getRemindDetailsString());
         return builder.toString();
     }
     

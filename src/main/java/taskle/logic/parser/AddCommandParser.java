@@ -142,7 +142,7 @@ public class AddCommandParser extends CommandParser {
      * @return a valid float command
      */
     private Command prepareFloatAdd(String name, List<Date> remindDate) {
-        if (remindDate == null || remindDate.size() > 1) {
+        if (remindDate == null || remindDate.size() != 1) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     AddCommand.MESSAGE_USAGE));
@@ -192,7 +192,7 @@ public class AddCommandParser extends CommandParser {
             return errorCheckingCommand;
         }
         
-        if (remindDate == null || remindDate.size() > 1) {
+        if (remindDate == null || remindDate.size() != 1) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     AddCommand.MESSAGE_USAGE));
@@ -294,7 +294,7 @@ public class AddCommandParser extends CommandParser {
             return errorCheckingCommand;
         }
         
-        if (remindDate == null || remindDate.size() > 1) {
+        if (remindDate == null || remindDate.size() != 1) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                     AddCommand.MESSAGE_USAGE));

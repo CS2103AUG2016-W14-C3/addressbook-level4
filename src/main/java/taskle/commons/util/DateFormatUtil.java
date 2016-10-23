@@ -101,7 +101,6 @@ public class DateFormatUtil {
             return "";
         }
         return SIMPLE_DATE_TIME_FORMAT.format(date);
-
     }
 
     /**

@@ -12,7 +12,7 @@ import taskle.model.tag.UniqueTagList;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
-public class EditCommandTest extends AddressBookGuiTest{
+public class EditCommandTest extends TaskManagerGuiTest{
 
 
     /**

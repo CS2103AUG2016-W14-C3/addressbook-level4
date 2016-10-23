@@ -17,7 +17,7 @@ import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
-public class RescheduleCommandTest extends AddressBookGuiTest {
+public class RescheduleCommandTest extends TaskManagerGuiTest {
 
     /**
      * Reschedules a current task to a float task inside the TypicalTestTask to
@@ -31,7 +31,7 @@ public class RescheduleCommandTest extends AddressBookGuiTest {
         String index = "1";
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        assertRescheduleResultSuccess("reschedule " + index + " clear", name + "\t" + oldDate + " -> " + "");
+        assertRescheduleResultSuccess("reschedule " + index + " clear", name + " " + oldDate + " -> " + "");
 
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         FloatTask newTask = new FloatTask(new Name(name), new UniqueTagList());
@@ -53,7 +53,7 @@ public class RescheduleCommandTest extends AddressBookGuiTest {
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
         Date date = DateParser.parse(newDate).get(0);
-        assertRescheduleResultSuccess(command, name + "\t" + oldDate + " -> " + "3:00PM, 21 Oct 2016");
+        assertRescheduleResultSuccess(command, name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016");
 
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         DeadlineTask newTask = new DeadlineTask(new Name(name), date, new UniqueTagList());
@@ -77,7 +77,7 @@ public class RescheduleCommandTest extends AddressBookGuiTest {
         Date startDate = DateParser.parse(newDate).get(0);
         Date endDate = DateParser.parse(newDate).get(1);
         assertRescheduleResultSuccess(command,
-                name + "\t" + oldDate + " -> " + "3:00PM, 21 Oct 2016 to 5:00PM, 31 Oct 2016");
+                name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016 to 5:00PM, 31 Oct 2016");
 
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         EventTask newTask = new EventTask(new Name(name), startDate, endDate, new UniqueTagList());
