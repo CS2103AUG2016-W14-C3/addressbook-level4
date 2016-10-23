@@ -121,7 +121,7 @@ public class AddCommand extends Command {
             tasksAffected = new ArrayList<Task>();
             tasksAffected.add(toAdd);
             History.insert(this);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd + " Reminder on: " + toAdd.getRemindDetailsString()));
         } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }

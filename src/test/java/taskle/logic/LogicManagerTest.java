@@ -176,7 +176,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -193,7 +193,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_FLOAT_REMINDER),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -211,7 +211,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_EVENT_DATE),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -228,7 +228,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_EVENT_REMINDER),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -245,7 +245,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_DEADLINE_DATE),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -262,7 +262,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_DEADLINE_REMINDER),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -279,7 +279,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_TMR_SUCCESSFUL_DATE),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -295,7 +295,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.ADD_COMMAND_GARDENS_BY_BAY,
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -311,7 +311,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.ADD_COMMAND_NEW_YEAR_DAY,
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -327,7 +327,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }

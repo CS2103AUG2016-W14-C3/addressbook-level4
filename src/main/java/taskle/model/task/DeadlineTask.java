@@ -63,8 +63,6 @@ public class DeadlineTask extends Task {
         builder.append(name);
         builder.append(" by ");
         builder.append(getDetailsString());
-        builder.append(" Reminder on: ");
-        builder.append(getRemindDetailsString());
         return builder.toString();
     }
 

@@ -74,8 +74,6 @@ public class EventTask extends Task {
         builder.append(name);
         builder.append(" from ");
         builder.append(getDetailsString());
-        builder.append(" Reminder on: ");
-        builder.append(getRemindDetailsString());
         return builder.toString();
     }
 
