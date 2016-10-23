@@ -421,6 +421,7 @@ public class LogicManagerTest {
         String index = "1";
         String taskName = "Task 3";
         helper.addToModel(model, threePersons);
+        expectedAB.editTask(1, new Name(taskName));
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateEditCommand(index, taskName),
@@ -800,6 +801,7 @@ public class LogicManagerTest {
             for(int i = 1; i <= numGenerated; i++){
                 tasks.add(generateTask(i));
             }
+            tasks.sort(new TaskComparator());
             return tasks;
         }
 

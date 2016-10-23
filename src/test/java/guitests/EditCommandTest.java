@@ -9,6 +9,7 @@ import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.EditCommand;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
@@ -73,12 +74,13 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_duplicate_task() throws IllegalValueException {
         String newName = "Go Concert";
-        String command = buildCommand("1", newName);
-        assertEditResultSuccess(command, "Attend Meeting" + " -> " + newName);
+        String command =
+                buildCommand("1", newName);
+        assertEditResultSuccess(command, "Charity Event" + " -> " + newName);
 
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(0);
-        FloatTask newTask = new FloatTask(new Name(newName), 
-                                          new UniqueTagList());
+        EventTask newTask = (EventTask) td.charityEvent.copy();
+        newTask.setName(new Name(newName));
         assertMatching(newTask, addedCard);
     }
 
@@ -87,6 +89,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         return command;
     }
 
+    
     private void assertEditResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
         assertResultMessage("Edited Task: " + newName);
