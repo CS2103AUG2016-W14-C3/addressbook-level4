@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.Objects;
 
 import taskle.commons.util.CollectionUtil;
+import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
 
 /**
@@ -105,5 +106,10 @@ public abstract class Task implements ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         return builder.toString();
+    }
+    
+    @Override
+    public String getRemindDetailsString() {
+        return DateFormatUtil.formatDate(remindDate);
     }
 }

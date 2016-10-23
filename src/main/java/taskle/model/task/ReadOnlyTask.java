@@ -46,6 +46,8 @@ public interface ReadOnlyTask {
     
     public String getDetailsString();
 
+    public String getRemindDetailsString();
+    
     boolean isTaskDone();
 
 }
