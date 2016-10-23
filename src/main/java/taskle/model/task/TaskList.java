@@ -50,7 +50,6 @@ public class TaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
     public void add(Task toAdd) {
         assert toAdd != null;

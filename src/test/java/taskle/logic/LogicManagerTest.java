@@ -302,11 +302,12 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void execute_addDuplicate_allowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
@@ -315,7 +316,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -422,7 +423,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateEditCommand(index, taskName),
-                EditCommand.MESSAGE_DUPLICATE_TASK,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "Task 1" + " -> " + taskName),
                 expectedAB,
                 expectedAB.getTaskList());
     }

@@ -7,6 +7,7 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.logic.commands.AddCommand;
+import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
@@ -22,10 +23,11 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //add another task
         taskToAdd = td.interview;
+        assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add duplicate task successful
-        taskToAdd = td.helpFriend;
+        taskToAdd = new FloatTask(td.helpFriend);
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
@@ -56,7 +58,6 @@ public class AddCommandTest extends AddressBookGuiTest {
                 + taskToAdd.toString());
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        System.out.println(addedCard.getDetails());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
