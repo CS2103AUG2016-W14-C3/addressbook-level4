@@ -88,8 +88,8 @@ Edits an existing task in Taskle. There are 3 types of edits possible: Edit task
 Type | Format  
 :-------- | :-------- 
 Edit task name | `edit `**`task_number new_task_name`**  
-Reschedule | `reschedule `**`task_number` `date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
-Remind | `remind `**`task_number` `date time`**
+Reschedule | `reschedule `**`task_number date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Remind | `remind `**`task_number date`**`[`**` time`**`]`
 
 > **Things to Note**
 > * A  task can only have one reminder. The date and time as specified in the "remind" command would replace any existing reminder.
