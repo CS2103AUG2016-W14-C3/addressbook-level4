@@ -29,6 +29,9 @@ public interface Model {
     /** Edits the date / time of the task */
     void editTaskDate(int index, List<Date> dates) throws UniqueTaskList.TaskNotFoundException;
    
+    /** Edits / Sets the reminder date of the task */
+    void editTaskRemindDate(int index, Date date) throws UniqueTaskList.TaskNotFoundException;
+    
     /** Marks the task as done*/
     void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
     

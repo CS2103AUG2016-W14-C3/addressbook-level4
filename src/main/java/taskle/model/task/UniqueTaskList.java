@@ -115,6 +115,24 @@ public class UniqueTaskList implements Iterable<Task> {
     }
     
     /**
+     * Edits the reminder date for the task in the list
+     * @param index
+     * @param date
+     * @throws TaskNotFoundException
+     */
+    public void editRemindDate(int index, Date date) throws TaskNotFoundException {
+        Optional<Task> toEditOp = Optional.of(internalList.get(index));
+        
+        if(!toEditOp.isPresent()) {
+            throw new TaskNotFoundException();
+        }
+        Task toEdit = toEditOp.get();
+        toEdit.setRemindDate(date);
+        internalList.set(index, toEdit);
+        logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
+    }
+    
+    /**
      * Edits the date / time of the equivalent task in the list. 
      * For null, it modifies the task into a float task without any dates.
      * For 1 date in the List, it modifies the task into a deadline task with the appropriate deadline date.

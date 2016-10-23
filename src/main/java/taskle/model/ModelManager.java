@@ -84,11 +84,19 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
+    public synchronized void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
         int sourceIndex = filteredTasks.getSourceIndex(index);
         taskManager.editTaskDate(sourceIndex, dates);
         indicateTaskManagerChanged();
     }
+    
+    @Override
+    public synchronized void editTaskRemindDate(int index, Date date) throws TaskNotFoundException{
+        int sourceIndex = filteredTasks.getSourceIndex(index);
+        taskManager.editTaskRemindDate(sourceIndex, date);
+        indicateTaskManagerChanged();
+    }
+    
     
     @Override
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
