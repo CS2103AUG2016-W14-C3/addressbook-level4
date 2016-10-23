@@ -1,5 +1,6 @@
 package taskle.model.task;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import taskle.commons.util.DateFormatUtil;
@@ -70,6 +71,17 @@ public class EventTask extends Task {
         builder.append(DateFormatUtil.getDateArgString(
                 startDate, endDate));
         return builder.toString();
+    }
+
+    @Override
+    public Status getState() {
+        Calendar calendar = Calendar.getInstance();
+        Date nowDate = calendar.getTime();
+        if (nowDate.before(startDate)) {
+            return Status.PENDING;
+        } else {
+            return Status.OVERDUE;
+        }
     }
 
 }

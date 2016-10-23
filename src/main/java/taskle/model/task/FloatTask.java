@@ -30,5 +30,10 @@ public class FloatTask extends Task {
     public Task copy() {
         return new FloatTask(this);
     }
+
+    @Override
+    public Status getState() {
+        return Status.FLOAT;
+    }
     
 }

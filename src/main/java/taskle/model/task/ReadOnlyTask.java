@@ -1,5 +1,7 @@
 package taskle.model.task;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import taskle.model.tag.UniqueTagList;
 
 /**
@@ -7,6 +9,10 @@ import taskle.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
+    
+    public enum Status {
+        FLOAT, PENDING, OVERDUE
+    }
     
     Name getName();
     
@@ -40,6 +46,8 @@ public interface ReadOnlyTask {
     }
     
     public abstract Task copy();
+    
+    public Status getState();
     
     public String getDetailsString();
 
