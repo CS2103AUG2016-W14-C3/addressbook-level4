@@ -73,8 +73,9 @@ public class EventTask extends Task {
         StringBuilder builder = new StringBuilder();
         builder.append(name);
         builder.append(" from ");
-        builder.append(DateFormatUtil.getDateArgString(
-                startDate, endDate));
+        builder.append(getDetailsString());
+        builder.append(" Reminder on: ");
+        builder.append(getRemindDetailsString());
         return builder.toString();
     }
 
