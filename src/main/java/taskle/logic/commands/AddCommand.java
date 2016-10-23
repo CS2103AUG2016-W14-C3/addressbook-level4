@@ -2,6 +2,7 @@ package taskle.logic.commands;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.history.History;
@@ -46,6 +47,19 @@ public class AddCommand extends Command {
     }
     
     /**
+     * Convenience constructor with name and reminder
+     * @param name
+     * @throws IllegalValueException
+     */
+    public AddCommand(String name, List<Date> remindDate)
+            throws IllegalValueException {
+        assert remindDate != null;
+        assert remindDate.size() == 1;
+        Date reminderDate = remindDate.get(0);
+        this.toAdd = new FloatTask(new Name(name), reminderDate, stubTagList);
+    }
+    
+    /**
      * Convenience constructor using raw name 
      * and DateTime object for deadline date. 
      *
@@ -56,6 +70,24 @@ public class AddCommand extends Command {
         assert deadlineDate != null;
         this.toAdd = new DeadlineTask(new Name(name), deadlineDate, stubTagList);
     }
+    
+    /**
+     * Convenience constructor using name,
+     * date for deadline and reminder
+     * @param name
+     * @param deadlineDate
+     * @param remindDate
+     * @throws IllegalValueException
+     */
+    public AddCommand(String name, Date deadlineDate, List<Date> remindDate)
+            throws IllegalValueException {
+        assert remindDate != null;
+        assert deadlineDate != null;
+        assert remindDate.size() == 1;
+        Date reminderDate = remindDate.get(0);
+        this.toAdd = new DeadlineTask(new Name(name), deadlineDate, reminderDate, stubTagList);
+    }
+    
     
     /**
      * Convenience constructor using raw name 
@@ -70,6 +102,16 @@ public class AddCommand extends Command {
         this.toAdd = new EventTask(new Name(name), startDate, endDate, stubTagList);
     }
 
+    public AddCommand(String name, Date startDate, Date endDate, List<Date> remindDate)
+            throws IllegalValueException {
+        assert startDate != null;
+        assert endDate != null;
+        assert remindDate != null;
+        assert remindDate.size() == 1;
+        Date reminderDate = remindDate.get(0);
+        this.toAdd = new EventTask(new Name(name), startDate, endDate, reminderDate, stubTagList);
+    }
+    
 
     @Override
     public CommandResult execute() {
