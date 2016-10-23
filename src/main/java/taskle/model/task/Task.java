@@ -112,6 +112,6 @@ public abstract class Task implements ReadOnlyTask {
     
     @Override
     public String getRemindDetailsString() {
-        return DateFormatUtil.formatDate(remindDate);
+        return DateFormatUtil.formatRemindDate(remindDate);
     }
 }
