@@ -25,6 +25,9 @@ public class StorageDirectoryUtilTest {
     private Logic logic;
     private Config config;
     
+    private final static String TEST_FILE_DIRECTORY = "directory";
+    private final static String TEST_FILE_FILENAME = "file.txt";
+    
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/");
     private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "ValidFormatTaskManager.xml");
     private static final File INVALID_FILE = new File(TEST_DATA_FOLDER + "InvalidFormatTaskManager.xml");
@@ -68,7 +71,30 @@ public class StorageDirectoryUtilTest {
         StorageDirectoryUtil.updateFile(config, logic, VALID_FILE);
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
         assertEquals(config.getTaskManagerFileName(), "ValidFormatTaskManager.xml");
-    }    
+    }
+    
+    //Split a null object - Assertion Error
+    @Test
+    public void splitFilePath_nullFilePath_assertionError() {
+        thrown.expect(AssertionError.class);
+        StorageDirectoryUtil.splitFilePath(null);
+    }
+    
+    //Split an invalid String file path format - IndexOutOfBoundsException
+    @Test
+    public void splitFilePath_invalidFilePath_indexOutOfBoundsException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        StorageDirectoryUtil.splitFilePath("");
+    }
+    
+    //Split a valid String file path format
+    @Test
+    public void splitFilePath_validFilePath_filePathSuccess() {
+        String[] sampleFilePath = StorageDirectoryUtil.splitFilePath(TEST_FILE_DIRECTORY + File.separator +
+                TEST_FILE_FILENAME);
+        assertEquals(sampleFilePath[0], TEST_FILE_DIRECTORY);
+        assertEquals(sampleFilePath[1], TEST_FILE_FILENAME);
+    }
     
     @Before
     public void setup() {
