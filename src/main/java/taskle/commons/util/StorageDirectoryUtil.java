@@ -46,6 +46,7 @@ public class StorageDirectoryUtil {
     }
     
     public static String[] splitFilePath(String filePath) {
+        assert filePath != null;
         String[] separatedFilePath = new String[2];
         separatedFilePath[0] = filePath.substring(0, filePath.lastIndexOf(File.separator));
         separatedFilePath[1] = filePath.substring(filePath.lastIndexOf(File.separator) + 1);
