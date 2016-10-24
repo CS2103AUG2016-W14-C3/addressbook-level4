@@ -1,5 +1,6 @@
 package taskle.commons.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -25,6 +26,8 @@ public class StorageDirectoryUtilTest {
     private Config config;
     
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/");
+    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "ValidFormatTaskManager.xml");
+    private static final File INVALID_FILE = new File(TEST_DATA_FOLDER + "InvalidFormatTaskManager.xml");
     
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -45,6 +48,27 @@ public class StorageDirectoryUtilTest {
         StorageDirectoryUtil.updateDirectory(config, logic, new File(TEST_DATA_FOLDER));
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
     }
+    
+    //Change to a null file - Assertion Error
+    @Test
+    public void updateFile_nullFile_assertionError() {
+        thrown.expect(AssertionError.class);
+        StorageDirectoryUtil.updateFile(config, logic, null);
+    }
+    
+    //Change to file of invalid format - Shows Exception
+    @Test
+    public void updateFile_invalidFileFormat_Exception() {
+        StorageDirectoryUtil.updateFile(config, logic, INVALID_FILE);
+    }
+    
+    //Change to a valid file - Successfully Update
+    @Test
+    public void updateFile_validFile_FileChanged() {
+        StorageDirectoryUtil.updateFile(config, logic, VALID_FILE);
+        assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
+        assertEquals(config.getTaskManagerFileName(), "ValidFormatTaskManager.xml");
+    }    
     
     @Before
     public void setup() {
