@@ -59,11 +59,11 @@ public class DateFormatUtil {
         int endYear = calendar.get(Calendar.YEAR);
         
         if (startDate.equals(endDate)) {
-            return SIMPLE_DATE_TIME_FORMAT.format(endDate);
+            return formatDate(endDate);
         } else if (startDay == endDay && startYear == endYear) {
             return SIMPLE_TIME_FORMAT.format(startDate) 
                     + EVENT_DATES_DELIMITER
-                    + SIMPLE_DATE_TIME_FORMAT.format(endDate);
+                    + formatDate(endDate);
         } else {
             return formatDate(startDate) + EVENT_DATES_DELIMITER
                     + formatDate(endDate);
@@ -85,7 +85,7 @@ public class DateFormatUtil {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int min = calendar.get(Calendar.MINUTE);
         int sec = calendar.get(Calendar.SECOND);
-        if (hour == 0 && min == 0 && sec == 0) {
+        if (hour == 0 && min == 0) {
             return SIMPLE_DATE_FORMAT.format(date);
         } else {
             return SIMPLE_DATE_TIME_FORMAT.format(date);
