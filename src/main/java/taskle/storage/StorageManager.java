@@ -91,6 +91,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public void setTaskManagerFilePath(String filePath) {
+        assert filePath != null;
         taskManagerStorage = new XmlTaskManagerStorage(filePath);
         raise(new StorageLocationChangedEvent(taskManagerStorage));
     }
