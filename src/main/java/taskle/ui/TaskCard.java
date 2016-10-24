@@ -6,8 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import taskle.model.task.ReadOnlyTask;
 
-public class TaskCard extends UiPart{
+public class TaskCard extends UiPart {
 
+    private static final String STYLE_CARD_OVERDUE = "-fx-background-color: #E53935";
+    private static final String STYLE_CARD_PENDING = "-fx-background-color: #1E88E5";
+    private static final String STYLE_CARD_FLOAT = "-fx-background-color: #1E88E5";
+    
     private static final String FXML = "TaskListCard.fxml";
 
     @FXML
@@ -37,10 +41,31 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
+        setCardTexts();
+        setCardStyle();
+    }
+    
+    private void setCardTexts() {
         name.setText(task.getName().fullName);
         details.setText(task.getDetailsString());
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
+    }
+    
+    private void setCardStyle() {
+        switch (task.getState()) {
+        case FLOAT:
+            cardPane.setStyle(STYLE_CARD_FLOAT);
+            break;
+        case OVERDUE:
+            cardPane.setStyle(STYLE_CARD_OVERDUE);
+            break;
+        case PENDING:
+            cardPane.setStyle(STYLE_CARD_PENDING);
+            break;
+        default:
+            break;
+        }
     }
 
     public HBox getLayout() {
