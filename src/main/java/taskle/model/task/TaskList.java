@@ -125,6 +125,7 @@ public class TaskList implements Iterable<Task> {
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
+        refreshInternalList();
     }
     
     public void refreshInternalList() {
