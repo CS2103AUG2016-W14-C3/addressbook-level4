@@ -9,8 +9,8 @@ import taskle.model.task.ReadOnlyTask;
 public class TaskCard extends UiPart {
 
     private static final String STYLE_CARD_OVERDUE = "-fx-background-color: #E53935";
-    private static final String STYLE_CARD_PENDING = "-fx-background-color: #1E88E5";
-    private static final String STYLE_CARD_FLOAT = "-fx-background-color: #1E88E5";
+    private static final String STYLE_CARD_PENDING = "-fx-background-color: #1976D2";
+    private static final String STYLE_CARD_FLOAT = "-fx-background-color: #1976D2";
     
     private static final String FXML = "TaskListCard.fxml";
 

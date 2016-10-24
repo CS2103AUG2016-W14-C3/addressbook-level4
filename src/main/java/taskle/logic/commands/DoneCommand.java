@@ -29,8 +29,8 @@ public class DoneCommand extends Command {
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult("");
         }
 
         ReadOnlyTask taskMarkedAsDone = lastShownList.get(targetIndex - 1);

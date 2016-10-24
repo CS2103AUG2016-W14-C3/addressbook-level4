@@ -43,8 +43,8 @@ public class RescheduleCommand extends Command{
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult("");
         }
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
