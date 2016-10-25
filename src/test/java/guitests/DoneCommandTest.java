@@ -9,7 +9,9 @@ import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.DoneCommand;
 
-public class DoneCommandTest extends TaskManagerGuiTest{
+//@author A0125509H
+
+public class DoneCommandTest extends AddressBookGuiTest{
 	    /**
 	     * Marks a current task, inside the TypicalTestTask, as done to test the done function.
 	     * Check if that task has been edited correctly.
@@ -17,12 +19,8 @@ public class DoneCommandTest extends TaskManagerGuiTest{
 	     */
 	    @Test
 	    public void done_existing_task() throws IllegalValueException {
-	    	//String newTaskName = "Buy Groceries";
-	        //Name newName = new Name(newTaskName);
 	        String index = "1";
 	        String command = buildCommand(index);
-	        //String oldName = td.attendMeeting.getName().fullName;
-	        //System.out.println(Integer.parseInt(index));
 	        assertDoneResultSuccess(command, index);
 	    }
 	    
