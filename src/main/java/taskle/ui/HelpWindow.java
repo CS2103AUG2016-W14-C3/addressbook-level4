@@ -54,7 +54,7 @@ public class HelpWindow extends UiPart {
                     new CommandGuide("Undo Previous Command", "undo"),
                     new CommandGuide("Finding", "find", "[search_query]",
                             "[-status]"),
-                    new CommandGuide("Listing all tasks", "list"),
+                    new CommandGuide("Listing all tasks", "list", "[-status]"),
                     new CommandGuide("Mark as Done", "done", "[task_number]"),
                     new CommandGuide("Clearing All Tasks", "clear"),
                     new CommandGuide("Showing Help Window", "help"),
