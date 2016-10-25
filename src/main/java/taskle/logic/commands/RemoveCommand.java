@@ -1,12 +1,10 @@
 package taskle.logic.commands;
 
 import java.util.ArrayList;
-import java.util.Optional;
+import java.util.Collections;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.logic.history.History;
-import taskle.model.task.Task;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -23,21 +21,20 @@ public class RemoveCommand extends Command {
             + "Format: remove task_number\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Task: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Tasks: %1$s";
 
     //@@author A0125509H
-    public final String targetIndex;
-    int arraySize;
-    String[] s;
-    ArrayList<Integer> sInt = new ArrayList<Integer>();
+    public final String targetIndexes;
+    private int arraySize;
+    private String[] s;
+    private ArrayList<Integer> sInt = new ArrayList<Integer>();
     
-    public RemoveCommand(String targetIndex) {
-        this.targetIndex = targetIndex;
+    public RemoveCommand(String targetIndexes) {
+        this.targetIndexes = targetIndexes;
         
-        String argsTrim = targetIndex.trim();
+        String argsTrim = targetIndexes.trim();
         s = argsTrim.split(" ");
-        for(int i=0; i<s.length; i++)
-        {   
+        for(int i=0; i<s.length; i++) {   
             sInt.add(Integer.parseInt(s[i]));
         }
         
@@ -50,8 +47,7 @@ public class RemoveCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        for(int i=0; i<arraySize; i++)
-        {
+        for(int i=0; i<arraySize; i++) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
     
             if (lastShownList.size() < sInt.get(i)) {
@@ -69,7 +65,8 @@ public class RemoveCommand extends Command {
             }
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, 2));
+        String message = String.join(", ", s);
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, message));
     }
     
     @Override
