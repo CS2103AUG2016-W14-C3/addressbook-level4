@@ -225,7 +225,7 @@ Undo a previous command. This command is used when you wish to revert from the m
 
 <br>
 
-### Redoing an Undo: `redo`
+### Redoing a Undo: `redo`
 Redo a previous command. This command is used when you wish to revert a wrongly issued undo command<br><br>
 
 | Format  
