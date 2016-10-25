@@ -1,7 +1,5 @@
 package taskle.model.task;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import taskle.model.tag.UniqueTagList;
 
 /**
@@ -11,7 +9,7 @@ import taskle.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
     
     public enum Status {
-        FLOAT, PENDING, OVERDUE
+        FLOAT, PENDING, OVERDUE, DONE
     }
     
     Name getName();
@@ -47,10 +45,10 @@ public interface ReadOnlyTask {
     
     public abstract Task copy();
     
-    public Status getState();
+    public Status getStatus();
     
     public String getDetailsString();
 
-    boolean isTaskDone();
+    public boolean isTaskDone();
 
 }

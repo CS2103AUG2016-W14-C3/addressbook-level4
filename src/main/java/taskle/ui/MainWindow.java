@@ -28,7 +28,7 @@ import taskle.model.UserPrefs;
 public class MainWindow extends UiPart {
 
     private static final String NOTIFICATION_PANE_ID = "notificationPane";
-    private static final String GOOGLE_CUSTOM_FONT_URL = "https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed";
+    private static final String GOOGLE_CUSTOM_FONT_URL = "https://fonts.googleapis.com/css?family=Roboto";
     private static final String ICON = "/images/ic_task_manager.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;

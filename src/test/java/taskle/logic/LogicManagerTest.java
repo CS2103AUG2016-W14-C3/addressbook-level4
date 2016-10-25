@@ -22,6 +22,7 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import taskle.commons.core.EventsCenter;
+import taskle.commons.core.Messages;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.ui.JumpToListRequestEvent;
 import taskle.commons.events.ui.ShowHelpRequestEvent;
@@ -324,27 +325,10 @@ public class LogicManagerTest {
 
     }
 
-    @Test
-    public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
@@ -362,15 +346,15 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> personList = helper.generateTaskList(2);
+        List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 persons
         model.resetData(new TaskManager());
-        for (Task p : personList) {
+        for (Task p : taskList) {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), taskList);
     }
 
     @Test
@@ -380,7 +364,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+    public void execute_removeIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("remove");
     }
 
@@ -644,7 +628,86 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_listEmptyArguments_showPendingAndOverdue() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Buy groceries");
+        task1.setTaskDone(true);
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        Task task4 = helper.generateTaskWithName("Finish O levels");
 
+        List<Task> fourTasks = helper.generateTaskList(task1, task2, task3, task4);
+        helper.addToModel(model, fourTasks);
+        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
+        List<Task> expectedList = helper.generateTaskList(task2, task3, task4);
+
+        String message = "Pending, Not Done, Overdue";
+        assertCommandBehavior("list ",
+                String.format(ListCommand.MESSAGE_LIST_SUCCESS, message),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_listDoneOverdue_showsDoneAndOverdueOnly() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Buy groceries");
+        task1.setTaskDone(true);
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(2010, 11, 01);
+        Date deadlineDate = calendar.getTime();
+        DeadlineTask task4 = new DeadlineTask(
+                new Name("Finish O levels"), 
+                deadlineDate, 
+                new UniqueTagList());
+
+        List<Task> allTasks = helper.generateTaskList(task1, task2, task3, task4);
+        helper.addToModel(model, allTasks);
+        TaskManager expectedAB = helper.generateTaskManager(allTasks);
+        List<Task> expectedList = helper.generateTaskList(task1, task4);
+
+        String message = "Not Pending, Done, Overdue";
+        assertCommandBehavior("list -done -overdue",
+                String.format(ListCommand.MESSAGE_LIST_SUCCESS, message),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_listInvalidFlags_showsErrorWhileDisplayingOldList() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Buy groceries");
+        task1.setTaskDone(true);
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(2010, 11, 01);
+        Date deadlineDate = calendar.getTime();
+        DeadlineTask task4 = new DeadlineTask(
+                new Name("Finish O levels"), 
+                deadlineDate, 
+                new UniqueTagList());
+
+        List<Task> allTasks = helper.generateTaskList(task1, task2, task3, task4);
+        helper.addToModel(model, allTasks);
+        TaskManager expectedAB = helper.generateTaskManager(allTasks);
+        List<Task> expectedList = helper.generateTaskList(task2, task3, task4);
+
+        assertCommandBehavior("list -easy",
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
+                              ListCommand.MESSAGE_USAGE),
+                expectedAB,
+                expectedList);
+    }
+    
 
     /**
      * A utility class to generate test data.

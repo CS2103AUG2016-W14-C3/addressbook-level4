@@ -74,7 +74,11 @@ public class EventTask extends Task {
     }
 
     @Override
-    public Status getState() {
+    public Status getStatus() {
+        if (isTaskDone) {
+            return Status.DONE;
+        }
+        
         Calendar calendar = Calendar.getInstance();
         Date nowDate = calendar.getTime();
         if (nowDate.before(startDate)) {

@@ -14,6 +14,7 @@ import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.util.StringUtil;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask.Status;
 import taskle.model.task.Task;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
@@ -26,6 +27,11 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
+    
+    // Filter variables
+    private boolean showDone = false;
+    private boolean showPending = true;
+    private boolean showOverdue = true;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -40,7 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListToShowFiltered();
     }
 
     public ModelManager() {
@@ -50,7 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListToShowFiltered();
     }
 
     @Override
@@ -93,20 +99,21 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);
         taskManager.doneTask(sourceIndex, targetDone);
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListToShowFiltered();
         indicateTaskManagerChanged();
     }
     
     @Override
     public synchronized void unDoneTask(Task task) {
         taskManager.unDoneTask(task);
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListToShowFiltered();
     }
     
     @Override
     public synchronized void addTask(Task task) {
         taskManager.addTask(task);
-        updateFilteredListToShowAllNotDone();
+        resetFilters();
+        updateFilteredListToShowFiltered();
         indicateTaskManagerChanged();
     }
 
@@ -123,17 +130,55 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredListToShowAllNotDone() {
-        filteredTasks.setPredicate(getNotDonePredicate());
-    }
-    
-    private Predicate<Task> getNotDonePredicate() {
-        return p -> !p.isTaskDone();
+    public void updateFilteredListToShowFiltered() {
+        filteredTasks.setPredicate(getPredicate());
     }
     
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+    
+    @Override
+    public void updateFilters(boolean pending, boolean done, boolean overdue) {
+        this.showPending = pending;
+        this.showDone = done;
+        this.showOverdue = overdue;
+        updateFilteredListToShowFiltered();
+    }
+    
+    private void resetFilters() {
+        this.showPending = true;
+        this.showOverdue = true;
+        this.showDone = false;
+        updateFilteredListToShowFiltered();
+    }
+    
+    /**
+     * Returns the predicate to use for filtering as specified by 
+     * the show status boolean fields.
+     * @return
+     */
+    private Predicate<Task> getPredicate() {
+        Predicate<Task> basePred = t -> false;
+        Predicate<Task> pendingPred = t -> t.getStatus() == Status.PENDING
+                || t.getStatus() == Status.FLOAT;
+        Predicate<Task> donePred = t -> t.getStatus() == Status.DONE;
+        Predicate<Task> overduePred = t -> t.getStatus() == Status.OVERDUE;
+        
+        if (showPending) {
+            basePred = basePred.or(pendingPred);
+        }
+        
+        if (showDone) {
+            basePred = basePred.or(donePred);
+        }
+        
+        if (showOverdue) {
+            basePred = basePred.or(overduePred);
+        }
+        
+        return basePred;
     }
 
     private void updateFilteredTaskList(Expression expression) {

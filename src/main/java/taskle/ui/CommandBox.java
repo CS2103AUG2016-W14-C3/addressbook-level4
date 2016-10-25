@@ -106,7 +106,6 @@ public class CommandBox extends UiPart {
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
-        System.out.println(previousCommandText);
         mostRecentResult = logic.execute(previousCommandText);
         displayCommandFeedback(mostRecentResult);
         logger.info("Result: " + mostRecentResult.getFeedback());
@@ -119,7 +118,7 @@ public class CommandBox extends UiPart {
         if (!commandResult.isSuccessful()) {
             return;
         }
-        System.out.println(feedback);
+        
         showCorrectCommand(feedback);
     }
 

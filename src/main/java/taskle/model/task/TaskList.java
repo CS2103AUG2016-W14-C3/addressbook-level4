@@ -68,6 +68,8 @@ public class TaskList implements Iterable<Task> {
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
+        
+        refreshInternalList();
         return taskFoundAndDeleted;
     }
     
@@ -76,12 +78,14 @@ public class TaskList implements Iterable<Task> {
         toEdit.setTaskDone(taskDone);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " Done! ");
+        refreshInternalList();
     }
     
     public void unDone(Task taskToUndo) {
         int targetIndex = internalList.indexOf(taskToUndo);
         taskToUndo.setTaskDone(false);
         internalList.set(targetIndex, taskToUndo);
+        refreshInternalList();
     }
     
     /**
