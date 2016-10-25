@@ -52,7 +52,7 @@ public class HelpWindow extends UiPart {
                     new CommandGuide("", "remind", "task_number", "clear"),
                     new CommandGuide("Removing", "remove", "task_number"), 
                     new CommandGuide("Undo Previous Command", "undo"),
-                    new CommandGuide("Finding", "find", "[search_query]",
+                    new CommandGuide("Finding", "find", "search_query",
                             "[-status]"),
                     new CommandGuide("Listing all tasks", "list", "[-status]"),
                     new CommandGuide("Mark as Done", "done", "[task_number]"),

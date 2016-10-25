@@ -145,7 +145,7 @@ Finds all tasks in Taskle that contains the keywords and fulfills the status as 
 
 | Format  
 | :-------- 
-| `find` **`[keywords] [-status]`** | 
+| `find` **`keywords [-status]`** | 
 
 > **Things to Note**
 > * The following statues are available:
@@ -154,6 +154,7 @@ Finds all tasks in Taskle that contains the keywords and fulfills the status as 
 >	* **-done**: Tasks that are marked as done.
 >	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
 > * All tasks that match the list of keywords and the statuses specified would be displayed.
+> * You must specify at least one keyword when using find.
 > * It is optional to specify the status. If no status is specified, the default
 tasks to be displayed are the pending and overdue ones. 
 > * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
@@ -280,7 +281,7 @@ Edit Description `e` | `edit `**`task_number new_task_name`**
 Reschedule `r` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
-Find `f` | `find [`**`search_query`**`] [`**`-status`**`]`
+Find `f` | `find `**`search_query`**` [`**`-status`**`]`
 List `l` | `list [`**`-status`**`]`
 Mark as Done `d` | `done `**`task_number`**
 Undo `u` | `undo`
