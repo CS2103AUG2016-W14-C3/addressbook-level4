@@ -7,7 +7,7 @@ import org.junit.Test;
 import taskle.commons.core.Messages;
 import taskle.model.task.Task;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {
@@ -29,13 +29,13 @@ public class FindCommandTest extends AddressBookGuiTest {
     @Test
     public void find_invalidCommand_fail() {
         commandBox.runCommand("findgeorge");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertFindResult(String command, Task... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " task listed!");
+        assertSuccessfulMessage(expectedHits.length + " task listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

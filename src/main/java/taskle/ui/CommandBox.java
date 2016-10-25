@@ -27,6 +27,8 @@ import taskle.logic.commands.CommandResult;
 public class CommandBox extends UiPart {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
+    private static final String POP_OVER_TEXT_ID = "popOverText";
+    private static final String POP_OVER_ID = "popOver";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -67,12 +69,15 @@ public class CommandBox extends UiPart {
     
     private void createPopOver() {
         popOver = new PopOver();
+        popOver.setId(POP_OVER_ID);
         VBox vBox = new VBox();
         popOverText = new Text();
+        popOverText.setId(POP_OVER_TEXT_ID);
         vBox.getChildren().add(popOverText);
         vBox.setPadding(new Insets(10));
         popOver.setArrowLocation(ArrowLocation.BOTTOM_CENTER);
         popOver.setFadeInDuration(new Duration(300));
+        popOver.setDetachable(false);
         popOver.setAutoHide(true);
         popOver.setContentNode(vBox);
     }
@@ -101,6 +106,7 @@ public class CommandBox extends UiPart {
         /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
+        System.out.println(previousCommandText);
         mostRecentResult = logic.execute(previousCommandText);
         displayCommandFeedback(mostRecentResult);
         logger.info("Result: " + mostRecentResult.getFeedback());
@@ -110,10 +116,10 @@ public class CommandBox extends UiPart {
         assert commandResult != null;
         
         String feedback = commandResult.getFeedback();
-        if (!commandResult.wasValid()) {
+        if (!commandResult.isSuccessful()) {
             return;
         }
-        
+        System.out.println(feedback);
         showCorrectCommand(feedback);
     }
 
@@ -127,7 +133,7 @@ public class CommandBox extends UiPart {
     private void showIncorrectCommand(String feedback) {
         popOverText.setText(feedback);
         popOver.show(commandTextField);
-
+        notificationPane.hide();
     }
     
     private void showCorrectCommand(String feedback) {

@@ -8,7 +8,7 @@ import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.DoneCommand;
 
-public class DoneCommandTest extends AddressBookGuiTest {
+public class DoneCommandTest extends TaskManagerGuiTest {
     
     /**
      * Marks a current task, inside the TypicalTestTask, as done to test the
@@ -29,10 +29,10 @@ public class DoneCommandTest extends AddressBookGuiTest {
     @Test
     public void done_inexistent_task() {
         String commandInvalidIntegerIndex = buildCommand("10");
-        assertEditInvalidIndex(commandInvalidIntegerIndex);
+        assertDoneInvalidIndex(commandInvalidIntegerIndex);
 
         String commandInvalidStringIndex = buildCommand("ABC");
-        assertEditInvalidCommandFormat(commandInvalidStringIndex);
+        assertDoneInvalidCommandFormat(commandInvalidStringIndex);
     }
 
     /**
@@ -41,7 +41,7 @@ public class DoneCommandTest extends AddressBookGuiTest {
     @Test
     public void done_invalid_command() {
         String command = "dones 1";
-        assertEditInvalidCommand(command);
+        assertDoneInvalidCommand(command);
     }
 
     private String buildCommand(String taskNumber) {
@@ -51,21 +51,21 @@ public class DoneCommandTest extends AddressBookGuiTest {
 
     private void assertDoneResultSuccess(String command, String taskNumber) {
         commandBox.runCommand(command);
-        assertResultMessage("Task Completed!");
+        assertSuccessfulMessage("Task Completed!");
     }
 
-    private void assertEditInvalidIndex(String command) {
+    private void assertDoneInvalidIndex(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertUnsuccessfulMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
-    private void assertEditInvalidCommandFormat(String command) {
+    private void assertDoneInvalidCommandFormat(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
+        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
     }
 
-    private void assertEditInvalidCommand(String command) {
+    private void assertDoneInvalidCommand(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 }

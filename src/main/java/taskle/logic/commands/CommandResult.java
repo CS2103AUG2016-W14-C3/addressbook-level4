@@ -6,20 +6,20 @@ package taskle.logic.commands;
 public class CommandResult {
 
     private final String feedbackToUser;
-    private final boolean isValid;
+    private final boolean isSuccessful;
 
-    public CommandResult(String feedbackToUser, boolean wasValidCommand) {
+    public CommandResult(String feedbackToUser, boolean isSuccessful) {
         assert feedbackToUser != null;
         this.feedbackToUser = feedbackToUser;
-        this.isValid = wasValidCommand;
+        this.isSuccessful = isSuccessful;
     }
     
     public String getFeedback() {
         return feedbackToUser;
     }
     
-    public boolean wasValid() {
-        return isValid;
+    public boolean isSuccessful() {
+        return isSuccessful;
     }
 
 }

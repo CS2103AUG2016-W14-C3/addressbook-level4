@@ -17,7 +17,7 @@ import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
-public class RescheduleCommandTest extends AddressBookGuiTest {
+public class RescheduleCommandTest extends TaskManagerGuiTest {
 
     /**
      * Reschedules a current task to a float task inside the TypicalTestTask to
@@ -123,17 +123,17 @@ public class RescheduleCommandTest extends AddressBookGuiTest {
 
     private void assertRescheduleResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
-        assertResultMessage("Rescheduled Task: " + newName);
+        assertSuccessfulMessage("Rescheduled Task: " + newName);
     }
 
     private void assertRescheduleInvalidIndex(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertUnsuccessfulMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     private void assertRescheduleInvalidCommandFormat(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
     }
 
 }

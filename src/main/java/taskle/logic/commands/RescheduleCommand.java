@@ -63,8 +63,8 @@ public class RescheduleCommand extends Command{
         ReadOnlyTask newTask = lastShownList.get(offsetIndex);
         return new CommandResult(
                 String.format(MESSAGE_EDIT_TASK_SUCCESS, 
-                              taskToEdit.getName() + "\t" + oldDetails + 
-                              " -> " + newTask.getDetailsString()),
+                              taskToEdit.getName() + "\t" + oldDetails 
+                              + " -> " + newTask.getDetailsString()),
                 true);
     }
 

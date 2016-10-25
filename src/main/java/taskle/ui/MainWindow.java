@@ -27,6 +27,7 @@ import taskle.model.UserPrefs;
  */
 public class MainWindow extends UiPart {
 
+    private static final String NOTIFICATION_PANE_ID = "notificationPane";
     private static final String GOOGLE_CUSTOM_FONT_URL = "https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed";
     private static final String ICON = "/images/ic_task_manager.png";
     private static final String FXML = "MainWindow.fxml";
@@ -209,6 +210,7 @@ public class MainWindow extends UiPart {
     
     private void setupNotificationPane() {
         notificationPane = new NotificationPane(rootLayout);
+        notificationPane.setId(NOTIFICATION_PANE_ID);
         notificationPane.getStyleClass().add(
                 NotificationPane.STYLE_CLASS_DARK);
     }

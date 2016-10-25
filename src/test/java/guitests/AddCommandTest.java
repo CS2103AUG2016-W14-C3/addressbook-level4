@@ -11,7 +11,7 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void add() {
@@ -38,9 +38,9 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //invalid command
+        //unknown command
         commandBox.runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
         //valid deadline add command
         taskToAdd = td.finalExams;
@@ -49,7 +49,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         
         //Invalid event add format
         commandBox.runCommand("add watch movie with friends by 7pm to 9pm");
-        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertUnsuccessfulMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
                 AddCommand.MESSAGE_USAGE));
     }
     

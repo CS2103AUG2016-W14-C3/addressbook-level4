@@ -1,5 +1,10 @@
 package guitests.guihandles;
 
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.testfx.service.query.NodeQuery;
+
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -9,8 +14,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import taskle.TestApp;
 import taskle.commons.core.LogsCenter;
-
-import java.util.logging.Logger;
 
 /**
  * Base class for all GUI Handles used in testing.
@@ -47,6 +50,10 @@ public class GuiHandle {
 
     protected Node getNode(String query) {
         return guiRobot.lookup(query).tryQuery().get();
+    }
+    
+    protected Window getWindow(String query) {
+        return guiRobot.window(query);
     }
 
     protected String getTextFieldText(String filedName) {

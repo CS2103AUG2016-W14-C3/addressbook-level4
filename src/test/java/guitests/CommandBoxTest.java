@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import taskle.logic.commands.AddCommand;
 
-public class CommandBoxTest extends AddressBookGuiTest {
+public class CommandBoxTest extends TaskManagerGuiTest {
 
     @Test
     public void commandBox_commandSucceeds_textCleared() {

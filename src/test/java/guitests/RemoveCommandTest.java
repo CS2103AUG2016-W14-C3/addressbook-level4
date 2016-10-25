@@ -8,7 +8,7 @@ import org.junit.Test;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
-public class RemoveCommandTest extends AddressBookGuiTest {
+public class RemoveCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void remove() {
@@ -22,15 +22,15 @@ public class RemoveCommandTest extends AddressBookGuiTest {
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertRemoveSuccess(targetIndex, currentList);
+        
+        //invalid index
+        commandBox.runCommand("remove " + currentList.length + 1);
+        assertUnsuccessfulMessage("The task index provided is invalid");
 
         //delete from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertRemoveSuccess(targetIndex, currentList);
-
-        //invalid index
-        commandBox.runCommand("remove " + currentList.length + 1);
-        assertResultMessage("The task index provided is invalid");
 
     }
 
@@ -49,7 +49,7 @@ public class RemoveCommandTest extends AddressBookGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        assertSuccessfulMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
 }
