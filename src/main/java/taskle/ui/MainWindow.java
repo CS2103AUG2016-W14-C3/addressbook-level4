@@ -177,6 +177,12 @@ public class MainWindow extends UiPart {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
+    
+    @FXML
+    public void showReminderPopup() {
+        ReminderPopup reminderPopup = ReminderPopup.load(primaryStage);
+        reminderPopup.show();
+    }
 
     public void show() {
         primaryStage.show();
