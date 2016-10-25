@@ -567,7 +567,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
+    public void execute_findInvalidArgs_returnInvalidCommand() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
@@ -624,6 +624,30 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_findPendingTask_filtersPendingTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Get fruits from supermarket");
+        Task task2 = helper.generateTaskWithName("Get David a burger");
+        task2.setTaskDone(true);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(2016, 11, 01);
+        Date deadlineDate = calendar.getTime();
+        Task deadlineTask = new DeadlineTask(
+                new Name("Get soap to wash car"), deadlineDate, new UniqueTagList());
+
+        List<Task> allTasks = helper.generateTaskList(task1, task2, deadlineTask);
+        TaskManager expectedAB = helper.generateTaskManager(allTasks);
+        List<Task> expectedList = helper.generateTaskList(task1, deadlineTask);
+        helper.addToModel(model, allTasks);
+
+        assertCommandBehavior("find Get -pending",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
