@@ -10,12 +10,12 @@ import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.RemindCommand;
-import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.parser.DateParser;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
+//@@author A0139402M
 public class RemindCommandTest extends TaskManagerGuiTest {
 
     /**
@@ -44,7 +44,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException
      */
     @Test
-    public void remind_task_no_time_success() throws IllegalValueException {
+    public void remind_taskNoInputTime_success() throws IllegalValueException {
         String index = "1";
         String name = td.attendMeeting.getName().fullName;
         String newRemindDateString = "13 Dec";
@@ -61,7 +61,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
      * Set reminder to an inexistent task
      */
     @Test
-    public void remind_inexistent_task() {
+    public void remind_inexistentTask_failure() {
         String commandInvalidIntegerIndex = buildCommand("10", "31 Oct 10pm");
         assertRescheduleInvalidIndex(commandInvalidIntegerIndex);
 
@@ -76,7 +76,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
      * Set a reminder with more than 1 date
      */
     @Test
-    public void remind_more_than_1_dates() {
+    public void remind_moreThan1Date_failure() {
         String commandTooManyDates = buildCommand("1", "31 Oct 10pm to 1 Nov 11pm");
         assertRescheduleInvalidCommandFormat(commandTooManyDates);
     }
@@ -85,7 +85,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
      * Set a reminder with an invalid date
      */
     @Test
-    public void remind_task_invalid_date() {
+    public void remind_taskInvalidDate_failure() {
         String commandNoDates = buildCommand("1", "no date");
         assertRescheduleInvalidCommandFormat(commandNoDates);
     }

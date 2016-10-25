@@ -75,7 +75,7 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-    
+    //@@author A0139402M
     @Override
     public synchronized void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
         int sourceIndex = filteredTasks.getSourceIndex(index);
@@ -96,8 +96,8 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.editTaskRemindDate(sourceIndex, date);
         indicateTaskManagerChanged();
     }
-    
-    
+    //@@author 
+
     @Override
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);

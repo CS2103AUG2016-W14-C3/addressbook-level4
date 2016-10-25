@@ -129,7 +129,7 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new UniqueTaskList.TaskNotFoundException();
         }
     }
-
+    //@@author A0139402M
     public void editTask(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
         tasks.edit(index, newName);
     }
@@ -141,7 +141,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     public void editTaskRemindDate(int index, Date date) throws TaskNotFoundException {
         tasks.editRemindDate(index, date);
     }
-    
+    //@@author 
+
     public void doneTask(int index, boolean targetDone) {
         tasks.done(index, targetDone);
     }

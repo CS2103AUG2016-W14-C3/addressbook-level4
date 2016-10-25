@@ -9,7 +9,6 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.logic.commands.AddCommand;
-import taskle.logic.commands.RemindCommand;
 import taskle.logic.parser.DateParser;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
@@ -63,8 +62,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
     }
     
+    //@@author A0139402M
     @Test
-    public void add_float_task_with_reminders_success() {
+    public void add_floatTaskWithReminders_success() {
         Task[] currentList = td.getTypicalTasks();
         String remindDate = "15 Oct 7pm";
         Date date = DateParser.parse(remindDate).get(0);
@@ -78,7 +78,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void add_deadline_task_with_reminders_success() {
+    public void add_deadlineTaskWithReminders_success() {
         commandBox.runCommand("clear");
         Task[] currentList = new Task[0];
         String remindDate = "15 Oct 7pm";
@@ -93,7 +93,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void add_event_task_with_reminders_success() {
+    public void add_eventTaskWithReminders_success() {
         commandBox.runCommand("clear");
         Task[] currentList = new Task[0];
         String remindDate = "15 Oct 7pm";
@@ -106,6 +106,8 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + "remind 26 Oct 8am");
         assertResultMessage("New task added: Tuition from 9:00AM to 11:00AM, 26 Oct 2016 Reminder on: 8:00AM, 26 Oct 2016");
     }
+    //@@author
+    
     private void assertAddSuccess(Task taskToAdd, Task... currentList) {
         commandBox.runCommand(AddCommand.COMMAND_WORD + " "
                 + taskToAdd.toString());

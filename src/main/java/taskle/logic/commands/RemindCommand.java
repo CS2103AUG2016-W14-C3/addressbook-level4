@@ -2,7 +2,6 @@ package taskle.logic.commands;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
@@ -12,6 +11,7 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
 import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 
+//@@author A0139402M
 public class RemindCommand extends Command {
     
     public static final String COMMAND_WORD = "remind";

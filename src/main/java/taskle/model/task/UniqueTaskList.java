@@ -96,7 +96,7 @@ public class UniqueTaskList implements Iterable<Task> {
         taskToUndo.setTaskDone(false);
         internalList.set(targetIndex, taskToUndo);
     }
-    
+    //@@author A0139402M
     /**
      * Edits the equivalent task in the list.
      * @param toEdit
@@ -236,6 +236,7 @@ public class UniqueTaskList implements Iterable<Task> {
         
         logger.info("Updated Task to EventTask with 2 dates");
     }
+    //@@author
     public ObservableList<Task> getInternalList() {
         return internalList;
     }

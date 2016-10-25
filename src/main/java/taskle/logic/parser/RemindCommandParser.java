@@ -11,10 +11,9 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.RemindCommand;
 
+//@@author A0139402M
 public class RemindCommandParser extends CommandParser{
     
-    public RemindCommandParser() {
-    }
 
     @Override
     public String getCommandWord() {
@@ -30,18 +29,18 @@ public class RemindCommandParser extends CommandParser{
      * Prepares the remind command while checking for any possible errors in
      * the input given by the user.
      * 
-     * @param args
+     * @param input
      * @return the prepared reschedule command
      */
-    private Command prepareRemind(String args) {
-        args = args.trim();
-        int endIndex = args.indexOf(" ");
+    private Command prepareRemind(String input) {
+        input = input.trim();
+        int endIndex = input.indexOf(" ");
         if (endIndex == -1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }
-        String indexValue = args.substring(0, endIndex);
+        String indexValue = input.substring(0, endIndex);
         Optional<Integer> index = parseIndex(indexValue);
-        String newRemindDateTime = args.substring(endIndex).trim();
+        String newRemindDateTime = input.substring(endIndex).trim();
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }

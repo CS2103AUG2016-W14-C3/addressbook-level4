@@ -181,7 +181,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-    
+    //@@author A0139402M
     @Test
     public void execute_addFloatTaskWithReminder_successful() throws Exception {
         // setup expectations
@@ -232,7 +232,8 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
-    
+    //@@author 
+
     @Test
     public void execute_addDeadlineWithDates_successful() throws Exception {
         // setup expectations
@@ -332,6 +333,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
+    //@@author A0139402M
     @Test
     public void execute_addFloatTaskReminderMorethanOneDate_returnIncorrectCommand() 
             throws Exception {
@@ -397,7 +399,8 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-    
+    //@@author 
+
     @Test
     public void execute_addDeadlineTaskMorethanTwoDates_returnIncorrectCommand() 
             throws Exception {
@@ -521,6 +524,7 @@ public class LogicManagerTest {
         assertCommandBehavior("edit ", expectedMessage);
     }
     
+    //@@author A0139402M
     @Test
     public void execute_edit_successful() throws Exception {
         // setup expectations
@@ -762,7 +766,8 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
-    
+    //@@author 
+
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
