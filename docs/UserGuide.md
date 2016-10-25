@@ -6,6 +6,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+<!-- @@author A0125509H -->
 ## About
 Do you have so many tasks to do every day that you simply cannot keep track of them anymore? Don't you wish that there was an easier way to stay on top of your daily tasks without feeling stressed out?
 
@@ -15,7 +16,7 @@ It is a task management application with a single text box for all your commands
 
 Re-organize your life by using Taskle now!
 
-
+<!-- @@author A0139402M -->
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
@@ -43,7 +44,7 @@ Re-organize your life by using Taskle now!
    
 6. Refer to the [Features](#features) section for details of each command.<br>
 
-
+<!-- @@author A0141780J -->
 ## Features
 
 Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it a hassle-free experience to keep track of your tasks!
@@ -82,6 +83,7 @@ Examples:
 	
 <br>
 
+<!-- @@author A0140047U -->
 ### Edit a Task : `edit; reschedule; remind`
 Edits an existing task in Taskle. There are 3 types of edits possible: Edit task name, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify which task you wish to edit.<br><br>
 
@@ -126,6 +128,7 @@ Examples:
 <img src="images/UI/Remind 2.png" align="center">	
 <div align="center">Figure 8: Clear away the reminder for Task 2 (After)</div><br>
 
+<!-- @@author A0125509H -->
 ### Remove a Task: `remove`
 Removes a task permanently from Taskle.<br>
 
@@ -139,7 +142,7 @@ Examples:
 <img src="images/UI/Remove 2.png" align="center"/>	
 <div align="center">Figure 9: Remove Task 6 from Taskle</div><br>
 
-
+<!-- @@author A0139402M -->
 ### Finding a Task : `find`
 Finds all tasks in Taskle that contains the keywords and fulfills the status as specified.<br><br>
 
@@ -172,6 +175,7 @@ Examples:
 <div align="center">Figure 11: Find all pending Tasks</div><br>
 <br>
 
+<!-- @@author A0140047U -->
 ### Listing tasks: `list`
 Lists tasks according to specified statuses. Use this command to view your tasks
 according to whether they are done, overdue or pending. <br>
@@ -196,6 +200,7 @@ Example:
 
 <br>
 
+<!-- @@author A0125509H -->
 ### Mark a Task as Done: `done`
 Marks a task as done. Use this command when you are finished with the task.<br>
 
@@ -210,6 +215,7 @@ Example:
 <div align="center">Figure 12: Mark Task 5 as done</div><br>
 <br>
 
+<!-- @@author A0140047U -->
 ### Undoing a Recent Command: `undo`
 Undo a previous command. This command is used when you wish to revert from the most recently issued command.<br><br>
 
@@ -219,8 +225,8 @@ Undo a previous command. This command is used when you wish to revert from the m
 
 <br>
 
-### Undoing a Recent Command: `redo`
-Undo a previous command. This command is used when you wish to revert a wrongly issued undo command<br><br>
+### Redoing a Undo: `redo`
+Redo a previous command. This command is used when you wish to revert a wrongly issued undo command<br><br>
 
 | Format  
 | :-------- 
@@ -228,6 +234,7 @@ Undo a previous command. This command is used when you wish to revert a wrongly 
 
 <br>
 
+<!-- @@author A0139402M -->
 ### Clearing all Tasks: `clear`
 Clears all tasks from Taskle.<br><br>
 
@@ -267,7 +274,7 @@ Exits and closes Taskle.<br><br>
  
 <br><br>
 
-
+<!-- @@author A0141780J -->
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
