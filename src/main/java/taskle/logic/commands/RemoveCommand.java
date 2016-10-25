@@ -1,6 +1,7 @@
 package taskle.logic.commands;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import edu.emory.mathcs.backport.java.util.Collections;
 import taskle.commons.core.Messages;
@@ -24,7 +25,6 @@ public class RemoveCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Task: %1$s";
 
-    //public final int targetIndex;
     public final String targetIndex;
     int arraySize;
     String[] s;
@@ -36,7 +36,7 @@ public class RemoveCommand extends Command {
     	String argsTrim = targetIndex.trim();
     	s = argsTrim.split(" ");
     	for(int i=0; i<s.length; i++)
-    	{
+    	{   
     		sInt.add(Integer.parseInt(s[i]));
     	}
     	
@@ -45,7 +45,6 @@ public class RemoveCommand extends Command {
     	
     	arraySize = s.length;
     }
-
 
     @Override
     public CommandResult execute() {
@@ -77,5 +76,4 @@ public class RemoveCommand extends Command {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
-
 }
