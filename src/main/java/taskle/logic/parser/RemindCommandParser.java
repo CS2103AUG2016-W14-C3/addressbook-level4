@@ -22,25 +22,24 @@ public class RemindCommandParser extends CommandParser{
 
     @Override
     public Command parseCommand(String args) {
-        return prepareRemind(args);
+        return prepareRemind(args.trim());
     }
 
     /**
      * Prepares the remind command while checking for any possible errors in
      * the input given by the user.
      * 
-     * @param input
+     * @param args
      * @return the prepared reschedule command
      */
-    private Command prepareRemind(String input) {
-        input = input.trim();
-        int endIndex = input.indexOf(" ");
+    private Command prepareRemind(String args) {
+        int endIndex = args.indexOf(" ");
         if (endIndex == -1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }
-        String indexValue = input.substring(0, endIndex);
+        String indexValue = args.substring(0, endIndex);
         Optional<Integer> index = parseIndex(indexValue);
-        String newRemindDateTime = input.substring(endIndex).trim();
+        String newRemindDateTime = args.substring(endIndex).trim();
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }
