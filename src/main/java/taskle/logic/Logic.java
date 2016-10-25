@@ -3,7 +3,6 @@ package taskle.logic;
 import javafx.collections.ObservableList;
 import taskle.logic.commands.CommandResult;
 import taskle.model.ReadOnlyTaskManager;
-import taskle.model.TaskManager;
 import taskle.model.task.ReadOnlyTask;
 
 /**

@@ -21,7 +21,6 @@ import taskle.storage.StorageManager;
 
 public class StorageDirectoryUtilTest {
 
-    private Model model;
     private Logic logic;
     private Config config;
     
@@ -97,8 +96,8 @@ public class StorageDirectoryUtilTest {
     }
     
     @Before
-    public void setup() {
-        model = new ModelManager();
+    public void setUp() {
+        Model model = new ModelManager();
         String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
         logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile));

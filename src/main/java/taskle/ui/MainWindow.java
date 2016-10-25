@@ -211,8 +211,7 @@ public class MainWindow extends UiPart {
         fileChooser.getExtensionFilters().add(
                 new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        if (selectedFile == null || selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
-        } else {
+        if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
             if (StorageDirectoryUtil.updateFile(config, logic, selectedFile)) {
                 resultDisplay.postMessage(CHANGE_FILE_SUCCESS);
             } else {
