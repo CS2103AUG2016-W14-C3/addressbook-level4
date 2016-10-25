@@ -185,6 +185,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
+    //@@author A0140047U
     /**
      * Change storage file location
      */
@@ -220,6 +221,7 @@ public class MainWindow extends UiPart {
         }
     }
 
+    //@@author
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }

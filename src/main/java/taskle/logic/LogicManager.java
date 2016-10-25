@@ -45,6 +45,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
+    //@@author A0140047U
     @Override
     public void changeDirectory(String filePath) {
         logger.info("----------------[CHANGE DIRECTORY][" + filePath + "]");

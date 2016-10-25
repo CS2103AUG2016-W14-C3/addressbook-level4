@@ -88,6 +88,7 @@ public class StorageManagerTest {
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
+    //@@author A0140047U
     //Sets TaskManager File Path based on null value - should result in assertion error
     @Test
     public void setTaskManagerFilePath_nullValue_assertionError() {
@@ -103,6 +104,7 @@ public class StorageManagerTest {
         assertTrue(eventCollector.get(0) instanceof StorageLocationChangedEvent);
     }
 
+    //@@author
     /**
      * A Stub class to throw an exception when the save method is called
      */
