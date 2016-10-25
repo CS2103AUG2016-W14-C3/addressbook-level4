@@ -145,10 +145,12 @@ public class UniqueTaskList implements Iterable<Task> {
         refreshInternalList();
     }
     
+    //@@author A0140047U
     public void refreshInternalList() {
         internalList.sort(new TaskComparator());
     }
 
+    //@@author
     /**
      * Method to update the internal list with a float task
      * @param toEdit
