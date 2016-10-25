@@ -35,6 +35,7 @@ public interface Model {
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
+    //@@author A0140047U
     /** Stores current TaskManager state */
     void storeTaskManager();
     
@@ -44,6 +45,7 @@ public interface Model {
     /** Undo most recently restored TaskManager state */
     boolean revertTaskManager();
     
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

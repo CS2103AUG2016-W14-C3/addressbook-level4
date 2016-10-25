@@ -3,10 +3,9 @@ package taskle.logic.parser;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.RedoCommand;
 
+//@@author A0140047U
 /**
  * RedoCommandParser class to handle parsing of redo commands
- * @author Muhammad Hamsyari
- *
  */
 public class RedoCommandParser extends CommandParser {
 

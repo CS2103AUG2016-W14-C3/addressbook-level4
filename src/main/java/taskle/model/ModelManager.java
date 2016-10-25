@@ -74,6 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
 
+    //@@author A0140047U
     /** Stores current TaskManager state */
     @Override
     public synchronized void storeTaskManager() {
@@ -105,6 +106,7 @@ public class ModelManager extends ComponentManager implements Model {
         return false;
     }
     
+    //@@author
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
