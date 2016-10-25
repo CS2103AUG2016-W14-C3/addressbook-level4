@@ -39,8 +39,10 @@ public class RemoveCommand extends Command {
     	{
     		sInt.add(Integer.parseInt(s[i]));
     	}
+    	
     	Collections.sort(sInt);
     	Collections.reverse(sInt);
+    	
     	arraySize = s.length;
     }
 

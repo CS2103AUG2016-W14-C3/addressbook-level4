@@ -43,7 +43,7 @@ public class RemoveCommandParser extends CommandParser {
                                   RemoveCommand.MESSAGE_USAGE));
         }*/
     	return new RemoveCommand(args);
-        //return new RemoveCommand(index.get());
+        //return new RemoveCommand(index.get());;
     }
 
 }
