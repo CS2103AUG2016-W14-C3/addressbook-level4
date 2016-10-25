@@ -7,6 +7,7 @@ import java.util.List;
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
+import taskle.commons.util.DateFormatUtil;
 import taskle.logic.history.History;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
@@ -35,6 +36,7 @@ public class RescheduleCommand extends Command{
     public final List<Date> dates;
 
     public RescheduleCommand(int targetIndex, List<Date> dates) throws IllegalValueException {
+        assert dates.size() < 3;
         this.targetIndex = targetIndex; 
         this.dates = dates;
     }
@@ -50,6 +52,7 @@ public class RescheduleCommand extends Command{
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldDetails = taskToEdit.getDetailsString();
+        int newIndex = -1;
         try {
             tasksAffected = new ArrayList<Task>();
             Task originalTask = taskToEdit.copy();
@@ -60,12 +63,29 @@ public class RescheduleCommand extends Command{
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
-        ReadOnlyTask newTask = lastShownList.get(offsetIndex);
+        String newDate = getDateString(dates);
         return new CommandResult(
                 String.format(MESSAGE_EDIT_TASK_SUCCESS, 
                               taskToEdit.getName() + "\t" + oldDetails 
-                              + " -> " + newTask.getDetailsString()),
+                              + " -> " + newDate),
                 true);
+    }
+    
+    /**
+     * Returns the formatted date from the list of dates given
+     * @param dates
+     * @return
+     */
+    private String getDateString(List<Date> dates) {
+        String newDate = "";
+        if(dates == null) {
+            newDate = DateFormatUtil.formatDate(null);
+        } else if(dates.size() == 1) {
+            newDate = DateFormatUtil.formatDate(dates.get(0));
+        } else if(dates.size() == 2) {
+            newDate = DateFormatUtil.formatEventDates(dates.get(0), dates.get(1));
+        }
+        return newDate;
     }
 
     @Override
