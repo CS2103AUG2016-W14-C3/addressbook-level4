@@ -45,12 +45,16 @@ public interface Model {
     void updateFilteredListToShowAll();
     
     /** Updates the filter of the filtered task list to show tasks filtered by predicates*/
-    void updateFilteredListToShowFiltered();
+    void updateFilteredListWithStatuses();
     
-    /** Updates the filter predicates*/
+    /** Updates the filter status predicates*/
     void updateFilters(boolean pending, boolean done, boolean overdue);
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /** Updates the filter keywords predicates*/
+    void updateFilters(Set<String> keywords);
+    
+    /** Updates the filter statuses and keywords predicates*/
+    void updateFilters(Set<String>keywords, boolean pending, 
+                       boolean done, boolean overdue);
 
 }

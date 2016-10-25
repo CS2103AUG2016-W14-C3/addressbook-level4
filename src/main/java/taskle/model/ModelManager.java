@@ -46,7 +46,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowFiltered();
+        updateFilteredListWithStatuses();
     }
 
     public ModelManager() {
@@ -56,7 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowFiltered();
+        updateFilteredListWithStatuses();
     }
 
     @Override
@@ -99,21 +99,21 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);
         taskManager.doneTask(sourceIndex, targetDone);
-        updateFilteredListToShowFiltered();
+        updateFilteredListWithStatuses();
         indicateTaskManagerChanged();
     }
     
     @Override
     public synchronized void unDoneTask(Task task) {
         taskManager.unDoneTask(task);
-        updateFilteredListToShowFiltered();
+        updateFilteredListWithStatuses();
     }
     
     @Override
     public synchronized void addTask(Task task) {
         taskManager.addTask(task);
         resetFilters();
-        updateFilteredListToShowFiltered();
+        updateFilteredListWithStatuses();
         indicateTaskManagerChanged();
     }
 
@@ -130,13 +130,21 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredListToShowFiltered() {
-        filteredTasks.setPredicate(getPredicate());
+    public void updateFilteredListWithStatuses() {
+        filteredTasks.setPredicate(getStatusPredicate());
     }
     
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilters(Set<String> keywords){
+        updateFilteredListFindKeywords(keywords);
+    }
+    
+    @Override
+    public void updateFilters(Set<String> keywords, boolean pending, boolean done, boolean overdue){
+        this.showPending = pending;
+        this.showDone = done;
+        this.showOverdue = overdue;
+        updateFilteredListFindKeywords(keywords);
     }
     
     @Override
@@ -144,14 +152,21 @@ public class ModelManager extends ComponentManager implements Model {
         this.showPending = pending;
         this.showDone = done;
         this.showOverdue = overdue;
-        updateFilteredListToShowFiltered();
+        updateFilteredListWithStatuses();
     }
     
     private void resetFilters() {
         this.showPending = true;
         this.showOverdue = true;
         this.showDone = false;
-        updateFilteredListToShowFiltered();
+        updateFilteredListWithStatuses();
+    }
+    
+    private void updateFilteredListFindKeywords(Set<String> keywords) {
+        Expression keywordExpression = new PredicateExpression(new NameQualifier(keywords));
+        Predicate<Task> statusPred = getStatusPredicate();
+        Predicate<Task> combinedPred = statusPred.and(keywordExpression::satisfies);
+        filteredTasks.setPredicate(combinedPred);
     }
     
     /**
@@ -159,7 +174,7 @@ public class ModelManager extends ComponentManager implements Model {
      * the show status boolean fields.
      * @return
      */
-    private Predicate<Task> getPredicate() {
+    private Predicate<Task> getStatusPredicate() {
         Predicate<Task> basePred = t -> false;
         Predicate<Task> pendingPred = t -> t.getStatus() == Status.PENDING
                 || t.getStatus() == Status.FLOAT;

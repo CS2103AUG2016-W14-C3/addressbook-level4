@@ -17,33 +17,34 @@ public class ListCommand extends Command {
             + "If not status is specified, pending and overdue items will be listed"
             + "Example: " + COMMAND_WORD + " -done -pending";
     
-    private final boolean pending;
-    private final boolean done;
-    private final boolean overdue;
+    // Fields for whether to show the corresponding statuses
+    private final boolean showPending;
+    private final boolean showDone;
+    private final boolean showOverdue;
 
     public ListCommand(boolean pending, boolean done, boolean overdue) {
-        this.pending = pending;
-        this.done = done;
-        this.overdue = overdue;
+        this.showPending = pending;
+        this.showDone = done;
+        this.showOverdue = overdue;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilters(pending, done, overdue);
+        model.updateFilters(showPending, showDone, showOverdue);
         
         String[] messageArray = new String[] {
                 "Not Pending", "Not Done", "Not Overdue"
         };
         
-        if (pending) {
+        if (showPending) {
             messageArray[0] = "Pending";
         }
         
-        if (done) {
+        if (showDone) {
             messageArray[1] = "Done";
         }
         
-        if (overdue) {
+        if (showOverdue) {
             messageArray[2] = "Overdue";
         }
         
