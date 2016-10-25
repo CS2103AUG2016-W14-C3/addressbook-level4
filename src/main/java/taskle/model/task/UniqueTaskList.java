@@ -142,7 +142,6 @@ public class UniqueTaskList implements Iterable<Task> {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
         
-        refreshInternalList();
     }
     
     //@@author A0140047U
