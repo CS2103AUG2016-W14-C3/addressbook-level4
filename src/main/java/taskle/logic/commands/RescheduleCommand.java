@@ -36,7 +36,6 @@ public class RescheduleCommand extends Command{
     public final List<Date> dates;
 
     public RescheduleCommand(int targetIndex, List<Date> dates) throws IllegalValueException {
-        assert dates.size() < 3;
         this.targetIndex = targetIndex; 
         this.dates = dates;
     }
