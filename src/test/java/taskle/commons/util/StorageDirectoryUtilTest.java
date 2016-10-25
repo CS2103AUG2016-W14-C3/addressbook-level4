@@ -1,11 +1,14 @@
 package taskle.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -58,10 +61,11 @@ public class StorageDirectoryUtilTest {
         StorageDirectoryUtil.updateFile(config, logic, null);
     }
     
-    //Change to file of invalid format - Shows Exception
+    //Change to file of invalid format - Returns False
     @Test
-    public void updateFile_invalidFileFormat_Exception() {
-        StorageDirectoryUtil.updateFile(config, logic, INVALID_FILE);
+    public void updateFile_invalidFileFormat_returnsFalse() {
+        boolean isFileUpdated = StorageDirectoryUtil.updateFile(config, logic, INVALID_FILE);
+        assertFalse(isFileUpdated);
     }
     
     //Change to a valid file - Successfully Update
