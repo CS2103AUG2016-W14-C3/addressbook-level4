@@ -11,8 +11,8 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks with names consisting of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
-            + "Format: " + COMMAND_WORD + " [search_query]"
+            + "the specified keywords (case-sensitive)\nand displays them as a list with index numbers.\n"
+            + "Format: " + COMMAND_WORD + " [search_query]\n"
             + "Example: " + COMMAND_WORD + " meeting";
 
     private final Set<String> keywords;
