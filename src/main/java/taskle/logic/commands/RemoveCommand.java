@@ -27,7 +27,7 @@ public class RemoveCommand extends Command {
     public final String targetIndex;
     int arraySize;
     String[] s;
-    int[] sInt;
+    ArrayList<Integer> sInt = new ArrayList<Integer>();
     
     public RemoveCommand(String targetIndex) {
     	this.targetIndex = targetIndex;
@@ -40,7 +40,7 @@ public class RemoveCommand extends Command {
     	for(int i=0; i<s.length; i++)
     	{
     		System.out.println(i + ": " + s[i]);
-    		sInt[i] = Integer.parseInt(s[i]);
+    		sInt.add(Integer.parseInt(s[i]));
     	}
     	arraySize = s.length;
     }
@@ -52,12 +52,12 @@ public class RemoveCommand extends Command {
     	{
 	        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 	
-	        if (lastShownList.size() < sInt[i]) {
+	        if (lastShownList.size() < sInt.get(i)) {
 	            indicateAttemptToExecuteIncorrectCommand();
 	            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
 	        }
 	
-	        ReadOnlyTask taskToDelete = lastShownList.get(sInt[i] - 1);
+	        ReadOnlyTask taskToDelete = lastShownList.get(sInt.get(i) - 1);
 	
 	        try {
 	            model.deleteTask(taskToDelete);
