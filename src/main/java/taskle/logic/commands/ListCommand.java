@@ -3,6 +3,7 @@ package taskle.logic.commands;
 /**
  * Lists all tasks in the Task Manager to the user.
  */
+//@@author A0141780J
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

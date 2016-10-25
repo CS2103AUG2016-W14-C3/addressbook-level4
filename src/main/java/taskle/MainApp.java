@@ -36,7 +36,7 @@ import taskle.ui.UiManager;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    public static final Version VERSION = new Version(0, 3, 0, true);
+    public static final Version VERSION = new Version(0, 4, 0, true);
 
     protected Ui ui;
     protected Logic logic;
