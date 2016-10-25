@@ -1,6 +1,5 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.DateFormatUtil;
-import taskle.logic.history.History;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
 import taskle.model.task.TaskList.TaskNotFoundException;
@@ -53,12 +51,8 @@ public class RescheduleCommand extends Command{
         String oldDetails = taskToEdit.getDetailsString();
         int newIndex = -1;
         try {
-            tasksAffected = new ArrayList<Task>();
-            Task originalTask = taskToEdit.copy();
-            tasksAffected.add(originalTask);
+            model.storeTaskManager();
             model.editTaskDate(targetIndex, dates);
-            tasksAffected.add((Task) taskToEdit);
-            History.insert(this);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

@@ -34,19 +34,18 @@ public class EditCommandTest extends TaskManagerGuiTest {
         FloatTask newTask = new FloatTask(newName, new UniqueTagList());
         assertMatching(newTask, addedCard);
     }
-
-//    /**
-//     * Edits an inexistent task
-//     */
-//    @Test
-//    public void edit_inexistent_task() {
-//        String commandInvalidIntegerIndex = buildCommand("10", "Buy dinner home");
-//        assertEditInvalidIndex(commandInvalidIntegerIndex);
-//
-//        String commandInvalidStringIndex = buildCommand("ABC", "Buy dinner home");
-//        assertEditInvalidCommandFormat(commandInvalidStringIndex);
-//        
-//    }
+    
+    /**
+     * Edits an inexistent task
+     */
+    @Test
+    public void edit_inexistent_task() {
+        String commandInvalidIntegerIndex = buildCommand("10", "Buy dinner home");
+        assertEditInvalidIndex(commandInvalidIntegerIndex);
+        
+        String commandInvalidStringIndex = buildCommand("ABC", "Buy dinner home");
+        assertEditInvalidCommandFormat(commandInvalidStringIndex);
+    }
 
     /**
      * Edits a valid task without giving a new task name

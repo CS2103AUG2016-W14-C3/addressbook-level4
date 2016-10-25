@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.logic.history.History;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
+
+//@@author A0141780J
 
 /**
  * Adds a task to the Task Manager.
@@ -73,10 +74,8 @@ public class AddCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         
+        model.storeTaskManager();
         model.addTask(toAdd);
-        tasksAffected = new ArrayList<Task>();
-        tasksAffected.add(toAdd);
-        History.insert(this);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
     }
 

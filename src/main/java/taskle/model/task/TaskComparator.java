@@ -4,9 +4,9 @@ import java.util.Comparator;
 
 import taskle.model.task.ReadOnlyTask.Status;
 
+//@@author A0140047U
 /**
  * Custom Comparator that compares tasks when being sorted in internalList
- * @author Muhammad Hamsyari
  *
  */
 public class TaskComparator implements Comparator<Task> {

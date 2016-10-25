@@ -32,12 +32,20 @@ public interface Model {
     /** Marks the task as done*/
     void doneTask(int index, boolean targetDone) throws TaskList.TaskNotFoundException;
     
-    /** Marks the task as undone */
-    void unDoneTask(Task task);
-    
     /** Adds the given task */
     void addTask(Task task);
 
+    //@@author A0140047U
+    /** Stores current TaskManager state */
+    void storeTaskManager();
+    
+    /** Restores most recently stored TaskManager state */
+    boolean restoreTaskManager();
+    
+    /** Undo most recently restored TaskManager state */
+    boolean revertTaskManager();
+    
+    //@@author
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
