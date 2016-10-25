@@ -117,6 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
 
+    //@@author A0141780J
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -195,6 +196,7 @@ public class ModelManager extends ComponentManager implements Model {
         
         return basePred;
     }
+    //@@author
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);

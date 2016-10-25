@@ -5,6 +5,7 @@ import java.util.Date;
 
 import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
+//@@author A0141780J
 
 /**
  * Event task object that guarantees non-null fields for task

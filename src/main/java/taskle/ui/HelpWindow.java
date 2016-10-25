@@ -1,6 +1,7 @@
 package taskle.ui;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import taskle.commons.core.LogsCenter;
 import taskle.model.help.CommandGuide;
-
+//@author A0141780J
 /**
  * Controller for a help page
  */

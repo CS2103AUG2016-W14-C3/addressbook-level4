@@ -18,6 +18,8 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.HelpCommand;
 import taskle.logic.commands.IncorrectCommand;
 
+//@author A0141780J
+
 /**
  * Parses user input.
  */
@@ -34,7 +36,7 @@ public class Parser {
     public Parser() {
         setupParsers();
     }
-    
+
     private void setupParsers() {
         // Generate a list of command parsers here, every new 
         // command added must be added to the commandParsers list here

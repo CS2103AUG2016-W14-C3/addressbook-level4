@@ -87,6 +87,7 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
+    //@author A0141780J
     private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
 

@@ -167,6 +167,7 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
+    //@@author A0141780J
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -324,6 +325,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
@@ -566,6 +568,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
 
+    //@@author A0141780J
     @Test
     public void execute_findInvalidArgs_returnInvalidCommand() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
@@ -731,6 +734,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    //@@author
     
 
     /**
@@ -738,6 +742,7 @@ public class LogicManagerTest {
      */
     class TestDataHelper{
         
+        //@@author A0141780J
         private final Calendar CALENDAR = Calendar.getInstance();
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
         private final String ADD_SUCCESSFUL_DEADLINE_DATE = " by 31st Dec 2016 2359hours";
@@ -815,7 +820,7 @@ public class LogicManagerTest {
          * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Task object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
             return new FloatTask(
@@ -838,6 +843,7 @@ public class LogicManagerTest {
             cmd.append(dateString);
             return cmd.toString();
         }
+        //@@author
         
         String generateEditCommand(String index, String newName) {
             StringBuffer cmd = new StringBuffer();

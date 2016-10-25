@@ -51,6 +51,7 @@ public class CommandBox extends UiPart {
         return commandBox;
     }
 
+    //@author A0141780J
     public void configure(
             NotificationPane notificationPane, 
             Logic logic) {

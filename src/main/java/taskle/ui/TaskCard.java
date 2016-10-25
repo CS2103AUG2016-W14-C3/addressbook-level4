@@ -5,7 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import taskle.model.task.ReadOnlyTask;
-
+//@author A0141780J
 public class TaskCard extends UiPart {
 
     private static final String STYLE_CARD_DONE = "-fx-background-color: #546E7A";
