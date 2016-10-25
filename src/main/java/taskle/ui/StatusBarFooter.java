@@ -98,6 +98,7 @@ public class StatusBarFooter extends UiPart {
         setSyncStatus("Last Updated: " + lastUpdated);
     }
     
+    //@@author A0140047U
     @Subscribe
     public void handleStorageLocationChangedEvent(StorageLocationChangedEvent slce) {
         String lastUpdated = (new Date()).toString();

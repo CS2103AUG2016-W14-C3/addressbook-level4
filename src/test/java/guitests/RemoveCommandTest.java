@@ -8,7 +8,7 @@ import org.junit.Test;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
-public class RemoveCommandTest extends AddressBookGuiTest {
+public class RemoveCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void remove() {

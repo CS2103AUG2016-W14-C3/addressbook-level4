@@ -143,9 +143,9 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
     //@@author
      
-     public void unDoneTask(Task task) {
-         tasks.unDone(task);
-     }
+    public void unDoneTask(Task task) {
+        tasks.unDone(task);
+    }
 
 //// tag-level operations
 

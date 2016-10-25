@@ -3,7 +3,6 @@ package taskle.logic.commands;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import edu.emory.mathcs.backport.java.util.Collections;
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.logic.history.History;
@@ -33,43 +32,42 @@ public class RemoveCommand extends Command {
     ArrayList<Integer> sInt = new ArrayList<Integer>();
     
     public RemoveCommand(String targetIndex) {
-    	this.targetIndex = targetIndex;
-		
-    	String argsTrim = targetIndex.trim();
-    	s = argsTrim.split(" ");
-    	for(int i=0; i<s.length; i++)
-    	{   
-    		sInt.add(Integer.parseInt(s[i]));
-    	}
-    	
-    	Collections.sort(sInt);
-    	Collections.reverse(sInt);
-    	
-    	arraySize = s.length;
+        this.targetIndex = targetIndex;
+        
+        String argsTrim = targetIndex.trim();
+        s = argsTrim.split(" ");
+        for(int i=0; i<s.length; i++)
+        {   
+            sInt.add(Integer.parseInt(s[i]));
+        }
+        
+        Collections.sort(sInt);
+        Collections.reverse(sInt);
+        
+        arraySize = s.length;
     }
+
 
     @Override
     public CommandResult execute() {
-    	for(int i=0; i<arraySize; i++)
-    	{
-	        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-	
-	        if (lastShownList.size() < sInt.get(i)) {
-	            indicateAttemptToExecuteIncorrectCommand();
-	            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-	        }
-	
-	        ReadOnlyTask taskToDelete = lastShownList.get(sInt.get(i) - 1);
-	
-	        try {
-	            model.deleteTask(taskToDelete);
-	            tasksAffected = new ArrayList<Task>();
-	            tasksAffected.add((Task)taskToDelete);
-	            History.insert(this);
-	        } catch (TaskNotFoundException pnfe) {
-	            assert false : "The target task cannot be missing";
-	        }
-    	}
+        for(int i=0; i<arraySize; i++)
+        {
+            UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+    
+            if (lastShownList.size() < sInt.get(i)) {
+                indicateAttemptToExecuteIncorrectCommand();
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            }
+    
+            ReadOnlyTask taskToDelete = lastShownList.get(sInt.get(i) - 1);
+    
+            try {
+                model.storeTaskManager();
+                 model.deleteTask(taskToDelete);
+            } catch (TaskNotFoundException pnfe) {
+                assert false : "The target task cannot be missing";
+            }
+        }
 
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, 2));
     }
@@ -78,4 +76,5 @@ public class RemoveCommand extends Command {
     public String getCommandWord() {
         return COMMAND_WORD;
     }
+
 }

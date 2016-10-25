@@ -17,7 +17,7 @@ import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
-public class RescheduleCommandTest extends AddressBookGuiTest {
+public class RescheduleCommandTest extends TaskManagerGuiTest {
 
     /**
      * Reschedules a current task to a float task inside the TypicalTestTask to
