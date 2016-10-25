@@ -2,6 +2,7 @@ package taskle.logic.commands;
 
 import java.util.ArrayList;
 
+import edu.emory.mathcs.backport.java.util.Collections;
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.logic.history.History;
@@ -31,17 +32,15 @@ public class RemoveCommand extends Command {
     
     public RemoveCommand(String targetIndex) {
     	this.targetIndex = targetIndex;
-    	
-    	System.out.println("Test " + targetIndex.trim());
 		
     	String argsTrim = targetIndex.trim();
-    		
     	s = argsTrim.split(" ");
     	for(int i=0; i<s.length; i++)
     	{
-    		System.out.println(i + ": " + s[i]);
     		sInt.add(Integer.parseInt(s[i]));
     	}
+    	Collections.sort(sInt);
+    	Collections.reverse(sInt);
     	arraySize = s.length;
     }
 
