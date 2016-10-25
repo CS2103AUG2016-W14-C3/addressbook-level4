@@ -23,35 +23,53 @@ public class RemoveCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Task: %1$s";
 
-    public final int targetIndex;
-
-    public RemoveCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    //public final int targetIndex;
+    public final String targetIndex;
+    int arraySize;
+    String[] s;
+    int[] sInt;
+    
+    public RemoveCommand(String targetIndex) {
+    	this.targetIndex = targetIndex;
+    	
+    	System.out.println("Test " + targetIndex.trim());
+		
+    	String argsTrim = targetIndex.trim();
+    		
+    	s = argsTrim.split(" ");
+    	for(int i=0; i<s.length; i++)
+    	{
+    		System.out.println(i + ": " + s[i]);
+    		sInt[i] = Integer.parseInt(s[i]);
+    	}
+    	arraySize = s.length;
     }
 
 
     @Override
     public CommandResult execute() {
+    	for(int i=0; i<arraySize; i++)
+    	{
+	        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+	
+	        if (lastShownList.size() < sInt[i]) {
+	            indicateAttemptToExecuteIncorrectCommand();
+	            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+	        }
+	
+	        ReadOnlyTask taskToDelete = lastShownList.get(sInt[i] - 1);
+	
+	        try {
+	            model.deleteTask(taskToDelete);
+	            tasksAffected = new ArrayList<Task>();
+	            tasksAffected.add((Task)taskToDelete);
+	            History.insert(this);
+	        } catch (TaskNotFoundException pnfe) {
+	            assert false : "The target task cannot be missing";
+	        }
+    	}
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-
-        if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-        }
-
-        ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
-
-        try {
-            model.deleteTask(taskToDelete);
-            tasksAffected = new ArrayList<Task>();
-            tasksAffected.add((Task)taskToDelete);
-            History.insert(this);
-        } catch (TaskNotFoundException pnfe) {
-            assert false : "The target task cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, 2));
     }
     
     @Override
