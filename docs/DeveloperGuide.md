@@ -1,5 +1,6 @@
 # Taskle Developer Guide 
 
+<!-- @@author A0125509H -->
 
 ## Introduction
 Taskle is a task management application that helps users keep track of their tasks efficiently.  It comprises a Command Line Interface (CLI) for the input of all commands and a GUI for the output.  
@@ -18,6 +19,7 @@ This guide describes the design and implementation of Taskle. It will help you u
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
+<!-- @@author A0141780J -->
 
 ## Setting up
 
@@ -106,6 +108,8 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 <br>
 The sections below give more details of each component.
 
+<!-- @@author A0125509H -->
+
 ### UI component
 
 <img align="center" src="images/UiClassDiagram.png">
@@ -128,6 +132,8 @@ The `UI` component:
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+<!-- @@author A0141780J -->
+
 ### Logic component
 
 <img align="center" src="images/LogicClassDiagram.png">
@@ -146,6 +152,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 <img align="center" src="images/DeletePersonSdForLogic.png">
 <div align="center">Figure 7: Delete Person Logic Sequence Diagram</div><br>
 
+<!-- @@author A0140047U -->
+
 ### Model component
 
 <img align="center" src="images/ModelClassDiagram.png">
@@ -160,6 +168,8 @@ The `Model`:
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
 
+<!-- @@author A0139402M -->
+
 ### Storage component
 
 <img align="center" src="images/StorageClassDiagram.png">
@@ -170,6 +180,8 @@ The `Model`:
 The `Storage` component:
 * Can save `UserPref` objects in json format and read it back.
 * Can save the Task Manager data in xml format and read it back.
+
+<!-- @@author -->
 
 ### Common classes
 
@@ -269,6 +281,8 @@ is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
+<!-- @@author A0141780J -->
+
 ## Appendix A : User Stories
 
 
@@ -313,6 +327,8 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 | Epic |         | user | make changes to my application configuration | I can customize it to suit my needs | 
 |      | `* * *` | user | specify a specific folder as the data storage location                       | I can save the data file into any directory I want |
 |      | `*`     | user | switch to using another existing data storage file                           | I can reuse my data storage file from another device or session |
+
+<!-- @@author A0140047U -->
 
 ## Appendix B : Use Cases
 
@@ -615,6 +631,8 @@ Use Case ends.
 
 > Use Case ends.
 
+<!-- @@author A0139402M -->
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on Windows 7 or later.
@@ -628,6 +646,8 @@ Use Case ends.
 9. Should display command results within 100 millisecond.
 10. Should favor DOS style commands over Unix-style commands.
 
+
+<!-- @@author A0125509H -->
 
 ## Appendix D : Glossary
 
@@ -667,6 +687,8 @@ Use Case ends.
 
 The team has done a survey on existing products and analysed the strengths and weaknesses with respect to how well it can cater to our target audience.<br><br>
 
+<!-- @@author A0140047U -->
+
 **Product #1: Wunderlist**<br>
 Strengths:
 
@@ -688,6 +710,8 @@ Weakness:
 
 <br>
 
+<!-- @@author A0141780J -->
+
 **Product #2: Google Keep**<br>
 Strengths:
 
@@ -704,6 +728,8 @@ Weakness:
 3. Does not support calendar-centric operations → Jim is not able to schedule tasks with specific start and end dates.
 
 <br>
+
+<!-- @@author A0139402M -->
 
 **Product #3: to-doist**<br>
 Strengths:
@@ -725,6 +751,8 @@ Weakness:
 4. Syncing of data with the cloud occurs only when there is Internet connectivity → Jim will have to require Internet connectivity if he wants to use the application with all his existing tasks on another computer
 
 <br>
+
+<!-- @@author A0125509H -->
 
 **Product #4: SolCalendar**<br>
 Strengths:
