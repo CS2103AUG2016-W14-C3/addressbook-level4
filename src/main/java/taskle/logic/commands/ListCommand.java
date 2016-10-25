@@ -7,7 +7,7 @@ public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = 
+    public static final String MESSAGE_LIST_SUCCESS = 
             "Listed %1$s tasks";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD 
@@ -32,24 +32,24 @@ public class ListCommand extends Command {
         model.updateFilters(pending, done, overdue);
         
         String[] messageArray = new String[] {
-                "not pending", "not done", "not overdue"
+                "Not Pending", "Not Done", "Not Overdue"
         };
         
         if (pending) {
-            messageArray[0] = "pending";
+            messageArray[0] = "Pending";
         }
         
         if (done) {
-            messageArray[1] = "done";
+            messageArray[1] = "Done";
         }
         
         if (overdue) {
-            messageArray[2] = "overdue";
+            messageArray[2] = "Overdue";
         }
         
         String message = String.join(", ", messageArray);
         
-        return new CommandResult(String.format(MESSAGE_SUCCESS, message), 
+        return new CommandResult(String.format(MESSAGE_LIST_SUCCESS, message), 
                                  true);
     }
     

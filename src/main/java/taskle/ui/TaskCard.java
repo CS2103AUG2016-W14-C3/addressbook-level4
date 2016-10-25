@@ -8,6 +8,7 @@ import taskle.model.task.ReadOnlyTask;
 
 public class TaskCard extends UiPart {
 
+    private static final String STYLE_CARD_DONE = "-fx-background-color: #546E7A";
     private static final String STYLE_CARD_OVERDUE = "-fx-background-color: #E53935";
     private static final String STYLE_CARD_PENDING = "-fx-background-color: #1976D2";
     private static final String STYLE_CARD_FLOAT = "-fx-background-color: #009688";
@@ -54,6 +55,9 @@ public class TaskCard extends UiPart {
     
     private void setCardStyle() {
         switch (task.getStatus()) {
+        case DONE:
+            cardPane.setStyle(STYLE_CARD_DONE);
+            break;
         case FLOAT:
             cardPane.setStyle(STYLE_CARD_FLOAT);
             break;
@@ -64,7 +68,7 @@ public class TaskCard extends UiPart {
             cardPane.setStyle(STYLE_CARD_PENDING);
             break;
         default:
-            break;
+            cardPane.setStyle(STYLE_CARD_FLOAT);
         }
     }
 
