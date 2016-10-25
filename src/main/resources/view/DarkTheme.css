@@ -92,7 +92,6 @@
 
 .list-cell .label {
     -fx-text-fill: white;
-    -fx-font-style: Bold;
 }
 
 .cell_big_label {
