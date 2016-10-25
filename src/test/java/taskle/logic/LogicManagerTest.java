@@ -131,7 +131,7 @@ public class LogicManagerTest {
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedMessage, result.getFeedback());
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected

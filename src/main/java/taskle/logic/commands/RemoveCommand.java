@@ -37,7 +37,7 @@ public class RemoveCommand extends Command {
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            return new CommandResult("");
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
         }
 
         ReadOnlyTask taskToDelete = lastShownList.get(targetIndex - 1);
@@ -51,7 +51,10 @@ public class RemoveCommand extends Command {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+        return new CommandResult(
+                String.format(MESSAGE_DELETE_TASK_SUCCESS, 
+                              taskToDelete),
+                true);
     }
     
     @Override

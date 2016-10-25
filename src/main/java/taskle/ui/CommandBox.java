@@ -102,18 +102,19 @@ public class CommandBox extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         mostRecentResult = logic.execute(previousCommandText);
-        displayCommandFeedback(mostRecentResult.feedbackToUser);
-        logger.info("Result: " + mostRecentResult.feedbackToUser);
+        displayCommandFeedback(mostRecentResult);
+        logger.info("Result: " + mostRecentResult.getFeedback());
     }
     
-    private void displayCommandFeedback(String feedback) {
-        assert feedback != null;
-        if (feedback.isEmpty()) {
+    private void displayCommandFeedback(CommandResult commandResult) {
+        assert commandResult != null;
+        
+        String feedback = commandResult.getFeedback();
+        if (!commandResult.wasValid()) {
             return;
         }
         
         showCorrectCommand(feedback);
-        notificationPane.show(feedback);
     }
 
     @Subscribe
@@ -132,6 +133,7 @@ public class CommandBox extends UiPart {
     private void showCorrectCommand(String feedback) {
         popOver.hide();
         commandTextField.clear();
+        notificationPane.show(feedback);
     }
     
     /**

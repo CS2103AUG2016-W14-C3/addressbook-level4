@@ -44,7 +44,8 @@ public class RescheduleCommand extends Command{
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            return new CommandResult("");
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                                     false);
         }
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
@@ -60,8 +61,11 @@ public class RescheduleCommand extends Command{
             assert false : "The target task cannot be missing";
         }
         ReadOnlyTask newTask = lastShownList.get(offsetIndex);
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + "\t" 
-                                            + oldDetails + " -> " + newTask.getDetailsString()));
+        return new CommandResult(
+                String.format(MESSAGE_EDIT_TASK_SUCCESS, 
+                              taskToEdit.getName() + "\t" + oldDetails + 
+                              " -> " + newTask.getDetailsString()),
+                true);
     }
 
     @Override

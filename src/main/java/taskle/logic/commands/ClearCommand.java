@@ -27,7 +27,7 @@ public class ClearCommand extends Command {
         }
         model.resetData(TaskManager.getEmptyTaskManager());
         History.insert(this);
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
     
     @Override

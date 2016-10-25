@@ -54,7 +54,7 @@ public class UndoRescheduleCommand extends UndoCommand {
             e.printStackTrace();
         }
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
+                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()), true);
     }
     
     @Override

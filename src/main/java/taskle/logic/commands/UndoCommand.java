@@ -1,9 +1,5 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import taskle.logic.commands.undo.UndoAddCommand;
 import taskle.logic.commands.undo.UndoClearCommand;
 import taskle.logic.commands.undo.UndoDoneCommand;
@@ -11,7 +7,6 @@ import taskle.logic.commands.undo.UndoEditCommand;
 import taskle.logic.commands.undo.UndoRemoveCommand;
 import taskle.logic.commands.undo.UndoRescheduleCommand;
 import taskle.logic.history.History;
-import taskle.model.Model;
 
 /**
  * Undo recent command entered.
@@ -32,7 +27,7 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         if (History.isEmpty()) {
-            return new CommandResult(History.MESSAGE_EMPTY_HISTORY);
+            return new CommandResult(History.MESSAGE_EMPTY_HISTORY, false);
         } else {
             Command command = History.remove();
             
@@ -57,7 +52,7 @@ public class UndoCommand extends Command {
                     return new UndoDoneCommand().undoDone(command, model);
                     
                 default:
-                    return new CommandResult(History.MESSAGE_EMPTY_HISTORY);
+                    return new CommandResult(History.MESSAGE_EMPTY_HISTORY, false);
             }
         }
     }

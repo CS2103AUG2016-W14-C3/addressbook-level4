@@ -23,7 +23,7 @@ public class UndoDoneCommand extends UndoCommand {
         Task task = command.getTasksAffected().get(0);
         model.unDoneTask(task);
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
+                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()), true);
     }
     
     @Override

@@ -27,7 +27,7 @@ public class UndoClearCommand extends UndoCommand {
         for (int i = 0; i < command.getTasksAffected().size(); i++) {
             model.addTask(command.getTasksAffected().get(i));
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandWord(), ""));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, command.getCommandWord(), ""), true);
     }
     
     @Override

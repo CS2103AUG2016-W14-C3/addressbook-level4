@@ -30,7 +30,7 @@ public class DoneCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
-            return new CommandResult("");
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
         }
 
         ReadOnlyTask taskMarkedAsDone = lastShownList.get(targetIndex - 1);
@@ -44,7 +44,10 @@ public class DoneCommand extends Command {
             assert false : "The target task cannot be missing";
         }
         
-        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, "Task " + targetIndex + ": Completed"));
+        return new CommandResult(
+                String.format(MESSAGE_DONE_TASK_SUCCESS, 
+                              "Task " + targetIndex + ": Completed"),
+                true);
     }
 
     @Override

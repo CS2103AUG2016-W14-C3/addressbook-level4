@@ -30,7 +30,7 @@ public class UndoRemoveCommand extends UndoCommand {
         model.addTask(task);
 
         return new CommandResult(
-                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()));
+                String.format(MESSAGE_SUCCESS, command.getCommandWord(), command.getTasksAffected().get(0).toString()), true);
     }
     
     @Override
