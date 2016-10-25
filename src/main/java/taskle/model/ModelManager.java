@@ -30,6 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Task> filteredTasks;
 
     private Stack<TaskManager> taskManagerHistory = new Stack<TaskManager>();
+    private Stack<TaskManager> redoTaskManagerHistory = new Stack<TaskManager>();
     
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -73,10 +74,12 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new TaskManagerChangedEvent(taskManager));
     }
 
+    //@@author A0140047U
     /** Stores current TaskManager state */
     @Override
     public synchronized void storeTaskManager() {
         taskManagerHistory.push(new TaskManager(taskManager));
+        redoTaskManagerHistory.clear();
     }
     
     /** Restores recently saved TaskManager state*/
@@ -84,12 +87,26 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized boolean restoreTaskManager() {
         if (!taskManagerHistory.isEmpty()) {
             TaskManager recentTaskManager = taskManagerHistory.pop();
+            redoTaskManagerHistory.push(new TaskManager(taskManager));
             this.resetData(recentTaskManager);
             return true;
         }
         return false;
     }
     
+    /** Reverts changes made from restoring recently saved TaskManager state */
+    @Override
+    public synchronized boolean revertTaskManager() {
+        if (!redoTaskManagerHistory.isEmpty()) {
+            TaskManager redoTaskManager = redoTaskManagerHistory.pop();
+            taskManagerHistory.push(new TaskManager(taskManager));
+            this.resetData(redoTaskManager);
+            return true;
+        }
+        return false;
+    }
+    
+    //@@author
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);

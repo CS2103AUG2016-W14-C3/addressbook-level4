@@ -3,10 +3,9 @@ package taskle.logic.parser;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.UndoCommand;
 
+//@@author A0140047U
 /**
  * UndoCommandParser class to handle parsing of undo commands
- * @author Muhammad Hamsyari
- *
  */
 public class UndoCommandParser extends CommandParser {
 
