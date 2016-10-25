@@ -145,18 +145,19 @@ Finds all tasks in Taskle that contains the keywords and fulfills the status as 
 
 | Format  
 | :-------- 
-| `find` **`[keyword] [-status]`** | 
+| `find` **`[keywords] [-status]`** | 
 
 > **Things to Note**
 > * The following statues are available:
+>	* **-all**: All tasks in Taskle
 >	* **-pending**: Tasks that are still pending.
 >	* **-done**: Tasks that are marked as done.
 >	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
-> * It is optional to specify the keyword. If no keyword is specified, only the status will be used to find tasks.
-> * To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
->	* find **-pending**
-> * To view all types of events, you can simply omit the above keywords.
-> * To display all tasks, simple type find.
+> * All tasks that match the list of keywords and the statuses specified would be displayed.
+> * It is optional to specify the status. If no status is specified, the default
+tasks to be displayed are the pending and overdue ones. 
+> * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
+>	* find meeting task **-pending** **-overdue**
 
 Examples:
 * `find` **`books`**
@@ -170,6 +171,30 @@ Examples:
 <div align="center">Figure 11: Find all pending Tasks</div><br>
 <br>
 
+### Listing tasks: `list`
+Lists tasks according to specified statuses. Use this command to view your tasks
+according to whether they are done, overdue or pending. <br>
+
+| Format  
+| :-------- 
+| `list` **`[-status]`**| 
+
+> **Things to Note**
+> * The following statues are available:
+>	* **-all**: All tasks in Taskle
+>	* **-pending**: Tasks that are still pending.
+>	* **-done**: Tasks that are marked as done.
+>	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
+> * It is optional to specify the status. If no status is specified, the default
+tasks to be displayed are the pending and overdue ones. (Done tasks are not shown).
+> * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
+>	* list **-pending** **-overdue**
+
+Example:
+* `list` **`5`** **`-all`**
+
+<br>
+
 ### Mark a Task as Done: `done`
 Marks a task as done. Use this command when you are finished with the task.<br>
 
@@ -178,7 +203,7 @@ Marks a task as done. Use this command when you are finished with the task.<br>
 | `done` **`[task_number]`** | 
 
 Example:
-* `Done` **`5`**
+* `done` **`5`**
 
 <img src="images/UI/Done.png" align="center">
 <div align="center">Figure 12: Mark Task 5 as done</div><br>
@@ -256,7 +281,7 @@ Reschedule `r` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`d
 Set Reminder `s` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
 Find `f` | `find [`**`search_query`**`] [`**`-status`**`]`
-List `l` | `list`
+List `l` | `list [`**`-status`**`]`
 Mark as Done `d` | `done `**`task_number`**
 Undo `u` | `undo`
 Clear | `clear`
