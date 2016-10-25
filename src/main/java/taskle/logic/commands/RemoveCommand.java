@@ -14,6 +14,7 @@ import taskle.model.task.UniqueTaskList.TaskNotFoundException;
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
  */
+
 public class RemoveCommand extends Command {
 
     public static final String COMMAND_WORD = "remove";
@@ -25,6 +26,7 @@ public class RemoveCommand extends Command {
 
     public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Task: %1$s";
 
+    //@@author A0125509H
     public final String targetIndex;
     int arraySize;
     String[] s;
