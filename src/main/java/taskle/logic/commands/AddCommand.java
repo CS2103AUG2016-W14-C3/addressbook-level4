@@ -1,6 +1,5 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import taskle.commons.exceptions.IllegalValueException;

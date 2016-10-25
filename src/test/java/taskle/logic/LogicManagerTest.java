@@ -380,7 +380,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("remove 2",
-                String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
+                String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
     }

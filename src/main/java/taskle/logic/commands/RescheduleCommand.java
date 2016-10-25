@@ -8,7 +8,6 @@ import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.DateFormatUtil;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.Task;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**

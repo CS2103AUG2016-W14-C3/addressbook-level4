@@ -29,6 +29,7 @@ public interface Model {
     /** Edits the date / time of the task */
     void editTaskDate(int index, List<Date> dates) throws TaskList.TaskNotFoundException;
    
+    //@@author A0125509H
     /** Marks the task as done*/
     void doneTask(int index, boolean targetDone) throws TaskList.TaskNotFoundException;
     
@@ -45,7 +46,7 @@ public interface Model {
     /** Undo most recently restored TaskManager state */
     boolean revertTaskManager();
     
-    //@@author
+    //@@author A0141780J
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 

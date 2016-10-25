@@ -136,9 +136,15 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.editDate(index, dates);
     }
     
-     public void doneTask(int index, boolean targetDone) {
+    //@@author A0125509H
+    public void doneTask(int index, boolean targetDone) {
         tasks.done(index, targetDone);
-     }
+    }
+    //@@author
+     
+    public void unDoneTask(Task task) {
+        tasks.unDone(task);
+    }
 
 //// tag-level operations
 
