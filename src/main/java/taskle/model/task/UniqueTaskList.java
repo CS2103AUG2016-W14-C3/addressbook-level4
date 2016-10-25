@@ -85,12 +85,14 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskFoundAndDeleted;
     }
     
+    //@@author A0125509H
     public void done(int index, boolean taskDone) {
         Task toEdit = internalList.get(index);
         toEdit.setTaskDone(taskDone);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " Done! ");
     }
+    //@@author
     
     public void unDone(Task taskToUndo) {
         int targetIndex = internalList.indexOf(taskToUndo);
