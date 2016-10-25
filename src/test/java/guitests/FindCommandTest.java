@@ -7,7 +7,7 @@ import org.junit.Test;
 import taskle.commons.core.Messages;
 import taskle.model.task.Task;
 
-public class FindCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void find_nonEmptyList() {

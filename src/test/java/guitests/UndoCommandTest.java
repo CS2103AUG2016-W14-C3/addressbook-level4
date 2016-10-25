@@ -8,12 +8,14 @@ import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.ClearCommand;
 import taskle.logic.commands.DoneCommand;
 import taskle.logic.commands.EditCommand;
+import taskle.logic.commands.RedoCommand;
 import taskle.logic.commands.RemoveCommand;
 import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.task.Task;
 
-public class UndoCommandTest extends AddressBookGuiTest {
+//@@author A0140047U
+public class UndoCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void undo() {
@@ -31,7 +33,7 @@ public class UndoCommandTest extends AddressBookGuiTest {
         assertUndoSuccess(currentList);
         
         //Undo after edit command
-        commandBox.enterCommand(EditCommand.COMMAND_WORD + " 1 " + td.helpFriend.getName().fullName);
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + td.helpFriend.getName());
         assertUndoSuccess(currentList);
         
         //Undo after clear command
@@ -44,6 +46,12 @@ public class UndoCommandTest extends AddressBookGuiTest {
         
         //Undo after done command
         commandBox.runCommand(DoneCommand.COMMAND_WORD + " 1");
+        assertUndoSuccess(currentList);
+        
+        //Undo after redo command
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.helpFriend.getName());
+        commandBox.runCommand(UndoCommand.COMMAND_WORD);
+        commandBox.runCommand(RedoCommand.COMMAND_WORD);
         assertUndoSuccess(currentList);
     }
     

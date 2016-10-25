@@ -10,7 +10,7 @@ import taskle.logic.commands.AddCommand;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
-public class AddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void add() {

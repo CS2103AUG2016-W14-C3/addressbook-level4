@@ -141,12 +141,15 @@ public class UniqueTaskList implements Iterable<Task> {
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
+        
     }
     
+    //@@author A0140047U
     public void refreshInternalList() {
         internalList.sort(new TaskComparator());
     }
 
+    //@@author
     /**
      * Method to update the internal list with a float task
      * @param toEdit

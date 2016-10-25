@@ -2,9 +2,9 @@ package taskle.model.task;
 
 import java.util.Comparator;
 
+//@@author A0140047U
 /**
  * Custom Comparator that compares tasks when being sorted in internalList
- * @author Muhammad Hamsyari
  *
  */
 public class TaskComparator implements Comparator<Task> {
