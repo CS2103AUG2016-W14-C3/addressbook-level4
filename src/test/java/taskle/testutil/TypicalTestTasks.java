@@ -11,7 +11,7 @@ import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
+import taskle.model.task.TaskList;
 
 /**
  *
@@ -69,20 +69,15 @@ public class TypicalTestTasks {
 
     public void loadTaskManagerWithSampleData(TaskManager ab) {
 
-        try {
-
-            ab.addTask(charityEvent.copy());
-            ab.addTask(assignmentDeadline.copy());
-            ab.addTask(attendMeeting.copy());
-            ab.addTask(buyMilk.copy());
-            ab.addTask(createPlan.copy());
-            ab.addTask(deliverGoods.copy());
-            ab.addTask(eatDinner.copy());
-            ab.addTask(flyKite.copy());
-            ab.addTask(goConcert.copy());
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            assert false : "not possible";
-        }
+        ab.addTask(attendMeeting.copy());
+        ab.addTask(buyMilk.copy());
+        ab.addTask(createPlan.copy());
+        ab.addTask(deliverGoods.copy());
+        ab.addTask(eatDinner.copy());
+        ab.addTask(flyKite.copy());
+        ab.addTask(goConcert.copy());
+        ab.addTask(charityEvent.copy());
+        ab.addTask(assignmentDeadline.copy());
     }
 
     public Task[] getTypicalTasks() {

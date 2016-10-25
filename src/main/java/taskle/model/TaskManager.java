@@ -17,20 +17,20 @@ import taskle.model.tag.UniqueTagList;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Wraps all data at the task-manager level
- * Duplicates are not allowed (by .equals comparison)
+ * Duplicates are allowed.
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
-    private final UniqueTaskList tasks;
+    private final TaskList tasks;
     private final UniqueTagList tags;
 
     {
-        tasks = new UniqueTaskList();
+        tasks = new TaskList();
         tags = new UniqueTagList();
     }
 
@@ -53,7 +53,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     /**
      * Tasks and Tags are copied into this taskmanager
      */
-    public TaskManager(UniqueTaskList tasks, UniqueTagList tags) {
+    public TaskManager(TaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
@@ -87,13 +87,12 @@ public class TaskManager implements ReadOnlyTaskManager {
 //// task-level operations
 
     /**
-     * Adds a task to the address book.
+     * Adds a task to the Task manager.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniqueTaskList.DuplicateTaskException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniqueTaskList.DuplicateTaskException {
+    public void addTask(Task p) {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -121,15 +120,15 @@ public class TaskManager implements ReadOnlyTaskManager {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws TaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.TaskNotFoundException();
+            throw new TaskList.TaskNotFoundException();
         }
     }
     
-    public void editTask(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
+    public void editTask(int index, Name newName) {
         tasks.edit(index, newName);
     }
 
@@ -172,7 +171,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
+    public TaskList getUniqueTaskList() {
         return this.tasks;
     }
 

@@ -15,9 +15,9 @@ import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.util.StringUtil;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.ReadOnlyTask.Status;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the task manager data.
@@ -32,6 +32,11 @@ public class ModelManager extends ComponentManager implements Model {
     private Stack<TaskManager> taskManagerHistory = new Stack<TaskManager>();
     private Stack<TaskManager> redoTaskManagerHistory = new Stack<TaskManager>();
     
+    // Filter variables
+    private boolean showDone = false;
+    private boolean showPending = true;
+    private boolean showOverdue = true;
+
     /**
      * Initializes a ModelManager with the given TaskManager
      * TaskManager and its variables should not be null
@@ -45,7 +50,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         taskManager = new TaskManager(src);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListWithStatuses();
     }
 
     public ModelManager() {
@@ -55,7 +60,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyTaskManager initialData, UserPrefs userPrefs) {
         taskManager = new TaskManager(initialData);
         filteredTasks = new FilteredList<>(taskManager.getTasks());
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListWithStatuses();
     }
 
     @Override
@@ -107,6 +112,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     //@@author
+
     @Override
     public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         taskManager.removeTask(target);
@@ -114,7 +120,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void editTask(int index, Name newName) throws TaskNotFoundException, UniqueTaskList.DuplicateTaskException {
+    public synchronized void editTask(int index, Name newName) throws TaskNotFoundException {
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);
         taskManager.editTask(sourceIndex, newName);;
         indicateTaskManagerChanged();
@@ -132,18 +138,20 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
         int sourceIndex = filteredTasks.getSourceIndex(index - 1);
         taskManager.doneTask(sourceIndex, targetDone);
-        updateFilteredListToShowAllNotDone();
+        updateFilteredListWithStatuses();
         indicateTaskManagerChanged();
     }
     //@@author
     
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicateTaskException {
+    public synchronized void addTask(Task task) {
         taskManager.addTask(task);
-        updateFilteredListToShowAllNotDone();
+        resetFilters();
+        updateFilteredListWithStatuses();
         indicateTaskManagerChanged();
     }
 
+    //@@author A0141780J
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -157,18 +165,72 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilteredListToShowAllNotDone() {
-        filteredTasks.setPredicate(getNotDonePredicate());
-    }
-    
-    private Predicate<Task> getNotDonePredicate() {
-        return p -> !p.isTaskDone();
+    public void updateFilteredListWithStatuses() {
+        filteredTasks.setPredicate(getStatusPredicate());
     }
     
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public void updateFilters(Set<String> keywords){
+        updateFilteredListFindKeywords(keywords);
     }
+    
+    @Override
+    public void updateFilters(Set<String> keywords, boolean pending, boolean done, boolean overdue){
+        this.showPending = pending;
+        this.showDone = done;
+        this.showOverdue = overdue;
+        updateFilteredListFindKeywords(keywords);
+    }
+    
+    @Override
+    public void updateFilters(boolean pending, boolean done, boolean overdue) {
+        this.showPending = pending;
+        this.showDone = done;
+        this.showOverdue = overdue;
+        updateFilteredListWithStatuses();
+    }
+    
+    private void resetFilters() {
+        this.showPending = true;
+        this.showOverdue = true;
+        this.showDone = false;
+        updateFilteredListWithStatuses();
+    }
+    
+    private void updateFilteredListFindKeywords(Set<String> keywords) {
+        Expression keywordExpression = new PredicateExpression(new NameQualifier(keywords));
+        Predicate<Task> statusPred = getStatusPredicate();
+        Predicate<Task> combinedPred = statusPred.and(keywordExpression::satisfies);
+        filteredTasks.setPredicate(combinedPred);
+    }
+    
+    /**
+     * Returns the predicate to use for filtering as specified by 
+     * the show status boolean fields.
+     * @return
+     */
+    private Predicate<Task> getStatusPredicate() {
+        Predicate<Task> basePred = t -> false;
+        Predicate<Task> pendingPred = t -> t.getStatus() == Status.PENDING
+                || t.getStatus() == Status.FLOAT;
+        Predicate<Task> donePred = t -> t.getStatus() == Status.DONE;
+        Predicate<Task> overduePred = t -> t.getStatus() == Status.OVERDUE;
+        
+        if (showPending) {
+            basePred = basePred.or(pendingPred);
+        }
+        
+        if (showDone) {
+            basePred = basePred.or(donePred);
+        }
+        
+        if (showOverdue) {
+            basePred = basePred.or(overduePred);
+        }
+        
+        return basePred;
+    }
+    //@@author
 
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);

@@ -1,6 +1,7 @@
 package taskle.ui;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import taskle.commons.core.LogsCenter;
 import taskle.model.help.CommandGuide;
-
+//@author A0141780J
 /**
  * Controller for a help page
  */
@@ -37,22 +38,26 @@ public class HelpWindow extends UiPart {
     private static final List<CommandGuide> LIST_COMMAND_GUIDES = new ArrayList<>(
             Arrays.asList(new CommandGuide("Adding", "add", "task_name"),
                     new CommandGuide("", "add", "deadline_name", "by", 
-                            "(Date & Time)"),
+                            "[Date & Time]", "[remind Date & Time]"),
                     new CommandGuide("", "add", "event_name", "from", 
-                            "(Date & Time)", "to", "(Date & Time)"),
+                            "(Date & Time)", "to", "[Date & Time]",
+                            "[remind Date & Time]"),
                     new CommandGuide("Editing", "edit", "task_number", 
                             "new_task_name"),
                     new CommandGuide("", "reschedule", "task_number", 
-                            "(Date & Time)"),
+                            "[Date & Time]"),
                     new CommandGuide("", "reschedule", "task_number", 
                             "clear"),
                     new CommandGuide("", "remind", "task_number", 
-                            "(Date & Time)"),
+                            "[Date & Time]"),
                     new CommandGuide("", "remind", "task_number", "clear"),
                     new CommandGuide("Removing", "remove", "task_number"), 
                     new CommandGuide("Undo Previous Command", "undo"),
-                    new CommandGuide("Finding", "find", "search_query"),
-                    new CommandGuide("Mark as Done", "done", "task_number"),
+                    new CommandGuide("Redo Previous Command", "redo"),
+                    new CommandGuide("Finding", "find", "search_query",
+                            "[-status]"),
+                    new CommandGuide("Listing all tasks", "list", "[-status]"),
+                    new CommandGuide("Mark as Done", "done", "[task_number]"),
                     new CommandGuide("Clearing All Tasks", "clear"),
                     new CommandGuide("Showing Help Window", "help"),
                     new CommandGuide("Exiting from Taskle", "exit")));

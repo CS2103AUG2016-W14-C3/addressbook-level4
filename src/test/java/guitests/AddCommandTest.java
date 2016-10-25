@@ -7,9 +7,11 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.logic.commands.AddCommand;
+import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
+//@@author A0141780J
 public class AddCommandTest extends TaskManagerGuiTest {
 
     @Test
@@ -25,11 +27,10 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //add duplicate task
-        commandBox.runCommand(AddCommand.COMMAND_WORD + " " 
-                + td.helpFriend.getName());
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_TASK);
-        assertTrue(taskListPanel.isListMatching(currentList));
+        //add duplicate task successful
+        taskToAdd = new FloatTask(td.helpFriend);
+        assertAddSuccess(taskToAdd, currentList);
+        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
         //add to empty list
         commandBox.runCommand("clear");
@@ -38,9 +39,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
 
-        //invalid command
+        //unknown command
         commandBox.runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
         
         //valid deadline add command
         taskToAdd = td.finalExams;
@@ -49,7 +50,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         //Invalid event add format
         commandBox.runCommand("add watch movie with friends by 7pm to 9pm");
-        assertResultMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
+        assertUnsuccessfulMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
                 AddCommand.MESSAGE_USAGE));
     }
     
@@ -58,7 +59,6 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + taskToAdd.toString());
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
-        System.out.println(addedCard.getDetails());
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task

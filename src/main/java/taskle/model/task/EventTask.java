@@ -1,9 +1,11 @@
 package taskle.model.task;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
+//@@author A0141780J
 
 /**
  * Event task object that guarantees non-null fields for task
@@ -70,6 +72,21 @@ public class EventTask extends Task {
         builder.append(DateFormatUtil.getDateArgString(
                 startDate, endDate));
         return builder.toString();
+    }
+
+    @Override
+    public Status getStatus() {
+        if (isTaskDone) {
+            return Status.DONE;
+        }
+        
+        Calendar calendar = Calendar.getInstance();
+        Date nowDate = calendar.getTime();
+        if (nowDate.before(startDate)) {
+            return Status.PENDING;
+        } else {
+            return Status.OVERDUE;
+        }
     }
 
 }

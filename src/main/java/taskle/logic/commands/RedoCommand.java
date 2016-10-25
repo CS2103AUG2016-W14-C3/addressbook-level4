@@ -22,9 +22,9 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute() {
         if (!model.revertTaskManager()) {
-            return new CommandResult(MESSAGE_NOTHING_TO_REDO);
+            return new CommandResult(MESSAGE_NOTHING_TO_REDO, true);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     @Override

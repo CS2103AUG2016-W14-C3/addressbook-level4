@@ -1,15 +1,12 @@
 package taskle.ui;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.Optional;
+
+import org.controlsfx.control.NotificationPane;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
@@ -19,13 +16,10 @@ import javafx.stage.Stage;
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
-import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
 import taskle.logic.commands.CommandResult;
 import taskle.model.UserPrefs;
-import taskle.model.task.ReadOnlyTask;
-import taskle.storage.StorageManager;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -33,6 +27,8 @@ import taskle.storage.StorageManager;
  */
 public class MainWindow extends UiPart {
 
+    private static final String NOTIFICATION_PANE_ID = "notificationPane";
+    private static final String GOOGLE_CUSTOM_FONT_URL = "https://fonts.googleapis.com/css?family=Roboto";
     private static final String ICON = "/images/ic_task_manager.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
@@ -42,13 +38,13 @@ public class MainWindow extends UiPart {
 
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
-    private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
+    private NotificationPane notificationPane;
     private VBox rootLayout;
     private Scene scene;
 
@@ -69,7 +65,6 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
-    
     
     public MainWindow() {
         super();
@@ -92,12 +87,13 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
+    //@author A0141780J
+    private void configure(String appTitle, String taskManagerName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.taskManagerName = addressBookName;
+        this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -106,10 +102,17 @@ public class MainWindow extends UiPart {
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        scene = new Scene(rootLayout);
+        
+        setupNotificationPane();
+        scene = new Scene(notificationPane);
         primaryStage.setScene(scene);
 
+        setCustomFont();
         setAccelerators();
+    }
+    
+    private void setCustomFont() {
+        scene.getStylesheets().add(GOOGLE_CUSTOM_FONT_URL);
     }
 
     private void setAccelerators() {
@@ -118,9 +121,8 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), notificationPane, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -200,11 +202,18 @@ public class MainWindow extends UiPart {
         if (selectedDirectory == null) {
         } else if ((selectedDirectory.getAbsolutePath()).equals(config.getTaskManagerFileDirectory())) {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
-            ExistingFileDialog.load(resultDisplay, primaryStage, config, logic, selectedDirectory);
+            ExistingFileDialog.load(notificationPane, primaryStage, config, logic, selectedDirectory);
         } else {
             StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
-            resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
+            notificationPane.show("Directory changed to: " + config.getTaskManagerFileDirectory());
         }
+    }
+    
+    private void setupNotificationPane() {
+        notificationPane = new NotificationPane(rootLayout);
+        notificationPane.setId(NOTIFICATION_PANE_ID);
+        notificationPane.getStyleClass().add(
+                NotificationPane.STYLE_CLASS_DARK);
     }
 
     public TaskListPanel getTaskListPanel() {

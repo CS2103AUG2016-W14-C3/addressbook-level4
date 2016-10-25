@@ -7,10 +7,11 @@ import org.junit.Test;
 import taskle.commons.core.Messages;
 import taskle.model.task.Task;
 
+//@@author A0141780J
 public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void execute_findNonEmptyList_returnsCorrectResults() {
         assertFindResult("find Mark"); //no results
         assertFindResult("find Milk", td.buyMilk, td.deliverGoods); //multiple results
 
@@ -21,21 +22,21 @@ public class FindCommandTest extends TaskManagerGuiTest {
     }
 
     @Test
-    public void find_emptyList(){
+    public void execute_findEmptyList_returnsNoResults(){
         commandBox.runCommand("clear");
         assertFindResult("find Jean"); //no results
     }
 
     @Test
-    public void find_invalidCommand_fail() {
+    public void execute_findInvalidCommand_fail() {
         commandBox.runCommand("findgeorge");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertFindResult(String command, Task... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
-        assertResultMessage(expectedHits.length + " task listed!");
+        assertSuccessfulMessage(expectedHits.length + " task listed!");
         assertTrue(taskListPanel.isListMatching(expectedHits));
     }
 }

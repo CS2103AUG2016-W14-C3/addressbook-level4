@@ -8,7 +8,7 @@ import taskle.commons.core.UnmodifiableObservableList;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
+import taskle.model.task.TaskList;
 
 /**
  * The API of the Model component.
@@ -21,21 +21,20 @@ public interface Model {
     ReadOnlyTaskManager getTaskManager();
 
     /** Deletes the given task. */
-    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
+    void deleteTask(ReadOnlyTask target) throws TaskList.TaskNotFoundException;
 
     /** Edits the given task. */
-    void editTask(int index, Name newName) throws UniqueTaskList.TaskNotFoundException, UniqueTaskList.DuplicateTaskException;
+    void editTask(int index, Name newName) throws TaskList.TaskNotFoundException;
     
     /** Edits the date / time of the task */
-    void editTaskDate(int index, List<Date> dates) throws UniqueTaskList.TaskNotFoundException;
+    void editTaskDate(int index, List<Date> dates) throws TaskList.TaskNotFoundException;
    
     //@@author A0125509H
     /** Marks the task as done*/
-    void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
-    //@@author
+    void doneTask(int index, boolean targetDone) throws TaskList.TaskNotFoundException;
     
     /** Adds the given task */
-    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
+    void addTask(Task task);
 
     //@@author A0140047U
     /** Stores current TaskManager state */
@@ -47,17 +46,24 @@ public interface Model {
     /** Undo most recently restored TaskManager state */
     boolean revertTaskManager();
     
-    //@@author
+    //@@author A0141780J
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
-    /** Updates the filter of the filtered task list to show tasks that are not done*/
-    void updateFilteredListToShowAllNotDone();
+    /** Updates the filter of the filtered task list to show tasks filtered by predicates*/
+    void updateFilteredListWithStatuses();
+    
+    /** Updates the filter status predicates*/
+    void updateFilters(boolean pending, boolean done, boolean overdue);
 
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
-    void updateFilteredTaskList(Set<String> keywords);
+    /** Updates the filter keywords predicates*/
+    void updateFilters(Set<String> keywords);
+    
+    /** Updates the filter statuses and keywords predicates*/
+    void updateFilters(Set<String>keywords, boolean pending, 
+                       boolean done, boolean overdue);
 
 }

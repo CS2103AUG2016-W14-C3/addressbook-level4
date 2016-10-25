@@ -32,10 +32,6 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
         assertRescheduleResultSuccess("reschedule " + index + " clear", name + "\t" + oldDate + " -> " + "");
-
-        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        FloatTask newTask = new FloatTask(new Name(name), new UniqueTagList());
-        assertMatching(newTask, addedCard);
     }
 
     /**
@@ -52,12 +48,8 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        Date date = DateParser.parse(newDate).get(0);
         assertRescheduleResultSuccess(command, name + "\t" + oldDate + " -> " + "3:00PM, 21 Oct 2016");
 
-        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        DeadlineTask newTask = new DeadlineTask(new Name(name), date, new UniqueTagList());
-        assertMatching(newTask, addedCard);
     }
 
     /**
@@ -74,14 +66,10 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        Date startDate = DateParser.parse(newDate).get(0);
-        Date endDate = DateParser.parse(newDate).get(1);
+
         assertRescheduleResultSuccess(command,
                 name + "\t" + oldDate + " -> " + "3:00PM, 21 Oct 2016 to 5:00PM, 31 Oct 2016");
 
-        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        EventTask newTask = new EventTask(new Name(name), startDate, endDate, new UniqueTagList());
-        assertMatching(newTask, addedCard);
     }
 
     /**
@@ -123,17 +111,17 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
 
     private void assertRescheduleResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
-        assertResultMessage("Rescheduled Task: " + newName);
+        assertSuccessfulMessage("Rescheduled Task: " + newName);
     }
 
     private void assertRescheduleInvalidIndex(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertUnsuccessfulMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     private void assertRescheduleInvalidCommandFormat(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
     }
 
 }

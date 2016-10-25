@@ -8,6 +8,10 @@ import taskle.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
     
+    public enum Status {
+        FLOAT, PENDING, OVERDUE, DONE
+    }
+    
     Name getName();
     
     /**
@@ -41,9 +45,12 @@ public interface ReadOnlyTask {
     
     public abstract Task copy();
     
+    public Status getStatus();
+    
     public String getDetailsString();
 
     //@@author A0125509H
-    boolean isTaskDone();
+    public boolean isTaskDone();
     //@@author
+
 }

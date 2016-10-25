@@ -1,9 +1,11 @@
 package taskle.model.task;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
+//@@author A0141780J
 
 /**
  * Deadline task object that guarantees non-null fields for task and nullable
@@ -58,6 +60,19 @@ public class DeadlineTask extends Task {
         builder.append(" by ");
         builder.append(DateFormatUtil.getDateArgString(deadlineDate));
         return builder.toString();
+    }
+
+    @Override
+    public Status getStatus() {
+        Calendar calendar = Calendar.getInstance();
+        Date nowDate = calendar.getTime();
+        if (isTaskDone) { 
+            return Status.DONE;
+        } else if (nowDate.before(deadlineDate)) {
+            return Status.PENDING;
+        } else {
+            return Status.OVERDUE;
+        }
     }
 
 }

@@ -22,9 +22,9 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() {
         if (!model.restoreTaskManager()) {
-            return new CommandResult(MESSAGE_EMPTY_HISTORY);
+            return new CommandResult(MESSAGE_EMPTY_HISTORY, true);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(MESSAGE_SUCCESS, true);
     }
 
     @Override

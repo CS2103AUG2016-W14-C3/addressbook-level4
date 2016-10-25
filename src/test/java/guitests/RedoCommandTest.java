@@ -37,6 +37,6 @@ public class RedoCommandTest extends TaskManagerGuiTest {
 
         assertListSize(expectedHits.length);
         assertTrue(taskListPanel.isListMatching(expectedHits.length));
-        assertResultMessage(message);
+        assertSuccessfulMessage(message);
     }
 }

@@ -12,6 +12,12 @@ import org.junit.Test;
 
 import taskle.logic.parser.DateParser;
 
+//@@author A0141780J
+/**
+ * Date parser unit test cases that follow test case heuristics.
+ * @author Abel
+ *
+ */
 public class DateParserTest {
     
     private Calendar calendar = Calendar.getInstance();
@@ -21,7 +27,7 @@ public class DateParserTest {
         calendar.clear();
     }
     
-    //---------------- Tests for DateParser.parse --------------------------
+    //---------------- Tests for DateParser#parse --------------------------
     
     /**
      * Valid equivalence partitions for parsing date strings:

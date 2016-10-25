@@ -10,31 +10,21 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import taskle.commons.core.LogsCenter;
-import taskle.commons.exceptions.DuplicateDataException;
 import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.TaskUtil;
 import taskle.ui.CommandBox;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class TaskList implements Iterable<Task> {
     
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
-        }
-    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
@@ -47,7 +37,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public TaskList() {}
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -60,13 +50,9 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) {
         assert toAdd != null;
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
         internalList.add(toAdd);
         refreshInternalList();
     }
@@ -82,6 +68,8 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
+        
+        refreshInternalList();
         return taskFoundAndDeleted;
     }
     
@@ -91,6 +79,7 @@ public class UniqueTaskList implements Iterable<Task> {
         toEdit.setTaskDone(taskDone);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " Done! ");
+        refreshInternalList();
     }
     //@@author
     
@@ -98,6 +87,7 @@ public class UniqueTaskList implements Iterable<Task> {
         int targetIndex = internalList.indexOf(taskToUndo);
         taskToUndo.setTaskDone(false);
         internalList.set(targetIndex, taskToUndo);
+        refreshInternalList();
     }
     
     /**
@@ -105,13 +95,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param toEdit
      * @return
      */
-    public void edit(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
+    public void edit(int index, Name newName) {
         Task toEdit = internalList.get(index);
         FloatTask testTask = new FloatTask(toEdit);
         testTask.setName(newName);
-        if(contains(testTask)) {
-            throw new DuplicateTaskException();
-        }
+        
         toEdit.setName(newName);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited to " + newName);
@@ -143,7 +131,7 @@ public class UniqueTaskList implements Iterable<Task> {
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
-        
+        refreshInternalList();
     }
     
     //@@author A0140047U
@@ -241,9 +229,9 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
+                || (other instanceof TaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                ((TaskList) other).internalList));
     }
 
     @Override

@@ -8,7 +8,7 @@ import taskle.model.ReadOnlyTaskManager;
 import taskle.model.tag.Tag;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.UniqueTaskList;
+import taskle.model.task.TaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -56,8 +56,8 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTaskList getUniqueTaskList() {
-        UniqueTaskList lists = new UniqueTaskList();
+    public TaskList getUniqueTaskList() {
+        TaskList lists = new TaskList();
         for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());

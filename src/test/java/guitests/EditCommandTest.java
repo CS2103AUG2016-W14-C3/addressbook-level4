@@ -9,16 +9,17 @@ import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.EditCommand;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
-public class EditCommandTest extends TaskManagerGuiTest{
-
+public class EditCommandTest extends TaskManagerGuiTest {
 
     /**
-     * Edits a current task inside the TypicalTestTask to test the edit function.
-     * Check if that task has been edited correctly.
-     * @throws IllegalValueException 
+     * Edits a current task inside the TypicalTestTask to test the edit
+     * function. Check if that task has been edited correctly.
+     * 
+     * @throws IllegalValueException
      */
     @Test
     public void edit_existing_task() throws IllegalValueException {
@@ -28,7 +29,7 @@ public class EditCommandTest extends TaskManagerGuiTest{
         String command = buildCommand(index, newTaskName);
         String oldName = td.attendMeeting.getName().fullName;
         assertEditResultSuccess(command, oldName + " -> " + newTaskName);
-        
+
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         FloatTask newTask = new FloatTask(newName, new UniqueTagList());
         assertMatching(newTask, addedCard);
@@ -44,9 +45,8 @@ public class EditCommandTest extends TaskManagerGuiTest{
         
         String commandInvalidStringIndex = buildCommand("ABC", "Buy dinner home");
         assertEditInvalidCommandFormat(commandInvalidStringIndex);
-
     }
-    
+
     /**
      * Edits a valid task without giving a new task name
      */
@@ -55,6 +55,7 @@ public class EditCommandTest extends TaskManagerGuiTest{
         String command = EditCommand.COMMAND_WORD + " 1";
         assertEditInvalidCommandFormat(command);
     }
+
     /**
      * Invalid edit command "edits"
      */
@@ -63,42 +64,48 @@ public class EditCommandTest extends TaskManagerGuiTest{
         String command = "edits 1 Walk dog";
         assertEditInvalidCommand(command);
     }
-    /**
-     * Edits a task such that the new name is a duplicate of another task
-     */
-    @Test
-    public void edit_duplicate_task() {
-        String command = buildCommand("1", "Go Concert");
-        assertEditDuplicateName(command);
-    }
-    
+
+//    /**
+//     * Edits a task such that the new name is a duplicate of another task
+//     * 
+//     * @throws IllegalValueException
+//     */
+//    @Test
+//    public void edit_duplicate_task() throws IllegalValueException {
+//        String newName = "Go Concert";
+//        String command =
+//                buildCommand("1", newName);
+//        assertEditResultSuccess(command, "Charity Event" + " -> " + newName);
+//
+//        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(0);
+//        EventTask newTask = (EventTask) td.charityEvent.copy();
+//        newTask.setName(new Name(newName));
+//        assertMatching(newTask, addedCard);
+//    }
+//
     private String buildCommand(String taskNumber, String newName) {
         String command = EditCommand.COMMAND_WORD + " " + taskNumber + " " + newName;
         return command;
     }
+
     
     private void assertEditResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
-        assertResultMessage("Edited Task: " + newName);
+        assertSuccessfulMessage("Edited Task: " + newName);
     }
-    
+
     private void assertEditInvalidIndex(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertUnsuccessfulMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
-    
-    private void assertEditDuplicateName(String command) {
-        commandBox.runCommand(command);
-        assertResultMessage(EditCommand.MESSAGE_DUPLICATE_TASK);
-    }
-    
+
     private void assertEditInvalidCommandFormat(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
-    
+
     private void assertEditInvalidCommand(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 }

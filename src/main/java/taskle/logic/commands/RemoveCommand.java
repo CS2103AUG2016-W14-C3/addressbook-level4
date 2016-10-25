@@ -6,7 +6,7 @@ import java.util.Collections;
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the task manager.
@@ -51,8 +51,8 @@ public class RemoveCommand extends Command {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
     
             if (lastShownList.size() < sInt.get(i)) {
-                indicateAttemptToExecuteIncorrectCommand();
-                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+                return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
             }
     
             ReadOnlyTask taskToDelete = lastShownList.get(sInt.get(i) - 1);
@@ -66,7 +66,7 @@ public class RemoveCommand extends Command {
         }
 
         String message = String.join(", ", s);
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, message));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, message), true);
     }
     
     @Override

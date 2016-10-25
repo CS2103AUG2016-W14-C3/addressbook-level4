@@ -22,15 +22,15 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length;
         assertRemoveSuccess(targetIndex, currentList);
+        
+        //invalid index
+        commandBox.runCommand("remove " + currentList.length + 1);
+        assertUnsuccessfulMessage("The task index provided is invalid");
 
         //delete from the middle of the list
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertRemoveSuccess(targetIndex, currentList);
-
-        //invalid index
-        commandBox.runCommand("remove " + currentList.length + 1);
-        assertResultMessage("The task index provided is invalid");
 
     }
 
@@ -49,7 +49,7 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
         assertTrue(taskListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, targetIndexOneIndexed));
+        assertSuccessfulMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, targetIndexOneIndexed));
     }
 
 }
