@@ -62,10 +62,12 @@ public class DeadlineTask extends Task {
     }
 
     @Override
-    public Status getState() {
+    public Status getStatus() {
         Calendar calendar = Calendar.getInstance();
         Date nowDate = calendar.getTime();
-        if (nowDate.before(deadlineDate)) {
+        if (isTaskDone) { 
+            return Status.DONE;
+        } else if (nowDate.before(deadlineDate)) {
             return Status.PENDING;
         } else {
             return Status.OVERDUE;

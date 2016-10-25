@@ -44,8 +44,11 @@ public interface Model {
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
     
-    /** Updates the filter of the filtered task list to show tasks that are not done*/
-    void updateFilteredListToShowAllNotDone();
+    /** Updates the filter of the filtered task list to show tasks filtered by predicates*/
+    void updateFilteredListToShowFiltered();
+    
+    /** Updates the filter predicates*/
+    void updateFilters(boolean pending, boolean done, boolean overdue);
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);

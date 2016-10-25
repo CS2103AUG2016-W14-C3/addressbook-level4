@@ -32,7 +32,11 @@ public class FloatTask extends Task {
     }
 
     @Override
-    public Status getState() {
+    public Status getStatus() {
+        if (isTaskDone) {
+            return Status.DONE;
+        }
+        
         return Status.FLOAT;
     }
     

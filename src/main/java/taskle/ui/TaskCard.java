@@ -53,7 +53,7 @@ public class TaskCard extends UiPart {
     }
     
     private void setCardStyle() {
-        switch (task.getState()) {
+        switch (task.getStatus()) {
         case FLOAT:
             cardPane.setStyle(STYLE_CARD_FLOAT);
             break;

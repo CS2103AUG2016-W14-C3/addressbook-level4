@@ -12,9 +12,14 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.IncorrectCommand;
 
+/**
+ * FindCommandParser class to handle parsing of Find Commands.
+ * @author Abel
+ *
+ */
 public class FindCommandParser extends CommandParser {
 
- // one or more keywords separated by whitespace
+    // one or more keywords separated by whitespace
     private static final Pattern FIND_KEYWORDS_ARGS_FORMAT = 
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)");
     
@@ -38,7 +43,9 @@ public class FindCommandParser extends CommandParser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
-        final Matcher matcher = FIND_KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = 
+                FIND_KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        
         if (!matcher.matches()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
