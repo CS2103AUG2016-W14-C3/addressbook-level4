@@ -43,6 +43,7 @@ public interface ReadOnlyTask {
     
     public String getDetailsString();
 
+    //@@author A0125509H
     boolean isTaskDone();
-
+    //@@author
 }

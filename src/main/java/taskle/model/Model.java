@@ -29,8 +29,10 @@ public interface Model {
     /** Edits the date / time of the task */
     void editTaskDate(int index, List<Date> dates) throws UniqueTaskList.TaskNotFoundException;
    
+    //@@author A0125509H
     /** Marks the task as done*/
     void doneTask(int index, boolean targetDone) throws UniqueTaskList.TaskNotFoundException;
+    //@@author
     
     /** Marks the task as undone */
     void unDoneTask(Task task);
