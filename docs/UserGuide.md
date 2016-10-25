@@ -219,6 +219,15 @@ Undo a previous command. This command is used when you wish to revert from the m
 
 <br>
 
+### Undoing a Recent Command: `redo`
+Undo a previous command. This command is used when you wish to revert a wrongly issued undo command<br><br>
+
+| Format  
+| :-------- 
+| `redo` | 
+
+<br>
+
 ### Clearing all Tasks: `clear`
 Clears all tasks from Taskle.<br><br>
 
@@ -278,13 +287,14 @@ Add `a` | `add `**`task_name`**
  | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
  |`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
 Edit Description `e` | `edit `**`task_number new_task_name`**
-Reschedule `r` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Reschedule `rs` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
 Find `f` | `find `**`search_query`**` [`**`-status`**`]`
 List `l` | `list [`**`-status`**`]`
 Mark as Done `d` | `done `**`task_number`**
 Undo `u` | `undo`
+Redo `r` | `redo`
 Clear | `clear`
 Help `h` | `help`
 Exit | `exit`
