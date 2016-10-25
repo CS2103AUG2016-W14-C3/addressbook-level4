@@ -1,7 +1,7 @@
 package taskle.logic.commands;
 
 /**
- * Undo recent command entered.
+ * Redo recent command entered.
  */
 public class RedoCommand extends Command {
 
