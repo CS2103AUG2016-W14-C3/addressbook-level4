@@ -9,6 +9,7 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
+import taskle.commons.util.DateFormatUtil;
 import taskle.logic.commands.RemindCommand;
 import taskle.logic.parser.DateParser;
 import taskle.model.tag.UniqueTagList;
@@ -27,13 +28,15 @@ public class RemindCommandTest extends TaskManagerGuiTest {
      */
     @Test
     public void remind_task_success() throws IllegalValueException {
-        String index = "1";
-        String name = td.attendMeeting.getName().fullName;
+        String index = "3";
+        TaskCardHandle oldTask = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
+        String name = oldTask.getFullName();
         String newRemindDateString = "13 Dec 7pm";
-        String oldRemindDate = td.attendMeeting.getRemindDetailsString();
-        assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
-                name + " " + oldRemindDate + " -> " + "7:00PM, 13 Dec 2016");
         Date date = DateParser.parse(newRemindDateString).get(0);
+        String formattedNewDate = DateFormatUtil.formatDate(date);
+        String oldRemindDate = oldTask.getRemindDetails();
+        assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
+                name + " " + oldRemindDate + " -> " + formattedNewDate);
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         FloatTask newTask = new FloatTask(new Name(name), date, new UniqueTagList());
         assertMatching(newTask, addedCard);
@@ -45,13 +48,15 @@ public class RemindCommandTest extends TaskManagerGuiTest {
      */
     @Test
     public void remind_taskNoInputTime_success() throws IllegalValueException {
-        String index = "1";
-        String name = td.attendMeeting.getName().fullName;
+        String index = "3";
+        TaskCardHandle oldTask = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
+        String name = oldTask.getFullName();
         String newRemindDateString = "13 Dec";
-        String oldRemindDate = td.attendMeeting.getRemindDetailsString();
-        assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
-                name + " " + oldRemindDate + " -> " + "12:00AM, 13 Dec 2016");
         Date date = DateParser.parse(newRemindDateString).get(0);
+        String formattedNewDate = DateFormatUtil.formatRemindDate(date);
+        String oldRemindDate = oldTask.getRemindDetails();
+        assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
+                name + " " + oldRemindDate + " -> " + formattedNewDate);
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         FloatTask newTask = new FloatTask(new Name(name), date, new UniqueTagList());
         assertMatching(newTask, addedCard);
@@ -97,17 +102,17 @@ public class RemindCommandTest extends TaskManagerGuiTest {
 
     private void assertRemindResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
-        assertResultMessage("Set Reminder Date: " + newName);
+        assertSuccessfulMessage("Set Reminder Date: " + newName);
     }
 
     private void assertRescheduleInvalidIndex(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertUnsuccessfulMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     private void assertRescheduleInvalidCommandFormat(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
+        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
     }
 
 }

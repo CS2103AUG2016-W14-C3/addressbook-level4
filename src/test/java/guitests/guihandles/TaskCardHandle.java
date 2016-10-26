@@ -11,7 +11,8 @@ import taskle.model.task.ReadOnlyTask;
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String DETAILS_FIELD_ID = "#details";
-
+    private static final String REMIND_FIELD_ID = "#reminderDate";
+    
     private Node node;
 
     public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
@@ -29,6 +30,10 @@ public class TaskCardHandle extends GuiHandle {
 
     public String getDetails() {
         return getTextFromLabel(DETAILS_FIELD_ID);
+    }
+    
+    public String getRemindDetails() {
+        return getTextFromLabel(REMIND_FIELD_ID);
     }
 
     public boolean isSameTask(ReadOnlyTask task){

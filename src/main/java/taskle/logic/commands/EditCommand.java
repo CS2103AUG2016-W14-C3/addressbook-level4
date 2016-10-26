@@ -1,17 +1,13 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
-
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.logic.history.History;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.DuplicateTaskException;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
+//@@author A0139402M
 /**
  * Edits a task identified using it's last displayed index from the task
  * manager.
@@ -43,26 +39,23 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
         }
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldName = taskToEdit.getName().fullName; 
         try {
-            tasksAffected = new ArrayList<Task>();
-            Task originalTask = taskToEdit.copy();
-            tasksAffected.add(originalTask);
+            model.storeTaskManager();
             model.editTask(offsetIndex, newName);
-            tasksAffected.add((Task) taskToEdit);
-            History.insert(this);
-        } catch (DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
         
-        return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, oldName + " -> " + newName));
+        return new CommandResult(
+                String.format(MESSAGE_EDIT_TASK_SUCCESS, 
+                              oldName + " -> " + newName),
+                true);
     }
     
     @Override

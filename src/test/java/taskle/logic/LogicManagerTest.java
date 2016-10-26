@@ -22,6 +22,7 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import taskle.commons.core.EventsCenter;
+import taskle.commons.core.Messages;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.ui.JumpToListRequestEvent;
 import taskle.commons.events.ui.ShowHelpRequestEvent;
@@ -49,6 +50,7 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
+import taskle.model.task.TaskComparator;
 import taskle.storage.StorageManager;
 
 public class LogicManagerTest {
@@ -131,7 +133,7 @@ public class LogicManagerTest {
         CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedMessage, result.getFeedback());
         assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
@@ -166,6 +168,7 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskManager(), Collections.emptyList());
     }
 
+    //@@author A0141780J
     @Test
     public void execute_add_successful() throws Exception {
         // setup expectations
@@ -424,11 +427,12 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
+    public void execute_addDuplicate_allowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.adam();
         TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
@@ -437,33 +441,17 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_TASK,
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
 
     }
-
-    @Test
-    public void execute_list_showsAllTasks() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        TaskManager expectedAB = helper.generateTaskManager(2);
-        List<? extends ReadOnlyTask> expectedList = expectedAB.getTaskList();
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
-                expectedList);
-    }
-
+    //@@author
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
@@ -481,15 +469,15 @@ public class LogicManagerTest {
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Task> personList = helper.generateTaskList(2);
+        List<Task> taskList = helper.generateTaskList(2);
 
         // set AB state to 2 persons
         model.resetData(new TaskManager());
-        for (Task p : personList) {
+        for (Task p : taskList) {
             model.addTask(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTaskManager(), taskList);
     }
 
     @Test
@@ -499,7 +487,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+    public void execute_removeIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("remove");
     }
 
@@ -513,11 +501,12 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("remove 2",
-                String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, threePersons.get(1)),
+                String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
     }
     
+    //@@author A0139402M
     @Test
     public void execute_edit_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -559,10 +548,11 @@ public class LogicManagerTest {
         String index = "1";
         String taskName = "Task 3";
         helper.addToModel(model, threePersons);
+        expectedAB.editTask(1, new Name(taskName));
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateEditCommand(index, taskName),
-                EditCommand.MESSAGE_DUPLICATE_TASK,
+                String.format(EditCommand.MESSAGE_EDIT_TASK_SUCCESS, "Task 1" + " -> " + taskName),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -768,8 +758,9 @@ public class LogicManagerTest {
     }
     //@@author 
 
+    //@@author A0141780J
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
+    public void execute_findInvalidArgs_returnInvalidCommand() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
@@ -830,13 +821,118 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_findPendingTask_filtersPendingTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Get fruits from supermarket");
+        Task task2 = helper.generateTaskWithName("Get David a burger");
+        task2.setTaskDone(true);
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(2016, 11, 01);
+        Date deadlineDate = calendar.getTime();
+        Task deadlineTask = new DeadlineTask(
+                new Name("Get soap to wash car"), deadlineDate, new UniqueTagList());
 
+        List<Task> allTasks = helper.generateTaskList(task1, task2, deadlineTask);
+        TaskManager expectedAB = helper.generateTaskManager(allTasks);
+        List<Task> expectedList = helper.generateTaskList(task1, deadlineTask);
+        helper.addToModel(model, allTasks);
+
+        assertCommandBehavior("find Get -pending",
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_listEmptyArguments_showPendingAndOverdue() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Buy groceries");
+        task1.setTaskDone(true);
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        Task task4 = helper.generateTaskWithName("Finish O levels");
+
+        List<Task> fourTasks = helper.generateTaskList(task1, task2, task3, task4);
+        helper.addToModel(model, fourTasks);
+        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
+        List<Task> expectedList = helper.generateTaskList(task2, task3, task4);
+
+        String message = "Pending, Not Done, Overdue";
+        assertCommandBehavior("list ",
+                String.format(ListCommand.MESSAGE_LIST_SUCCESS, message),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_listDoneOverdue_showsDoneAndOverdueOnly() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Buy groceries");
+        task1.setTaskDone(true);
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(2010, 11, 01);
+        Date deadlineDate = calendar.getTime();
+        DeadlineTask task4 = new DeadlineTask(
+                new Name("Finish O levels"), 
+                deadlineDate, 
+                new UniqueTagList());
+
+        List<Task> allTasks = helper.generateTaskList(task1, task2, task3, task4);
+        helper.addToModel(model, allTasks);
+        TaskManager expectedAB = helper.generateTaskManager(allTasks);
+        List<Task> expectedList = helper.generateTaskList(task1, task4);
+
+        String message = "Not Pending, Done, Overdue";
+        assertCommandBehavior("list -done -overdue",
+                String.format(ListCommand.MESSAGE_LIST_SUCCESS, message),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_listInvalidFlags_showsErrorWhileDisplayingOldList() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Buy groceries");
+        task1.setTaskDone(true);
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(2010, 11, 01);
+        Date deadlineDate = calendar.getTime();
+        DeadlineTask task4 = new DeadlineTask(
+                new Name("Finish O levels"), 
+                deadlineDate, 
+                new UniqueTagList());
+
+        List<Task> allTasks = helper.generateTaskList(task1, task2, task3, task4);
+        helper.addToModel(model, allTasks);
+        TaskManager expectedAB = helper.generateTaskManager(allTasks);
+        List<Task> expectedList = helper.generateTaskList(task2, task3, task4);
+
+        assertCommandBehavior("list -easy",
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
+                              ListCommand.MESSAGE_USAGE),
+                expectedAB,
+                expectedList);
+    }
+    //@@author
+    
 
     /**
      * A utility class to generate test data.
      */
     class TestDataHelper{
         
+        //@@author A0141780J
         private final Calendar CALENDAR = Calendar.getInstance();
         private final String ADD_SUCCESSFUL_FLOAT_REMINDER = " remind 12 sep 2016 10am";
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
@@ -963,7 +1059,7 @@ public class LogicManagerTest {
          * Running this function with the same parameter values guarantees the returned task will have the same state.
          * Each unique seed will generate a unique Task object.
          *
-         * @param seed used to generate the person data field values
+         * @param seed used to generate the task data field values
          */
         Task generateTask(int seed) throws Exception {
             return new FloatTask(
@@ -986,6 +1082,7 @@ public class LogicManagerTest {
             cmd.append(dateString);
             return cmd.toString();
         }
+        //@@author
         
         String generateEditCommand(String index, String newName) {
             StringBuffer cmd = new StringBuffer();
@@ -1054,11 +1151,14 @@ public class LogicManagerTest {
             for(int i = 1; i <= numGenerated; i++){
                 tasks.add(generateTask(i));
             }
+            tasks.sort(new TaskComparator());
             return tasks;
         }
 
         List<Task> generateTaskList(Task... tasks) {
-            return Arrays.asList(tasks);
+            List<Task> taskList = Arrays.asList(tasks);
+            taskList.sort(new TaskComparator());
+            return taskList;
         }
 
         /**

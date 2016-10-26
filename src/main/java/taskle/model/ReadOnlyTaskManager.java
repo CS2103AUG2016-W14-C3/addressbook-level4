@@ -6,7 +6,7 @@ import java.util.List;
 import taskle.model.tag.Tag;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.UniqueTaskList;
+import taskle.model.task.TaskList;
 
 /**
  * Unmodifiable view of an task manager
@@ -15,7 +15,7 @@ public interface ReadOnlyTaskManager {
 
     UniqueTagList getUniqueTagList();
 
-    UniqueTaskList getUniqueTaskList();
+    TaskList getUniqueTaskList();
 
     /**
      * Returns an unmodifiable view of tasks list

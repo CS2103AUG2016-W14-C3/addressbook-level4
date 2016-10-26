@@ -16,8 +16,8 @@ import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
-//@@author A0139402M
 
+//@@author A0139402M
 public class RescheduleCommandTest extends TaskManagerGuiTest {
 
     /**
@@ -29,14 +29,10 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      */
     @Test
     public void reschedule_task_to_floattask() throws IllegalValueException {
-        String index = "1";
+        String index = "3";
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
         assertRescheduleResultSuccess("reschedule " + index + " clear", name + " " + oldDate + " -> " + "");
-
-        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        FloatTask newTask = new FloatTask(new Name(name), new UniqueTagList());
-        assertMatching(newTask, addedCard);
     }
 
     /**
@@ -49,16 +45,11 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
     @Test
     public void reschedule_task_to_deadlinetask() throws IllegalValueException {
         String newDate = "21 Oct 3pm";
-        String index = "1";
+        String index = "3";
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        Date date = DateParser.parse(newDate).get(0);
         assertRescheduleResultSuccess(command, name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016");
-
-        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        DeadlineTask newTask = new DeadlineTask(new Name(name), date, new UniqueTagList());
-        assertMatching(newTask, addedCard);
     }
 
     /**
@@ -71,18 +62,14 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
     @Test
     public void reschedule_task_to_eventtask() throws IllegalValueException {
         String newDate = "21 Oct 3pm to 31 Oct 5pm";
-        String index = "1";
+        String index = "3";
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        Date startDate = DateParser.parse(newDate).get(0);
-        Date endDate = DateParser.parse(newDate).get(1);
+
         assertRescheduleResultSuccess(command,
                 name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016 to 5:00PM, 31 Oct 2016");
 
-        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        EventTask newTask = new EventTask(new Name(name), startDate, endDate, new UniqueTagList());
-        assertMatching(newTask, addedCard);
     }
 
     /**
@@ -124,17 +111,17 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
 
     private void assertRescheduleResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
-        assertResultMessage("Rescheduled Task: " + newName);
+        assertSuccessfulMessage("Rescheduled Task: " + newName);
     }
 
     private void assertRescheduleInvalidIndex(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        assertUnsuccessfulMessage(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
     }
 
     private void assertRescheduleInvalidCommandFormat(String command) {
         commandBox.runCommand(command);
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
     }
 
 }

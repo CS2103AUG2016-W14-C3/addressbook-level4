@@ -6,6 +6,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import taskle.model.help.CommandGuide;
 
+//@author A0141780J
 /**
  * Custom Help Table Cell that uses TextFlow to set custom 
  * colors for Help Window texts.

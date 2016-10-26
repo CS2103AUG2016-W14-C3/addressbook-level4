@@ -5,11 +5,21 @@ package taskle.logic.commands;
  */
 public class CommandResult {
 
-    public final String feedbackToUser;
+    private final String feedbackToUser;
+    private final boolean isSuccessful;
 
-    public CommandResult(String feedbackToUser) {
+    public CommandResult(String feedbackToUser, boolean isSuccessful) {
         assert feedbackToUser != null;
         this.feedbackToUser = feedbackToUser;
+        this.isSuccessful = isSuccessful;
+    }
+    
+    public String getFeedback() {
+        return feedbackToUser;
+    }
+    
+    public boolean isSuccessful() {
+        return isSuccessful;
     }
 
 }

@@ -10,31 +10,21 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import taskle.commons.core.LogsCenter;
-import taskle.commons.exceptions.DuplicateDataException;
 import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.TaskUtil;
 import taskle.ui.CommandBox;
 
 /**
- * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ * A list of tasks that does not allow nulls.
  *
  * Supports a minimal set of list operations.
  *
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTaskList implements Iterable<Task> {
+public class TaskList implements Iterable<Task> {
     
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTaskException extends DuplicateDataException {
-        protected DuplicateTaskException() {
-            super("Operation would result in duplicate tasks");
-        }
-    }
 
     /**
      * Signals that an operation targeting a specified task in the list would fail because
@@ -47,7 +37,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Constructs empty TaskList.
      */
-    public UniqueTaskList() {}
+    public TaskList() {}
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -60,14 +50,11 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Adds a task to the list.
      *
-     * @throws DuplicateTaskException if the task to add is a duplicate of an existing task in the list.
      */
-    public void add(Task toAdd) throws DuplicateTaskException {
+    public void add(Task toAdd) {
         assert toAdd != null;
-        if (contains(toAdd)) {
-            throw new DuplicateTaskException();
-        }
         internalList.add(toAdd);
+        refreshInternalList();
     }
 
     /**
@@ -81,55 +68,42 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
+        
+        refreshInternalList();
         return taskFoundAndDeleted;
     }
     
+    //@@author A0125509H
     public void done(int index, boolean taskDone) {
         Task toEdit = internalList.get(index);
         toEdit.setTaskDone(taskDone);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " Done! ");
+        refreshInternalList();
     }
+    //@@author
     
     public void unDone(Task taskToUndo) {
         int targetIndex = internalList.indexOf(taskToUndo);
         taskToUndo.setTaskDone(false);
         internalList.set(targetIndex, taskToUndo);
+        refreshInternalList();
     }
-    //@@author A0139402M
+    
     /**
      * Edits the equivalent task in the list.
      * @param toEdit
      * @return
      */
-    public void edit(int index, Name newName) throws UniqueTaskList.DuplicateTaskException {
+    public void edit(int index, Name newName) {
         Task toEdit = internalList.get(index);
         FloatTask testTask = new FloatTask(toEdit);
         testTask.setName(newName);
-        if(contains(testTask)) {
-            throw new DuplicateTaskException();
-        }
+        
         toEdit.setName(newName);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited to " + newName);
-    }
-    
-    /**
-     * Edits the reminder date for the task in the list
-     * @param index
-     * @param date
-     * @throws TaskNotFoundException
-     */
-    public void editRemindDate(int index, Date date) throws TaskNotFoundException {
-        Optional<Task> toEditOp = Optional.of(internalList.get(index));
-        
-        if(!toEditOp.isPresent()) {
-            throw new TaskNotFoundException();
-        }
-        Task toEdit = toEditOp.get();
-        toEdit.setRemindDate(date);
-        internalList.set(index, toEdit);
-        logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
+        refreshInternalList();
     }
     
     /**
@@ -157,9 +131,33 @@ public class UniqueTaskList implements Iterable<Task> {
         } else {
             logger.severe("Number of dates is either 0 or exceed 2. Unable to update.");
         }
-
+        refreshInternalList();
+    }
+    
+    /**
+     * Edits the reminder date for the task in the list
+     * @param index
+     * @param date
+     * @throws TaskNotFoundException
+     */
+    public void editRemindDate(int index, Date date) throws TaskNotFoundException {
+        Optional<Task> toEditOp = Optional.of(internalList.get(index));
+        
+        if(!toEditOp.isPresent()) {
+            throw new TaskNotFoundException();
+        }
+        Task toEdit = toEditOp.get();
+        toEdit.setRemindDate(date);
+        internalList.set(index, toEdit);
+        logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
+    }
+    
+    //@@author A0140047U
+    public void refreshInternalList() {
+        internalList.sort(new TaskComparator());
     }
 
+    //@@author
     /**
      * Method to update the internal list with a float task
      * @param toEdit
@@ -236,7 +234,7 @@ public class UniqueTaskList implements Iterable<Task> {
         
         logger.info("Updated Task to EventTask with 2 dates");
     }
-    //@@author
+    
     public ObservableList<Task> getInternalList() {
         return internalList;
     }
@@ -249,9 +247,9 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniqueTaskList // instanceof handles nulls
+                || (other instanceof TaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniqueTaskList) other).internalList));
+                ((TaskList) other).internalList));
     }
 
     @Override

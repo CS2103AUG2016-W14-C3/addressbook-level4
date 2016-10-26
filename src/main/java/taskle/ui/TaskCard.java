@@ -5,9 +5,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import taskle.model.task.ReadOnlyTask;
+//@author A0141780J
+public class TaskCard extends UiPart {
 
-public class TaskCard extends UiPart{
-
+    private static final String STYLE_CARD_DONE = "-fx-background-color: #546E7A";
+    private static final String STYLE_CARD_OVERDUE = "-fx-background-color: #E53935";
+    private static final String STYLE_CARD_PENDING = "-fx-background-color: #1976D2";
+    private static final String STYLE_CARD_FLOAT = "-fx-background-color: #009688";
+    
     private static final String FXML = "TaskListCard.fxml";
 
     @FXML
@@ -39,11 +44,35 @@ public class TaskCard extends UiPart{
 
     @FXML
     public void initialize() {
+        setCardTexts();
+        setCardStyle();
+    }
+    
+    private void setCardTexts() {
         name.setText(task.getName().fullName);
         details.setText(task.getDetailsString());
         reminderDate.setText(task.getRemindDetailsString());
         id.setText(displayedIndex + ". ");
         tags.setText(task.tagsString());
+    }
+    
+    private void setCardStyle() {
+        switch (task.getStatus()) {
+        case DONE:
+            cardPane.setStyle(STYLE_CARD_DONE);
+            break;
+        case FLOAT:
+            cardPane.setStyle(STYLE_CARD_FLOAT);
+            break;
+        case OVERDUE:
+            cardPane.setStyle(STYLE_CARD_OVERDUE);
+            break;
+        case PENDING:
+            cardPane.setStyle(STYLE_CARD_PENDING);
+            break;
+        default:
+            cardPane.setStyle(STYLE_CARD_FLOAT);
+        }
     }
 
     public HBox getLayout() {

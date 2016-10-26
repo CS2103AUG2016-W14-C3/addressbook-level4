@@ -10,6 +10,10 @@ import taskle.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask {
     
+    public enum Status {
+        FLOAT, PENDING, OVERDUE, DONE
+    }
+    
     Name getName();
     
     Date getRemindDate();
@@ -44,10 +48,14 @@ public interface ReadOnlyTask {
     
     public abstract Task copy();
     
+    public Status getStatus();
+    
     public String getDetailsString();
 
     public String getRemindDetailsString();
     
-    boolean isTaskDone();
+    //@@author A0125509H
+    public boolean isTaskDone();
+    //@@author
 
 }

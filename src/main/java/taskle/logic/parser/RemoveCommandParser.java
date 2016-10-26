@@ -35,15 +35,20 @@ public class RemoveCommandParser extends CommandParser {
      *            full command args string
      * @return the prepared command
      */
+    //@@author A0125509H
     private Command prepareRemove(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                                  RemoveCommand.MESSAGE_USAGE));
+        String argsTrim = args.trim();
+        String []s = argsTrim.split(" ");
+        for(int i=0; i<s.length; i++)
+        {
+            Optional<Integer> index = parseIndex(s[i]);
+            if (!index.isPresent()) {
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                      RemoveCommand.MESSAGE_USAGE));
+            }
         }
-        return new RemoveCommand(index.get());
+        
+    	return new RemoveCommand(args);
     }
-
 }

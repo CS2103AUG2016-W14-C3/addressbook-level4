@@ -1,15 +1,12 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.logic.history.History;
 import taskle.model.task.ReadOnlyTask;
-import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList.TaskNotFoundException;
+import taskle.model.task.TaskList.TaskNotFoundException;
 
 //@@author A0139402M
 public class RemindCommand extends Command {
@@ -41,26 +38,22 @@ public class RemindCommand extends Command {
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
         
         if (lastShownList.size() < targetIndex) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+            return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
         }
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldRemindDate = taskToEdit.getRemindDetailsString();
         
         try {
-            tasksAffected = new ArrayList<Task>();
-            Task originalTask = taskToEdit.copy();
-            tasksAffected.add(originalTask);
+            model.storeTaskManager();
             model.editTaskRemindDate(offsetIndex, remindDate);
-            tasksAffected.add((Task) taskToEdit);
-            History.insert(this);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
         ReadOnlyTask newTask = lastShownList.get(offsetIndex);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + " " 
-                                            + oldRemindDate + " -> " + newTask.getRemindDetailsString()));
+                                            + oldRemindDate + " -> " + newTask.getRemindDetailsString()), true);
     }
 
     @Override

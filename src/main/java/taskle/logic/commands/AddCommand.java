@@ -1,18 +1,17 @@
 package taskle.logic.commands;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.logic.history.History;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
-import taskle.model.task.UniqueTaskList;
+
+//@@author A0141780J
 
 /**
  * Adds a task to the Task Manager.
@@ -26,10 +25,9 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Task Manager.\n"
-            + "Format: add task_name [by date & time] [remind date time]"
-            + " or add task_name [from date & time] [to date & time] [remind date time]\n"
-            + "Example: " + COMMAND_WORD
-            + " add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
+            + "Format: add task_name [by date & time] [remind date time]\n"
+            + "or\n add task_name [from date & time] [to date & time] [remind date time]\n"
+            + "Example: " + "add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task Manager";
@@ -115,17 +113,10 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
-        try {
-            model.addTask(toAdd);
-            tasksAffected = new ArrayList<Task>();
-            tasksAffected.add(toAdd);
-            History.insert(this);
-            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd + " Reminder on: " + toAdd.getRemindDetailsString()));
-        } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_TASK);
-        }
-
+        assert model != null;        
+        model.storeTaskManager();
+        model.addTask(toAdd);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd + " Reminder on: " + toAdd.getRemindDetailsString()), true);
     }
 
     @Override

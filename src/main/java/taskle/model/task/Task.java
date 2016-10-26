@@ -6,6 +6,9 @@ import java.util.Objects;
 import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
+import taskle.model.task.Name;
+import taskle.model.task.ReadOnlyTask;
+//@@author A0141780J
 
 /**
  * Abstraction for all Task in the task manager.
@@ -14,9 +17,14 @@ import taskle.model.tag.UniqueTagList;
 public abstract class Task implements ReadOnlyTask {
 
     protected Name name;
-    protected boolean isTaskDone;
+    
+    //@@author A0139402M
     protected Date remindDate;
     
+    //@@author A0125509H
+    protected boolean isTaskDone;
+    
+    //@@author
     protected UniqueTagList tags;
 
     /**
@@ -55,19 +63,23 @@ public abstract class Task implements ReadOnlyTask {
         return new UniqueTagList(tags);
     }
     
+    //@@author A0125509H
     @Override
     public boolean isTaskDone() {
         return isTaskDone;
     }
+    //@@author
 
     public void setName(Name name) {
         this.name = name;
     }
     
+    //@@author A0125509H
     public void setTaskDone(boolean taskDone) {
         this.isTaskDone = taskDone;
     }
     
+    //@@author A0139402M
     @Override
     public Date getRemindDate() {
         return remindDate;
@@ -76,6 +88,7 @@ public abstract class Task implements ReadOnlyTask {
     public void setRemindDate(Date remindDate) {
         this.remindDate = remindDate;
     }
+    //@@author
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.

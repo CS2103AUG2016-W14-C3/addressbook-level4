@@ -6,6 +6,7 @@
 * [FAQ](#faq)
 * [Command Summary](#command-summary)
 
+<!-- @@author A0125509H -->
 ## About
 Do you have so many tasks to do every day that you simply cannot keep track of them anymore? Don't you wish that there was an easier way to stay on top of your daily tasks without feeling stressed out?
 
@@ -15,7 +16,7 @@ It is a task management application with a single text box for all your commands
 
 Re-organize your life by using Taskle now!
 
-
+<!-- @@author A0139402M -->
 ## Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
@@ -43,7 +44,7 @@ Re-organize your life by using Taskle now!
    
 6. Refer to the [Features](#features) section for details of each command.<br>
 
-
+<!-- @@author A0141780J -->
 ## Features
 
 Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it a hassle-free experience to keep track of your tasks!
@@ -82,6 +83,7 @@ Examples:
 	
 <br>
 
+<!-- @@author A0140047U -->
 ### Edit a Task : `edit; reschedule; remind`
 Edits an existing task in Taskle. There are 3 types of edits possible: Edit task name, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify which task you wish to edit.<br><br>
 
@@ -126,6 +128,7 @@ Examples:
 <img src="images/UI/Remind 2.png" align="center">	
 <div align="center">Figure 8: Clear away the reminder for Task 2 (After)</div><br>
 
+<!-- @@author A0125509H -->
 ### Remove a Task: `remove`
 Removes a task permanently from Taskle.<br>
 
@@ -139,24 +142,26 @@ Examples:
 <img src="images/UI/Remove 2.png" align="center"/>	
 <div align="center">Figure 9: Remove Task 6 from Taskle</div><br>
 
-
+<!-- @@author A0139402M -->
 ### Finding a Task : `find`
 Finds all tasks in Taskle that contains the keywords and fulfills the status as specified.<br><br>
 
 | Format  
 | :-------- 
-| `find` **`[keyword] [-status]`** | 
+| `find` **`keywords [-status]`** | 
 
 > **Things to Note**
 > * The following statues are available:
+>	* **-all**: All tasks in Taskle
 >	* **-pending**: Tasks that are still pending.
 >	* **-done**: Tasks that are marked as done.
 >	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
-> * It is optional to specify the keyword. If no keyword is specified, only the status will be used to find tasks.
-> * To display all the tasks of a specific type, simply omit the **search_query** parameter while including the keyword mentioned above. For example:
->	* find **-pending**
-> * To view all types of events, you can simply omit the above keywords.
-> * To display all tasks, simple type find.
+> * All tasks that match the list of keywords and the statuses specified would be displayed.
+> * You must specify at least one keyword when using find.
+> * It is optional to specify the status. If no status is specified, the default
+tasks to be displayed are the pending and overdue ones. 
+> * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
+>	* find meeting task **-pending** **-overdue**
 
 Examples:
 * `find` **`books`**
@@ -170,6 +175,32 @@ Examples:
 <div align="center">Figure 11: Find all pending Tasks</div><br>
 <br>
 
+<!-- @@author A0140047U -->
+### Listing tasks: `list`
+Lists tasks according to specified statuses. Use this command to view your tasks
+according to whether they are done, overdue or pending. <br>
+
+| Format  
+| :-------- 
+| `list` **`[-status]`**| 
+
+> **Things to Note**
+> * The following statues are available:
+>	* **-all**: All tasks in Taskle
+>	* **-pending**: Tasks that are still pending.
+>	* **-done**: Tasks that are marked as done.
+>	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
+> * It is optional to specify the status. If no status is specified, the default
+tasks to be displayed are the pending and overdue ones. (Done tasks are not shown).
+> * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
+>	* list **-pending** **-overdue**
+
+Example:
+* `list` **`5`** **`-all`**
+
+<br>
+
+<!-- @@author A0125509H -->
 ### Mark a Task as Done: `done`
 Marks a task as done. Use this command when you are finished with the task.<br>
 
@@ -178,12 +209,13 @@ Marks a task as done. Use this command when you are finished with the task.<br>
 | `done` **`[task_number]`** | 
 
 Example:
-* `Done` **`5`**
+* `done` **`5`**
 
 <img src="images/UI/Done.png" align="center">
 <div align="center">Figure 12: Mark Task 5 as done</div><br>
 <br>
 
+<!-- @@author A0140047U -->
 ### Undoing a Recent Command: `undo`
 Undo a previous command. This command is used when you wish to revert from the most recently issued command.<br><br>
 
@@ -193,6 +225,16 @@ Undo a previous command. This command is used when you wish to revert from the m
 
 <br>
 
+### Redoing a Undo: `redo`
+Redo a previous command. This command is used when you wish to revert a wrongly issued undo command<br><br>
+
+| Format  
+| :-------- 
+| `redo` | 
+
+<br>
+
+<!-- @@author A0139402M -->
 ### Clearing all Tasks: `clear`
 Clears all tasks from Taskle.<br><br>
 
@@ -232,7 +274,7 @@ Exits and closes Taskle.<br><br>
  
 <br><br>
 
-
+<!-- @@author A0141780J -->
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
@@ -252,13 +294,16 @@ Add `a` | `add `**`task_name`**` [remind `**`date time`**`]`
  		| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
  		| `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
  		|`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+
 Edit Description `e` | `edit `**`task_number new_task_name`**
-Reschedule `r` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Reschedule `rs` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
-Find `f` | `find [`**`search_query`**`] [`**`-status`**`]`
+Find `f` | `find `**`search_query`**` [`**`-status`**`]`
+List `l` | `list [`**`-status`**`]`
 Mark as Done `d` | `done `**`task_number`**
 Undo `u` | `undo`
+Redo `r` | `redo`
 Clear | `clear`
 Help `h` | `help`
 Exit | `exit`
