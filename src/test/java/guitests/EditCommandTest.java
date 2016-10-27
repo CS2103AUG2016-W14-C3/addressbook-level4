@@ -14,7 +14,6 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
 //@@author A0139402M
-
 public class EditCommandTest extends TaskManagerGuiTest {
 
     /**
@@ -67,24 +66,24 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertEditInvalidCommand(command);
     }
 
-//    /**
-//     * Edits a task such that the new name is a duplicate of another task
-//     * 
-//     * @throws IllegalValueException
-//     */
-//    @Test
-//    public void edit_duplicate_task() throws IllegalValueException {
-//        String newName = "Go Concert";
-//        String command =
-//                buildCommand("1", newName);
-//        assertEditResultSuccess(command, "Charity Event" + " -> " + newName);
-//
-//        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(0);
-//        EventTask newTask = (EventTask) td.charityEvent.copy();
-//        newTask.setName(new Name(newName));
-//        assertMatching(newTask, addedCard);
-//    }
-//
+    /**
+     * Edits a task such that the new name is a duplicate of another task
+     * 
+     * @throws IllegalValueException
+     */
+    @Test
+    public void edit_duplicate_task() throws IllegalValueException {
+        String newName = "Go Concert";
+        String command =
+                buildCommand("1", newName);
+        assertEditResultSuccess(command, "Charity Event" + " -> " + newName);
+
+        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(0);
+        EventTask newTask = (EventTask) td.charityEvent.copy();
+        newTask.setName(new Name(newName));
+        assertMatching(newTask, addedCard);
+    }
+
     private String buildCommand(String taskNumber, String newName) {
         String command = EditCommand.COMMAND_WORD + " " + taskNumber + " " + newName;
         return command;

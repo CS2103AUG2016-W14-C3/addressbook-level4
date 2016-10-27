@@ -35,6 +35,7 @@ import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
 import taskle.logic.commands.ListCommand;
+import taskle.logic.commands.RemindCommand;
 import taskle.logic.commands.RemoveCommand;
 import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.parser.DateParser;
@@ -178,7 +179,24 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    //@@author A0139402M
+    @Test
+    public void execute_addFloatTaskWithReminder_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.homeworkWithReminder();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommandWithDate(toBeAdded, 
+                        helper.ADD_SUCCESSFUL_FLOAT_REMINDER),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -196,11 +214,29 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_EVENT_DATE),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
     
+    @Test
+    public void execute_addEventWithDatesAndReminder_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.finalExamsWithReminder();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommandWithDate(toBeAdded, 
+                        helper.ADD_SUCCESSFUL_EVENT_REMINDER),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    //@@author 
+
     @Test
     public void execute_addDeadlineWithDates_successful() throws Exception {
         // setup expectations
@@ -213,7 +249,24 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_DEADLINE_DATE),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_addDeadlineWithDatesAndReminders_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.finishAssignmentWithReminder();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommandWithDate(toBeAdded, 
+                        helper.ADD_SUCCESSFUL_DEADLINE_REMINDER),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -230,7 +283,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_TMR_SUCCESSFUL_DATE),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -246,7 +299,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.ADD_COMMAND_GARDENS_BY_BAY,
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -262,7 +315,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.ADD_COMMAND_NEW_YEAR_DAY,
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -278,11 +331,79 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
     }
     
+    //@@author A0139402M
+    @Test
+    public void execute_addFloatTaskReminderMorethanOneDate_returnIncorrectCommand() 
+            throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.adam();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task manager
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_BUY_GROCERIES_WITH_INVALID_REMINDER,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                              AddCommand.MESSAGE_USAGE),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_addDeadlineTaskReminderMorethanOneDate_returnIncorrectCommand() 
+            throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.finishAssignmentWithReminder();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task manager
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_COMMAND_NEW_YEAR_DAY_WITH_INVALID_REMINDER,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                              AddCommand.MESSAGE_USAGE),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void execute_addEventTaskReminderMorethanOneDate_returnIncorrectCommand() 
+            throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.getDocsFromBobWithReminder();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // setup starting state
+        model.addTask(toBeAdded); // task already in internal task manager
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_COMMAND_GET_DOCS_FROM_BOB_WITH_INVALID_REMINDER,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                              AddCommand.MESSAGE_USAGE),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    //@@author 
+
     @Test
     public void execute_addDeadlineTaskMorethanTwoDates_returnIncorrectCommand() 
             throws Exception {
@@ -320,7 +441,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -392,6 +513,7 @@ public class LogicManagerTest {
         assertCommandBehavior("edit ", expectedMessage);
     }
     
+    //@@author A0139402M
     @Test
     public void execute_edit_successful() throws Exception {
         // setup expectations
@@ -504,7 +626,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 "reschedule " + index + " clear",
-                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + "\t" + oldDetails + " -> " + newDetails),
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -534,7 +656,7 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 "reschedule " + index + " " + dateTime,
-                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + "\t" + oldDetails + " -> " + newDetails),
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
                 expectedAB,
                 expectedAB.getTaskList());
     }
@@ -564,10 +686,77 @@ public class LogicManagerTest {
         // execute command and verify result
         assertCommandBehavior(
                 "reschedule " + index + " " + dateTime,
-                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + "\t" + oldDetails + " -> " + newDetails),
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
                 expectedAB,
                 expectedAB.getTaskList());
     }
+    
+    @Test
+    public void execute_remind_invalid_command() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE);
+        assertCommandBehavior("remind task", expectedMessage);
+    }
+    
+    @Test
+    public void execute_remind_invalid_index() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE);
+        assertCommandBehavior("remind -1", expectedMessage);
+    }
+    
+    @Test
+    public void execute_remind_invalid_date() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.getFoodFromChinatown();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        model.addTask(toBeAdded);
+        
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE);
+        assertCommandBehavior("remind 1 asdf", expectedMessage, expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_remind_more_than_1_date() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        FloatTask toBeAdded = helper.getFoodFromChinatown();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        model.addTask(toBeAdded);
+        
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE);
+        assertCommandBehavior("remind 1 14 Oct 5pm to 6pm", expectedMessage, expectedAB, expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_remind_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        TestDataHelper helperTest = new TestDataHelper();
+        List<Task> threePersons = helperTest.generateTaskList(3);
+        List<Task> threePersonsTest = helperTest.generateTaskList(3);
+
+        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        String index = "1";
+        String dateTime = "13 dec 7pm";
+        int offsetIndex = Integer.parseInt(index) - 1;
+        
+        List<Date> dates = DateParser.parse(dateTime);
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getRemindDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        helperTest.addToModel(model, threePersonsTest);
+        expectedAB.editTaskRemindDate(offsetIndex, dates.get(0));
+        Task editedTask = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getRemindDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "remind " + index + " " + dateTime,
+                String.format(RemindCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    //@@author 
 
     //@@author A0141780J
     @Test
@@ -745,21 +934,37 @@ public class LogicManagerTest {
         
         //@@author A0141780J
         private final Calendar CALENDAR = Calendar.getInstance();
+        private final String ADD_SUCCESSFUL_FLOAT_REMINDER = " remind 12 sep 2016 10am";
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
+        private final String ADD_SUCCESSFUL_EVENT_REMINDER = " from 12 sep 2016 10am to 12 sep 2016 1pm remind 10 sep 2016 10am";
         private final String ADD_SUCCESSFUL_DEADLINE_DATE = " by 31st Dec 2016 2359hours";
+        private final String ADD_SUCCESSFUL_DEADLINE_REMINDER = " by 31st Dec 2016 2359hours remind 29th Dec 2016 2359hours";
         private final String ADD_TMR_SUCCESSFUL_DATE = " from tmr 1 to 2pm";
         private final String ADD_COMMAND_GARDENS_BY_BAY = 
                 "add Gardens by the Bay outing from 12pm to 2pm 3 December";
         private final String ADD_COMMAND_NEW_YEAR_DAY = 
                 "add New Year Day from 1 jan 2017";
+        private final String ADD_COMMAND_NEW_YEAR_DAY_WITH_INVALID_REMINDER = 
+                "add New Year Day from 1 jan 2017 remind 31 dec 2016 5pm to 31 dec 2016 6pm";
         private final String ADD_COMMAND_GET_DOCS_FROM_BOB = 
                 "add Get documents from Bob by 14 Apr to 15 Apr";
-        
+        private final String ADD_COMMAND_GET_DOCS_FROM_BOB_WITH_INVALID_REMINDER = 
+                "add Get documents from Bob by 14 Apr to 15 Apr remind 13 Apr to 14 Apr";
+        private final String ADD_BUY_GROCERIES_WITH_INVALID_REMINDER = 
+                "add Buy groceries remind 13 Apr 5pm to 13 Apr 6pm";
         UniqueTagList stubTagList = new UniqueTagList();
 
         FloatTask adam() throws Exception {
             Name name = new Name("Adam Brown");
             return new FloatTask(name, stubTagList);
+        }
+        
+        
+        FloatTask homeworkWithReminder() throws Exception {
+            Name name = new Name("Do homework for CS2103T");
+            CALENDAR.set(2016, 8, 12, 10, 00, 00);
+            Date remindDate = CALENDAR.getTime();
+            return new FloatTask(name, remindDate, stubTagList);
         }
         
         EventTask finalExams() throws Exception {
@@ -771,12 +976,45 @@ public class LogicManagerTest {
             return new EventTask(name, startDate, endDate, stubTagList);
         }
         
+        EventTask finalExamsWithReminder() throws Exception {
+            Name name = new Name("Final Exams");
+            CALENDAR.set(2016, 8, 12, 10, 00, 00);
+            Date startDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 8, 12, 13, 00, 00);
+            Date endDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 8, 10, 10, 00, 00);
+            Date remindDate = CALENDAR.getTime();
+            return new EventTask(name, startDate, endDate, remindDate, stubTagList);
+        }
+        
+        EventTask getDocsFromBobWithReminder() throws Exception {
+            Name name = new Name("Get documents from Bob");
+            CALENDAR.set(2016, 3, 14, 00, 00, 00);
+            Date startDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 3, 15, 00, 00, 00);
+            Date endDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 3, 13, 00, 00, 00);
+            Date remindDate = CALENDAR.getTime();
+            return new EventTask(name, startDate, endDate, remindDate, stubTagList);
+        }
+        
+        
         DeadlineTask finishAssignment() throws Exception {
             Name name = new Name("Finish Assignment");
             CALENDAR.set(2016, 11, 31, 23, 59, 00);
             Date byDate = CALENDAR.getTime();
             return new DeadlineTask(name, byDate, stubTagList);
         }
+        
+        DeadlineTask finishAssignmentWithReminder() throws Exception {
+            Name name = new Name("Finish Assignment");
+            CALENDAR.set(2016, 11, 31, 23, 59, 00);
+            Date byDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 11, 29, 23, 59, 00);
+            Date remindDate = CALENDAR.getTime();
+            return new DeadlineTask(name, byDate, remindDate, stubTagList);
+        }
+        
         
         EventTask tutorialTmr() throws Exception {
             Name name = new Name("2103T tutorial");

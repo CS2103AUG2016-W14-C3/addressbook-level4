@@ -21,8 +21,13 @@ import taskle.model.task.TaskList;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
+<<<<<<< HEAD
+ * Wraps all data at the task-manager level Duplicates are not allowed (by
+ * .equals comparison)
+=======
  * Wraps all data at the task-manager level
  * Duplicates are allowed.
+>>>>>>> refs/heads/master
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
@@ -34,7 +39,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         tags = new UniqueTagList();
     }
 
-    public TaskManager() {}
+    public TaskManager() {
+    }
 
     /**
      * Tasks and Tags are copied into this taskmanager
@@ -42,14 +48,14 @@ public class TaskManager implements ReadOnlyTaskManager {
     public TaskManager(TaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
-    
+
     /**
      * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
-    
+
     /**
      * Tasks and Tags are copied into this taskmanager
      */
@@ -66,7 +72,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
-    
+
     public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
@@ -84,13 +90,24 @@ public class TaskManager implements ReadOnlyTaskManager {
         resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// task-level operations
+    //// task-level operations
 
     /**
+<<<<<<< HEAD
+     * Adds a task to the address book. Also checks the new task's tags and
+     * updates {@link #tags} with any new tags found, and updates the Tag
+     * objects in the task to point to those in {@link #tags}.
+=======
      * Adds a task to the Task manager.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
+>>>>>>> refs/heads/master
      *
+<<<<<<< HEAD
+     * @throws UniqueTaskList.DuplicateTaskException
+     *             if an equivalent task already exists.
+=======
+>>>>>>> refs/heads/master
      */
     public void addTask(Task p) {
         syncTagsWithMasterList(p);
@@ -98,9 +115,8 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     * Ensures that every tag in this task: - exists in the master list
+     * {@link #tags} - points to a Tag object in the master list
      */
     private void syncTagsWithMasterList(Task task) {
         final UniqueTagList taskTags = task.getTags();
@@ -127,14 +143,19 @@ public class TaskManager implements ReadOnlyTaskManager {
             throw new TaskList.TaskNotFoundException();
         }
     }
-    
+    //@@author A0139402M    
     public void editTask(int index, Name newName) {
         tasks.edit(index, newName);
     }
 
-    public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
+    public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException {
         tasks.editDate(index, dates);
     }
+    
+    public void editTaskRemindDate(int index, Date date) throws TaskNotFoundException {
+        tasks.editRemindDate(index, date);
+    }
+    
     
     //@@author A0125509H
     public void doneTask(int index, boolean targetDone) {
@@ -146,17 +167,18 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.unDone(task);
     }
 
-//// tag-level operations
+
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
         // TODO: refine later
     }
 
@@ -180,19 +202,19 @@ public class TaskManager implements ReadOnlyTaskManager {
         return this.tags;
     }
 
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                && this.tasks.equals(((TaskManager) other).tasks)
-                && this.tags.equals(((TaskManager) other).tags));
+                        && this.tasks.equals(((TaskManager) other).tasks)
+                        && this.tags.equals(((TaskManager) other).tags));
     }
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
+        // use this method for custom fields hashing instead of implementing
+        // your own
         return Objects.hash(tasks, tags);
     }
-    
+
 }

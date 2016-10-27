@@ -9,62 +9,59 @@ import java.util.Optional;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
-import taskle.logic.commands.RescheduleCommand;
+import taskle.logic.commands.RemindCommand;
 
 //@@author A0139402M
-public class RescheduleCommandParser extends CommandParser {
-
-    public RescheduleCommandParser() {
-    }
+public class RemindCommandParser extends CommandParser{
+    
 
     @Override
     public String getCommandWord() {
-        return RescheduleCommand.COMMAND_WORD;
+        return RemindCommand.COMMAND_WORD;
     }
 
     @Override
     public Command parseCommand(String args) {
-        return prepareReschedule(args);
+        return prepareRemind(args.trim());
     }
 
     /**
-     * Prepares the reschedule command while checking for any possible errors in
+     * Prepares the remind command while checking for any possible errors in
      * the input given by the user.
      * 
      * @param args
      * @return the prepared reschedule command
      */
-    private Command prepareReschedule(String args) {
-        args = args.trim();
+    private Command prepareRemind(String args) {
         int endIndex = args.indexOf(" ");
         if (endIndex == -1) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }
         String indexValue = args.substring(0, endIndex);
         Optional<Integer> index = parseIndex(indexValue);
-        String newDateTime = args.substring(endIndex).trim();
+        String newRemindDateTime = args.substring(endIndex).trim();
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }
         
-        if (newDateTime.indexOf("clear") == 0) {
+        if (newRemindDateTime.indexOf("clear") == 0) {
             try {
-                return new RescheduleCommand(index.get(), null);
+                return new RemindCommand(index.get(), null);
             } catch (IllegalValueException e) {
                 return new IncorrectCommand(e.getMessage());
             }
         }
         
-        List<Date> dates = DateParser.parse(newDateTime);
-        if(dates.size() == 0 || dates.size() > 2) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
+        List<Date> dates = DateParser.parse(newRemindDateTime);
+        if(dates.size() != 1) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }
         try {
-            return new RescheduleCommand(index.get(), dates);
+            assert dates.size() == 1;
+            return new RemindCommand(index.get(), dates.get(0));
         } catch (IllegalValueException e) {
             return new IncorrectCommand(e.getMessage());
         }
 
     }
-
 }

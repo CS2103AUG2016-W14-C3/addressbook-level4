@@ -63,7 +63,7 @@ Taskle makes it elegantly simple to manage your tasks. All of its features requi
 
 | Format  
 | :-------- 
-| `add `**`task_name`** | 
+| `add `**`task_name`**` [remind `**`date time`**`]` | 
 | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |
 | `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
 
@@ -90,12 +90,12 @@ Edits an existing task in Taskle. There are 3 types of edits possible: Edit task
 Type | Format  
 :-------- | :-------- 
 Edit task name | `edit `**`task_number new_task_name`**  
-Reschedule | `reschedule `**`task_number` `date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
-Remind | `remind `**`task_number` `date time`**
+Reschedule | `reschedule `**`task_number date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
+Remind | `remind `**`task_number date`**`[`**` time`**`]`
 
 > **Things to Note**
 > * A  task can only have one reminder. The date and time as specified in the "remind" command would replace any existing reminder.
-> * **Time** must be specified for reminders so that Taskle can remind you based on the time given.
+> * If **Time** is not specified for reminders, Taskle will automatically assign the reminder time as 00:00 for the specified reminder date.
 > * To remove a reminder or deadline from a task, you will have to type **"clear"** after typing the task number. For example:
 >	* remind **2 clear**
 >	* reschedule **2 clear**
@@ -290,9 +290,11 @@ Note the following conventions used:
 
 Command `(Shortcut)` | Format  
 :-------- | :-------- 
-Add `a` | `add `**`task_name`**  
- | `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
- |`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+Add `a` | `add `**`task_name`**` [remind `**`date time`**`]`
+ 		| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
+ 		| `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
+ 		|`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
+
 Edit Description `e` | `edit `**`task_number new_task_name`**
 Reschedule `rs` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `s` | `remind `**`task_number date time`**

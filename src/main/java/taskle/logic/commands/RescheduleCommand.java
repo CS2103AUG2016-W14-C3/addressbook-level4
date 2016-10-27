@@ -17,15 +17,16 @@ import taskle.model.task.TaskList.TaskNotFoundException;
  * @author zhiyong
  *
  */
+//@@author A0139402M
 public class RescheduleCommand extends Command{
 
     public static final String COMMAND_WORD = "reschedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Reschedules or remove the date of the Task identified by the index number used in the last Task listing.\n"
-            + "Format: " + COMMAND_WORD + " task_number to new_date new_time(optional)\n" + "Example: " 
-            + COMMAND_WORD + " 1 to 11 Nov 3pm --- for rescheduling\tOR\t"
-            + COMMAND_WORD + " 1 clear --- for removing the date";
+            + "Format: " + COMMAND_WORD + " task_number new_date new_time(optional)\n" + "Example: " 
+            + COMMAND_WORD + " 1 25 Nov 3pm ---> for rescheduling\tOR\t"
+            + COMMAND_WORD + " 1 clear ---> for removing the date";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Rescheduled Task: %1$s";
 
@@ -49,18 +50,16 @@ public class RescheduleCommand extends Command{
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldDetails = taskToEdit.getDetailsString();
-        int newIndex = -1;
         try {
             model.storeTaskManager();
-            model.editTaskDate(targetIndex, dates);
+            model.editTaskDate(offsetIndex, dates);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
         String newDate = getDateString(dates);
         return new CommandResult(
-                String.format(MESSAGE_EDIT_TASK_SUCCESS, 
-                              taskToEdit.getName() + "\t" + oldDetails 
-                              + " -> " + newDate),
+                String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + " " 
+                        + oldDetails + " -> " + newDate),
                 true);
     }
     

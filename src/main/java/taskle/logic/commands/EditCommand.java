@@ -13,6 +13,7 @@ import taskle.model.task.TaskList.TaskNotFoundException;
  * manager.
  * @author zhiyong 
  */
+//@@author A0139402M
 public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
@@ -41,12 +42,12 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
         }
-
-        ReadOnlyTask taskToEdit = lastShownList.get(targetIndex - 1);
-        String oldName = taskToEdit.getName().fullName;
+        int offsetIndex = targetIndex - 1;
+        ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
+        String oldName = taskToEdit.getName().fullName; 
         try {
             model.storeTaskManager();
-            model.editTask(targetIndex, newName);
+            model.editTask(offsetIndex, newName);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

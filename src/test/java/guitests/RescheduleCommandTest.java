@@ -18,7 +18,6 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
 //@@author A0139402M
-
 public class RescheduleCommandTest extends TaskManagerGuiTest {
 
     /**
@@ -33,7 +32,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
         String index = "3";
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        assertRescheduleResultSuccess("reschedule " + index + " clear", name + "\t" + oldDate + " -> " + "");
+        assertRescheduleResultSuccess("reschedule " + index + " clear", name + " " + oldDate + " -> " + "");
     }
 
     /**
@@ -50,8 +49,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        assertRescheduleResultSuccess(command, name + "\t" + oldDate + " -> " + "3:00PM, 21 Oct 2016");
-
+        assertRescheduleResultSuccess(command, name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016");
     }
 
     /**
@@ -70,7 +68,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
         String oldDate = td.attendMeeting.getDetailsString();
 
         assertRescheduleResultSuccess(command,
-                name + "\t" + oldDate + " -> " + "3:00PM, 21 Oct 2016 to 5:00PM, 31 Oct 2016");
+                name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016 to 5:00PM, 31 Oct 2016");
 
     }
 

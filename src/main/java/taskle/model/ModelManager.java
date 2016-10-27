@@ -118,18 +118,26 @@ public class ModelManager extends ComponentManager implements Model {
         taskManager.removeTask(target);
         indicateTaskManagerChanged();
     }
-    
+    //@@author A0139402M
     @Override
+
     public synchronized void editTask(int index, Name newName) throws TaskNotFoundException {
-        int sourceIndex = filteredTasks.getSourceIndex(index - 1);
+        int sourceIndex = filteredTasks.getSourceIndex(index);
         taskManager.editTask(sourceIndex, newName);;
         indicateTaskManagerChanged();
     }
     
     @Override
-    public void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
-        int sourceIndex = filteredTasks.getSourceIndex(index - 1);
+    public synchronized void editTaskDate(int index, List<Date> dates) throws TaskNotFoundException{
+        int sourceIndex = filteredTasks.getSourceIndex(index);
         taskManager.editTaskDate(sourceIndex, dates);
+        indicateTaskManagerChanged();
+    }
+    
+    @Override
+    public synchronized void editTaskRemindDate(int index, Date date) throws TaskNotFoundException{
+        int sourceIndex = filteredTasks.getSourceIndex(index);
+        taskManager.editTaskRemindDate(sourceIndex, date);
         indicateTaskManagerChanged();
     }
     

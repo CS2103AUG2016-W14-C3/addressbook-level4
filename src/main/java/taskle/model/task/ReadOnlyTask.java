@@ -1,5 +1,7 @@
 package taskle.model.task;
 
+import java.util.Date;
+
 import taskle.model.tag.UniqueTagList;
 
 /**
@@ -14,6 +16,7 @@ public interface ReadOnlyTask {
     
     Name getName();
     
+    Date getRemindDate();
     /**
      * The returned TagList is a deep copy of the internal TagList,
      * changes on the returned list will not affect the task's internal tags.
@@ -49,6 +52,8 @@ public interface ReadOnlyTask {
     
     public String getDetailsString();
 
+    public String getRemindDetailsString();
+    
     //@@author A0125509H
     public boolean isTaskDone();
     //@@author

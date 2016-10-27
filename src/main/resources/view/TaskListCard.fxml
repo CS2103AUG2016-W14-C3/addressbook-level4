@@ -10,6 +10,7 @@
 <HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.60"
 	xmlns:fx="http://javafx.com/fxml/1">
 	<children>
+
 		<GridPane HBox.hgrow="ALWAYS">
 			<columnConstraints>
 				<ColumnConstraints hgrow="NEVER" maxWidth="80.0"
@@ -31,9 +32,13 @@
 					styleClass="cell_big_label" text="\$name" GridPane.columnIndex="1" />
 				<Label fx:id="tags" styleClass="cell_small_label" text="\$tags"
 					GridPane.columnIndex="2" />
+				<Label fx:id="reminderDate" minWidth="-Infinity" prefWidth="300.0" 
+					styleClass="cell_big_label" text="\$reminderDate" textAlignment="RIGHT" 
+					GridPane.columnIndex="3" GridPane.halignment="RIGHT" />
+					
 				<Label fx:id="details" minWidth="-Infinity" prefWidth="300.0"
 					styleClass="cell_big_label" text="\$details" textAlignment="RIGHT"
-					GridPane.columnIndex="3" GridPane.halignment="RIGHT" />
+					GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
 			</children>
 		</GridPane>
 	</children>

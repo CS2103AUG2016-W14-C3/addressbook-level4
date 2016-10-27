@@ -134,6 +134,24 @@ public class TaskList implements Iterable<Task> {
         refreshInternalList();
     }
     
+    /**
+     * Edits the reminder date for the task in the list
+     * @param index
+     * @param date
+     * @throws TaskNotFoundException
+     */
+    public void editRemindDate(int index, Date date) throws TaskNotFoundException {
+        Optional<Task> toEditOp = Optional.of(internalList.get(index));
+        
+        if(!toEditOp.isPresent()) {
+            throw new TaskNotFoundException();
+        }
+        Task toEdit = toEditOp.get();
+        toEdit.setRemindDate(date);
+        internalList.set(index, toEdit);
+        logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
+    }
+    
     //@@author A0140047U
     public void refreshInternalList() {
         internalList.sort(new TaskComparator());

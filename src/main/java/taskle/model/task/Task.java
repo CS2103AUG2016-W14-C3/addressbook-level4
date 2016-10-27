@@ -1,8 +1,10 @@
 package taskle.model.task;
 
+import java.util.Date;
 import java.util.Objects;
 
 import taskle.commons.util.CollectionUtil;
+import taskle.commons.util.DateFormatUtil;
 import taskle.model.tag.UniqueTagList;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
@@ -15,8 +17,13 @@ import taskle.model.task.ReadOnlyTask;
 public abstract class Task implements ReadOnlyTask {
 
     protected Name name;
+    
+    //@@author A0139402M
+    protected Date remindDate;
+    
     //@@author A0125509H
     protected boolean isTaskDone;
+    
     //@@author
     protected UniqueTagList tags;
 
@@ -26,6 +33,14 @@ public abstract class Task implements ReadOnlyTask {
     public Task(Name name, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, tags);
         this.name = name;
+        this.remindDate = null;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+    }
+    
+    public Task(Name name, Date remindDate, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, tags);
+        this.name = name;
+        this.remindDate = remindDate;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -33,7 +48,7 @@ public abstract class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTags());
+        this(source.getName(), source.getRemindDate(), source.getTags());
         setTaskDone(source.isTaskDone());
     }
 
@@ -62,6 +77,16 @@ public abstract class Task implements ReadOnlyTask {
     //@@author A0125509H
     public void setTaskDone(boolean taskDone) {
         this.isTaskDone = taskDone;
+    }
+    
+    //@@author A0139402M
+    @Override
+    public Date getRemindDate() {
+        return remindDate;
+    }
+    
+    public void setRemindDate(Date remindDate) {
+        this.remindDate = remindDate;
     }
     //@@author
 
@@ -94,5 +119,10 @@ public abstract class Task implements ReadOnlyTask {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName());
         return builder.toString();
+    }
+    
+    @Override
+    public String getRemindDetailsString() {
+        return DateFormatUtil.formatRemindDate(remindDate);
     }
 }

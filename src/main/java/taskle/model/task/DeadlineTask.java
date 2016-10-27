@@ -22,6 +22,12 @@ public class DeadlineTask extends Task {
         super(name, tags);
         this.deadlineDate = deadlineDate;
     }
+    
+    public DeadlineTask(Name name, Date deadlineDate, Date remindDate, UniqueTagList tags) {
+        super(name, remindDate, tags);
+        this.deadlineDate = deadlineDate;
+    }
+    
 
     public DeadlineTask(ReadOnlyTask source) {
         super(source);
@@ -58,7 +64,7 @@ public class DeadlineTask extends Task {
         StringBuilder builder = new StringBuilder();
         builder.append(name);
         builder.append(" by ");
-        builder.append(DateFormatUtil.getDateArgString(deadlineDate));
+        builder.append(getDetailsString());
         return builder.toString();
     }
 
