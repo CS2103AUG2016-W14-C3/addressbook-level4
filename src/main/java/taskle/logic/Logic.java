@@ -1,8 +1,12 @@
 package taskle.logic;
 
+import java.util.Date;
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import taskle.logic.commands.CommandResult;
 import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
 
 /**
  * API of the Logic component
@@ -19,4 +23,6 @@ public interface Logic {
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
     void changeDirectory(String filePath);
+    
+    List<Task> verifyReminder(Date currentDateTime);
 }
