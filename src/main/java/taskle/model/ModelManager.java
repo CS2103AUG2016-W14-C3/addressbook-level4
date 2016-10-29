@@ -141,6 +141,11 @@ public class ModelManager extends ComponentManager implements Model {
         indicateTaskManagerChanged();
     }
     
+    @Override
+    public synchronized List<Task> verifyRemindDate(Date currentDateTime) {
+        return taskManager.verifyReminder(currentDateTime);
+    }
+    
     //@@author A0125509H
     @Override
     public synchronized void doneTask(int index, boolean targetDone) throws TaskNotFoundException {
