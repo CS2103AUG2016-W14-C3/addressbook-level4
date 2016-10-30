@@ -20,6 +20,7 @@ public interface Model {
     /** Returns the TaskManager */
     ReadOnlyTaskManager getTaskManager();
 
+    //@@author A0139402M
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws TaskList.TaskNotFoundException;
 
@@ -31,6 +32,12 @@ public interface Model {
    
     /** Edits / Sets the reminder date of the task */
     void editTaskRemindDate(int index, Date date) throws TaskList.TaskNotFoundException;
+    
+    /** Verifies the reminder date with the current date */
+    List<Task> verifyRemindDate(Date currentDateTime);
+    
+    /** Dismiss the reminders */
+    void dismissReminder(Date currentDateTime);
     
     //@@author A0125509H
     /** Marks the task as done*/
