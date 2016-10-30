@@ -218,8 +218,6 @@ public class MainWindow extends UiPart {
     private void setupNotificationPane() {
         notificationPane = new NotificationPane(rootLayout);
         notificationPane.setId(NOTIFICATION_PANE_ID);
-        notificationPane.getStyleClass().add(
-                NotificationPane.STYLE_CLASS_DARK);
     }
 
     public TaskListPanel getTaskListPanel() {

@@ -22,7 +22,7 @@
 				<Menu mnemonicParsing="false" text="File">
 					<items>
 						<MenuItem mnemonicParsing="false" onAction="#handleSettings"
-							text="Settings" />
+							text="Change Directory" />
 						<MenuItem mnemonicParsing="false" onAction="#handleExit"
 							text="Exit" />
 					</items>

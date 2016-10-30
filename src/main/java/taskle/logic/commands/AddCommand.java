@@ -26,7 +26,7 @@ public class AddCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Task Manager.\n"
             + "Format: add task_name [by date & time] [remind date time]\n"
-            + "or\n add task_name [from date & time] [to date & time] [remind date time]\n"
+            + "or\nadd task_name [from date & time] [to date & time] [remind date time]\n"
             + "Example: " + "add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";

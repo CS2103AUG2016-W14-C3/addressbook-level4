@@ -97,13 +97,13 @@
 }
 
 .cell_big_label {
-    -fx-font-size: 20px;
-    -fx-text-fill: #010504;
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
 }
 
 .cell_small_label {
     -fx-font-size: 11px;
-    -fx-text-fill: #010504;
+    -fx-text-fill: white;
 }
 
 .anchor-pane {
