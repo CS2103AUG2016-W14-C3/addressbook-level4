@@ -14,6 +14,7 @@ import taskle.commons.core.LogsCenter;
 import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.TaskUtil;
 import taskle.ui.CommandBox;
+import taskle.ui.SystemTray;
 
 /**
  * A list of tasks that does not allow nulls.
@@ -159,6 +160,7 @@ public class TaskList implements Iterable<Task> {
         toEdit.setRemindDate(date);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
+        SystemTray.showNotification();
     }
     
     /**

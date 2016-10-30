@@ -8,8 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-import org.controlsfx.control.Notifications;
-
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.Stage;
@@ -26,7 +24,9 @@ public class SystemTray {
     
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
-    private Date currentDateTime;
+    private static java.awt.SystemTray tray;
+    private static java.awt.TrayIcon trayIcon;
+    private static Date currentDateTime;
     // one icon location is shared between the application tray icon and task
     // bar icon.
     // you could also use multiple icons to allow for clean display of tray
@@ -37,53 +37,16 @@ public class SystemTray {
     // system tray icon operations.
     private Stage stage;
 
-    private final Logic logic;
+    private static Logic logic;
     
     // a timer allowing the tray icon to provide a periodic notification event.
     private Timer notificationTimer = new Timer();
 
-    // sets up the javafx application.
-    // a tray icon is setup for the icon, but the main stage remains invisible
-    // until the user
-    // interacts with the tray icon.
-    // @Override public void start(final Stage stage) {
-    // // stores a reference to the stage.
-    // this.stage = stage;
-    //
-    // // instructs the javafx system not to exit implicitly when the last
-    // application window is shut.
-    // Platform.setImplicitExit(false);
-    //
-    // // sets up the tray icon (using awt code run on the swing thread).
-    // javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
-    //
-    // // out stage will be translucent, so give it a transparent style.
-    // stage.initStyle(StageStyle.TRANSPARENT);
-    //
-    // // create the layout for the javafx stage.
-    // StackPane layout = new StackPane(createContent());
-    // layout.setStyle(
-    // "-fx-background-color: rgba(255, 255, 255, 0.5);"
-    // );
-    // layout.setPrefSize(300, 200);
-    //
-    // // this dummy app just hides itself when the app screen is clicked.
-    // // a real app might have some interactive UI and a separate icon which
-    // hides the app window.
-    // layout.setOnMouseClicked(event -> stage.hide());
-    //
-    // // a scene with a transparent fill is necessary to implement the
-    // translucent app window.
-    // Scene scene = new Scene(layout);
-    // scene.setFill(Color.TRANSPARENT);
-    //
-    // stage.setScene(scene);
-    // }
 
     public SystemTray(Logic logic, javafx.scene.image.Image iconApplication, Stage stage) {
         this.iconApplication = SwingFXUtils.fromFXImage(iconApplication, null);
         this.stage = stage;
-        this.logic = logic;
+        SystemTray.logic = logic;
     }
 
 
@@ -94,10 +57,10 @@ public class SystemTray {
         // ensure awt toolkit is initialized.
         java.awt.Toolkit.getDefaultToolkit();
 
-        java.awt.SystemTray tray = setupTray();
-        java.awt.TrayIcon trayIcon = setupTrayIcon();
+        tray = setupTray();
+        trayIcon = setupTrayIcon();
         addMenuItems(tray, trayIcon);
-        addNotificationTimer(trayIcon);
+        //addNotificationTimer(trayIcon);
         // add the application tray icon to the system tray.
         try {
             tray.add(trayIcon);
@@ -206,6 +169,25 @@ public class SystemTray {
             }
         }, NOTIFICATION_DELAY, NOTIFICATION_INTERVAL);
 
+    }
+    
+    public static void showNotification() {
+        currentDateTime = new Date();
+        List<Task> taskRemindDisplay = logic.verifyReminder(currentDateTime);
+        if(taskRemindDisplay.isEmpty()) {
+            return;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < taskRemindDisplay.size(); i++) {
+            Task task = taskRemindDisplay.get(i);
+            sb.append(task.getName().fullName);
+            if(!task.getDetailsString().equals("")) {
+                sb.append(" Date: " + task.getDetailsString());
+            }
+            sb.append("\n");
+        }
+        javax.swing.SwingUtilities.invokeLater(() -> trayIcon.displayMessage("Reminder!",
+                sb.toString(), java.awt.TrayIcon.MessageType.INFO));
     }
     
     private void dismissReminders() {
