@@ -25,4 +25,6 @@ public interface Logic {
     void changeDirectory(String filePath);
     
     List<Task> verifyReminder(Date currentDateTime);
+    
+    void dismissReminder(Date currentDateTime);
 }

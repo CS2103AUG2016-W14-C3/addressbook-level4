@@ -54,4 +54,9 @@ public class LogicManager extends ComponentManager implements Logic {
     public List<Task> verifyReminder(Date currentDateTime) {
         return model.verifyRemindDate(currentDateTime);
     }
+    
+    @Override
+    public void dismissReminder(Date currentDateTime) {
+        model.dismissReminder(currentDateTime);
+    }
 }
