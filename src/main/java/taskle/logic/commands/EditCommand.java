@@ -20,7 +20,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits an existing task in Taskle.\n"
-            + "Format: edit task_number new_task_name\n" + "Example: " + COMMAND_WORD + " 1 Buy dinner";
+            + "\nFormat: edit task_number new_task_name\n" + "\nExample: " + COMMAND_WORD + " 6 Pay Abel for Chicken Rice";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
 
