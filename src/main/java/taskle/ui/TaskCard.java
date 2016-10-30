@@ -51,9 +51,6 @@ public class TaskCard extends UiPart {
     }
     
     private void setCardTexts() {
-        name.setWrapText(true);
-        details.setWrapText(true);
-        reminderDate.setWrapText(true);
         name.setText(task.getName().fullName);
         details.setText(task.getDetailsString());
         reminderDate.setText(task.getRemindDetailsString());

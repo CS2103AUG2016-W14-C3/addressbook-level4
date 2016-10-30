@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- @@author A0141780J -->
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="taskle.ui.TaskListPanel" AnchorPane.bottomAnchor="0.0"
 	AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -12,6 +16,30 @@
 		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
+		<GridPane HBox.hgrow="ALWAYS" styleClass="header-grid-pane">
+			<columnConstraints>
+            <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="12.0" prefWidth="16.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="148.0" minWidth="30.0" prefWidth="70.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="450.0" minWidth="450.0" prefWidth="450.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="96.0" minWidth="10.0" prefWidth="57.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
+            <ColumnConstraints />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+			</rowConstraints>
+			<children>
+				<Label styleClass="header_label" text="ID" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin></Label>
+				<Label maxWidth="400.0" minWidth="200.0" prefWidth="400.0" styleClass="header_label" text="Name" GridPane.columnIndex="2" />
+				<Label minWidth="-Infinity" prefHeight="21.0" prefWidth="356.0" styleClass="header_label" text="Reminder" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
+					
+				<Label minWidth="-Infinity" prefWidth="500.0" styleClass="header_label" text="Dates" GridPane.columnIndex="5" GridPane.halignment="RIGHT" />
+			</children>
+		</GridPane>
+		
 		<ListView fx:id="taskListView" VBox.vgrow="ALWAYS"
 			styleClass="anchor-pane" />
 	</children>

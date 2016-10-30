@@ -16,13 +16,13 @@ import taskle.model.task.TaskList.TaskNotFoundException;
 //@@author A0139402M
 public class EditCommand extends Command {
 
-    public static final String COMMAND_WORD = "edit";
+    public static final String COMMAND_WORD = "rename";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Edits the Task identified by the index number used in the last Task listing.\n"
-            + "Format: edit task_number new_task\n" + "Example: " + COMMAND_WORD + " 1 Buy dinner";
+            + ": Renames the Task identified by the index number used in the last Task listing.\n"
+            + "Format: rename task_number new_task\n" + "Example: " + COMMAND_WORD + " 1 Buy dinner";
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Renamed Task: %1$s";
 
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task Manager";
 

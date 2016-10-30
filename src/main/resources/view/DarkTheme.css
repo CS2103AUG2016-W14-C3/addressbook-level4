@@ -101,6 +101,11 @@
     -fx-text-fill: white;
 }
 
+.header_label {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+}
+
 .cell_small_label {
     -fx-font-size: 11px;
     -fx-text-fill: white;
@@ -145,6 +150,11 @@
     -fx-background-color: #37474F;
     -fx-border-color: #37474F;
     -fx-border-width: 1px;
+}
+
+.header-grid-pane {
+    -fx-background-color: #37474F;
+    -fx-border-color: #37474F;
 }
 
 .grid-pane .anchor-pane {

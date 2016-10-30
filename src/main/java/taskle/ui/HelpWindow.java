@@ -41,7 +41,7 @@ public class HelpWindow extends UiPart {
                             "Date [Time]", "[remind Date Time]"),
                     new CommandGuide("", "add", "event_name", "from", 
                             "Date [Time]", "to", "Date [Time]", "[remind Date Time]"),
-                    new CommandGuide("Editing", "edit", "task_number", 
+                    new CommandGuide("Renaming", "rename", "task_number", 
                             "new_task_name"),
                     new CommandGuide("", "reschedule", "task_number", 
                             "[Date & Time]"),
