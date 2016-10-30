@@ -26,6 +26,7 @@ public class SystemTray {
     
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
+    private Date currentDateTime;
     // one icon location is shared between the application tray icon and task
     // bar icon.
     // you could also use multiple icons to allow for clean display of tray
@@ -153,7 +154,9 @@ public class SystemTray {
         java.awt.Font boldFont = defaultFont.deriveFont(java.awt.Font.BOLD);
         openItem.setFont(boldFont);
 
-
+        java.awt.MenuItem dismissReminderItem = new java.awt.MenuItem("Dismiss Reminders");
+        dismissReminderItem.addActionListener(event -> Platform.runLater(this::dismissReminders));
+                
         // to really exit the application, the user must go to the system tray
         // icon
         // and select the exit option, this will shutdown JavaFX and remove the
@@ -168,6 +171,7 @@ public class SystemTray {
         // setup the popup menu for the application.
         final java.awt.PopupMenu popup = new java.awt.PopupMenu();
         popup.add(openItem);
+        popup.add(dismissReminderItem);
         popup.addSeparator();
         popup.add(exitItem);
         trayIcon.setPopupMenu(popup);
@@ -181,8 +185,8 @@ public class SystemTray {
         notificationTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Date currentDate = new Date();
-                List<Task> taskRemindDisplay = logic.verifyReminder(currentDate);
+                currentDateTime = new Date();
+                List<Task> taskRemindDisplay = logic.verifyReminder(currentDateTime);
                 if(taskRemindDisplay.isEmpty()) {
                     return;
                 }
@@ -205,7 +209,7 @@ public class SystemTray {
     }
     
     private void dismissReminders() {
-        
+        logic.dismissReminder(currentDateTime);
     }
     /**
      * Shows the application stage and ensures that it is brought ot the front
