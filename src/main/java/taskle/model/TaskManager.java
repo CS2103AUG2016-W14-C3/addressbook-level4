@@ -143,6 +143,10 @@ public class TaskManager implements ReadOnlyTaskManager {
         return tasks.verifyRemindDate(currentDateTime);
     }
     
+    public void dismissReminder(Date currentDateTime) {
+        tasks.dismissReminder(currentDateTime);
+    }
+    
     //@@author A0125509H
     public void doneTask(int index, boolean targetDone) {
         tasks.done(index, targetDone);

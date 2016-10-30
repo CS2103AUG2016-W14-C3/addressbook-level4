@@ -160,7 +160,13 @@ public class TaskList implements Iterable<Task> {
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
     }
-
+    
+    /**
+     * Method to check through the current list of reminders for each task
+     * and compare with the current system date time.
+     * @param currentDateTime
+     * @return list of reminders that are before the current system date time
+     */
     public List<Task> verifyRemindDate(Date currentDateTime) {
         List<Task> remindTaskList = new ArrayList<>();
         for (int i = 0; i < internalList.size(); i++) {
@@ -176,6 +182,26 @@ public class TaskList implements Iterable<Task> {
         return remindTaskList;
     }
 
+    /**
+     * Sets the visibility of the list of reminders given.
+     * @param tasks
+     * @param isVisible
+     */
+    public void dismissReminder(Date currentDateTime) {
+        assert currentDateTime != null;
+        for (int i = 0; i < internalList.size(); i++) {
+            Task currentTask = internalList.get(i);
+            Date remindDate = currentTask.getRemindDate();
+            if (remindDate != null) {
+                if (currentDateTime.after(remindDate)) {
+                    currentTask.setRemindDate(null);
+                    internalList.set(i, currentTask);
+                }
+            }
+        }
+        logger.info("Tasks with reminders past have reminders removed.");
+    }
+    
     // @@author A0140047U
     public void refreshInternalList() {
         internalList.sort(new TaskComparator());

@@ -34,7 +34,10 @@ public interface Model {
     void editTaskRemindDate(int index, Date date) throws TaskList.TaskNotFoundException;
     
     /** Verifies the reminder date with the current date */
-    List<Task> verifyRemindDate(Date currentDate);
+    List<Task> verifyRemindDate(Date currentDateTime);
+    
+    /** Dismiss the reminders */
+    void dismissReminder(Date currentDateTime);
     
     //@@author A0125509H
     /** Marks the task as done*/
