@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
+import taskle.commons.exceptions.DataConversionException;
+import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
 import taskle.model.UserPrefs;
@@ -188,9 +190,11 @@ public class MainWindow extends UiPart {
     //@@author A0140047U
     /**
      * Change storage file location
+     * @throws DataConversionException 
      */
     @FXML
-    private void handleChangeDirectory() {
+    private void handleChangeDirectory() throws DataConversionException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(primaryStage);
         if (selectedDirectory == null) {
@@ -205,9 +209,11 @@ public class MainWindow extends UiPart {
     
     /**
      * Change storage file
+     * @throws DataConversionException 
      */
     @FXML
-    private void handleChangeStorageFile() {
+    private void handleChangeStorageFile() throws DataConversionException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(
                 new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
