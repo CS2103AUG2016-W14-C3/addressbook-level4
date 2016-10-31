@@ -24,7 +24,6 @@ public class OpenFileCommand extends Command {
 
     @Override
     public String getCommandWord() {
-        // TODO Auto-generated method stub
-        return null;
+        return COMMAND_WORD;
     }
 }
