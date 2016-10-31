@@ -160,7 +160,6 @@ public class TaskList implements Iterable<Task> {
         toEdit.setRemindDate(date);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
-        SystemTray.showNotification();
     }
     
     /**

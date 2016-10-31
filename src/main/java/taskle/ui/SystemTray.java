@@ -60,7 +60,7 @@ public class SystemTray {
         tray = setupTray();
         trayIcon = setupTrayIcon();
         addMenuItems(tray, trayIcon);
-        //addNotificationTimer(trayIcon);
+        addNotificationTimer(trayIcon);
         // add the application tray icon to the system tray.
         try {
             tray.add(trayIcon);
