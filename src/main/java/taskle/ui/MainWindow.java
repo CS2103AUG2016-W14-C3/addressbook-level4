@@ -198,7 +198,7 @@ public class MainWindow extends UiPart {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
             ExistingFileDialog.load(resultDisplay, primaryStage, config, logic, selectedDirectory);
         } else {
-            StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
+            StorageDirectoryUtil.updateDirectory(logic, selectedDirectory);
             resultDisplay.postMessage(CHANGE_DIRECTORY_SUCCESS + config.getTaskManagerFileDirectory());
         }
     }
@@ -213,7 +213,7 @@ public class MainWindow extends UiPart {
                 new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
-            if (StorageDirectoryUtil.updateFile(config, logic, selectedFile)) {
+            if (StorageDirectoryUtil.updateFile(logic, selectedFile)) {
                 resultDisplay.postMessage(CHANGE_FILE_SUCCESS);
             } else {
                 resultDisplay.postMessage(CHANGE_FILE_ERROR);

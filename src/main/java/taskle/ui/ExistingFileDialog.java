@@ -34,7 +34,7 @@ public class ExistingFileDialog {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
+            StorageDirectoryUtil.updateDirectory(logic, selectedDirectory);
             resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
         } 
     }
