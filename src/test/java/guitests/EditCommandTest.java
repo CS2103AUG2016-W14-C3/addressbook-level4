@@ -92,7 +92,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
     
     private void assertEditResultSuccess(String command, String newName) {
         commandBox.runCommand(command);
-        assertSuccessfulMessage("Edited Task: " + newName);
+        assertSuccessfulMessage("Renamed Task: " + newName);
     }
 
     private void assertEditInvalidIndex(String command) {

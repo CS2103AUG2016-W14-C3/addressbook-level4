@@ -510,7 +510,7 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
-        assertCommandBehavior("edit ", expectedMessage);
+        assertCommandBehavior(EditCommand.COMMAND_WORD + " ", expectedMessage);
     }
     
     //@@author A0139402M
@@ -1086,7 +1086,7 @@ public class LogicManagerTest {
         
         String generateEditCommand(String index, String newName) {
             StringBuffer cmd = new StringBuffer();
-            cmd.append("edit ");
+            cmd.append(EditCommand.COMMAND_WORD).append(" ");
             cmd.append(index).append(" ").append(newName);
             return cmd.toString();
         }
