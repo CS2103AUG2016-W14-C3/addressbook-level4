@@ -17,8 +17,9 @@ import taskle.storage.XmlFileStorage;
  */
 public class StorageDirectoryUtil {
 
-    public static void updateDirectory(Config config, Logic logic, File selectedDirectory) {
+    public static void updateDirectory(Logic logic, File selectedDirectory) {
         assert selectedDirectory != null;
+        Config config = new Config();
         try {
             new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).delete();
             new File(config.getTaskManagerFilePath()).renameTo(new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()));
@@ -30,8 +31,9 @@ public class StorageDirectoryUtil {
         }
     }
     
-    public static boolean updateFile(Config config, Logic logic, File selectedFile) {
+    public static boolean updateFile(Logic logic, File selectedFile) {
         assert selectedFile != null;
+        Config config = new Config();
         ReadOnlyTaskManager newTaskManager;
         try {
             newTaskManager = XmlFileStorage.loadDataFromSaveFile(selectedFile);
