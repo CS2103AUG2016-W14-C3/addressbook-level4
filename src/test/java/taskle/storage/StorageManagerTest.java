@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.storage.DataSavingExceptionEvent;
-import taskle.commons.events.storage.StorageLocationChangedEvent;
+import taskle.commons.events.storage.StorageChangedEvent;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
 import taskle.model.UserPrefs;
@@ -101,7 +101,7 @@ public class StorageManagerTest {
     public void setTaskManagerFilePath_validPath_raiseEvent() {
         EventsCollector eventCollector = new EventsCollector();
         storageManager.setTaskManagerFilePath(TEMP_PATH);
-        assertTrue(eventCollector.get(0) instanceof StorageLocationChangedEvent);
+        assertTrue(eventCollector.get(0) instanceof StorageChangedEvent);
     }
 
     //@@author
