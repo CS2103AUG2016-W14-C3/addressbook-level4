@@ -4,7 +4,7 @@ import java.io.File;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.FileUtil;
-import taskle.commons.util.StorageDirectoryUtil;
+import taskle.commons.util.StorageUtil;
 
 /**
  * Opens data from specified file
@@ -30,7 +30,7 @@ public class OpenFileCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        if (StorageDirectoryUtil.updateFile(file)) {
+        if (StorageUtil.updateFile(file)) {
             return new CommandResult(MESSAGE_SUCCESS);
         } else {
             return new CommandResult(MESSAGE_FAILURE);

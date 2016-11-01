@@ -16,7 +16,7 @@ import taskle.storage.XmlFileStorage;
  * Manage changes in directory of storage file
  *
  */
-public class StorageDirectoryUtil {
+public class StorageUtil {
 
     public static boolean updateDirectory(File selectedDirectory) {
         assert selectedDirectory != null;

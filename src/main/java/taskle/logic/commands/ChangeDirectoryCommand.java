@@ -2,7 +2,7 @@ package taskle.logic.commands;
 
 import java.io.File;
 
-import taskle.commons.util.StorageDirectoryUtil;
+import taskle.commons.util.StorageUtil;
 
 //Change directory of current storage file
 public class ChangeDirectoryCommand extends Command {
@@ -26,7 +26,7 @@ public class ChangeDirectoryCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        if (StorageDirectoryUtil.updateDirectory(file)) {
+        if (StorageUtil.updateDirectory(file)) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()));
         } else {
             return new CommandResult(MESSAGE_FAILURE);

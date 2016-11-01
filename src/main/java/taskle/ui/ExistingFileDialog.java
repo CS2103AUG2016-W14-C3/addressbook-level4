@@ -12,7 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
-import taskle.commons.util.StorageDirectoryUtil;
+import taskle.commons.util.StorageUtil;
 import taskle.logic.Logic;
 
 //@@author A0140047U
@@ -34,7 +34,7 @@ public class ExistingFileDialog {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            StorageDirectoryUtil.updateDirectory(selectedDirectory);
+            StorageUtil.updateDirectory(selectedDirectory);
             Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
         } 

@@ -17,7 +17,7 @@ import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
 
 //@@author A0140047U
-public class StorageDirectoryUtilTest {
+public class StorageUtilTest {
 
     private Config config;
     
@@ -38,13 +38,13 @@ public class StorageDirectoryUtilTest {
     @Test
     public void updateDirectory_nullDirectory_assertionError() {
         thrown.expect(AssertionError.class);
-        StorageDirectoryUtil.updateDirectory(null);
+        StorageUtil.updateDirectory(null);
     }
     
     //Change to a valid directory - Successfully Update
     @Test
     public void updateDirectory_validDirectory_directoryChanged() throws DataConversionException {
-        StorageDirectoryUtil.updateDirectory(new File(TEST_DATA_FOLDER));
+        StorageUtil.updateDirectory(new File(TEST_DATA_FOLDER));
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
     }
@@ -53,20 +53,20 @@ public class StorageDirectoryUtilTest {
     @Test
     public void updateFile_nullFile_assertionError() {
         thrown.expect(AssertionError.class);
-        StorageDirectoryUtil.updateFile(null);
+        StorageUtil.updateFile(null);
     }
     
     //Change to file of invalid format - Returns False
     @Test
     public void updateFile_invalidFileFormat_returnsFalse() {
-        boolean isFileUpdated = StorageDirectoryUtil.updateFile(INVALID_FILE);
+        boolean isFileUpdated = StorageUtil.updateFile(INVALID_FILE);
         assertFalse(isFileUpdated);
     }
     
     //Change to a valid file - Successfully Update
     @Test
     public void updateFile_validFile_FileChanged() throws DataConversionException {
-        StorageDirectoryUtil.updateFile(VALID_FILE);
+        StorageUtil.updateFile(VALID_FILE);
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
         assertEquals(config.getTaskManagerFileName(), "ValidFormatTaskManager.xml");
@@ -76,20 +76,20 @@ public class StorageDirectoryUtilTest {
     @Test
     public void splitFilePath_nullFilePath_assertionError() {
         thrown.expect(AssertionError.class);
-        StorageDirectoryUtil.splitFilePath(null);
+        StorageUtil.splitFilePath(null);
     }
     
     //Split an invalid String file path format - IndexOutOfBoundsException
     @Test
     public void splitFilePath_invalidFilePath_indexOutOfBoundsException() {
         thrown.expect(IndexOutOfBoundsException.class);
-        StorageDirectoryUtil.splitFilePath("");
+        StorageUtil.splitFilePath("");
     }
     
     //Split a valid String file path format
     @Test
     public void splitFilePath_validFilePath_filePathSuccess() {
-        String[] sampleFilePath = StorageDirectoryUtil.splitFilePath(TEST_FILE_DIRECTORY + File.separator +
+        String[] sampleFilePath = StorageUtil.splitFilePath(TEST_FILE_DIRECTORY + File.separator +
                 TEST_FILE_FILENAME);
         assertEquals(sampleFilePath[0], TEST_FILE_DIRECTORY);
         assertEquals(sampleFilePath[1], TEST_FILE_FILENAME);
