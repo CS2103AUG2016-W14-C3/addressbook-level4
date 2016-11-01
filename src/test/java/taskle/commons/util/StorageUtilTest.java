@@ -94,21 +94,4 @@ public class StorageUtilTest {
         assertEquals(sampleFilePath[0], TEST_FILE_DIRECTORY);
         assertEquals(sampleFilePath[1], TEST_FILE_FILENAME);
     }
-    
-    @Before
-    public void setUp() {
-        config = getTypicalConfig();
-    }
-    
-    private Config getTypicalConfig() {
-        Config config = new Config();
-        config.setAppTitle("Typical App Title");
-        config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath("C:\\preferences.json");
-        config.setTaskManagerFileDirectory("data");
-        config.setTaskManagerFileName("taskmanager.xml");
-        config.setTaskManagerName("TypicalTaskManagerName");
-        return config;
-    }
-   
 }
