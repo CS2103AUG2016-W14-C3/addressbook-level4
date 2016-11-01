@@ -14,16 +14,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import taskle.commons.core.Config;
-import taskle.logic.Logic;
-import taskle.logic.LogicManager;
-import taskle.model.Model;
-import taskle.model.ModelManager;
-import taskle.storage.StorageManager;
+import taskle.commons.exceptions.DataConversionException;
 
 //@@author A0140047U
 public class StorageDirectoryUtilTest {
 
-    private Logic logic;
     private Config config;
     
     private final static String TEST_FILE_DIRECTORY = "directory";
@@ -43,13 +38,14 @@ public class StorageDirectoryUtilTest {
     @Test
     public void updateDirectory_nullDirectory_assertionError() {
         thrown.expect(AssertionError.class);
-        StorageDirectoryUtil.updateDirectory(logic, null);
+        StorageDirectoryUtil.updateDirectory(null);
     }
     
     //Change to a valid directory - Successfully Update
     @Test
-    public void updateDirectory_validDirectory_directoryChanged() {
-        StorageDirectoryUtil.updateDirectory(logic, new File(TEST_DATA_FOLDER));
+    public void updateDirectory_validDirectory_directoryChanged() throws DataConversionException {
+        StorageDirectoryUtil.updateDirectory(new File(TEST_DATA_FOLDER));
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
     }
     
@@ -57,20 +53,21 @@ public class StorageDirectoryUtilTest {
     @Test
     public void updateFile_nullFile_assertionError() {
         thrown.expect(AssertionError.class);
-        StorageDirectoryUtil.updateFile(logic, null);
+        StorageDirectoryUtil.updateFile(null);
     }
     
     //Change to file of invalid format - Returns False
     @Test
     public void updateFile_invalidFileFormat_returnsFalse() {
-        boolean isFileUpdated = StorageDirectoryUtil.updateFile(logic, INVALID_FILE);
+        boolean isFileUpdated = StorageDirectoryUtil.updateFile(INVALID_FILE);
         assertFalse(isFileUpdated);
     }
     
     //Change to a valid file - Successfully Update
     @Test
-    public void updateFile_validFile_FileChanged() {
-        StorageDirectoryUtil.updateFile(logic, VALID_FILE);
+    public void updateFile_validFile_FileChanged() throws DataConversionException {
+        StorageDirectoryUtil.updateFile(VALID_FILE);
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
         assertEquals(config.getTaskManagerFileName(), "ValidFormatTaskManager.xml");
     }
@@ -100,10 +97,6 @@ public class StorageDirectoryUtilTest {
     
     @Before
     public void setUp() {
-        Model model = new ModelManager();
-        String tempTaskManagerFile = saveFolder.getRoot().getPath() + "TempTaskManager.xml";
-        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logic = new LogicManager(model, new StorageManager(tempTaskManagerFile, tempPreferencesFile));
         config = getTypicalConfig();
     }
     
