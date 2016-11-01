@@ -50,7 +50,8 @@ public class Parser {
                               new ClearCommandParser(),
                               new ExitCommandParser(),
                               new RescheduleCommandParser(),
-                              new OpenFileCommandParser()));
+                              new OpenFileCommandParser(),
+                              new ChangeDirectoryCommandParser()));
         
         // Parse a date using date parser on start up to reduce
         // command delay on first parse. (Natty library constraints)
