@@ -62,6 +62,14 @@ public class RedoCommandTest extends TaskManagerGuiTest {
             e.printStackTrace();
         }
         
+        //Redo after undo of file storage change
+        try {
+            commandBox.runCommand(OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FILE);
+            commandBox.runCommand(UndoCommand.COMMAND_WORD);
+            assertRedoFileStorageSuccess(RedoCommand.MESSAGE_SUCCESS);
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+        }
     }
     
     private void assertRedoSuccess(String message, Task... expectedHits) {
@@ -80,6 +88,14 @@ public class RedoCommandTest extends TaskManagerGuiTest {
         assertSuccessfulMessage(message);
     }
   
+    //Assertion for redo in change of file storage
+    private void assertRedoFileStorageSuccess(String message) throws DataConversionException {
+        commandBox.runCommand(RedoCommand.COMMAND_WORD);
+        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        assertTrue(config.getTaskManagerFilePath().contains(TEST_DATA_FILE.substring(0, TEST_DATA_FILE.length() - 1)));
+        assertSuccessfulMessage(message);
+    }
+    
     //Restores original taskManager directory
     public void restoreStorage() throws IOException {
         commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + taskManagerDirectory);
