@@ -45,16 +45,19 @@ public class RemindCommand extends Command {
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldRemindDate = taskToEdit.getRemindDetailsString();
-        
         try {
             model.storeTaskManager();
-            model.editTaskRemindDate(offsetIndex, remindDate);
+            String result = model.editTaskRemindDate(offsetIndex, remindDate);
+            if(result != null) {
+                indicateAttemptToExecuteIncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, result));
+                return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, result), false);
+            }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+
         ReadOnlyTask newTask = lastShownList.get(offsetIndex);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + " " 
                                             + oldRemindDate + " -> " + newTask.getRemindDetailsString()), true);
-    }
-    
+    }    
 }

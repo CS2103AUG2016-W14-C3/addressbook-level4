@@ -53,7 +53,7 @@ public class TaskListPanelHandle extends GuiHandle {
      */
     public void clickOnListView() {
         Point2D point= TestUtil.getScreenMidPoint(getListView());
-        guiRobot.clickOn(point.getX(), point.getY());
+        guiRobot.clickOn(point.getX() - 200, point.getY());
     }
 
     /**
