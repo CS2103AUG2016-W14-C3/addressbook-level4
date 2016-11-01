@@ -36,7 +36,7 @@ public class MainWindow extends UiPart {
     private static final String FILE_CHOOSER_NAME = "Taskle Data Files";
     private static final String FILE_CHOOSER_TYPE = "*.xml";
     private static final String CHANGE_FILE_SUCCESS = "Storage File has been changed.";
-    private static final String CHANGE_FILE_ERROR = "Invalid File Format detected.";
+    private static final String CHANGE_FILE_ERROR = "Invalid file format detected. Unable to open file";
     private static final String CHANGE_DIRECTORY_SUCCESS = "Storage Directory has been changed to ";
     
     private Logic logic;
