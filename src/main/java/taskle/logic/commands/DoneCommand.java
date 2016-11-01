@@ -11,8 +11,8 @@ public class DoneCommand extends Command {
     
     public static final String COMMAND_WORD = "done";
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks the task (identified by the index number) as done.\n"
-            + "Format: done task_number\n" + "Example: " + COMMAND_WORD + " 5";
+            + ": Marks an existing task in Taskle as done.\n"
+            + "\nFormat: done task_number\n" + "\nExample: " + COMMAND_WORD + " 5";
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Task Completed!";
 
     public final int targetIndex;
