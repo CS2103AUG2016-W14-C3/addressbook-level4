@@ -19,8 +19,8 @@ public class EditCommand extends Command {
     public static final String COMMAND_WORD = "rename";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Renames the Task identified by the index number used in the last Task listing.\n"
-            + "Format: rename task_number new_task\n" + "Example: " + COMMAND_WORD + " 1 Buy dinner";
+            + ": Edits an existing task in Taskle.\n"
+            + "\nFormat: edit task_number new_task_name\n" + "\nExample: " + COMMAND_WORD + " 6 Pay Abel for Chicken Rice";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Renamed Task: %1$s";
 
