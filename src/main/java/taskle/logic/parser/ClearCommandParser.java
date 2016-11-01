@@ -13,10 +13,11 @@ public class ClearCommandParser extends CommandParser {
 
     public ClearCommandParser() {
     }
-
+    
     @Override
-    public String getCommandWord() {
-        return ClearCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(ClearCommand.COMMAND_WORD);
     }
 
     @Override

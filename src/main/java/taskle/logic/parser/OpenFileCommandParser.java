@@ -14,11 +14,6 @@ import taskle.logic.commands.OpenFileCommand;
 public class OpenFileCommandParser extends CommandParser {
 
     @Override
-    public String getCommandWord() {
-        return OpenFileCommand.COMMAND_WORD;
-    }
-
-    @Override
     public Command parseCommand(String args) {
         return parseOpenFile(args.trim());
     }
@@ -31,6 +26,12 @@ public class OpenFileCommandParser extends CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                                   OpenFileCommand.MESSAGE_USAGE));
         }
+    }
+
+    @Override
+    public boolean canParse(String commandWord) {
+        return commandWord.equals(OpenFileCommand.COMMAND_WORD)
+               || commandWord.equals(OpenFileCommand.COMMAND_WORD_SHORT);
     }
 
 }

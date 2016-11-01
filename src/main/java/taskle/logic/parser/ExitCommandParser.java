@@ -14,8 +14,9 @@ public class ExitCommandParser extends CommandParser {
     }
 
     @Override
-    public String getCommandWord() {
-        return ExitCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(ExitCommand.COMMAND_WORD);
     }
 
     @Override

@@ -51,10 +51,9 @@ public class CommandBox extends UiPart {
         return commandBox;
     }
 
-    //@author A0141780J
-    public void configure(
-            NotificationPane notificationPane, 
-            Logic logic) {
+    //@@author A0141780J
+    public void configure(NotificationPane notificationPane, 
+                          Logic logic) {
         this.notificationPane = notificationPane;
         this.logic = logic;
         createPopOver();
@@ -68,19 +67,37 @@ public class CommandBox extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
     
+    /**
+     * Creates a pop over with content layout and style specified.
+     */
     private void createPopOver() {
         popOver = new PopOver();
         popOver.setId(POP_OVER_ID);
-        VBox vBox = new VBox();
+        setPopOverLayout();
+        setPopOverStyle();
+    }
+    
+    /**
+     * Sets up the layout inside popover.
+     */
+    private void setPopOverLayout() {
         popOverText = new Text();
         popOverText.setId(POP_OVER_TEXT_ID);
+        
+        VBox vBox = new VBox();
         vBox.getChildren().add(popOverText);
         vBox.setPadding(new Insets(10));
+        popOver.setContentNode(vBox);
+    }
+    
+    /**
+     * Sets up the style for popover and how it is displayed.
+     */
+    private void setPopOverStyle() {
         popOver.setArrowLocation(ArrowLocation.BOTTOM_CENTER);
         popOver.setFadeInDuration(new Duration(300));
         popOver.setDetachable(false);
         popOver.setAutoHide(true);
-        popOver.setContentNode(vBox);
     }
 
     @Override
@@ -98,20 +115,27 @@ public class CommandBox extends UiPart {
         this.placeHolderPane = pane;
     }
 
-
+    /**
+     * Java FXML method that is called everytime there's a 
+     * new command input.
+     */
     @FXML
     private void handleCommandInputChanged() {
         //Take a copy of the command text
         previousCommandText = commandTextField.getText();
         
-        /* We assume the command is correct. If it is incorrect, the command box will be changed accordingly
-         * in the event handling code {@link #handleIncorrectCommandAttempted}
-         */
+        // execute command and display command feedback
         mostRecentResult = logic.execute(previousCommandText);
         displayCommandFeedback(mostRecentResult);
         logger.info("Result: " + mostRecentResult.getFeedback());
     }
     
+    /**
+     * Displays command feedback based on results.
+     * If result is not successful, no feedback is displayed.
+     * If successful, feedback is displayed.
+     * @param commandResult
+     */
     private void displayCommandFeedback(CommandResult commandResult) {
         assert commandResult != null;
         
@@ -130,12 +154,20 @@ public class CommandBox extends UiPart {
         restoreCommandText();
     }
 
+    /**
+     * Shows the UI elements for incorrect command.
+     * @param feedback feedback message to user to incorrect command.
+     */
     private void showIncorrectCommand(String feedback) {
         popOverText.setText(feedback);
         popOver.show(commandTextField);
         notificationPane.hide();
     }
     
+    /**
+     * Shows the UI elements for correct command.
+     * @param feedback feedback message to user for correct command.
+     */
     private void showCorrectCommand(String feedback) {
         popOver.hide();
         commandTextField.clear();

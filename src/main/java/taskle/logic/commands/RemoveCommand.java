@@ -15,13 +15,15 @@ import taskle.model.task.TaskList.TaskNotFoundException;
 public class RemoveCommand extends Command {
 
     public static final String COMMAND_WORD = "remove";
+    
+    public static final String COMMAND_WORD_SHORT = "rm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Removes the Task identified by the index number used in the last Task listing.\n"
-            + "Format: remove task_number\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Removes an existing task in Taskle.\n"
+            + "\nFormat: remove task_number\n"
+            + "\nExample: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Tasks: %1$s";
+    public static final String MESSAGE_DELETE_TASK_SUCCESS = "Removed Task(s): %1$s";
 
     //@@author A0125509H
     public final String targetIndexes;
@@ -47,6 +49,8 @@ public class RemoveCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        model.storeTaskManager();
+        
         for(int i=0; i<arraySize; i++) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
     
@@ -58,7 +62,6 @@ public class RemoveCommand extends Command {
             ReadOnlyTask taskToDelete = lastShownList.get(sInt.get(i) - 1);
     
             try {
-                model.storeTaskManager();
                  model.deleteTask(taskToDelete);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
@@ -69,9 +72,4 @@ public class RemoveCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, message), true);
     }
     
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
-
 }

@@ -18,8 +18,10 @@ public class RescheduleCommandParser extends CommandParser {
     }
 
     @Override
-    public String getCommandWord() {
-        return RescheduleCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(RescheduleCommand.COMMAND_WORD)
+               || commandWord.equals(RescheduleCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

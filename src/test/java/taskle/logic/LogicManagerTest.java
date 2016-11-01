@@ -337,22 +337,19 @@ public class LogicManagerTest {
     
     //@@author A0139402M
     @Test
-    public void execute_addFloatTaskReminderMorethanOneDate_returnIncorrectCommand() 
+    public void execute_addFloatTaskWithRemindInName_successful() 
             throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatTask toBeAdded = helper.adam();
+        Task toBeAdded = helper.generateTaskWithName("remind papa");
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
-        // setup starting state
-        model.addTask(toBeAdded); // task already in internal task manager
-
         // execute command and verify result
         assertCommandBehavior(
-                helper.ADD_BUY_GROCERIES_WITH_INVALID_REMINDER,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                              AddCommand.MESSAGE_USAGE),
+                helper.ADD_COMMAND_REMIND_PAPA,
+                String.format(AddCommand.MESSAGE_SUCCESS, 
+                              toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -509,7 +506,7 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
-        assertCommandBehavior("edit ", expectedMessage);
+        assertCommandBehavior(EditCommand.COMMAND_WORD + " ", expectedMessage);
     }
     
     //@@author A0139402M
@@ -921,6 +918,71 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void executeShortCommand_validList_returnsList() throws Exception {
+        // prepare 1 done task, 2 pending task, 1 deadline task
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Buy groceries");
+        task1.setTaskDone(true);
+        
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        
+        Calendar calendar = Calendar.getInstance();
+        calendar.clear();
+        calendar.set(2010, 11, 01);
+        Date deadlineDate = calendar.getTime();
+        DeadlineTask task4 = new DeadlineTask(
+                new Name("Finish O levels"), 
+                deadlineDate);
+
+        // Generate list from prepared tasks and add to model and expectations.
+        List<Task> allTasks = helper.generateTaskList(task1, task2, task3, task4);
+        helper.addToModel(model, allTasks);
+        TaskManager expectedAB = helper.generateTaskManager(allTasks);
+        List<Task> expectedList = helper.generateTaskList(task2, task3);
+
+        assertCommandBehavior("l -pending",
+                String.format(ListCommand.MESSAGE_LIST_SUCCESS, "Pending, Not Done, Not Overdue"),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void executeShortCommand_validAdd_addsSuccessfully() throws Exception {
+        // prepare 1 task for add
+        TestDataHelper helper = new TestDataHelper();
+        Task toAdd = helper.generateTaskWithName("Buy eggs");
+        
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toAdd);
+        List<ReadOnlyTask> expectedList = expectedAB.getTaskList();
+
+        assertCommandBehavior("a Buy eggs",
+                String.format(AddCommand.MESSAGE_SUCCESS, toAdd),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void executeShortCommand_validRemove_removesSuccessfully() throws Exception {
+        // prepare 1 task for add
+        TestDataHelper helper = new TestDataHelper();
+        Task toRemove = helper.generateTaskWithName("Buy eggs");
+        
+        List<Task> allTasks = helper.generateTaskList(toRemove);
+        
+        TaskManager expectedAB = new TaskManager();
+        List<ReadOnlyTask> expectedList = expectedAB.getTaskList();
+        helper.addToModel(model, allTasks);
+
+        assertCommandBehavior("rm 1",
+                String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, 1),
+                expectedAB,
+                expectedList);
+    }
+    
     //@@author
     
 
@@ -947,8 +1009,8 @@ public class LogicManagerTest {
                 "add Get documents from Bob by 14 Apr to 15 Apr";
         private final String ADD_COMMAND_GET_DOCS_FROM_BOB_WITH_INVALID_REMINDER = 
                 "add Get documents from Bob by 14 Apr to 15 Apr remind 13 Apr to 14 Apr";
-        private final String ADD_BUY_GROCERIES_WITH_INVALID_REMINDER = 
-                "add Buy groceries remind 13 Apr 5pm to 13 Apr 6pm";
+        private final String ADD_COMMAND_REMIND_PAPA = 
+                "add remind papa";
 
         FloatTask adam() throws Exception {
             Name name = new Name("Adam Brown");
@@ -1082,7 +1144,7 @@ public class LogicManagerTest {
         
         String generateEditCommand(String index, String newName) {
             StringBuffer cmd = new StringBuffer();
-            cmd.append("edit ");
+            cmd.append(EditCommand.COMMAND_WORD).append(" ");
             cmd.append(index).append(" ").append(newName);
             return cmd.toString();
         }

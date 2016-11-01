@@ -10,9 +10,13 @@ import taskle.model.task.TaskList.TaskNotFoundException;
 public class DoneCommand extends Command {
     
     public static final String COMMAND_WORD = "done";
+    public static final String COMMAND_WORD_SHORT = "d";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Marks the task (identified by the index number) as done.\n"
-            + "Format: done task_number\n" + "Example: " + COMMAND_WORD + " 5";
+            + "\nFormat: done task_number\n" 
+            + "\nExample: " + COMMAND_WORD + " 5";
+    
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Task Completed!";
 
     public final int targetIndex;
@@ -44,9 +48,5 @@ public class DoneCommand extends Command {
                 true);
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }
     

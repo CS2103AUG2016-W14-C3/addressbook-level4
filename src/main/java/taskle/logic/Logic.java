@@ -1,10 +1,14 @@
 package taskle.logic;
 
+import java.util.Date;
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import taskle.commons.events.storage.StorageChangeRequestEvent;
 import taskle.logic.commands.CommandResult;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.task.ReadOnlyTask;
+import taskle.model.task.Task;
 
 /**
  * API of the Logic component
@@ -24,6 +28,10 @@ public interface Logic {
     /** Updates directory to given filePath */
     void changeDirectory(String filePath);
     
+    List<Task> verifyReminder(Date currentDateTime);
+    
+    void dismissReminder(Date currentDateTime);
+
     /** Resets Model based on given data */
     void resetModel(ReadOnlyTaskManager taskManager);
     

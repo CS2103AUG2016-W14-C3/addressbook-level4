@@ -15,13 +15,8 @@ import taskle.model.task.TaskList;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
 /**
-<<<<<<< HEAD
- * Wraps all data at the task-manager level Duplicates are not allowed (by
- * .equals comparison)
-=======
  * Wraps all data at the task-manager level
  * Duplicates are allowed.
->>>>>>> refs/heads/master
  */
 public class TaskManager implements ReadOnlyTaskManager {
 
@@ -110,6 +105,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.editRemindDate(index, date);
     }
     
+    public List<Task> verifyReminder(Date currentDateTime) {
+        return tasks.verifyRemindDate(currentDateTime);
+    }
+    
+    public void dismissReminder(Date currentDateTime) {
+        tasks.dismissReminder(currentDateTime);
+    }
     
     //@@author A0125509H
     public void doneTask(int index, boolean targetDone) {

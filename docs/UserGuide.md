@@ -196,7 +196,7 @@ tasks to be displayed are the pending and overdue ones. (Done tasks are not show
 >	* list **-pending** **-overdue**
 
 Example:
-* `list` **`5`** **`-all`**
+* `list` **`-all`**
 
 <br>
 
@@ -295,9 +295,9 @@ Add `a` | `add `**`task_name`**` [remind `**`date time`**`]`
  		| `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
  		|`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
 
-Edit Description `e` | `edit `**`task_number new_task_name`**
+Edit Description `rn` | `rename `**`task_number new_task_name`**
 Reschedule `rs` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
-Set Reminder `s` | `remind `**`task_number date time`**
+Set Reminder `rmd` | `remind `**`task_number date time`**
 Remove `rm` | `remove `**`task_number`**
 Find `f` | `find `**`search_query`**` [`**`-status`**`]`
 List `l` | `list [`**`-status`**`]`
@@ -305,5 +305,7 @@ Mark as Done `d` | `done `**`task_number`**
 Undo `u` | `undo`
 Redo `r` | `redo`
 Clear | `clear`
+Change Directory `cd` | `changedirectory`
+Open Data File `of` | `open file`
 Help `h` | `help`
 Exit | `exit`

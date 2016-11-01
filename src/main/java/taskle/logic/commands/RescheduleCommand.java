@@ -21,13 +21,14 @@ import taskle.model.task.TaskList.TaskNotFoundException;
 public class RescheduleCommand extends Command{
 
     public static final String COMMAND_WORD = "reschedule";
+    public static final String COMMAND_WORD_SHORT = "rs";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Reschedules or removes the date of an existing task in Taskle.\n"
+            + ": Either reschedules or removes the deadline of an existing task in Taskle.\n"
             + "\nFormat: " + COMMAND_WORD + " task_number to [date time] [remind date time]\n"
-            + "OR " + COMMAND_WORD + " task_number clear\n"
-            + "\nExample: " + COMMAND_WORD + " 2 to 7th October 7pm remind 6th October 7pm \nOR\t\n"
-            + COMMAND_WORD + " 1 clear (To Remove Date)";
+            + "or \n" + COMMAND_WORD + " task_number clear\n"
+            + "\nExample: " + COMMAND_WORD + " 2 to 7th October 7pm remind 6th October 7pm \nor\t\n"
+            + COMMAND_WORD + " 1 clear (To Remove Deadline)";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Rescheduled Task: %1$s";
 
@@ -79,11 +80,6 @@ public class RescheduleCommand extends Command{
             newDate = DateFormatUtil.formatEventDates(dates.get(0), dates.get(1));
         }
         return newDate;
-    }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
     }
 
 }

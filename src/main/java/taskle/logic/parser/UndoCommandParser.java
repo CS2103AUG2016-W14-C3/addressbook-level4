@@ -14,8 +14,10 @@ public class UndoCommandParser extends CommandParser {
     }
     
     @Override
-    public String getCommandWord() {
-        return UndoCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(UndoCommand.COMMAND_WORD)
+               || commandWord.equals(UndoCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

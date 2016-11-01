@@ -10,7 +10,7 @@ public class ExitCommand extends Command {
 
     public static final String COMMAND_WORD = "exit";
 
-    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Task Manager as requested ...";
+    public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Taskle!";
 
     public ExitCommand() {}
 
@@ -20,8 +20,4 @@ public class ExitCommand extends Command {
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT, true);
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }

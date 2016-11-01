@@ -89,8 +89,12 @@ public class Parser {
      * @return The corresponding command to the command word after parsing. 
      */
     private Command prepareCommand(String commandWord, String args) {
+        if (commandWord == null || commandWord.isEmpty()) {
+            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+        }
+        
         for (CommandParser commandParser : commandParsers) {
-            if (commandParser.getCommandWord().equals(commandWord)) {
+            if (commandParser.canParse(commandWord)) {
                 return commandParser.parseCommand(args);
             }
         }
