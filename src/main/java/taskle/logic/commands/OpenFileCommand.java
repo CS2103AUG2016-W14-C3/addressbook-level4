@@ -2,13 +2,9 @@ package taskle.logic.commands;
 
 import java.io.File;
 
-import taskle.commons.exceptions.IllegalValueException;
-import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
 
-/**
- * Opens data from specified file
- */
+//Opens data from specified file
 public class OpenFileCommand extends Command {
     
     public static final String COMMAND_WORD = "openfile";
