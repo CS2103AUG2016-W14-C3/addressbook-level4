@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import taskle.commons.core.Config;
+import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageDirectoryUtil;
 import taskle.logic.Logic;
@@ -25,9 +26,8 @@ public class ExistingFileDialog {
     private static final String DIALOG_HEADER = "A Taskle data file currently exists in the specified folder.";
     private static final String DIALOG_CONTENT = "Replace existing file?";
     
-    public static void load(ResultDisplay resultDisplay, Stage stage, Config config, File selectedDirectory) {
+    public static void load(ResultDisplay resultDisplay, Stage stage, File selectedDirectory) throws DataConversionException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle(config.getAppTitle());
         alert.setHeaderText(DIALOG_HEADER);
         alert.setContentText(DIALOG_CONTENT);
         alert.initOwner(stage);
@@ -35,6 +35,7 @@ public class ExistingFileDialog {
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             StorageDirectoryUtil.updateDirectory(selectedDirectory);
+            Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             resultDisplay.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
         } 
     }
