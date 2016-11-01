@@ -3,7 +3,6 @@ package taskle.logic.commands;
 import java.util.Date;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
@@ -15,9 +14,6 @@ import taskle.model.task.Task;
  */
 public class AddCommand extends Command {
     //@@author A0141780J
-
-    /** stub unique tag list used for every add commands for now */
-    UniqueTagList stubTagList = new UniqueTagList();
 
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_WORD_SHORT = "a";
@@ -40,7 +36,7 @@ public class AddCommand extends Command {
     public AddCommand(String name)
             throws IllegalValueException {
         assert (name != null);
-        this.toAdd = new FloatTask(new Name(name), stubTagList);
+        this.toAdd = new FloatTask(new Name(name));
     }
     
     /**
@@ -54,11 +50,11 @@ public class AddCommand extends Command {
         
         Name name = new Name(nameString);
         if (startDate != null && endDate != null) {
-            toAdd = new EventTask(name, startDate, endDate, stubTagList);
+            toAdd = new EventTask(name, startDate, endDate);
         } else if (endDate != null) {
-            toAdd = new DeadlineTask(name, endDate, stubTagList);
+            toAdd = new DeadlineTask(name, endDate);
         } else {
-            toAdd = new FloatTask(name, stubTagList);
+            toAdd = new FloatTask(name);
         }
         
         if (remindDate != null) {

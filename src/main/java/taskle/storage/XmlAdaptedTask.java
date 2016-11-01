@@ -1,14 +1,11 @@
 package taskle.storage;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import taskle.commons.exceptions.IllegalValueException;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
@@ -38,9 +35,6 @@ public class XmlAdaptedTask {
     @XmlElement(required = false)
     @XmlJavaTypeAdapter(XmlDateAdapter.class)
     private Date remindDate;
-
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
@@ -85,22 +79,22 @@ public class XmlAdaptedTask {
             final Date endDate = this.endDate;
             final Date startDate = this.startDate;
             if(remindDate != null) {
-                task = new EventTask(name ,startDate, endDate, remindDate, new UniqueTagList());
+                task = new EventTask(name ,startDate, endDate, remindDate);
             } else {
-                task = new EventTask(name ,startDate, endDate, new UniqueTagList());
+                task = new EventTask(name ,startDate, endDate);
             }
         } else if (endDate != null) {
             final Date endDate = this.endDate;
             if(remindDate != null) {
-                task = new DeadlineTask(name, endDate, remindDate, new UniqueTagList());
+                task = new DeadlineTask(name, endDate, remindDate);
             } else {
-                task = new DeadlineTask(name, endDate, new UniqueTagList());
+                task = new DeadlineTask(name, endDate);
             }
         } else {
             if(remindDate != null) {
-                task = new FloatTask(name, remindDate, new UniqueTagList());
+                task = new FloatTask(name, remindDate);
             } else {
-                task = new FloatTask(name, new UniqueTagList());
+                task = new FloatTask(name);
             }
         }
         task.setTaskDone(isTaskDone == 1);
