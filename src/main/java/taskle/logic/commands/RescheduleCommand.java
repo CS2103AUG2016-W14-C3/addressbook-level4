@@ -23,10 +23,11 @@ public class RescheduleCommand extends Command{
     public static final String COMMAND_WORD = "reschedule";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Reschedules or remove the date of the Task identified by the index number used in the last Task listing.\n"
-            + "Format: " + COMMAND_WORD + " task_number new_date new_time(optional)\n" + "Example: " 
-            + COMMAND_WORD + " 1 25 Nov 3pm ---> for rescheduling\tOR\t"
-            + COMMAND_WORD + " 1 clear ---> for removing the date";
+            + ": Reschedules or removes the date of an existing task in Taskle.\n"
+            + "\nFormat: " + COMMAND_WORD + " task_number to [date time] [remind date time]\n"
+            + "OR " + COMMAND_WORD + " task_number clear\n"
+            + "\nExample: " + COMMAND_WORD + " 2 to 7th October 7pm remind 6th October 7pm \nOR\t\n"
+            + COMMAND_WORD + " 1 clear (To Remove Date)";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Rescheduled Task: %1$s";
 
