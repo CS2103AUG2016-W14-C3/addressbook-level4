@@ -3,6 +3,7 @@ package taskle.logic.commands;
 import java.io.File;
 
 import taskle.commons.core.Messages;
+import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
@@ -28,12 +29,19 @@ public class ChangeDirectoryCommand extends Command {
     
     @Override
     public CommandResult execute() {
-        if (StorageUtil.updateDirectory(file)) {
-            return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()), true);
-        } else {
-            indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
+        try {
+            StorageUtil.storeConfig(true);
+            if (StorageUtil.updateDirectory(file)) {
+                return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()), true);
+            } else {
+                indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
+                return new CommandResult(MESSAGE_FAILURE, false);
+            }
+        } catch (DataConversionException e) {
+            e.printStackTrace();
             return new CommandResult(MESSAGE_FAILURE, false);
         }
+       
     }
 
     @Override
