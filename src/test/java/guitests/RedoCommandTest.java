@@ -51,8 +51,15 @@ public class RedoCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(RemoveCommand.COMMAND_WORD + " 1");
         currentList = TestUtil.removeTaskFromList(currentList, 1);
         assertRedoSuccess(RedoCommand.MESSAGE_NOTHING_TO_REDO, currentList);
-        
+    }
+    
+    private void assertRedoSuccess(String message, Task... expectedHits) {
+        commandBox.runCommand(RedoCommand.COMMAND_WORD);
 
+        assertListSize(expectedHits.length);
+        assertTrue(taskListPanel.isListMatching(expectedHits.length));
+        assertSuccessfulMessage(message);
+    }
     
     //Stores original taskManager directory and file name
     @Before
