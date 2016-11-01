@@ -318,12 +318,6 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 |      | `*`     | user | add reminders for my tasks                 | I would be reminded of my tasks when needed |
 |      | `*`     | user | delete reminders for my tasks              | I can remove reminders when they are not needed |
 |      | `*`     | user | edit reminders for my tasks                | I can change reminders when needed without removing and adding them again |
-| Epic |         | user | manage tags for my tasks                   |                                 |
-|      | `*`     | user | add tags to my tasks                       | I can label or categorize my tasks |
-|      | `*`     | user | delete tags for my tasks                   | I can remove tags when they are not needed |
-|      | `*`     | user | edit tags for my tasks                     | I can change tags when needed without removing and adding them again |
-| Epic |         | user | manage recurring tasks                     |                                 |
-|      | `*`     | user | add tasks that have to be done on a regular basis | I do not have to add them again |
 | Epic |         | user | make changes to my application configuration | I can customize it to suit my needs | 
 |      | `* * *` | user | specify a specific folder as the data storage location                       | I can save the data file into any directory I want |
 |      | `*`     | user | switch to using another existing data storage file                           | I can reuse my data storage file from another device or session |
