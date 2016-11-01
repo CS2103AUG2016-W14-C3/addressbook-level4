@@ -1,11 +1,16 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.File;
 
 import org.junit.Test;
 
+import taskle.commons.core.Config;
+import taskle.commons.exceptions.DataConversionException;
+import taskle.commons.util.ConfigUtil;
 import taskle.logic.commands.OpenFileCommand;
 
 //Test for opening a new file
@@ -31,7 +36,21 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
         String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + INVALID_FILE;
         assertOpenFileInvalidFile(command);
     }
-
+    
+    //Open a valid file
+    @Test
+    public void openFile_validFormat_FileOpened() throws DataConversionException {
+        String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + VALID_FILE;
+        assertOpenFileSuccess(command);
+    }
+    
+    private void assertOpenFileSuccess(String command) throws DataConversionException {
+        commandBox.runCommand(command);
+        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
+        assertEquals(config.getTaskManagerFileName(), VALID_FILE);
+    }
+    
     private void assertOpenFileInexistentFile(String command) {
         commandBox.runCommand(command);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenFileCommand.MESSAGE_USAGE));
