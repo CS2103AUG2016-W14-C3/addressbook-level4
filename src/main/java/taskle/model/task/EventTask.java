@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import taskle.commons.util.DateFormatUtil;
-import taskle.model.tag.UniqueTagList;
-//@@author A0141780J
 
 /**
  * Event task object that guarantees non-null fields for task
@@ -18,14 +16,14 @@ public class EventTask extends Task {
     private Date startDate;
     private Date endDate;
     
-    public EventTask(Name name, Date startDateTime, Date endDateTime, UniqueTagList tags) {
-        super(name, tags);
+    public EventTask(Name name, Date startDateTime, Date endDateTime) {
+        super(name);
         this.startDate = startDateTime;
         this.endDate = endDateTime;
     }
 
-    public EventTask(Name name, Date startDateTime, Date endDateTime, Date remindDate, UniqueTagList tags) {
-        super(name, remindDate, tags);
+    public EventTask(Name name, Date startDateTime, Date endDateTime, Date remindDate) {
+        super(name, remindDate);
         this.startDate = startDateTime;
         this.endDate = endDateTime;
     }

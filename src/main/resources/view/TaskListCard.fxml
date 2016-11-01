@@ -17,10 +17,9 @@
 			<columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="80.0" minWidth="12.0" prefWidth="16.0" />
 				<ColumnConstraints hgrow="NEVER" maxWidth="148.0" minWidth="30.0" prefWidth="70.0" />
-				<ColumnConstraints hgrow="NEVER" maxWidth="450.0" minWidth="450.0" prefWidth="450.0" />
-				<ColumnConstraints hgrow="NEVER" maxWidth="96.0" minWidth="10.0" prefWidth="57.0" />
-				<ColumnConstraints hgrow="NEVER" maxWidth="300.0" minWidth="10.0" prefWidth="300.0" />
-            <ColumnConstraints />
+				<ColumnConstraints hgrow="NEVER" maxWidth="450.0" minWidth="441.0" prefWidth="441.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="377.0" minWidth="10.0" prefWidth="362.0" />
+            <ColumnConstraints maxWidth="495.0" minWidth="432.0" prefWidth="447.0" />
 			</columnConstraints>
 			<rowConstraints>
 				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
@@ -30,11 +29,10 @@
                <GridPane.margin>
                   <Insets left="10.0" />
                </GridPane.margin></Label>
-				<Label fx:id="name" maxWidth="400.0" minWidth="200.0" prefWidth="400.0" styleClass="cell_big_label" text="\$name" GridPane.columnIndex="2" />
-				<Label fx:id="tags" styleClass="cell_small_label" text="\$tags" GridPane.columnIndex="3" />
-				<Label fx:id="reminderDate" minWidth="-Infinity" prefHeight="21.0" prefWidth="356.0" styleClass="cell_big_label" text="\$reminderDate" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
+				<Label fx:id="name" minWidth="-Infinity" prefWidth="450.0" styleClass="cell_big_label" text="\$name" GridPane.columnIndex="2" />
+				<Label fx:id="reminderDate" minWidth="-Infinity" prefHeight="21.0" prefWidth="359.0" styleClass="cell_big_label" text="\$reminderDate" textAlignment="RIGHT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" />
 					
-				<Label fx:id="details" minWidth="-Infinity" prefWidth="500.0" styleClass="cell_big_label" text="\$details" GridPane.columnIndex="5" GridPane.halignment="RIGHT" />
+				<Label fx:id="details" minWidth="-Infinity" prefHeight="21.0" prefWidth="445.0" styleClass="cell_big_label" text="\$details" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
             <Rectangle fx:id="colorTag" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" GridPane.vgrow="ALWAYS" />
 			</children>
 		</GridPane>

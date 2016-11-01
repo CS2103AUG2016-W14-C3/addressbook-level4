@@ -1,19 +1,16 @@
 package taskle.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.ReadOnlyTaskManager;
-import taskle.model.tag.Tag;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable TaskManager that is serializable to XML format
@@ -23,12 +20,9 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
-    @XmlElement
-    private List<Tag> tags;
 
     {
         tasks = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     /**
@@ -41,18 +35,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
      */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -79,11 +61,6 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
     }
 
 }

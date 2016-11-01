@@ -17,7 +17,7 @@ public class RemindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Either edits or removes the reminder date and time of an existing task in Taskle."
             + "\nIf only the reminder date but not the time is entered, the reminder time will default to 00:00 of the reminder date.\n"
-            + "\nFormat: " + COMMAND_WORD + " task_number new_date new_time (optional)\nor\n" + COMMAND_WORD + " task_number clear" 
+            + "\nFormat: " + COMMAND_WORD + " task_number [date time]\nor\n" + COMMAND_WORD + " task_number clear" 
             + "\n\nExample: " 
             + COMMAND_WORD + " 1 29 Nov 3pm (To Edit the Reminder Date and Time)\t\nor\n"
             + COMMAND_WORD + " 1 clear (To Remove the Reminder)";
@@ -45,16 +45,19 @@ public class RemindCommand extends Command {
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldRemindDate = taskToEdit.getRemindDetailsString();
-        
         try {
             model.storeTaskManager();
-            model.editTaskRemindDate(offsetIndex, remindDate);
+            String result = model.editTaskRemindDate(offsetIndex, remindDate);
+            if(result != null) {
+                indicateAttemptToExecuteIncorrectCommand(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, result));
+                return new CommandResult(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, result), false);
+            }
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
+
         ReadOnlyTask newTask = lastShownList.get(offsetIndex);
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + " " 
                                             + oldRemindDate + " -> " + newTask.getRemindDetailsString()), true);
-    }
-    
+    }    
 }

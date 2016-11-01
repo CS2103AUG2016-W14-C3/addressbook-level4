@@ -36,30 +36,24 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final List<CommandGuide> LIST_COMMAND_GUIDES = new ArrayList<>(
-            Arrays.asList(
-                    new CommandGuide("Adding", "add", "task_name", "[remind Date Time]"),
+            Arrays.asList(new CommandGuide("Addition of Tasks", "add", "task_name", "[remind date time]"),
                     new CommandGuide("", "add", "deadline_name", "by", 
-                            "Date [Time]", "[remind Date Time]"),
+                            "[date time]", "[remind date time]"),
                     new CommandGuide("", "add", "event_name", "from", 
-                            "Date [Time]", "to", "Date [Time]", "[remind Date Time]"),
-                    new CommandGuide("Renaming", "rename", "task_number", 
-                            "new_task_name"),
-                    new CommandGuide("", "reschedule", "task_number", 
-                            "[Date & Time]"),
-                    new CommandGuide("", "reschedule", "task_number", 
-                            "clear"),
-                    new CommandGuide("", "remind", "task_number", 
-                            "[Date & Time]"),
+                            "[date time]", "to", "[date time]", "[remind date time]"),
+                    new CommandGuide("Editing of Tasks", "edit", "task_number", "new_task_name"),
+                    new CommandGuide("", "reschedule", "task_number", "to", "[date time]", "[remind date time]"),
+                    new CommandGuide("", "reschedule", "task_number", "clear"),
+                    new CommandGuide("", "remind", "task_number", "[date time]"),
                     new CommandGuide("", "remind", "task_number", "clear"),
-                    new CommandGuide("Removing", "remove", "task_number"), 
+                    new CommandGuide("Removal of Tasks", "remove", "task_number"), 
                     new CommandGuide("Undo Previous Command", "undo"),
                     new CommandGuide("Redo Previous Command", "redo"),
-                    new CommandGuide("Finding", "find", "search_query",
-                            "[-status]"),
-                    new CommandGuide("Listing all tasks", "list", "[-status]"),
-                    new CommandGuide("Mark as Done", "done", "[task_number]"),
-                    new CommandGuide("Clearing All Tasks", "clear"),
-                    new CommandGuide("Showing Help Window", "help"),
+                    new CommandGuide("Finding of Tasks", "find", "keywords", "[-status]"),
+                    new CommandGuide("Listing of Tasks", "list", "[-status]"),
+                    new CommandGuide("Marking Tasks as Done", "done", "task_number"),
+                    new CommandGuide("Clearing of Tasks", "clear"),
+                    new CommandGuide("Help Window Display", "help"),
                     new CommandGuide("Exiting from Taskle", "exit")));
 
     private AnchorPane mainPane;

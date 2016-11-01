@@ -12,7 +12,6 @@ import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.DateFormatUtil;
 import taskle.logic.commands.RemindCommand;
 import taskle.logic.parser.DateParser;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 
@@ -38,7 +37,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
         assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
                 name + " " + oldRemindDate + " -> " + formattedNewDate);
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        FloatTask newTask = new FloatTask(new Name(name), date, new UniqueTagList());
+        FloatTask newTask = new FloatTask(new Name(name), date);
         assertMatching(newTask, addedCard);
     }
 
@@ -82,7 +81,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
         assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
                 name + " " + oldRemindDate + " -> " + formattedNewDate);
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        FloatTask newTask = new FloatTask(new Name(name), date, new UniqueTagList());
+        FloatTask newTask = new FloatTask(new Name(name), date);
         assertMatching(newTask, addedCard);
     }
     
