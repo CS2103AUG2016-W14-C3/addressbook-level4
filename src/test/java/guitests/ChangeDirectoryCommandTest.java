@@ -6,6 +6,7 @@ import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import java.io.File;
 import java.io.IOException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import taskle.commons.core.Config;
@@ -18,6 +19,9 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
     
     private static final String TEST_DATA_FOLDER = "src" + File.separator + "test" +
             File.separator + "data" + File.separator + "StorageDirectoryUtilTest";
+    
+    private Config config;
+    private String taskManagerDirectory;
     
     //Change to an invalid directory
     @Test
@@ -35,12 +39,25 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
     
     private void assertChangeDirectorySuccess(String command) throws DataConversionException, IOException {
         commandBox.runCommand(command);
-        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
+        restoreStorage();
     }
     
     private void assertChangeDirectoryInvalidDirectory(String command) {
         commandBox.runCommand(command);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeDirectoryCommand.MESSAGE_USAGE));
+    }
+    
+    //Stores original taskManager directory and file name
+    @Before
+    public void setUp() throws DataConversionException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        taskManagerDirectory = config.getTaskManagerFileDirectory();
+    }
+    
+    //Restores original taskManager directory
+    public void restoreStorage() throws IOException {
+        commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + taskManagerDirectory);
     }
 }
