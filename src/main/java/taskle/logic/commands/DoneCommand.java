@@ -16,6 +16,7 @@ public class DoneCommand extends Command {
             + ": Marks the task (identified by the index number) as done.\n"
             + "\nFormat: done task_number\n" 
             + "\nExample: " + COMMAND_WORD + " 5";
+    
     public static final String MESSAGE_DONE_TASK_SUCCESS = "Task Completed!";
 
     public final int targetIndex;

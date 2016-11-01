@@ -196,7 +196,7 @@ tasks to be displayed are the pending and overdue ones. (Done tasks are not show
 >	* list **-pending** **-overdue**
 
 Example:
-* `list` **`5`** **`-all`**
+* `list` **`-all`**
 
 <br>
 

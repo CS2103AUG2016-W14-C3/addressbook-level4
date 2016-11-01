@@ -10,12 +10,12 @@ public class RedoCommand extends Command {
     
     public static final String COMMAND_WORD_SHORT = "r";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo the undo command." + "Example: "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redoes a command that was previously undone." + "Example: "
             + COMMAND_WORD;
 
-    public static final String MESSAGE_SUCCESS = "Redid recently undone command.";
+    public static final String MESSAGE_SUCCESS = "Redid Undone Command.";
     
-    public static final String MESSAGE_NOTHING_TO_REDO = "Nothing to Redo.";
+    public static final String MESSAGE_NOTHING_TO_REDO = "There is Nothing to Redo.";
     
     public RedoCommand() {
         
