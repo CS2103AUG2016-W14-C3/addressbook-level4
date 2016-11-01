@@ -220,6 +220,7 @@ public class MainWindow extends UiPart {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
             ExistingFileDialog.load(notificationPane, primaryStage, selectedDirectory);
         } else {
+            StorageUtil.storeConfig(true);
             if (StorageUtil.updateDirectory(selectedDirectory)) {
                 config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
                 notificationPane.show(String.format(CHANGE_DIRECTORY_SUCCESS, config.getTaskManagerFileDirectory()));
@@ -241,6 +242,7 @@ public class MainWindow extends UiPart {
                 new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
+            StorageUtil.storeConfig(true);
             if (StorageUtil.updateFile(selectedFile)) {
                 notificationPane.show(CHANGE_FILE_SUCCESS);
             } else {
