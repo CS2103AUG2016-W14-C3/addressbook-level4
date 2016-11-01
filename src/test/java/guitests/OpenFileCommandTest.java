@@ -5,7 +5,10 @@ import static org.junit.Assert.assertTrue;
 import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.File;
+import java.io.IOException;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import taskle.commons.core.Config;
@@ -22,6 +25,10 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     private static final String INEXISTENT_FILE = " Inexistent.xml";
     private static final String INVALID_FILE = "InvalidFormatTaskManager.xml";
     private static final String VALID_FILE = "ValidFormatTaskManager.xml";
+    
+    private Config config;
+    private String taskManagerDirectory;
+    private String taskManagerFileName;
     
     //Open an inexistent file
     @Test
@@ -46,7 +53,7 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     
     private void assertOpenFileSuccess(String command) throws DataConversionException {
         commandBox.runCommand(command);
-        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
         assertEquals(config.getTaskManagerFileName(), VALID_FILE);
     }
@@ -59,5 +66,21 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     private void assertOpenFileInvalidFile(String command) {
         commandBox.runCommand(command);
         assertResultMessage(OpenFileCommand.MESSAGE_FAILURE);
+    }
+    
+    //Stores original taskManager directory and file name
+    @Before
+    public void setUp() throws DataConversionException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        taskManagerDirectory = config.getTaskManagerFileDirectory();
+        taskManagerFileName = config.getTaskManagerFileName();
+    }
+    
+    //Restores original taskManager directory and file name
+    @After
+    public void tearDown() throws IOException {
+        config.setTaskManagerFileDirectory(taskManagerDirectory);
+        config.setTaskManagerFileName(taskManagerFileName);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
     }
 }
