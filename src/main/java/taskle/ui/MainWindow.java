@@ -36,9 +36,10 @@ public class MainWindow extends UiPart {
     private static final String FILE_CHOOSER_NAME = "Taskle Data Files";
     private static final String FILE_CHOOSER_TYPE = "*.xml";
     private static final String CHANGE_FILE_SUCCESS = "Storage File has been changed.";
-    private static final String CHANGE_FILE_ERROR = "Invalid file format detected. Unable to open file";
-    private static final String CHANGE_DIRECTORY_SUCCESS = "Storage Directory has been changed to ";
-    
+    private static final String CHANGE_FILE_ERROR = "Invalid file format detected. Unable to open file.";
+    private static final String CHANGE_DIRECTORY_SUCCESS = "Storage Directory has been changed to %1$s";
+    private static final String CHANGE_DIRECTORY_FAILURE = "An error occurred when changing directory.";
+
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -202,9 +203,12 @@ public class MainWindow extends UiPart {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
             ExistingFileDialog.load(resultDisplay, primaryStage, selectedDirectory);
         } else {
-            StorageDirectoryUtil.updateDirectory(selectedDirectory);
-            config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
-            resultDisplay.postMessage(CHANGE_DIRECTORY_SUCCESS + config.getTaskManagerFileDirectory());
+            if (StorageDirectoryUtil.updateDirectory(selectedDirectory)) {
+                config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+                resultDisplay.postMessage(String.format(CHANGE_DIRECTORY_SUCCESS, config.getTaskManagerFileDirectory()));
+            } else {
+                resultDisplay.postMessage(CHANGE_DIRECTORY_FAILURE);
+            }
         }
     }
     

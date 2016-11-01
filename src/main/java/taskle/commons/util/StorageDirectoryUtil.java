@@ -18,7 +18,7 @@ import taskle.storage.XmlFileStorage;
  */
 public class StorageDirectoryUtil {
 
-    public static void updateDirectory(File selectedDirectory) {
+    public static boolean updateDirectory(File selectedDirectory) {
         assert selectedDirectory != null;
         try {
             Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
@@ -27,8 +27,9 @@ public class StorageDirectoryUtil {
             config.setTaskManagerFileDirectory(selectedDirectory.getAbsolutePath());
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
             EventsCenter.getInstance().post(new StorageChangeRequestEvent(config.getTaskManagerFilePath(),null));
+            return true;
         } catch (IOException | DataConversionException e) {
-            e.printStackTrace();
+            return false;
         }
     }
     
