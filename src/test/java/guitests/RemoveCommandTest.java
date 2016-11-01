@@ -3,6 +3,9 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 import static taskle.logic.commands.RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.junit.Test;
 
 import taskle.model.task.Task;
@@ -31,6 +34,11 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
         currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
         targetIndex = currentList.length/2;
         assertRemoveSuccess(targetIndex, currentList);
+        
+        // Multiple Deletions in One Shot
+        currentList = TestUtil.removeTaskFromList(currentList, targetIndex);
+        String targetIndexString = "2 4 1";
+        assertRemoveSuccessString(targetIndexString, currentList);
 
     }
 
@@ -40,7 +48,6 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
      * @param currentList A copy of the current list of persons (before deletion).
      */
     private void assertRemoveSuccess(int targetIndexOneIndexed, final Task[] currentList) {
-        Task taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
         Task[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("remove " + targetIndexOneIndexed);
@@ -51,5 +58,28 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
         //confirm the result message is correct
         assertSuccessfulMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, targetIndexOneIndexed));
     }
+    
+    private void assertRemoveSuccessString(String targetIndexOneIndexedString, final Task[] currentList) {
+        ArrayList<Integer> targetIndexOneIndexed = new ArrayList<Integer>();
+        
+        String argsTrim = targetIndexOneIndexedString.trim();
+        String[] s = argsTrim.split(" ");
+        for(int i=0; i<s.length; i++) {   
+            targetIndexOneIndexed.add(Integer.parseInt(s[i]));
+        }
+        Collections.sort(targetIndexOneIndexed);
+        Collections.reverse(targetIndexOneIndexed);
+               
+        commandBox.runCommand("remove " + targetIndexOneIndexedString);
+        
+        for(int j=0; j<s.length; j++) {
+            Task[] expectedRemainder = TestUtil.removeTaskFromList(currentList, targetIndexOneIndexed.get(j));
 
+            //confirm the list now contains all previous tasks except the deleted task
+            assertTrue(taskListPanel.isListMatching(expectedRemainder));
+            
+            //confirm the result message is correct
+            assertSuccessfulMessage(String.format(MESSAGE_DELETE_TASK_SUCCESS, targetIndexOneIndexed.get(j)));
+        }
+    }
 }
