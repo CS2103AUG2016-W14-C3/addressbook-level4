@@ -10,6 +10,7 @@ import taskle.commons.util.StorageUtil;
 public class ChangeDirectoryCommand extends Command {
 
     public static final String COMMAND_WORD = "changedirectory";
+    public static final String COMMAND_WORD_SHORT = "cd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads data from specified file.\n"
             + "Format: add directory\n"
@@ -41,11 +42,6 @@ public class ChangeDirectoryCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE, false);
         }
        
-    }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
     }
 
 }

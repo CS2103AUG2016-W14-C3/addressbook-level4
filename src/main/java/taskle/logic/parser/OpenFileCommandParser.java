@@ -30,7 +30,8 @@ public class OpenFileCommandParser extends CommandParser {
 
     @Override
     public boolean canParse(String commandWord) {
-        return commandWord.equals(OpenFileCommand.COMMAND_WORD);
+        return commandWord.equals(OpenFileCommand.COMMAND_WORD)
+               || commandWord.equals(OpenFileCommand.COMMAND_WORD_SHORT);
     }
 
 }

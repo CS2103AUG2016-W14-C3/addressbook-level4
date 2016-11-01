@@ -35,7 +35,8 @@ public class ChangeDirectoryCommandParser extends CommandParser {
 
     @Override
     public boolean canParse(String commandWord) {
-        return commandWord.equals(ChangeDirectoryCommand.COMMAND_WORD);
+        return commandWord.equals(ChangeDirectoryCommand.COMMAND_WORD)
+               || commandWord.equals(ChangeDirectoryCommand.COMMAND_WORD_SHORT);
     }
 
 }
