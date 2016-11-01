@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +16,6 @@ import org.junit.rules.TemporaryFolder;
 
 import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
-import taskle.logic.commands.ChangeDirectoryCommand;
 
 //@@author A0140047U
 public class StorageUtilTest {

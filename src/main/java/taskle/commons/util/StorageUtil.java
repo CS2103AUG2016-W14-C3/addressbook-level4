@@ -11,11 +11,7 @@ import taskle.model.ReadOnlyTaskManager;
 import taskle.storage.XmlFileStorage;
 
 //@@author A0140047U
-/**
- * 
- * Manage changes in directory of storage file
- *
- */
+//Manage changes in directory of storage file
 public class StorageUtil {
 
     public static boolean updateDirectory(File selectedDirectory) {
