@@ -29,7 +29,7 @@ public class AddCommand extends Command {
             + "or\nadd task_name from [date + time] to [date + time] [remind date + time]\n"
             + "\nExample: " + "add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
 
-    public static final String MESSAGE_SUCCESS = "Added new task: %1$s";
+    public static final String MESSAGE_SUCCESS = "Added New Task: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Taskle!";
 
     private final Task toAdd;
