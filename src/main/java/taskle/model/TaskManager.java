@@ -135,8 +135,8 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.editDate(index, dates);
     }
     
-    public void editTaskRemindDate(int index, Date date) throws TaskNotFoundException {
-        tasks.editRemindDate(index, date);
+    public String editTaskRemindDate(int index, Date date) throws TaskNotFoundException {
+        return tasks.editRemindDate(index, date);
     }
     
     public List<Task> verifyReminder(Date currentDateTime) {

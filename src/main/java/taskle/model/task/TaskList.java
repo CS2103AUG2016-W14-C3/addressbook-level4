@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import taskle.commons.core.LogsCenter;
+import taskle.commons.core.Messages;
 import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.TaskUtil;
 import taskle.ui.CommandBox;
@@ -150,18 +151,44 @@ public class TaskList implements Iterable<Task> {
      * @param date
      * @throws TaskNotFoundException
      */
-    public void editRemindDate(int index, Date date) throws TaskNotFoundException {
+    public String editRemindDate(int index, Date date) throws TaskNotFoundException {
         Optional<Task> toEditOp = Optional.of(internalList.get(index));
 
         if (!toEditOp.isPresent()) {
             throw new TaskNotFoundException();
         }
         Task toEdit = toEditOp.get();
+        
+        if(checkInvalidRemindDate(toEdit, date)) {
+            return Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE;
+        }
         toEdit.setRemindDate(date);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
+        return null;
     }
     
+    /**
+     * Method to check if the reminder date is after the end date of the task 
+     * @param task
+     * @param remindDate
+     * @return
+     */
+    private boolean checkInvalidRemindDate(Task task, Date remindDate) {
+        if(task instanceof DeadlineTask) {
+            if(remindDate.after(((DeadlineTask) task).getDeadlineDate())) {
+                return true;
+            }
+            return false;
+        }
+        if(task instanceof EventTask) {
+            if(remindDate.after(((EventTask) task).getEndDate())) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
     /**
      * Method to check through the current list of reminders for each task
      * and compare with the current system date time.
