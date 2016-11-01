@@ -51,17 +51,8 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     @Test
     public void setReminder_reminderPastEndDate_failure() throws IllegalValueException {
         String index = "1";
-        TaskCardHandle oldTask = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        String name = oldTask.getFullName();
         String newRemindDateString = "13 Dec 7pm";
-        Date date = DateParser.parse(newRemindDateString).get(0);
-        String formattedNewDate = DateFormatUtil.formatDate(date);
-        String oldRemindDate = oldTask.getRemindDetails();
-        assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
-                name + " " + oldRemindDate + " -> " + formattedNewDate);
-        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        FloatTask newTask = new FloatTask(new Name(name), date, new UniqueTagList());
-        assertMatching(newTask, addedCard);
+        assertRemindPastEndDate("remind " + index + " " + newRemindDateString);
     }
 
     
@@ -140,7 +131,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     
     private void assertRemindPastEndDate(String command) {
         commandBox.runCommand(command);
-        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.));
+        assertUnsuccessfulMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
     }
 
 }
