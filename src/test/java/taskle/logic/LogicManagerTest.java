@@ -338,22 +338,19 @@ public class LogicManagerTest {
     
     //@@author A0139402M
     @Test
-    public void execute_addFloatTaskReminderMorethanOneDate_returnIncorrectCommand() 
+    public void execute_addFloatTaskWithRemindInName_successful() 
             throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatTask toBeAdded = helper.adam();
+        Task toBeAdded = helper.generateTaskWithName("remind papa");
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
-        // setup starting state
-        model.addTask(toBeAdded); // task already in internal task manager
-
         // execute command and verify result
         assertCommandBehavior(
-                helper.ADD_BUY_GROCERIES_WITH_INVALID_REMINDER,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                              AddCommand.MESSAGE_USAGE),
+                helper.ADD_COMMAND_REMIND_PAPA,
+                String.format(AddCommand.MESSAGE_SUCCESS, 
+                              toBeAdded),
                 expectedAB,
                 expectedAB.getTaskList());
 
@@ -1016,8 +1013,8 @@ public class LogicManagerTest {
                 "add Get documents from Bob by 14 Apr to 15 Apr";
         private final String ADD_COMMAND_GET_DOCS_FROM_BOB_WITH_INVALID_REMINDER = 
                 "add Get documents from Bob by 14 Apr to 15 Apr remind 13 Apr to 14 Apr";
-        private final String ADD_BUY_GROCERIES_WITH_INVALID_REMINDER = 
-                "add Buy groceries remind 13 Apr 5pm to 13 Apr 6pm";
+        private final String ADD_COMMAND_REMIND_PAPA = 
+                "add remind papa";
         UniqueTagList stubTagList = new UniqueTagList();
 
         FloatTask adam() throws Exception {
