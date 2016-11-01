@@ -116,7 +116,15 @@ public class AddCommand extends Command {
         assert model != null;        
         model.storeTaskManager();
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd + " Reminder set on: " + toAdd.getRemindDetailsString()), true);
+        
+        // Display reminder message only when reminder is set
+        if (toAdd.getRemindDate() == null) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd 
+                    + " Reminder on: " + toAdd.getRemindDetailsString()), true);
+        }
+        
     }
 
     @Override
