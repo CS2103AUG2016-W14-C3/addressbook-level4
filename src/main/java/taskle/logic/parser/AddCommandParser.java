@@ -101,8 +101,8 @@ public class AddCommandParser extends CommandParser {
      * @param date
      * @return
      */
-    private boolean checkInvalidReminderDate(Date remindDate, Date date) {
-        if (remindDate.after(date)) {
+    private boolean checkInvalidReminderDate(Date remindDate, List<Date> date) {
+        if (remindDate.after(date.get(date.size() - 1))) {
             return true;
         }
         return false;
@@ -156,9 +156,10 @@ public class AddCommandParser extends CommandParser {
         if (dates.size() == 0) {
             return prepareFloatAdd(fullArgs, name, remindDate);
         }
-        
-        if(checkInvalidReminderDate(remindDate, dates.get(0))) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
+        if(remindDate != null) {
+            if(checkInvalidReminderDate(remindDate, dates)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
+            }
         }
 
         try {
@@ -192,9 +193,10 @@ public class AddCommandParser extends CommandParser {
         if (dates.size() == 0) {
             return prepareFloatAdd(fullArgs, name, remindDate);
         }
-        
-        if(checkInvalidReminderDate(remindDate, dates.get(1))) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
+        if(remindDate != null) {
+            if(checkInvalidReminderDate(remindDate, dates)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
+            }
         }
         
         try {
