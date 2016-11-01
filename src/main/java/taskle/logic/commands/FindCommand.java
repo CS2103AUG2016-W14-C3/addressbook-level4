@@ -11,10 +11,9 @@ public class FindCommand extends Command {
     
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks with names consisting of "
-            + "the specified keywords (case-sensitive)\nand displays them as a list with index numbers.\n"
-            + "Format: " + COMMAND_WORD + " search_query\n"
-            + "Example: " + COMMAND_WORD + " meeting";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks in Taskle that both contain the keywords and fulfill the specific status."
+            + "\n\nFormat: " + COMMAND_WORD + " keywords [-status]\n"
+            + "\nExample: " + COMMAND_WORD + " books";
 
     private final Set<String> keywords;
     
