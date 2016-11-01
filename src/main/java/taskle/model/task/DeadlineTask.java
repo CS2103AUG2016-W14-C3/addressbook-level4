@@ -4,8 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import taskle.commons.util.DateFormatUtil;
-import taskle.model.tag.UniqueTagList;
-//@@author A0141780J
 
 /**
  * Deadline task object that guarantees non-null fields for task and nullable
@@ -18,13 +16,13 @@ public class DeadlineTask extends Task {
 
     private Date deadlineDate;
 
-    public DeadlineTask(Name name, Date deadlineDate, UniqueTagList tags) {
-        super(name, tags);
+    public DeadlineTask(Name name, Date deadlineDate) {
+        super(name);
         this.deadlineDate = deadlineDate;
     }
     
-    public DeadlineTask(Name name, Date deadlineDate, Date remindDate, UniqueTagList tags) {
-        super(name, remindDate, tags);
+    public DeadlineTask(Name name, Date deadlineDate, Date remindDate) {
+        super(name, remindDate);
         this.deadlineDate = deadlineDate;
     }
     

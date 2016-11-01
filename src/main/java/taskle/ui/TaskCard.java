@@ -24,8 +24,6 @@ public class TaskCard extends UiPart {
     @FXML
     private Label id;
     @FXML
-    private Label tags;
-    @FXML
     private Label reminderDate;
     
     private ReadOnlyTask task;
@@ -53,7 +51,6 @@ public class TaskCard extends UiPart {
         details.setText(task.getDetailsString());
         reminderDate.setText(task.getRemindDetailsString());
         id.setText(displayedIndex + ". ");
-        tags.setText(task.tagsString());
     }
     
     private void setCardStyle() {

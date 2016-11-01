@@ -30,8 +30,6 @@ import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.FileUtil;
 import taskle.commons.util.XmlUtil;
 import taskle.model.TaskManager;
-import taskle.model.tag.Tag;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
@@ -72,35 +70,20 @@ public class TestUtil {
     private static Task[] getSamplePersonData() {
         try {
             return new Task[]{
-                    new FloatTask(new Name("Attend Meeting"), new UniqueTagList()),
-                    new FloatTask(new Name("Buy Milk"), new UniqueTagList()),
-                    new FloatTask(new Name("Create Plan"), new UniqueTagList()),
-                    new FloatTask(new Name("Donate"), new UniqueTagList()),
-                    new FloatTask(new Name("Event Planning"), new UniqueTagList()),
-                    new FloatTask(new Name("Fetch Brother"), new UniqueTagList()),
-                    new FloatTask(new Name("Go To Concert"), new UniqueTagList()),
-                    new FloatTask(new Name("Help Friend"), new UniqueTagList()),
-                    new FloatTask(new Name("Interview"), new UniqueTagList())
+                    new FloatTask(new Name("Attend Meeting")),
+                    new FloatTask(new Name("Buy Milk")),
+                    new FloatTask(new Name("Create Plan")),
+                    new FloatTask(new Name("Donate")),
+                    new FloatTask(new Name("Event Planning")),
+                    new FloatTask(new Name("Fetch Brother")),
+                    new FloatTask(new Name("Go To Concert")),
+                    new FloatTask(new Name("Help Friend")),
+                    new FloatTask(new Name("Interview"))
             };
         } catch (IllegalValueException e) {
             assert false;
             //not possible
             return null;
-        }
-    }
-
-    public static final Tag[] sampleTagData = getSampleTagData();
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                    new Tag("relatives"),
-                    new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
         }
     }
 
@@ -142,7 +125,7 @@ public class TestUtil {
     }
 
     public static TaskManager generateEmptyTaskManager() {
-        return new TaskManager(new TaskList(), new UniqueTagList());
+        return new TaskManager(new TaskList());
     }
 
     public static XmlSerializableTaskManager generateSampleStorageAddressBook() {
@@ -336,27 +319,6 @@ public class TestUtil {
 
     public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSameTask(task);
-    }
-
-    public static Tag[] getTagList(String tags) {
-
-        if (tags.equals("")) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }

@@ -2,20 +2,11 @@ package guitests;
 
 import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Date;
-
 import org.junit.Test;
 
-import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.RescheduleCommand;
-import taskle.logic.parser.DateParser;
-import taskle.model.tag.UniqueTagList;
-import taskle.model.task.DeadlineTask;
-import taskle.model.task.EventTask;
-import taskle.model.task.FloatTask;
-import taskle.model.task.Name;
 
 //@@author A0139402M
 public class RescheduleCommandTest extends TaskManagerGuiTest {

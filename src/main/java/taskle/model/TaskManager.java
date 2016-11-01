@@ -3,17 +3,11 @@ package taskle.model;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import taskle.model.tag.Tag;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
@@ -32,11 +26,9 @@ import taskle.model.task.TaskList.TaskNotFoundException;
 public class TaskManager implements ReadOnlyTaskManager {
 
     private final TaskList tasks;
-    private final UniqueTagList tags;
 
     {
         tasks = new TaskList();
-        tags = new UniqueTagList();
     }
 
     public TaskManager() {
@@ -46,21 +38,21 @@ public class TaskManager implements ReadOnlyTaskManager {
      * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(TaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
      * Tasks and Tags are copied into this taskmanager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
      * Tasks and Tags are copied into this taskmanager
      */
-    public TaskManager(TaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public TaskManager(TaskList tasks) {
+        resetData(tasks.getInternalList());
     }
 
     public static ReadOnlyTaskManager getEmptyTaskManager() {
@@ -77,63 +69,25 @@ public class TaskManager implements ReadOnlyTaskManager {
         this.tasks.getInternalList().setAll(tasks);
     }
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
-
-    public void resetData(Collection<? extends ReadOnlyTask> newTasks, Collection<Tag> newTags) {
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
         setTasks(newTasks.stream().map(t -> t.copy()).collect(Collectors.toList()));
-        setTags(newTags);
     }
 
     public void resetData(ReadOnlyTaskManager newData) {
-        resetData(newData.getTaskList(), newData.getTagList());
+        resetData(newData.getTaskList());
     }
 
     //// task-level operations
 
     /**
-<<<<<<< HEAD
-     * Adds a task to the address book. Also checks the new task's tags and
-     * updates {@link #tags} with any new tags found, and updates the Tag
-     * objects in the task to point to those in {@link #tags}.
-=======
      * Adds a task to the Task manager.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
->>>>>>> refs/heads/master
-     *
-<<<<<<< HEAD
-     * @throws UniqueTaskList.DuplicateTaskException
-     *             if an equivalent task already exists.
-=======
->>>>>>> refs/heads/master
+     * 
+     * @param p task to be added
      */
     public void addTask(Task p) {
-        syncTagsWithMasterList(p);
         tasks.add(p);
-    }
-
-    /**
-     * Ensures that every tag in this task: - exists in the master list
-     * {@link #tags} - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws TaskList.TaskNotFoundException {
@@ -167,19 +121,11 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.unDone(task);
     }
 
-
-    //// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-
     //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() + " tags";
-        // TODO: refine later
+        return tasks.getInternalList().size() + " tasks, ";
     }
 
     @Override
@@ -187,10 +133,6 @@ public class TaskManager implements ReadOnlyTaskManager {
         return Collections.unmodifiableList(tasks.getInternalList());
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
 
     @Override
     public TaskList getUniqueTaskList() {
@@ -198,23 +140,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskManager // instanceof handles nulls
-                        && this.tasks.equals(((TaskManager) other).tasks)
-                        && this.tags.equals(((TaskManager) other).tags));
+                        && this.tasks.equals(((TaskManager) other).tasks));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing
         // your own
-        return Objects.hash(tasks, tags);
+        return Objects.hash(tasks);
     }
 
 }

@@ -5,13 +5,11 @@ import java.util.Date;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.TaskManager;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
-import taskle.model.task.TaskList;
 
 /**
  *
@@ -20,22 +18,20 @@ public class TypicalTestTasks {
 
     public Task attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert, helpFriend, interview,
         charityEvent, assignmentDeadline, finalExams;
-    
-    private UniqueTagList stubTagList = new UniqueTagList();
-    
+        
     public TypicalTestTasks() {
         try {
-            attendMeeting =  new FloatTask(new Name("Attend Meeting"), stubTagList);
-            buyMilk = new FloatTask(new Name("Buy milk"), stubTagList);
-            createPlan = new FloatTask(new Name("Create Plan"), stubTagList);
-            deliverGoods = new FloatTask(new Name("Deliver milk"), stubTagList);
-            eatDinner = new FloatTask(new Name("Eat dinner"), stubTagList);
-            flyKite = new FloatTask(new Name("Fly kite"), stubTagList);
-            goConcert = new FloatTask(new Name("Go Concert"), stubTagList);
+            attendMeeting =  new FloatTask(new Name("Attend Meeting"));
+            buyMilk = new FloatTask(new Name("Buy milk"));
+            createPlan = new FloatTask(new Name("Create Plan"));
+            deliverGoods = new FloatTask(new Name("Deliver milk"));
+            eatDinner = new FloatTask(new Name("Eat dinner"));
+            flyKite = new FloatTask(new Name("Fly kite"));
+            goConcert = new FloatTask(new Name("Go Concert"));
 
             //Manually added
-            helpFriend = new FloatTask(new Name("Help friend"), stubTagList);
-            interview = new FloatTask(new Name("Interview with Google"), stubTagList);
+            helpFriend = new FloatTask(new Name("Help friend"));
+            interview = new FloatTask(new Name("Interview with Google"));
             
             //Events and deadlines
             prepareTimedTasks();
@@ -52,11 +48,11 @@ public class TypicalTestTasks {
         calendar.set(2016, 9, 10, 17, 0);
         Date endDate = calendar.getTime();
         charityEvent = new EventTask(new Name("Charity Event"), 
-                startDate, endDate, stubTagList);
+                startDate, endDate);
         calendar.set(2016, 10, 10, 23, 59);
         Date deadline = calendar.getTime();
         assignmentDeadline = new DeadlineTask(new Name("Assignment due"),
-                deadline, stubTagList);
+                deadline);
         
         // Manually added
         calendar.set(2016, 11, 01, 12, 00);
@@ -64,7 +60,7 @@ public class TypicalTestTasks {
         calendar.set(2016, 11, 01, 14, 00);
         endDate = calendar.getTime();
         finalExams = new EventTask(new Name("Final exams"), 
-                startDate, endDate, stubTagList);
+                startDate, endDate);
     }
 
     public void loadTaskManagerWithSampleData(TaskManager ab) {

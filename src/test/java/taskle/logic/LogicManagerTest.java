@@ -43,7 +43,6 @@ import taskle.model.Model;
 import taskle.model.ModelManager;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
@@ -833,7 +832,7 @@ public class LogicManagerTest {
         calendar.set(2016, 11, 01);
         Date deadlineDate = calendar.getTime();
         Task deadlineTask = new DeadlineTask(
-                new Name("Get soap to wash car"), deadlineDate, new UniqueTagList());
+                new Name("Get soap to wash car"), deadlineDate);
 
         List<Task> allTasks = helper.generateTaskList(task1, task2, deadlineTask);
         TaskManager expectedAB = helper.generateTaskManager(allTasks);
@@ -881,8 +880,7 @@ public class LogicManagerTest {
         Date deadlineDate = calendar.getTime();
         DeadlineTask task4 = new DeadlineTask(
                 new Name("Finish O levels"), 
-                deadlineDate, 
-                new UniqueTagList());
+                deadlineDate);
 
         List<Task> allTasks = helper.generateTaskList(task1, task2, task3, task4);
         helper.addToModel(model, allTasks);
@@ -910,8 +908,7 @@ public class LogicManagerTest {
         Date deadlineDate = calendar.getTime();
         DeadlineTask task4 = new DeadlineTask(
                 new Name("Finish O levels"), 
-                deadlineDate, 
-                new UniqueTagList());
+                deadlineDate);
 
         List<Task> allTasks = helper.generateTaskList(task1, task2, task3, task4);
         helper.addToModel(model, allTasks);
@@ -952,11 +949,10 @@ public class LogicManagerTest {
                 "add Get documents from Bob by 14 Apr to 15 Apr remind 13 Apr to 14 Apr";
         private final String ADD_BUY_GROCERIES_WITH_INVALID_REMINDER = 
                 "add Buy groceries remind 13 Apr 5pm to 13 Apr 6pm";
-        UniqueTagList stubTagList = new UniqueTagList();
 
         FloatTask adam() throws Exception {
             Name name = new Name("Adam Brown");
-            return new FloatTask(name, stubTagList);
+            return new FloatTask(name);
         }
         
         
@@ -964,7 +960,7 @@ public class LogicManagerTest {
             Name name = new Name("Do homework for CS2103T");
             CALENDAR.set(2016, 8, 12, 10, 00, 00);
             Date remindDate = CALENDAR.getTime();
-            return new FloatTask(name, remindDate, stubTagList);
+            return new FloatTask(name, remindDate);
         }
         
         EventTask finalExams() throws Exception {
@@ -973,7 +969,7 @@ public class LogicManagerTest {
             Date startDate = CALENDAR.getTime();
             CALENDAR.set(2016, 8, 12, 13, 00, 00);
             Date endDate = CALENDAR.getTime();
-            return new EventTask(name, startDate, endDate, stubTagList);
+            return new EventTask(name, startDate, endDate);
         }
         
         EventTask finalExamsWithReminder() throws Exception {
@@ -984,7 +980,7 @@ public class LogicManagerTest {
             Date endDate = CALENDAR.getTime();
             CALENDAR.set(2016, 8, 10, 10, 00, 00);
             Date remindDate = CALENDAR.getTime();
-            return new EventTask(name, startDate, endDate, remindDate, stubTagList);
+            return new EventTask(name, startDate, endDate, remindDate);
         }
         
         EventTask getDocsFromBobWithReminder() throws Exception {
@@ -995,7 +991,7 @@ public class LogicManagerTest {
             Date endDate = CALENDAR.getTime();
             CALENDAR.set(2016, 3, 13, 00, 00, 00);
             Date remindDate = CALENDAR.getTime();
-            return new EventTask(name, startDate, endDate, remindDate, stubTagList);
+            return new EventTask(name, startDate, endDate, remindDate);
         }
         
         
@@ -1003,7 +999,7 @@ public class LogicManagerTest {
             Name name = new Name("Finish Assignment");
             CALENDAR.set(2016, 11, 31, 23, 59, 00);
             Date byDate = CALENDAR.getTime();
-            return new DeadlineTask(name, byDate, stubTagList);
+            return new DeadlineTask(name, byDate);
         }
         
         DeadlineTask finishAssignmentWithReminder() throws Exception {
@@ -1012,7 +1008,7 @@ public class LogicManagerTest {
             Date byDate = CALENDAR.getTime();
             CALENDAR.set(2016, 11, 29, 23, 59, 00);
             Date remindDate = CALENDAR.getTime();
-            return new DeadlineTask(name, byDate, remindDate, stubTagList);
+            return new DeadlineTask(name, byDate, remindDate);
         }
         
         
@@ -1028,7 +1024,7 @@ public class LogicManagerTest {
             Date startDate = calendar.getTime();
             calendar.set(Calendar.HOUR_OF_DAY, 14);
             Date endDate = calendar.getTime();
-            return new EventTask(name, startDate, endDate, stubTagList);
+            return new EventTask(name, startDate, endDate);
         }
         
         EventTask gardensByTheBay() throws Exception {
@@ -1038,7 +1034,7 @@ public class LogicManagerTest {
             Date startDate = calendar.getTime();
             calendar.add(Calendar.HOUR_OF_DAY, 2);
             Date endDate = calendar.getTime();
-            return new EventTask(name, startDate, endDate, stubTagList);
+            return new EventTask(name, startDate, endDate);
         }
         
         EventTask newYearDay() throws Exception {
@@ -1046,12 +1042,12 @@ public class LogicManagerTest {
             Calendar calendar = Calendar.getInstance();
             calendar.set(2017, 0, 1, 0, 0);
             Date onDate = calendar.getTime();
-            return new EventTask(name, onDate, onDate, stubTagList);
+            return new EventTask(name, onDate, onDate);
         }
         
         FloatTask getFoodFromChinatown() throws Exception {
             Name name = new Name("Get food from Chinatown");
-            return new FloatTask(name, stubTagList);
+            return new FloatTask(name);
         }
 
         /**
@@ -1063,7 +1059,7 @@ public class LogicManagerTest {
          */
         Task generateTask(int seed) throws Exception {
             return new FloatTask(
-                    new Name("Task " + seed), stubTagList);
+                    new Name("Task " + seed));
         }
 
         /** Generates the correct add command based on the task given */
@@ -1166,7 +1162,7 @@ public class LogicManagerTest {
          */
         Task generateTaskWithName(String name) throws Exception {
             return new FloatTask(
-                    new Name(name), stubTagList);
+                    new Name(name));
         }
     }
 }

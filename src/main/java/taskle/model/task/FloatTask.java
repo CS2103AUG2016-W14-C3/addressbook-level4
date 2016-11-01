@@ -2,9 +2,6 @@ package taskle.model.task;
 
 import java.util.Date;
 
-import taskle.model.tag.UniqueTagList;
-//@@author A0141780J
-
 /**
  * A Task with no other details like time and dates.
  * It only guarantees a task name.
@@ -13,12 +10,12 @@ import taskle.model.tag.UniqueTagList;
  */
 public class FloatTask extends Task {
 
-    public FloatTask(Name name, UniqueTagList tags) {
-        super(name, tags);
+    public FloatTask(Name name) {
+        super(name);
     }
     
-    public FloatTask(Name name, Date remindDate, UniqueTagList tags) {
-        super(name, remindDate, tags);
+    public FloatTask(Name name, Date remindDate) {
+        super(name, remindDate);
     }
     
     /**

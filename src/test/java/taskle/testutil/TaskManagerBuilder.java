@@ -1,8 +1,6 @@
 package taskle.testutil;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.TaskManager;
-import taskle.model.tag.Tag;
 import taskle.model.task.Task;
 
 /**
@@ -20,11 +18,6 @@ public class TaskManagerBuilder {
 
     public TaskManagerBuilder withPerson(Task task) {
         taskManager.addTask(task);
-        return this;
-    }
-
-    public TaskManagerBuilder withTag(String tagName) throws IllegalValueException {
-        taskManager.addTag(new Tag(tagName));
         return this;
     }
 

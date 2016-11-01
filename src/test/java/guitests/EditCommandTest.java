@@ -8,7 +8,6 @@ import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.EditCommand;
-import taskle.model.tag.UniqueTagList;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
@@ -31,7 +30,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
         assertEditResultSuccess(command, oldName + " -> " + newTaskName);
 
         TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
-        FloatTask newTask = new FloatTask(newName, new UniqueTagList());
+        FloatTask newTask = new FloatTask(newName);
         assertMatching(newTask, addedCard);
     }
     
