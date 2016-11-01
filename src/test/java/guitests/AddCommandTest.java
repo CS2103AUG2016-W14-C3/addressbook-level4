@@ -75,7 +75,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         commandBox.runCommand(AddCommand.COMMAND_WORD + " Buy Groceries for home " 
                 + "remind 15 Oct 7pm");
-        assertSuccessfulMessage("New task added: Buy Groceries for home Reminder on: 7:00PM, 15 Oct 2016");
+        assertSuccessfulMessage(
+                String.format(AddCommand.MESSAGE_SUCCESS,  
+                "Buy Groceries for home Reminder on: 7:00PM, 15 Oct 2016"));
     }
     
     @Test
@@ -90,7 +92,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         commandBox.runCommand(AddCommand.COMMAND_WORD + " Buy Groceries for home by 4pm 26 Oct "
                 + "remind 26 Oct 3pm");
-        assertSuccessfulMessage("New task added: Buy Groceries for home by 4:00PM, 26 Oct 2016 Reminder on: 3:00PM, 26 Oct 2016");
+        assertSuccessfulMessage(
+                String.format(AddCommand.MESSAGE_SUCCESS,  
+                "Buy Groceries for home by 4:00PM, 26 Oct 2016 Reminder on: 3:00PM, 26 Oct 2016"));
     }
     
     @Test
@@ -105,7 +109,9 @@ public class AddCommandTest extends TaskManagerGuiTest {
         
         commandBox.runCommand(AddCommand.COMMAND_WORD + " Tuition from 26 Oct 9am to 11am " 
                 + "remind 26 Oct 8am");
-        assertSuccessfulMessage("New task added: Tuition from 9:00AM to 11:00AM, 26 Oct 2016 Reminder on: 8:00AM, 26 Oct 2016");
+        assertSuccessfulMessage(
+                String.format(AddCommand.MESSAGE_SUCCESS,  
+                "Tuition from 9:00AM to 11:00AM, 26 Oct 2016 Reminder on: 8:00AM, 26 Oct 2016"));
     }
     //@@author
     
