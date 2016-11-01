@@ -88,5 +88,22 @@ public class StorageUtil {
         return true;
     }
     
-    
+    public static boolean revertConfig() throws DataConversionException {
+        if (redoConfigHistory.isEmpty()) {
+            return false;
+        }
+        Config redoConfig = redoConfigHistory.pop();
+        Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        configHistory.push(currentConfig);
+        
+        if (redoConfig == null) {
+            configHistory.push(null);
+            return false;
+        } else if (redoConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())) {
+            updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
+        } else {
+            updateFile(new File(redoConfig.getTaskManagerFilePath()));
+        }
+        return true;
+    }
 }
