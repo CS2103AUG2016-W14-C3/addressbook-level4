@@ -51,6 +51,17 @@ public class RedoCommandTest extends TaskManagerGuiTest {
         commandBox.runCommand(RemoveCommand.COMMAND_WORD + " 1");
         currentList = TestUtil.removeTaskFromList(currentList, 1);
         assertRedoSuccess(RedoCommand.MESSAGE_NOTHING_TO_REDO, currentList);
+        
+        //Redo after undo of storage directory change
+        try {
+            commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER);
+            commandBox.runCommand(UndoCommand.COMMAND_WORD);
+            assertRedoDirectorySuccess(RedoCommand.MESSAGE_SUCCESS);
+            restoreStorage();
+        } catch (DataConversionException | IOException e) {
+            e.printStackTrace();
+        }
+        
     }
     
     private void assertRedoSuccess(String message, Task... expectedHits) {
@@ -59,6 +70,19 @@ public class RedoCommandTest extends TaskManagerGuiTest {
         assertListSize(expectedHits.length);
         assertTrue(taskListPanel.isListMatching(expectedHits.length));
         assertSuccessfulMessage(message);
+    }
+    
+    //Assertion for redo in change of directory
+    private void assertRedoDirectorySuccess(String message) throws DataConversionException {
+        commandBox.runCommand(RedoCommand.COMMAND_WORD);
+        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
+        assertSuccessfulMessage(message);
+    }
+  
+    //Restores original taskManager directory
+    public void restoreStorage() throws IOException {
+        commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + taskManagerDirectory);
     }
     
     //Stores original taskManager directory and file name
