@@ -25,9 +25,20 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
         assertOpenFileInexistentFile(command);
     }
     
+    //Open an invalid file
+    @Test
+    public void openFile_invalidFile_errorMessageShown() {
+        String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + INVALID_FILE;
+        assertOpenFileInvalidFile(command);
+    }
+
     private void assertOpenFileInexistentFile(String command) {
         commandBox.runCommand(command);
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, OpenFileCommand.MESSAGE_USAGE));
     }
     
+    private void assertOpenFileInvalidFile(String command) {
+        commandBox.runCommand(command);
+        assertResultMessage(OpenFileCommand.MESSAGE_FAILURE);
+    }
 }
