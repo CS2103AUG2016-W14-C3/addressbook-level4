@@ -4,8 +4,9 @@ import java.io.File;
 import java.io.IOException;
 
 import taskle.commons.core.Config;
+import taskle.commons.core.EventsCenter;
+import taskle.commons.events.storage.StorageChangeRequestEvent;
 import taskle.commons.exceptions.DataConversionException;
-import taskle.logic.Logic;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.storage.XmlFileStorage;
 
@@ -17,31 +18,30 @@ import taskle.storage.XmlFileStorage;
  */
 public class StorageDirectoryUtil {
 
-    public static void updateDirectory(Logic logic, File selectedDirectory) {
+    public static void updateDirectory(File selectedDirectory) {
         assert selectedDirectory != null;
-        Config config = new Config();
         try {
+            Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).delete();
             new File(config.getTaskManagerFilePath()).renameTo(new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()));
             config.setTaskManagerFileDirectory(selectedDirectory.getAbsolutePath());
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
-            logic.changeDirectory(config.getTaskManagerFilePath());
-        } catch (IOException e) {
+            EventsCenter.getInstance().post(new StorageChangeRequestEvent(config.getTaskManagerFilePath(),null));
+        } catch (IOException | DataConversionException e) {
             e.printStackTrace();
         }
     }
     
-    public static boolean updateFile(Logic logic, File selectedFile) {
+    public static boolean updateFile(File selectedFile) {
         assert selectedFile != null;
-        Config config = new Config();
         ReadOnlyTaskManager newTaskManager;
         try {
+            Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             newTaskManager = XmlFileStorage.loadDataFromSaveFile(selectedFile);
             config.setTaskManagerFileDirectory(splitFilePath(selectedFile.getAbsolutePath())[0]);
             config.setTaskManagerFileName(splitFilePath(selectedFile.getAbsolutePath())[1]);
             ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
-            logic.changeDirectory(config.getTaskManagerFilePath());
-            logic.resetModel(newTaskManager);
+            EventsCenter.getInstance().post(new StorageChangeRequestEvent(config.getTaskManagerFilePath(), newTaskManager));
             return true;
         } catch (IOException | DataConversionException e) {
             return false;
