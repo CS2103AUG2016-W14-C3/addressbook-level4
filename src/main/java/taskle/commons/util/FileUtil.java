@@ -14,6 +14,10 @@ public class FileUtil {
         return file.exists() && file.isFile();
     }
 
+    public static boolean isDirectoryExists(File file) {
+        return file.isDirectory();
+    }
+    
     public static void createIfMissing(File file) throws IOException {
         if (!isFileExists(file)) {
             createFile(file);

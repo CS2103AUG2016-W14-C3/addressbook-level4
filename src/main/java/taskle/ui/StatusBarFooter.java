@@ -8,7 +8,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.events.model.TaskManagerChangedEvent;
-import taskle.commons.events.storage.StorageLocationChangedEvent;
+import taskle.commons.events.storage.StorageChangedEvent;
 import taskle.commons.util.FxViewUtil;
 
 import org.controlsfx.control.StatusBar;
@@ -100,7 +100,7 @@ public class StatusBarFooter extends UiPart {
     
     //@@author A0140047U
     @Subscribe
-    public void handleStorageLocationChangedEvent(StorageLocationChangedEvent slce) {
+    public void handleStorageLocationChangedEvent(StorageChangedEvent slce) {
         String lastUpdated = (new Date()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(slce, "Setting last updates status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
