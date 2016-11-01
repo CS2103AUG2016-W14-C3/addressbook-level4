@@ -4,10 +4,12 @@ package taskle.storage;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.storage.DataSavingExceptionEvent;
+import taskle.commons.events.storage.StorageChangedEvent;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.TaskManager;
 import taskle.model.UserPrefs;
@@ -28,6 +30,11 @@ public class StorageManagerTest {
 
     private StorageManager storageManager;
 
+    private final static String TEMP_PATH = "data/taskmanager.xml";
+    
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
@@ -81,7 +88,23 @@ public class StorageManagerTest {
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
+    //@@author A0140047U
+    //Sets TaskManager File Path based on null value - should result in assertion error
+    @Test
+    public void setTaskManagerFilePath_nullValue_assertionError() {
+        thrown.expect(AssertionError.class);
+        storageManager.setTaskManagerFilePath(null);
+    }
+    
+    //Sets TaskManager File Path - StorageLocationChangedEvent should be raised
+    @Test
+    public void setTaskManagerFilePath_validPath_raiseEvent() {
+        EventsCollector eventCollector = new EventsCollector();
+        storageManager.setTaskManagerFilePath(TEMP_PATH);
+        assertTrue(eventCollector.get(0) instanceof StorageChangedEvent);
+    }
 
+    //@@author
     /**
      * A Stub class to throw an exception when the save method is called
      */

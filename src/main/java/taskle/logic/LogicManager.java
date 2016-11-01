@@ -4,13 +4,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
+import taskle.commons.events.storage.StorageChangeRequestEvent;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
 import taskle.logic.parser.Parser;
 import taskle.model.Model;
+import taskle.model.ReadOnlyTaskManager;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
 import taskle.storage.Storage;
@@ -44,6 +48,7 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredTaskList();
     }
     
+    //@@author A0140047U
     @Override
     public void changeDirectory(String filePath) {
         logger.info("----------------[CHANGE DIRECTORY][" + filePath + "]");
@@ -58,5 +63,19 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public void dismissReminder(Date currentDateTime) {
         model.dismissReminder(currentDateTime);
+    }
+    
+    @Override
+    public void resetModel(ReadOnlyTaskManager taskManager) {
+        model.resetData(taskManager);
+    }
+    
+    @Override
+    @Subscribe
+    public void handleStorageChangeRequestEvent(StorageChangeRequestEvent scre) {
+        changeDirectory(scre.getDirectory());
+        if (scre.getTaskManager() != null) {
+            resetModel(scre.getTaskManager());
+        }
     }
 }

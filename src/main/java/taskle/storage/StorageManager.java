@@ -10,7 +10,7 @@ import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.storage.DataSavingExceptionEvent;
-import taskle.commons.events.storage.StorageLocationChangedEvent;
+import taskle.commons.events.storage.StorageChangedEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.UserPrefs;
@@ -88,10 +88,12 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
-
+    
+    //@@author A0140047U
     @Override
     public void setTaskManagerFilePath(String filePath) {
+        assert filePath != null;
         taskManagerStorage = new XmlTaskManagerStorage(filePath);
-        raise(new StorageLocationChangedEvent(taskManagerStorage));
+        raise(new StorageChangedEvent(taskManagerStorage));
     }
 }

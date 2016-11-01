@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import taskle.commons.events.storage.StorageChangeRequestEvent;
 import taskle.logic.commands.CommandResult;
+import taskle.model.ReadOnlyTaskManager;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
 
@@ -22,9 +24,17 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    //@@author A0140047U
+    /** Updates directory to given filePath */
     void changeDirectory(String filePath);
     
     List<Task> verifyReminder(Date currentDateTime);
     
     void dismissReminder(Date currentDateTime);
+
+    /** Resets Model based on given data */
+    void resetModel(ReadOnlyTaskManager taskManager);
+    
+    //Changes directory and reset model, if necessary
+    void handleStorageChangeRequestEvent(StorageChangeRequestEvent srce);
 }
