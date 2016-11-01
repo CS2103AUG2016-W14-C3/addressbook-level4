@@ -17,7 +17,7 @@ public class RemindCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Either edits or removes the reminder date and time of an existing task in Taskle."
             + "\nIf only the reminder date but not the time is entered, the reminder time will default to 00:00 of the reminder date.\n"
-            + "\nFormat: " + COMMAND_WORD + " task_number new_date new_time (optional)\nor\n" + COMMAND_WORD + " task_number clear" 
+            + "\nFormat: " + COMMAND_WORD + " task_number [date time]\nor\n" + COMMAND_WORD + " task_number clear" 
             + "\n\nExample: " 
             + COMMAND_WORD + " 1 29 Nov 3pm (To Edit the Reminder Date and Time)\t\nor\n"
             + COMMAND_WORD + " 1 clear (To Remove the Reminder)";
