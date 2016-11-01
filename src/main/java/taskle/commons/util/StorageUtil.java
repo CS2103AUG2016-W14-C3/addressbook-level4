@@ -69,5 +69,24 @@ public class StorageUtil {
         }
     }
     
+    public static boolean restoreConfig() throws DataConversionException {
+        if (configHistory.isEmpty()) {
+            return false;
+        }
+        Config originalConfig = configHistory.pop();
+        Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        redoConfigHistory.push(currentConfig);
+        
+        if (originalConfig == null) {
+            redoConfigHistory.push(null);
+            return false;
+        } else if (originalConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())) {
+            updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
+        } else {
+            updateFile(new File(originalConfig.getTaskManagerFilePath()));
+        }
+        return true;
+    }
+    
     
 }
