@@ -36,7 +36,7 @@ public class ExistingFileDialog {
             StorageUtil.updateDirectory(selectedDirectory);
             Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             
-            notificationPane.postMessage("Directory changed to: " + config.getTaskManagerFileDirectory());
+            notificationPane.show("Directory changed to: " + config.getTaskManagerFileDirectory());
         } 
     }
 }
