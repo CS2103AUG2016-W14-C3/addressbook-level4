@@ -24,7 +24,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
 
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task Manager";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Taskle!";
 
     public final int targetIndex;
 
