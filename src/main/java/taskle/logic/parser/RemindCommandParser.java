@@ -47,11 +47,7 @@ public class RemindCommandParser extends CommandParser{
         }
         
         if (newRemindDateTime.indexOf("clear") == 0) {
-            try {
-                return new RemindCommand(index.get(), null);
-            } catch (IllegalValueException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
+            clearRemind(index);
         }
         
         List<Date> dates = DateParser.parse(newRemindDateTime);
@@ -65,5 +61,13 @@ public class RemindCommandParser extends CommandParser{
             return new IncorrectCommand(e.getMessage());
         }
 
+    }
+    
+    private Command clearRemind(Optional<Integer> index) {
+        try {
+            return new RemindCommand(index.get(), null);
+        } catch (IllegalValueException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
     }
 }
