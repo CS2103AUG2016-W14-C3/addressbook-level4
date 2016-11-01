@@ -31,6 +31,7 @@ public interface Logic {
     List<Task> verifyReminder(Date currentDateTime);
     
     void dismissReminder(Date currentDateTime);
+
     /** Resets Model based on given data */
     void resetModel(ReadOnlyTaskManager taskManager);
     

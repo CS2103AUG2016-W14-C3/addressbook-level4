@@ -8,6 +8,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
+import javax.management.Notification;
+
+import org.controlsfx.control.Notifications;
+
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.Stage;
@@ -15,7 +19,12 @@ import taskle.commons.core.LogsCenter;
 import taskle.logic.Logic;
 import taskle.model.task.Task;
 
-// Java 8 code
+/**
+ * Code for system tray for the application.
+ * Handles reminders notification
+ * @author zhiyong
+ * @@author A0139402M
+ */
 public class SystemTray {
 
     private static final int NOTIFICATION_INTERVAL = 60 * 1000;
@@ -56,7 +65,19 @@ public class SystemTray {
     public void addAppToTray() {
         // ensure awt toolkit is initialized.
         java.awt.Toolkit.getDefaultToolkit();
-
+        
+        // app requires system tray support, just exit if there is no support.
+        if (!java.awt.SystemTray.isSupported()) {
+            String error = "No system tray support, application running without system tray.";
+            logger.severe(error);
+            Notifications.create()
+                .title("Error")
+                .text(error)
+                .showWarning();
+            return;
+        }
+        
+        
         tray = setupTray();
         trayIcon = setupTrayIcon();
         addMenuItems(tray, trayIcon);
@@ -76,11 +97,6 @@ public class SystemTray {
      * @return
      */
     private java.awt.SystemTray setupTray() {
-        // app requires system tray support, just exit if there is no support.
-        if (!java.awt.SystemTray.isSupported()) {
-            System.out.println("No system tray support, application exiting.");
-            Platform.exit();
-        }
 
         // set up a system tray.
         java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
@@ -162,7 +178,6 @@ public class SystemTray {
                     }
                     sb.append("\n");
                 }
-                
                 javax.swing.SwingUtilities.invokeLater(() -> trayIcon.displayMessage("Reminder!",
                         sb.toString(), java.awt.TrayIcon.MessageType.INFO));
                 

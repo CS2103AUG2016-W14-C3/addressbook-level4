@@ -50,13 +50,13 @@ public class UiManager extends ComponentManager implements Ui {
         Image iconImage = getImage(ICON_APPLICATION);
         //Set the application icon.
         primaryStage.getIcons().add(iconImage);
+        SystemTray systemTray = new SystemTray(logic, iconImage, primaryStage);
+        systemTray.addAppToTray();
         
         try {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
-            SystemTray systemTray = new SystemTray(logic, iconImage, primaryStage);
-            systemTray.addAppToTray();
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
