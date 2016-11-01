@@ -53,12 +53,4 @@ public abstract class Command {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(feedbackToUser));
     }
     
-    /**
-     * Gets list of tasks affected by command
-     * @return list of affected tasks
-     */
-    public List<Task> getTasksAffected() {
-        return tasksAffected;
-    }
-    
 }

@@ -17,9 +17,7 @@ import taskle.model.task.Task;
 public class AddCommand extends Command {
     //@@author A0141780J
 
-    /** 
-     * stub unique tag list used for every add commands for now
-     */
+    /** stub unique tag list used for every add commands for now */
     UniqueTagList stubTagList = new UniqueTagList();
 
     public static final String COMMAND_WORD = "add";
@@ -46,7 +44,8 @@ public class AddCommand extends Command {
     }
     
     /**
-     * Convenience constructor with name and reminder
+     * Convenience constructor with name and reminder.
+     * 
      * @param name
      * @throws IllegalValueException
      */
@@ -70,9 +69,12 @@ public class AddCommand extends Command {
         this.toAdd = new DeadlineTask(new Name(name), deadlineDate, stubTagList);
     }
     
+    //@@author A0139402M 
+    
     /**
-     * Convenience constructor using name,
-     * date for deadline and reminder
+     * Convenience constructor using name, deadline date and reminder
+     * date for deadline and reminder.
+     * 
      * @param name
      * @param deadlineDate
      * @param remindDate
@@ -87,6 +89,7 @@ public class AddCommand extends Command {
         this.toAdd = new DeadlineTask(new Name(name), deadlineDate, reminderDate, stubTagList);
     }
     
+    //@@author A0141780J
     
     /**
      * Convenience constructor using raw name 
@@ -100,6 +103,8 @@ public class AddCommand extends Command {
         assert endDate != null;
         this.toAdd = new EventTask(new Name(name), startDate, endDate, stubTagList);
     }
+    
+    //@@author A0139402M 
 
     public AddCommand(String name, Date startDate, Date endDate, List<Date> remindDate)
             throws IllegalValueException {
@@ -111,6 +116,7 @@ public class AddCommand extends Command {
         this.toAdd = new EventTask(new Name(name), startDate, endDate, reminderDate, stubTagList);
     }
     
+    //@@author A0141780J 
 
     @Override
     public CommandResult execute() {
