@@ -21,7 +21,7 @@ public class RemindCommand extends Command {
             + COMMAND_WORD + " 1 29 Nov 3pm (To Edit the Reminder Date and Time)\t\nor\n"
             + COMMAND_WORD + " 1 clear (To Remove the Reminder)";
 
-    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Set Reminder Date: %1$s";
+    public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Reminder Date: %1$s";
 
     public final int targetIndex;
 
