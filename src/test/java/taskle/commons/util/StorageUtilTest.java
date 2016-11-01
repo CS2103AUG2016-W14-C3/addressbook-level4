@@ -27,7 +27,7 @@ public class StorageUtilTest {
     private final static String TEST_FILE_DIRECTORY = "directory";
     private final static String TEST_FILE_FILENAME = "file.txt";
     
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/");
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/StorageDirectoryUtilTest/");
     private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "ValidFormatTaskManager.xml");
     private static final File INVALID_FILE = new File(TEST_DATA_FOLDER + "InvalidFormatTaskManager.xml");
     
