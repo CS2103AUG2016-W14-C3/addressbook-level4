@@ -11,18 +11,19 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
 
-//@@author A0141780J
-
 /**
  * Adds a task to the Task Manager.
  */
 public class AddCommand extends Command {
+    //@@author A0141780J
+
     /** 
      * stub unique tag list used for every add commands for now
      */
     UniqueTagList stubTagList = new UniqueTagList();
 
     public static final String COMMAND_WORD = "add";
+    public static final String COMMAND_WORD_SHORT = "a";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task into Taskle.\n"
             + "\nFormat: add task_name by [date + time] [remind date + time]\n"
@@ -116,12 +117,15 @@ public class AddCommand extends Command {
         assert model != null;        
         model.storeTaskManager();
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd + " Reminder set on: " + toAdd.getRemindDetailsString()), true);
-    }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
+        
+        // Display reminder message only when reminder is set
+        if (toAdd.getRemindDate() == null) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
+        } else {
+            return new CommandResult(
+                    String.format(MESSAGE_SUCCESS, toAdd 
+                    + " Reminder on: " + toAdd.getRemindDetailsString()), true);
+        }
     }
 
 }

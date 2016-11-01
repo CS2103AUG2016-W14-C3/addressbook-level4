@@ -12,6 +12,7 @@ import taskle.model.task.TaskList.TaskNotFoundException;
 public class RemindCommand extends Command {
     
     public static final String COMMAND_WORD = "remind";
+    public static final String COMMAND_WORD_SHORT = "rmd";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Set or remove the reminder date of the Task identified by the index number used in the last Task listing.\n"
@@ -53,9 +54,5 @@ public class RemindCommand extends Command {
         return new CommandResult(String.format(MESSAGE_EDIT_TASK_SUCCESS, taskToEdit.getName() + " " 
                                             + oldRemindDate + " -> " + newTask.getRemindDetailsString()), true);
     }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
+    
 }

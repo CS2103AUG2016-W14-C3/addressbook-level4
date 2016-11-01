@@ -14,8 +14,10 @@ public class RedoCommandParser extends CommandParser {
     }
     
     @Override
-    public String getCommandWord() {
-        return RedoCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(RedoCommand.COMMAND_WORD)
+                || commandWord.equals(RedoCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

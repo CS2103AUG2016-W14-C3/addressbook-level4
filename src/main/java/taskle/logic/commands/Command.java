@@ -61,9 +61,4 @@ public abstract class Command {
         return tasksAffected;
     }
     
-    /**
-     * Gets command name
-     * @return name of command
-     */
-    public abstract String getCommandWord();
 }

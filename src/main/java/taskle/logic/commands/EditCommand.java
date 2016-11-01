@@ -18,6 +18,8 @@ public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "rename";
 
+    public static final String COMMAND_WORD_SHORT = "rn";
+    
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits an existing task in Taskle.\n"
             + "\nFormat: edit task_number new_task_name\n" + "\nExample: " + COMMAND_WORD + " 6 Pay Abel for Chicken Rice";
@@ -56,11 +58,6 @@ public class EditCommand extends Command {
                 String.format(MESSAGE_EDIT_TASK_SUCCESS, 
                               oldName + " -> " + newName),
                 true);
-    }
-    
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
     }
     
     public int getIndex() {

@@ -19,8 +19,10 @@ public class RemoveCommandParser extends CommandParser {
     }
 
     @Override
-    public String getCommandWord() {
-        return RemoveCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(RemoveCommand.COMMAND_WORD)
+               || commandWord.equals(RemoveCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

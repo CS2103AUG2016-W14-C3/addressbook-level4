@@ -10,6 +10,7 @@ import java.util.Set;
 public class FindCommand extends Command {
     
     public static final String COMMAND_WORD = "find";
+    public static final String COMMAND_WORD_SHORT ="f";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks with names consisting of "
             + "the specified keywords (case-sensitive)\nand displays them as a list with index numbers.\n"
@@ -44,9 +45,4 @@ public class FindCommand extends Command {
                 true);
     }
     
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
-
 }

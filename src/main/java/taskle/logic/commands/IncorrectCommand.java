@@ -19,9 +19,5 @@ public class IncorrectCommand extends Command {
         return new CommandResult(feedbackToUser, false);
     }
 
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
 }
 
