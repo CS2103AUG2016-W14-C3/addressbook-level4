@@ -2,6 +2,7 @@ package taskle.logic.commands;
 
 import java.io.File;
 
+import taskle.commons.core.Messages;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
@@ -30,6 +31,7 @@ public class ChangeDirectoryCommand extends Command {
         if (StorageUtil.updateDirectory(file)) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()), true);
         } else {
+            indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
             return new CommandResult(MESSAGE_FAILURE, false);
         }
     }

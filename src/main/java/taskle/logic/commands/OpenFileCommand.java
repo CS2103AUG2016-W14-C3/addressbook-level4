@@ -2,6 +2,7 @@ package taskle.logic.commands;
 
 import java.io.File;
 
+import taskle.commons.core.Messages;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
@@ -30,6 +31,7 @@ public class OpenFileCommand extends Command {
         if (StorageUtil.updateFile(file)) {
             return new CommandResult(MESSAGE_SUCCESS, true);
         } else {
+            indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
             return new CommandResult(MESSAGE_FAILURE, false);
         }
     }
