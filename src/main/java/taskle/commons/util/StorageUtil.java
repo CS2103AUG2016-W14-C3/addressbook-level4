@@ -2,6 +2,8 @@ package taskle.commons.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
+import java.util.Stack;
 
 import taskle.commons.core.Config;
 import taskle.commons.core.EventsCenter;
@@ -13,7 +15,10 @@ import taskle.storage.XmlFileStorage;
 //@@author A0140047U
 //Manage changes in directory of storage file
 public class StorageUtil {
-
+    
+    private static Stack<Config> configHistory = new Stack<Config>();
+    private static Stack<Config> redoConfigHistory = new Stack<Config>();
+    
     public static boolean updateDirectory(File selectedDirectory) {
         assert selectedDirectory != null;
         try {
@@ -52,4 +57,17 @@ public class StorageUtil {
         separatedFilePath[1] = filePath.substring(filePath.lastIndexOf(File.separator) + 1);
         return separatedFilePath;
     }
+    
+    public static void storeConfig(boolean isStorageOperation) throws DataConversionException {
+        System.out.println(isStorageOperation);
+        if (isStorageOperation) {
+            Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+            configHistory.push(config);
+        } else {
+            redoConfigHistory.clear();
+            configHistory.push(null);
+        }
+    }
+    
+    
 }
