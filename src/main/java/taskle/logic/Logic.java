@@ -1,7 +1,6 @@
 package taskle.logic;
 
 import javafx.collections.ObservableList;
-import taskle.commons.events.storage.DataSavingExceptionEvent;
 import taskle.commons.events.storage.StorageChangeRequestEvent;
 import taskle.logic.commands.CommandResult;
 import taskle.model.ReadOnlyTaskManager;

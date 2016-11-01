@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.events.storage.StorageChangeRequestEvent;
-import taskle.commons.events.storage.StorageChangedEvent;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
 import taskle.logic.parser.Parser;
