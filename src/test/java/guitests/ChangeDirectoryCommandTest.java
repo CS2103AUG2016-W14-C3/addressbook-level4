@@ -36,7 +36,6 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
     private void assertChangeDirectorySuccess(String command) throws DataConversionException, IOException {
         commandBox.runCommand(command);
         Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
-        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
     }
     
