@@ -305,5 +305,7 @@ Mark as Done `d` | `done `**`task_number`**
 Undo `u` | `undo`
 Redo `r` | `redo`
 Clear | `clear`
+Change Directory `cd` | `changedirectory`
+Open Data File `of` | `open file`
 Help `h` | `help`
 Exit | `exit`
