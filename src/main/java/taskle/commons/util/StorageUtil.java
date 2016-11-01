@@ -2,7 +2,6 @@ package taskle.commons.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.Stack;
 
 import taskle.commons.core.Config;
