@@ -12,6 +12,8 @@ import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.model.TaskManagerChangedEvent;
+import taskle.commons.exceptions.DataConversionException;
+import taskle.commons.util.StorageUtil;
 import taskle.commons.util.StringUtil;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
@@ -85,30 +87,50 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void storeTaskManager() {
         taskManagerHistory.push(new TaskManager(taskManager));
         redoTaskManagerHistory.clear();
+        
+        try {
+            StorageUtil.storeConfig(false);
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+        }
     }
     
     /** Restores recently saved TaskManager state*/
     @Override
     public synchronized boolean restoreTaskManager() {
-        if (!taskManagerHistory.isEmpty()) {
-            TaskManager recentTaskManager = taskManagerHistory.pop();
-            redoTaskManagerHistory.push(new TaskManager(taskManager));
-            this.resetData(recentTaskManager);
-            return true;
+        try {
+            if (StorageUtil.restoreConfig()) {
+                return true;
+            } else if (!taskManagerHistory.isEmpty()) {
+                TaskManager recentTaskManager = taskManagerHistory.pop();
+                redoTaskManagerHistory.push(new TaskManager(taskManager));
+                this.resetData(recentTaskManager);
+                return true;
+            }
+            return false;
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
     
     /** Reverts changes made from restoring recently saved TaskManager state */
     @Override
     public synchronized boolean revertTaskManager() {
-        if (!redoTaskManagerHistory.isEmpty()) {
-            TaskManager redoTaskManager = redoTaskManagerHistory.pop();
-            taskManagerHistory.push(new TaskManager(taskManager));
-            this.resetData(redoTaskManager);
-            return true;
+        try {
+            if (StorageUtil.revertConfig()) {
+                return true;
+            } else if (!redoTaskManagerHistory.isEmpty()) {
+                TaskManager redoTaskManager = redoTaskManagerHistory.pop();
+                taskManagerHistory.push(new TaskManager(taskManager));
+                this.resetData(redoTaskManager);
+                return true;
+            }
+            return false;
+        } catch (DataConversionException e) {
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
     
     //@@author
