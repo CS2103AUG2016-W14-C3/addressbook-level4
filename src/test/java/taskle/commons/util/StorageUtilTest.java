@@ -5,8 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,11 +17,14 @@ import org.junit.rules.TemporaryFolder;
 
 import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
+import taskle.logic.commands.ChangeDirectoryCommand;
 
 //@@author A0140047U
 public class StorageUtilTest {
 
     private Config config;
+    private String taskManagerDirectory;
+    private String taskManagerFileName;
     
     private final static String TEST_FILE_DIRECTORY = "directory";
     private final static String TEST_FILE_FILENAME = "file.txt";
@@ -43,10 +48,11 @@ public class StorageUtilTest {
     
     //Change to a valid directory - Successfully Update
     @Test
-    public void updateDirectory_validDirectory_directoryChanged() throws DataConversionException {
+    public void updateDirectory_validDirectory_directoryChanged() throws IOException, DataConversionException {
         StorageUtil.updateDirectory(new File(TEST_DATA_FOLDER));
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
+        restoreStorage();
     }
     
     //Change to a null file - Assertion Error
@@ -93,5 +99,26 @@ public class StorageUtilTest {
                 TEST_FILE_FILENAME);
         assertEquals(sampleFilePath[0], TEST_FILE_DIRECTORY);
         assertEquals(sampleFilePath[1], TEST_FILE_FILENAME);
+    }
+    
+    //Stores original taskManager directory and file name
+    @Before
+    public void setUp() throws DataConversionException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        taskManagerDirectory = config.getTaskManagerFileDirectory();
+        taskManagerFileName = config.getTaskManagerFileName();
+    }
+    
+    //Restores original taskManager directory and file name
+    @After
+    public void tearDown() throws IOException {
+        config.setTaskManagerFileDirectory(taskManagerDirectory);
+        config.setTaskManagerFileName(taskManagerFileName);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+    }
+    
+    //Restores original taskManager directory
+    public void restoreStorage() throws IOException {
+        StorageUtil.updateDirectory(new File(taskManagerDirectory));
     }
 }
