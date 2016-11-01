@@ -242,7 +242,7 @@ public class MainWindow extends UiPart {
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
             if (StorageUtil.updateFile(selectedFile)) {
-                notificationPane.show(CHANGE_DIRECTORY_SUCCESS);
+                notificationPane.show(CHANGE_FILE_SUCCESS);
             } else {
                 notificationPane.show(CHANGE_FILE_ERROR);
             }
