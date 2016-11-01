@@ -3,6 +3,8 @@ package taskle.logic;
 import javafx.collections.ObservableList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
+import taskle.commons.events.storage.StorageChangeRequestEvent;
+import taskle.commons.events.storage.StorageChangedEvent;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
 import taskle.logic.history.History;
@@ -13,6 +15,8 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.storage.Storage;
 
 import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 /**
  * The main LogicManager of the app.
@@ -55,5 +59,14 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public void resetModel(ReadOnlyTaskManager taskManager) {
         model.resetData(taskManager);
+    }
+    
+    @Override
+    @Subscribe
+    public void handleStorageChangeRequestEvent(StorageChangeRequestEvent scre) {
+        changeDirectory(scre.getDirectory());
+        if (scre.getTaskManager() != null) {
+            resetModel(scre.getTaskManager());
+        }
     }
 }
