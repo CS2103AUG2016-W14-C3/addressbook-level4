@@ -4,16 +4,12 @@ import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.io.File;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.FileUtil;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.OpenFileCommand;
-import taskle.logic.commands.RemoveCommand;
 
-/**
- * OpenFileParser class to handle parsing of open file commands
- */
+//OpenFileParser class to handle parsing of open file commands
 public class OpenFileCommandParser extends CommandParser {
 
     @Override
