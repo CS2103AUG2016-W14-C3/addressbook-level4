@@ -1,5 +1,6 @@
 package taskle.ui;
 
+import java.awt.Point;
 import java.io.File;
 
 import org.controlsfx.control.NotificationPane;
@@ -155,7 +156,8 @@ public class MainWindow extends UiPart {
     protected void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
+        Point windowCoords = prefs.getGuiSettings().getWindowCoordinates();
+        if (windowCoords != null && windowCoords.getX() > 0 && windowCoords.getY() > 0) {
             primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
         }

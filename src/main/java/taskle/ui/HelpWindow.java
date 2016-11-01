@@ -36,7 +36,8 @@ public class HelpWindow extends UiPart {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final List<CommandGuide> LIST_COMMAND_GUIDES = new ArrayList<>(
-            Arrays.asList(new CommandGuide("Adding", "add", "task_name", "[remind Date Time]"),
+            Arrays.asList(
+                    new CommandGuide("Adding", "add", "task_name", "[remind Date Time]"),
                     new CommandGuide("", "add", "deadline_name", "by", 
                             "Date [Time]", "[remind Date Time]"),
                     new CommandGuide("", "add", "event_name", "from", 

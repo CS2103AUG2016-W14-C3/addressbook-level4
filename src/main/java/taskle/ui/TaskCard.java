@@ -66,17 +66,12 @@ public class TaskCard extends UiPart {
             colorTag.setFill(Color.MEDIUMSEAGREEN);
             cardPane.setStyle(STYLE_CARD_BG_DONE);
             break;
-        case FLOAT:
-            colorTag.setFill(Color.DODGERBLUE);
-            break;
         case OVERDUE:
             colorTag.setFill(Color.ORANGERED);
             break;
-        case PENDING:
+        default:
             colorTag.setFill(Color.DODGERBLUE);
             break;
-        default:
-            cardPane.setStyle(STYLE_CARD_BG_DEFAULT);
         }
     }
 

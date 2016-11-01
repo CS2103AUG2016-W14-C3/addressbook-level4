@@ -23,14 +23,13 @@ public class AddCommand extends Command {
     UniqueTagList stubTagList = new UniqueTagList();
 
     public static final String COMMAND_WORD = "add";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task into Taskle.\n"
+            + "\nFormat: add task_name by [date + time] [remind date + time]\n"
+            + "or\nadd task_name from [date + time] to [date + time] [remind date + time]\n"
+            + "\nExample: " + "add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the Task Manager.\n"
-            + "Format: add task_name [by date & time] [remind date time]\n"
-            + "or\nadd task_name [from date & time] [to date & time] [remind date time]\n"
-            + "Example: " + "add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
-
-    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Task Manager";
+    public static final String MESSAGE_SUCCESS = "Added new task: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in Taskle!";
 
     private final Task toAdd;
 
@@ -116,7 +115,15 @@ public class AddCommand extends Command {
         assert model != null;        
         model.storeTaskManager();
         model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd + " Reminder on: " + toAdd.getRemindDetailsString()), true);
+        
+        // Display reminder message only when reminder is set
+        if (toAdd.getRemindDate() == null) {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd), true);
+        } else {
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd 
+                    + " Reminder on: " + toAdd.getRemindDetailsString()), true);
+        }
+        
     }
 
     @Override
