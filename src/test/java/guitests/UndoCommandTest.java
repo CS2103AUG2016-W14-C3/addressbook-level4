@@ -13,7 +13,7 @@ import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.task.Task;
 
-public class UndoCommandTest extends AddressBookGuiTest {
+public class UndoCommandTest extends TaskManagerGuiTest {
 
     @Test
     public void undo() {
