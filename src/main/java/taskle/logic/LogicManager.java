@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
@@ -16,8 +18,6 @@ import taskle.model.ReadOnlyTaskManager;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
 import taskle.storage.Storage;
-
-import com.google.common.eventbus.Subscribe;
 
 /**
  * The main LogicManager of the app.
