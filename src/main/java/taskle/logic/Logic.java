@@ -1,7 +1,9 @@
 package taskle.logic;
 
 import javafx.collections.ObservableList;
+import taskle.commons.events.storage.StorageChangeRequestEvent;
 import taskle.logic.commands.CommandResult;
+import taskle.model.ReadOnlyTaskManager;
 import taskle.model.task.ReadOnlyTask;
 
 /**
@@ -18,5 +20,13 @@ public interface Logic {
     /** Returns the filtered list of tasks */
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
+    //@@author A0140047U
+    /** Updates directory to given filePath */
     void changeDirectory(String filePath);
+    
+    /** Resets Model based on given data */
+    void resetModel(ReadOnlyTaskManager taskManager);
+    
+    //Changes directory and reset model, if necessary
+    void handleStorageChangeRequestEvent(StorageChangeRequestEvent srce);
 }

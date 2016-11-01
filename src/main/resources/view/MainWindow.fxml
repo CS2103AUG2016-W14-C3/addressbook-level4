@@ -21,8 +21,10 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleSettings"
-							text="Settings" />
+						<MenuItem mnemonicParsing="false" onAction="#handleChangeStorageFile"
+							text="Open File" />
+						<MenuItem mnemonicParsing="false" onAction="#handleChangeDirectory"
+							text="Change Directory" />
 						<MenuItem mnemonicParsing="false" onAction="#handleExit"
 							text="Exit" />
 					</items>

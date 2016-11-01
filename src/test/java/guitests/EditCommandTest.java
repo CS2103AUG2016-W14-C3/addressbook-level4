@@ -15,7 +15,6 @@ import taskle.model.task.Name;
 
 //@@author A0139402M
 public class EditCommandTest extends TaskManagerGuiTest {
-
     /**
      * Edits a current task inside the TypicalTestTask to test the edit
      * function. Check if that task has been edited correctly.

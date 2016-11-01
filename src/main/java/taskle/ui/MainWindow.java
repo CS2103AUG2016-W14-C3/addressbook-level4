@@ -12,13 +12,17 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
-import taskle.commons.util.StorageDirectoryUtil;
+import taskle.commons.exceptions.DataConversionException;
+import taskle.commons.util.ConfigUtil;
+import taskle.commons.util.StorageUtil;
 import taskle.logic.Logic;
-import taskle.logic.commands.CommandResult;
 import taskle.model.UserPrefs;
 
 /**
@@ -34,6 +38,13 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
+    private static final String FILE_CHOOSER_NAME = "Taskle Data Files";
+    private static final String FILE_CHOOSER_TYPE = "*.xml";
+    private static final String CHANGE_FILE_SUCCESS = "Storage File has been changed.";
+    private static final String CHANGE_FILE_ERROR = "Invalid file format detected. Unable to open file.";
+    private static final String CHANGE_DIRECTORY_SUCCESS = "Storage Directory has been changed to %1$s";
+    private static final String CHANGE_DIRECTORY_FAILURE = "An error occurred when changing directory.";
+
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -47,9 +58,6 @@ public class MainWindow extends UiPart {
     private NotificationPane notificationPane;
     private VBox rootLayout;
     private Scene scene;
-
-    private String taskManagerName;
-    private CommandResult mostRecentResult;
     
     @FXML
     private AnchorPane commandBoxPlaceholder;
@@ -93,7 +101,6 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.taskManagerName = taskManagerName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -198,20 +205,49 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
+    //@@author A0140047U
     /**
      * Change storage file location
+     * @throws DataConversionException 
      */
     @FXML
-    private void handleSettings() {
+    private void handleChangeDirectory() throws DataConversionException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(primaryStage);
         if (selectedDirectory == null) {
         } else if ((selectedDirectory.getAbsolutePath()).equals(config.getTaskManagerFileDirectory())) {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
-            ExistingFileDialog.load(notificationPane, primaryStage, config, logic, selectedDirectory);
+            ExistingFileDialog.load(notificationPane, primaryStage, selectedDirectory);
         } else {
-            StorageDirectoryUtil.updateDirectory(config, logic, selectedDirectory);
-            notificationPane.show("Directory changed to: " + config.getTaskManagerFileDirectory());
+            StorageUtil.storeConfig(true);
+            if (StorageUtil.updateDirectory(selectedDirectory)) {
+                config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+                notificationPane.show(String.format(CHANGE_DIRECTORY_SUCCESS, config.getTaskManagerFileDirectory()));
+            } else {
+                notificationPane.show(CHANGE_DIRECTORY_FAILURE);
+            }
+        }
+    }
+    
+    /**
+     * Change storage file
+     * @throws DataConversionException 
+     */
+    @FXML
+    private void handleChangeStorageFile() throws DataConversionException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(
+                new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
+            StorageUtil.storeConfig(true);
+            if (StorageUtil.updateFile(selectedFile)) {
+                notificationPane.show(CHANGE_FILE_SUCCESS);
+            } else {
+                notificationPane.show(CHANGE_FILE_ERROR);
+            }
         }
     }
     
@@ -222,6 +258,7 @@ public class MainWindow extends UiPart {
                 NotificationPane.STYLE_CLASS_DARK);
     }
 
+    //@@author
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }
