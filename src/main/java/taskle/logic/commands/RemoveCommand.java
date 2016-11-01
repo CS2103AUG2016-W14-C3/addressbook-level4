@@ -47,6 +47,8 @@ public class RemoveCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        model.storeTaskManager();
+        
         for(int i=0; i<arraySize; i++) {
             UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
     
@@ -58,7 +60,6 @@ public class RemoveCommand extends Command {
             ReadOnlyTask taskToDelete = lastShownList.get(sInt.get(i) - 1);
     
             try {
-                model.storeTaskManager();
                  model.deleteTask(taskToDelete);
             } catch (TaskNotFoundException pnfe) {
                 assert false : "The target task cannot be missing";
