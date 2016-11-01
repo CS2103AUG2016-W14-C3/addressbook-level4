@@ -92,23 +92,6 @@ public class TaskManager implements ReadOnlyTaskManager {
 
     //// task-level operations
 
-    /**
-<<<<<<< HEAD
-     * Adds a task to the address book. Also checks the new task's tags and
-     * updates {@link #tags} with any new tags found, and updates the Tag
-     * objects in the task to point to those in {@link #tags}.
-=======
-     * Adds a task to the Task manager.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
->>>>>>> refs/heads/master
-     *
-<<<<<<< HEAD
-     * @throws UniqueTaskList.DuplicateTaskException
-     *             if an equivalent task already exists.
-=======
->>>>>>> refs/heads/master
-     */
     public void addTask(Task p) {
         syncTagsWithMasterList(p);
         tasks.add(p);
@@ -156,6 +139,13 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.editRemindDate(index, date);
     }
     
+    public List<Task> verifyReminder(Date currentDateTime) {
+        return tasks.verifyRemindDate(currentDateTime);
+    }
+    
+    public void dismissReminder(Date currentDateTime) {
+        tasks.dismissReminder(currentDateTime);
+    }
     
     //@@author A0125509H
     public void doneTask(int index, boolean targetDone) {

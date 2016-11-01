@@ -14,8 +14,10 @@ public class HelpCommandParser extends CommandParser {
     }
 
     @Override
-    public String getCommandWord() {
-        return HelpCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(HelpCommand.COMMAND_WORD)
+               || commandWord.equals(HelpCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

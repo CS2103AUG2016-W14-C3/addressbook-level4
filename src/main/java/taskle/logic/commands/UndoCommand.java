@@ -7,6 +7,8 @@ package taskle.logic.commands;
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";
+    
+    public static final String COMMAND_WORD_SHORT = "u";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Undo most recent command." + "Example: "
             + COMMAND_WORD;
@@ -26,9 +28,5 @@ public class UndoCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
+    
 }

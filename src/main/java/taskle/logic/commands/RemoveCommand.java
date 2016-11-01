@@ -15,6 +15,8 @@ import taskle.model.task.TaskList.TaskNotFoundException;
 public class RemoveCommand extends Command {
 
     public static final String COMMAND_WORD = "remove";
+    
+    public static final String COMMAND_WORD_SHORT = "rm";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Removes an existing task in Taskle.\n"
@@ -69,9 +71,4 @@ public class RemoveCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, message), true);
     }
     
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
-
 }

@@ -7,6 +7,7 @@ package taskle.logic.commands;
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
+    public static final String COMMAND_WORD_SHORT = "l";
 
     public static final String MESSAGE_LIST_SUCCESS = 
             "Listed %1$s tasks";
@@ -54,9 +55,5 @@ public class ListCommand extends Command {
         return new CommandResult(String.format(MESSAGE_LIST_SUCCESS, message), 
                                  true);
     }
-    
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
+
 }

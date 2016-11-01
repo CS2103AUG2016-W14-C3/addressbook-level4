@@ -14,11 +14,6 @@ import taskle.logic.commands.IncorrectCommand;
 public class ChangeDirectoryCommandParser extends CommandParser {
 
     @Override
-    public String getCommandWord() {
-        return ChangeDirectoryCommand.COMMAND_WORD;
-    }
-
-    @Override
     public Command parseCommand(String args) {
         return parseChangeDirectory(args.trim());
     }
@@ -36,6 +31,12 @@ public class ChangeDirectoryCommandParser extends CommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                                   ChangeDirectoryCommand.MESSAGE_USAGE));
         }
+    }
+
+    @Override
+    public boolean canParse(String commandWord) {
+        return commandWord.equals(ChangeDirectoryCommand.COMMAND_WORD)
+               || commandWord.equals(ChangeDirectoryCommand.COMMAND_WORD_SHORT);
     }
 
 }

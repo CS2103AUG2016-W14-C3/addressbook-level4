@@ -16,8 +16,10 @@ public class RemindCommandParser extends CommandParser{
     
 
     @Override
-    public String getCommandWord() {
-        return RemindCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(RemindCommand.COMMAND_WORD)
+               || commandWord.equals(RemindCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

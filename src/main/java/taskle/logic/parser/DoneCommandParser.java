@@ -17,8 +17,10 @@ import taskle.logic.commands.IncorrectCommand;
 public class DoneCommandParser extends CommandParser {
 
     @Override
-    public String getCommandWord() {
-        return DoneCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(DoneCommand.COMMAND_WORD)
+               || commandWord.equals(DoneCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

@@ -11,7 +11,6 @@ import java.util.regex.Pattern;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.IncorrectCommand;
-import taskle.logic.commands.ListCommand;
 //@author A0141780J
 /**
  * FindCommandParser class to handle parsing of Find Commands.
@@ -35,8 +34,10 @@ public class FindCommandParser extends CommandParser {
     }
 
     @Override
-    public String getCommandWord() {
-        return FindCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(FindCommand.COMMAND_WORD)
+               || commandWord.equals(FindCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

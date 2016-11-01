@@ -28,8 +28,10 @@ public class ListCommandParser extends CommandParser {
     }
 
     @Override
-    public String getCommandWord() {
-        return ListCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(ListCommand.COMMAND_WORD)
+                || commandWord.equals(ListCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

@@ -2,6 +2,8 @@ package taskle.ui;
 
 import java.util.logging.Logger;
 
+import org.controlsfx.control.Notifications;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
@@ -45,9 +47,11 @@ public class UiManager extends ComponentManager implements Ui {
     public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         primaryStage.setTitle(config.getAppTitle());
-
+        Image iconImage = getImage(ICON_APPLICATION);
         //Set the application icon.
-        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        primaryStage.getIcons().add(iconImage);
+        SystemTray systemTray = new SystemTray(logic, iconImage, primaryStage);
+        systemTray.addAppToTray();
         
         try {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);

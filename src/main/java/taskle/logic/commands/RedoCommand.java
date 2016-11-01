@@ -7,6 +7,8 @@ package taskle.logic.commands;
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";
+    
+    public static final String COMMAND_WORD_SHORT = "r";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Redo the undo command." + "Example: "
             + COMMAND_WORD;
@@ -26,9 +28,5 @@ public class RedoCommand extends Command {
         }
         return new CommandResult(MESSAGE_SUCCESS, true);
     }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
+    
 }

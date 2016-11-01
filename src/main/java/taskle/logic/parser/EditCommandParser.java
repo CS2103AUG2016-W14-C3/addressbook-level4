@@ -21,8 +21,10 @@ public class EditCommandParser extends CommandParser {
     }
 
     @Override
-    public String getCommandWord() {
-        return EditCommand.COMMAND_WORD;
+    public boolean canParse(String commandWord) {
+        assert (commandWord != null && !commandWord.isEmpty());
+        return commandWord.equals(EditCommand.COMMAND_WORD)
+               || commandWord.equals(EditCommand.COMMAND_WORD_SHORT);
     }
 
     @Override

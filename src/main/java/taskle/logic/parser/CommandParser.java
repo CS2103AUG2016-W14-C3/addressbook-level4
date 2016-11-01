@@ -22,7 +22,7 @@ public abstract class CommandParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = 
             Pattern.compile("(?<targetIndex>.+)");
     
-    public abstract String getCommandWord();
+    public abstract boolean canParse(String commandWord);
     
     public abstract Command parseCommand(String args);
     

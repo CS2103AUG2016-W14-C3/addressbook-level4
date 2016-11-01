@@ -10,6 +10,7 @@ import taskle.commons.util.StorageUtil;
 public class OpenFileCommand extends Command {
     
     public static final String COMMAND_WORD = "openfile";
+    public static final String COMMAND_WORD_SHORT = "of";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads data from specified file.\n"
             + "Format: add file_path\n"
@@ -42,9 +43,5 @@ public class OpenFileCommand extends Command {
         }
         
     }
-
-    @Override
-    public String getCommandWord() {
-        return COMMAND_WORD;
-    }
+    
 }
