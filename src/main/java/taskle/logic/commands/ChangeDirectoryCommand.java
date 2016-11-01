@@ -2,7 +2,6 @@ package taskle.logic.commands;
 
 import java.io.File;
 
-import taskle.commons.core.Messages;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageUtil;
 
