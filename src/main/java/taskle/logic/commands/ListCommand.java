@@ -12,11 +12,11 @@ public class ListCommand extends Command {
             "Listed %1$s tasks";
     
     public static final String MESSAGE_USAGE = COMMAND_WORD 
-            + ": Lists all tasks with the specified statuses\n"
-            + "Format: " + COMMAND_WORD + " [-status]\n"
-            + "Note: You can have more than 1 statuses or none at all\n"
-            + "If not status is specified, pending and overdue items will be listed"
-            + "Example: " + COMMAND_WORD + " -done -pending";
+            + ": Lists all tasks with the specified statuses.\n"
+            + "\nFormat: " + COMMAND_WORD + " [-status]\n"
+            + "Note: You can have either more than one status or none at all.\n"
+            + "If no status is specified, pending and overdue items will be listed instead."
+            + "\n\nExample: " + COMMAND_WORD + " -done -pending";
     
     // Fields for whether to show the corresponding statuses
     private final boolean showPending;
