@@ -1,7 +1,6 @@
 package taskle.logic.commands;
 
 import java.util.Date;
-import java.util.List;
 
 import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.tag.UniqueTagList;
@@ -40,84 +39,33 @@ public class AddCommand extends Command {
      */
     public AddCommand(String name)
             throws IllegalValueException {
+        assert (name != null);
         this.toAdd = new FloatTask(new Name(name), stubTagList);
     }
     
     /**
-     * Convenience constructor with name and reminder.
-     * 
-     * @param name
-     * @throws IllegalValueException
-     */
-    public AddCommand(String name, List<Date> remindDate)
-            throws IllegalValueException {
-        assert remindDate != null;
-        assert remindDate.size() != 0;
-        Date reminderDate = remindDate.get(0);
-        this.toAdd = new FloatTask(new Name(name), reminderDate, stubTagList);
-    }
-    
-    /**
-     * Convenience constructor using raw name 
-     * and DateTime object for deadline date. 
+     * Convenience constructor using raw name value.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, Date deadlineDate)
-            throws IllegalValueException {
-        assert deadlineDate != null;
-        this.toAdd = new DeadlineTask(new Name(name), deadlineDate, stubTagList);
+    public AddCommand(String nameString, Date startDate, Date endDate, Date remindDate)
+                      throws IllegalValueException {
+        assert (nameString != null);
+        
+        Name name = new Name(nameString);
+        if (startDate != null && endDate != null) {
+            toAdd = new EventTask(name, startDate, endDate, stubTagList);
+        } else if (endDate != null) {
+            toAdd = new DeadlineTask(name, endDate, stubTagList);
+        } else {
+            toAdd = new FloatTask(name, stubTagList);
+        }
+        
+        if (remindDate != null) {
+            toAdd.setRemindDate(remindDate);
+        }
     }
     
-    //@@author A0139402M 
-    
-    /**
-     * Convenience constructor using name, deadline date and reminder
-     * date for deadline and reminder.
-     * 
-     * @param name
-     * @param deadlineDate
-     * @param remindDate
-     * @throws IllegalValueException
-     */
-    public AddCommand(String name, Date deadlineDate, List<Date> remindDate)
-            throws IllegalValueException {
-        assert remindDate != null;
-        assert deadlineDate != null;
-        assert remindDate.size() == 1;
-        Date reminderDate = remindDate.get(0);
-        this.toAdd = new DeadlineTask(new Name(name), deadlineDate, reminderDate, stubTagList);
-    }
-    
-    //@@author A0141780J
-    
-    /**
-     * Convenience constructor using raw name 
-     * and DateTime objects for start and end dates.
-     * 
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    public AddCommand(String name, Date startDate, Date endDate)
-            throws IllegalValueException {
-        assert startDate != null;
-        assert endDate != null;
-        this.toAdd = new EventTask(new Name(name), startDate, endDate, stubTagList);
-    }
-    
-    //@@author A0139402M 
-
-    public AddCommand(String name, Date startDate, Date endDate, List<Date> remindDate)
-            throws IllegalValueException {
-        assert startDate != null;
-        assert endDate != null;
-        assert remindDate != null;
-        assert remindDate.size() == 1;
-        Date reminderDate = remindDate.get(0);
-        this.toAdd = new EventTask(new Name(name), startDate, endDate, reminderDate, stubTagList);
-    }
-    
-    //@@author A0141780J 
-
     @Override
     public CommandResult execute() {
         assert model != null;        

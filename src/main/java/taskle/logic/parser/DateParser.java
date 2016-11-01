@@ -53,6 +53,19 @@ public class DateParser {
         return dates;
     }
     
+    public static Date parseRemindDate(String remindString) {
+        if (remindString == null || remindString.isEmpty()) {
+            return null;
+        }
+        
+        List<Date> dates = parse(remindString);
+        if (dates == null || dates.isEmpty() || dates.size() != 1) {
+            return null;
+        }
+        
+        return dates.get(0);
+    }
+    
     /**
      * Resets the time fields in the date object to zeroes.
      * @param dates
