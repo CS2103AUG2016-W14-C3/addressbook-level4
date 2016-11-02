@@ -98,7 +98,7 @@ public class RedoCommandTest extends TaskManagerGuiTest {
     
     //Restores original taskManager directory
     public void restoreStorage() throws IOException {
-        commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + taskManagerDirectory);
+        commandBox.runCommand(UndoCommand.COMMAND_WORD);
     }
     
     //Stores original taskManager directory and file name
