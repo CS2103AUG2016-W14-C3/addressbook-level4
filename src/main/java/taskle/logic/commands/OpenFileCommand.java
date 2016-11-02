@@ -9,10 +9,10 @@ import taskle.commons.util.StorageUtil;
 //Opens data from specified file
 public class OpenFileCommand extends Command {
     
-    public static final String COMMAND_WORD = "openfile";
+    public static final String COMMAND_WORD = "open";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads data from specified file.\n"
-            + "Format: add file_path\n"
+            + "Format: open file_path\n"
             + "Example: " + COMMAND_WORD + " C:" + File.separator + "Users" + File.separator + "John"
             + File.separator + "desktop" + File.separator + "taskle.xml";
 
