@@ -26,7 +26,7 @@ import taskle.testutil.TestUtil;
 public class RedoCommandTest extends TaskManagerGuiTest {
     
     private static String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/");
-    private static String TEST_DATA_FOLDER_TEMP = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/Temp");
+    private static String TEST_DATA_FOLDER_TEMP = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/temp");
     private static String TEST_DATA_FILE_NAME = "ValidFormatTaskManager.xml";
     private static String TEST_DATA_FILE = TEST_DATA_FOLDER + TEST_DATA_FILE_NAME;
     
