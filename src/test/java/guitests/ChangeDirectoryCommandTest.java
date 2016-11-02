@@ -22,7 +22,7 @@ import taskle.logic.commands.UndoCommand;
 public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
     
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/");
-    private static final String TEST_DATA_TEMP_FOLDER = TEST_DATA_FOLDER + "Temp";
+    private static final String TEST_DATA_TEMP_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/temp");
     private static final String TEST_DATA_FILE_VALID_NAME = "ValidFormatTaskManager.xml";
     private static final String TEST_DATA_FILE_EXISTING_NAME = "ExistingTaskManager.xml";
     
@@ -34,7 +34,7 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
     //Change to an invalid directory
     @Test
     public void changeDirectory_invalidDirectory_incorrectCommand() {
-        String command = ChangeDirectoryCommand.COMMAND_WORD + " /i/n/v/a/l/i/d";
+        String command = ChangeDirectoryCommand.COMMAND_WORD + " invalid";
         assertChangeDirectoryIncorrectCommand(command);
     }
     
