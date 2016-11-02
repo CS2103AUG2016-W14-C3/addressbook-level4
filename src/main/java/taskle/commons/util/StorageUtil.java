@@ -105,4 +105,14 @@ public class StorageUtil {
         }
         return true;
     }
+    
+    //Returns true if configHistory is empty
+    public static boolean isConfigHistoryEmpty() {
+        return configHistory.isEmpty();
+    }
+    
+    //Returns true if redoConfigHistory is empty
+    public static boolean isRedoConfigHistoryEmpty() {
+        return redoConfigHistory.isEmpty();
+    }
 }
