@@ -23,9 +23,9 @@ import taskle.model.task.Task;
  */
 public class SystemTray {
 
-    private static final int NOTIFICATION_INTERVAL = 60 * 1000;
+    private static final long NOTIFICATION_INTERVAL = 60 * 1000;
 
-    private static final int NOTIFICATION_DELAY = 1 * 1000;
+    private static final long NOTIFICATION_DELAY = 1 * 1000;
     
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
