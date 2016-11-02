@@ -79,7 +79,8 @@ public class StorageUtil {
         if (originalConfig == null) {
             redoConfigHistory.push(null);
             return false;
-        } else if (originalConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())) {
+        } else if (originalConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())
+                && !originalConfig.getTaskManagerFileDirectory().equals(currentConfig.getTaskManagerFileDirectory())) {
             updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
         } else {
             updateFile(new File(originalConfig.getTaskManagerFilePath()));
@@ -98,7 +99,8 @@ public class StorageUtil {
         if (redoConfig == null) {
             configHistory.push(null);
             return false;
-        } else if (redoConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())) {
+        } else if (redoConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())
+                && !redoConfig.getTaskManagerFileDirectory().equals(currentConfig.getTaskManagerFileDirectory())) {
             updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
         } else {
             updateFile(new File(redoConfig.getTaskManagerFilePath()));
