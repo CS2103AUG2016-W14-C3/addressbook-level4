@@ -2,6 +2,10 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,60 +28,98 @@ import taskle.model.task.Task;
 //@@author A0140047U
 public class UndoCommandTest extends TaskManagerGuiTest {
 
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/StorageDirectoryUtilTest/");
-    private static String TEST_DATA_FILE = TEST_DATA_FOLDER + "ValidFormatTaskManager.xml";
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest");
+    private static String TEST_DATA_TEMP_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/temp");
+    private static String TEST_DATA_FILE_NAME = "ValidFormatTaskManager.xml";
+    private static String TEST_DATA_FILE_PATH = TEST_DATA_FOLDER + File.separator + TEST_DATA_FILE_NAME;
     
     private Config config;
     private String taskManagerPath;
+    private String taskManagerDirectory;
+    private String taskManagerFileName;
     
+  //Undo with an empty history
     @Test
-    public void undo() {
+    public void undo_emptyHistory_taskListRestored() {
         Task[] currentList = td.getTypicalTasks();
-        
-        //Undo with an empty history
         assertUndoSuccess(currentList);
-        
-        //Undo after add command
+    }
+    
+    //Undo after add command
+    @Test
+    public void undo_addCommand_taskListRestored() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.helpFriend.getName());
         assertUndoSuccess(currentList);
-        
-        //Undo after remove command
-        commandBox.runCommand(RemoveCommand.COMMAND_WORD + " 1");
-        assertUndoSuccess(currentList);
-        
-        //Undo after edit command
+    }
+    
+    //Undo after edit command
+    @Test
+    public void undo_editCommand_taskListRestored() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + td.helpFriend.getName());
         assertUndoSuccess(currentList);
-        
-        //Undo after clear command
-        commandBox.runCommand(ClearCommand.COMMAND_WORD);
+    }
+    
+    //Undo after remove command
+    @Test
+    public void undo_removeCommand_taskListRestored() {  
+        Task[] currentList = td.getTypicalTasks();
+        commandBox.runCommand(RemoveCommand.COMMAND_WORD + " 1");
         assertUndoSuccess(currentList);
-        
-        //Undo after reschedule command
+    }
+    
+    //Undo after clear command
+    @Test
+    public void undo_clearCommand_taskListRemoved() {
+        Task[] currentList = td.getTypicalTasks();
+        commandBox.runCommand(ClearCommand.COMMAND_WORD);
+        assertUndoSuccess(currentList);    
+    }
+    
+    //Undo after reschedule command 
+    @Test
+    public void undo_rescheduleCommand_taskListRestored() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(RescheduleCommand.COMMAND_WORD + " 1 18 Oct");
         assertUndoSuccess(currentList);
-        
-        //Undo after done command
+    }
+    
+    //Undo after done command        
+    @Test
+    public void undo_doneCommand_taskListRestored() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(DoneCommand.COMMAND_WORD + " 1");
         assertUndoSuccess(currentList);
         
-        //Undo after redo command
+    }
+    
+    //Undo after redo command        
+    @Test 
+    public void undo_redoCommand_taskListRestored() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.helpFriend.getName());
         commandBox.runCommand(UndoCommand.COMMAND_WORD);
         commandBox.runCommand(RedoCommand.COMMAND_WORD);
         assertUndoSuccess(currentList);
-        
-        //Undo after storage directory change
+    }
+    
+    //Undo after storage directory change
+    @Test
+    public void undo_changeDirectory_taskListRestored() {
         try {
-            commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER);
+            commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_TEMP_FOLDER);
             assertUndoStorageSuccess(UndoCommand.MESSAGE_SUCCESS);
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
-
-        //Undo after file storage change
+    }
+    
+    //Undo after file storage change
+    @Test
+    public void undo_openFile_taskListRestored() {
         try {
-            commandBox.runCommand(OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FILE);
+            commandBox.runCommand(OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FILE_PATH);
             assertUndoStorageSuccess(UndoCommand.MESSAGE_SUCCESS);
         } catch (DataConversionException e) {
             e.printStackTrace();
@@ -101,9 +143,26 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         assertSuccessfulMessage(message);
     }
   
+    //Stores original taskManager directory and file name
     @Before
-    public void setUp() throws DataConversionException {
+    public void setUp() throws DataConversionException, IOException {
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        taskManagerDirectory = config.getTaskManagerFileDirectory();
+        taskManagerFileName = config.getTaskManagerFileName();
+        
+        File tempDirectory = new File(TEST_DATA_FOLDER);
+        config.setTaskManagerFileDirectory(tempDirectory.getAbsolutePath());
+        config.setTaskManagerFileName(TEST_DATA_FILE_NAME);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+        
         taskManagerPath = config.getTaskManagerFilePath();
+    }
+    
+    //Restores original taskManager directory and file name
+    @After
+    public void tearDown() throws IOException {
+        config.setTaskManagerFileDirectory(taskManagerDirectory);
+        config.setTaskManagerFileName(taskManagerFileName);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
     }
 }
