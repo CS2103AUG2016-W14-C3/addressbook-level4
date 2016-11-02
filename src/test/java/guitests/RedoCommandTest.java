@@ -7,8 +7,6 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import taskle.commons.core.Config;
