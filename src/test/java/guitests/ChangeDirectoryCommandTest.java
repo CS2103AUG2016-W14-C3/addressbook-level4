@@ -83,6 +83,26 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
         assertUnsuccessfulMessage(message);
     }
     
+    //Stores original taskManager directory and file name
+    @Before
+    public void setUp() throws DataConversionException, IOException {
+        config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        taskManagerDirectory = config.getTaskManagerFileDirectory();
+        taskManagerFileName = config.getTaskManagerFileName();
+        
+        tempDirectory = new File(TEST_DATA_FOLDER);
+        config.setTaskManagerFileDirectory(tempDirectory.getAbsolutePath());
+        config.setTaskManagerFileName(TEST_DATA_FILE_VALID_NAME);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+    }
+    
+    //Restores original taskManager directory and file name
+    @After
+    public void tearDown() throws IOException {
+        config.setTaskManagerFileDirectory(taskManagerDirectory);
+        config.setTaskManagerFileName(taskManagerFileName);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+    }
     
     //Undo change in taskManager directory
     public void restoreStorage() throws IOException {
