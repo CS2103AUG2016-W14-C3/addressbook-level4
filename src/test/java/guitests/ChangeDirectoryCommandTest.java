@@ -38,6 +38,14 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
         assertChangeDirectoryIncorrectCommand(command);
     }
     
+    //Change to the same directory
+    @Test
+    public void changeDirectory_sameDirectory_errorMessage() {
+        String command = ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER;
+        assertChangeDirectoryConflict(command, ChangeDirectoryCommand.MESSAGE_SAME_DIRECTORY);
+    }
+    
+    
     //Change to a valid directory
     @Test
     public void changeDirectory_validFormat_directoryChanged() throws DataConversionException, IOException {   
