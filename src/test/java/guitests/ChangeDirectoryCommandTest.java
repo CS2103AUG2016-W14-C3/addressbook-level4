@@ -45,6 +45,19 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
         assertChangeDirectoryConflict(command, ChangeDirectoryCommand.MESSAGE_SAME_DIRECTORY);
     }
     
+    //Change to a directory with existing file name
+    @Test
+    public void changeDirectory_existingFile_errorMessage() throws DataConversionException, IOException {
+        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        config.setTaskManagerFileName(TEST_DATA_FILE_EXISTING_NAME);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+        
+        String command = ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_TEMP_FOLDER;
+        assertChangeDirectoryConflict(command, ChangeDirectoryCommand.MESSAGE_FILE_CONFLICT);
+        
+        config.setTaskManagerFileName(TEST_DATA_FILE_VALID_NAME);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
+    }
     
     //Change to a valid directory
     @Test
