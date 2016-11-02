@@ -33,6 +33,10 @@ public class ChangeDirectoryCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
+            if (isConflict()) {
+                return new CommandResult(MESSAGE_FAILURE, false);
+            }
+            
             StorageUtil.storeConfig(true);
             if (StorageUtil.updateDirectory(file)) {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()), true);
@@ -45,6 +49,19 @@ public class ChangeDirectoryCommand extends Command {
             return new CommandResult(MESSAGE_FAILURE, false);
         }
        
+    }
+    
+    public boolean isConflict() throws DataConversionException {
+        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        if (config.getTaskManagerFileDirectory().equalsIgnoreCase(file.getAbsolutePath())) {
+            indicateAttemptToExecuteIncorrectCommand(MESSAGE_SAME_DIRECTORY);
+            return true;
+        } else if (new File(file.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
+            indicateAttemptToExecuteIncorrectCommand(MESSAGE_FILE_CONFLICT);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override
