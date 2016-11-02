@@ -27,8 +27,10 @@ import taskle.testutil.TestUtil;
 //@@author A0140047U
 public class RedoCommandTest extends TaskManagerGuiTest {
     
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/StorageDirectoryUtilTest/");
-    private static String TEST_DATA_FILE = TEST_DATA_FOLDER + "ValidFormatTaskManager.xml";
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/");
+    private static String TEST_DATA_FOLDER_TEMP = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/Temp");
+    private static String TEST_DATA_FILE_NAME = "ValidFormatTaskManager.xml";
+    private static String TEST_DATA_FILE = TEST_DATA_FOLDER + TEST_DATA_FILE_NAME;
     
     private Config config;
     private String taskManagerDirectory;
@@ -54,7 +56,7 @@ public class RedoCommandTest extends TaskManagerGuiTest {
         
         //Redo after undo of storage directory change
         try {
-            commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER);
+            commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER_TEMP);
             commandBox.runCommand(UndoCommand.COMMAND_WORD);
             assertRedoDirectorySuccess(RedoCommand.MESSAGE_SUCCESS);
             restoreStorage();
@@ -84,7 +86,7 @@ public class RedoCommandTest extends TaskManagerGuiTest {
     private void assertRedoDirectorySuccess(String message) throws DataConversionException {
         commandBox.runCommand(RedoCommand.COMMAND_WORD);
         Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
-        assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
+        assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER_TEMP.substring(0, TEST_DATA_FOLDER_TEMP.length() - 1)));
         assertSuccessfulMessage(message);
     }
   
@@ -103,10 +105,14 @@ public class RedoCommandTest extends TaskManagerGuiTest {
     
     //Stores original taskManager directory and file name
     @Before
-    public void setUp() throws DataConversionException {
+    public void setUp() throws DataConversionException, IOException {
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         taskManagerDirectory = config.getTaskManagerFileDirectory();
         taskManagerFileName = config.getTaskManagerFileName();
+        
+        config.setTaskManagerFileDirectory(TEST_DATA_FOLDER);
+        config.setTaskManagerFileName(TEST_DATA_FILE);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
     }
     
     //Restores original taskManager directory and file name
