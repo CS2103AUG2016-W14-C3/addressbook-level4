@@ -113,14 +113,12 @@ public class SystemTray {
      */
     private void addMenuItems(java.awt.SystemTray tray, java.awt.TrayIcon trayIcon) {
         // if the user selects the default menu item (which includes the app
-        // name),
-        // show the main app stage.
+        // name), show the main app stage.
         java.awt.MenuItem openItem = new java.awt.MenuItem("Open Taskle");
         openItem.addActionListener(event -> Platform.runLater(this::showStage));
 
         // the convention for tray icons seems to be to set the default icon for
-        // opening
-        // the application stage in a bold font.
+        // opening the application stage in a bold font.
         java.awt.Font defaultFont = java.awt.Font.decode(null);
         java.awt.Font boldFont = defaultFont.deriveFont(java.awt.Font.BOLD);
         openItem.setFont(boldFont);
@@ -128,10 +126,6 @@ public class SystemTray {
         java.awt.MenuItem dismissReminderItem = new java.awt.MenuItem("Dismiss Reminders");
         dismissReminderItem.addActionListener(event -> Platform.runLater(this::dismissReminders));
                 
-        // to really exit the application, the user must go to the system tray
-        // icon
-        // and select the exit option, this will shutdown JavaFX and remove the
-        // tray icon (removing the tray icon will also shut down AWT).
         java.awt.MenuItem exitItem = new java.awt.MenuItem("Exit");
         exitItem.addActionListener(event -> {
             notificationTimer.cancel();
@@ -176,25 +170,6 @@ public class SystemTray {
             }
         }, NOTIFICATION_DELAY, NOTIFICATION_INTERVAL);
 
-    }
-    
-    public static void showNotification() {
-        currentDateTime = new Date();
-        List<Task> taskRemindDisplay = logic.verifyReminder(currentDateTime);
-        if(taskRemindDisplay.isEmpty()) {
-            return;
-        }
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < taskRemindDisplay.size(); i++) {
-            Task task = taskRemindDisplay.get(i);
-            sb.append(task.getName().fullName);
-            if(!task.getDetailsString().equals("")) {
-                sb.append(" Date: " + task.getDetailsString());
-            }
-            sb.append("\n");
-        }
-        javax.swing.SwingUtilities.invokeLater(() -> trayIcon.displayMessage("Reminder!",
-                sb.toString(), java.awt.TrayIcon.MessageType.INFO));
     }
     
     private void dismissReminders() {
