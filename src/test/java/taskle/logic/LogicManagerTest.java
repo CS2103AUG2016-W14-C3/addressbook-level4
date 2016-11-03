@@ -169,10 +169,10 @@ public class LogicManagerTest {
 
     //@@author A0141780J
     @Test
-    public void execute_add_successful() throws Exception {
+    public void executeAddCommand_addFloatTask_successfulTaskAdd() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatTask toBeAdded = helper.adam();
+        FloatTask toBeAdded = helper.buyEggs();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
@@ -183,6 +183,24 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
+    
+    @Test
+    public void executeAddCommand_addEventWithDates_successfulEventAdd() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.finalExams();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommandWithDate(toBeAdded, 
+                        helper.ADD_SUCCESSFUL_EVENT_DATE),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
     //@@author A0139402M
     @Test
     public void execute_addFloatTaskWithReminder_successful() throws Exception {
@@ -202,23 +220,6 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_addEventWithDates_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        EventTask toBeAdded = helper.finalExams();
-        TaskManager expectedAB = new TaskManager();
-        expectedAB.addTask(toBeAdded);
-
-        // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommandWithDate(toBeAdded, 
-                        helper.ADD_SUCCESSFUL_EVENT_DATE),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
-    }
-    
-    @Test
     public void execute_addEventWithDatesAndReminder_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -234,10 +235,10 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.getTaskList());
     }
-    //@@author 
-
+    
+    //@@author A0141780J
     @Test
-    public void execute_addDeadlineWithDates_successful() throws Exception {
+    public void executeAddCommand_addDeadlineWithDates_successfulDeadlineAdd() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         DeadlineTask toBeAdded = helper.finishAssignment();
@@ -253,6 +254,7 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
+    //@@author A0139402M
     @Test
     public void execute_addDeadlineWithDatesAndReminders_successful() throws Exception {
         // setup expectations
@@ -270,8 +272,9 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
     }
     
+    //@@author A0141780J
     @Test
-    public void execute_addEventTmr_successful() throws Exception {
+    public void execute_addEventTmr_successfulEventAdd() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         EventTask toBeAdded = helper.tutorialTmr();
@@ -398,14 +401,14 @@ public class LogicManagerTest {
                 expectedAB.getTaskList());
 
     }
-    //@@author 
-
+    
+    //@@author A0141780J
     @Test
     public void execute_addDeadlineTaskMorethanTwoDates_returnIncorrectCommand() 
             throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatTask toBeAdded = helper.adam();
+        FloatTask toBeAdded = helper.buyEggs();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
 
@@ -426,7 +429,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_allowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        FloatTask toBeAdded = helper.adam();
+        FloatTask toBeAdded = helper.buyEggs();
         TaskManager expectedAB = new TaskManager();
         expectedAB.addTask(toBeAdded);
         expectedAB.addTask(toBeAdded);
@@ -756,13 +759,14 @@ public class LogicManagerTest {
 
     //@@author A0141780J
     @Test
-    public void execute_findInvalidArgs_returnInvalidCommand() throws Exception {
+    public void executeFindCommand_findInvalidArgs_returnInvalidCommand() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
         assertCommandBehavior("find ", expectedMessage);
     }
 
     @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+    public void executeFindCommand_findKeywordInMultipleTasks_onlyMatchesFullWordsInNames() 
+            throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -781,7 +785,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
+    public void executeFindCommand_findCaseSensitive_returnCaseSensitiveResults() 
+            throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task p1 = helper.generateTaskWithName("bla bla KEY bla");
         Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
@@ -800,7 +805,8 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+    public void executeFindCommand_findMultipleKeywords_matchesIfAnyKeywordPresent() 
+            throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
         Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
@@ -819,7 +825,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_findPendingTask_filtersPendingTask() throws Exception {
+    public void executeFindCommand_findPendingStatus_onlyListPendingTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("Get fruits from supermarket");
         Task task2 = helper.generateTaskWithName("Get David a burger");
@@ -843,7 +849,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_listEmptyArguments_showPendingAndOverdue() throws Exception {
+    public void executeListCommand_emptyArgs_showPendingAndOverdue() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("Buy groceries");
         task1.setTaskDone(true);
@@ -892,7 +898,8 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_listInvalidFlags_showsErrorWhileDisplayingOldList() throws Exception {
+    public void executeListCommand_invalidStatusFlags_showsErrorWhileDisplayingOldList() 
+            throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("Buy groceries");
@@ -1012,8 +1019,8 @@ public class LogicManagerTest {
         private final String ADD_COMMAND_REMIND_PAPA = 
                 "add remind papa";
 
-        FloatTask adam() throws Exception {
-            Name name = new Name("Adam Brown");
+        FloatTask buyEggs() throws Exception {
+            Name name = new Name("Buy eggs");
             return new FloatTask(name);
         }
         
@@ -1111,6 +1118,8 @@ public class LogicManagerTest {
             Name name = new Name("Get food from Chinatown");
             return new FloatTask(name);
         }
+        
+        //@@author
 
         /**
          * Generates a valid task using the given seed.
