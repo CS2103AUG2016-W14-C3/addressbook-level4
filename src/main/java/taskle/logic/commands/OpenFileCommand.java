@@ -5,6 +5,7 @@ import java.io.File;
 import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
+import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
@@ -27,7 +28,7 @@ public class OpenFileCommand extends Command {
     private final File file;
     
     public OpenFileCommand(String filePath) {
-        this.file = new File(filePath);
+        this.file = FileUtil.convertToCanonicalPath(new File(filePath));
     }
     
     @Override
@@ -54,6 +55,7 @@ public class OpenFileCommand extends Command {
 
     public boolean isSameFile() throws DataConversionException {
         Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        
         if (config.getTaskManagerFilePath().equalsIgnoreCase(file.getAbsolutePath())) {
             indicateAttemptToExecuteIncorrectCommand(MESSAGE_SAME_FILE);
             return true;

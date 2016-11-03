@@ -5,6 +5,7 @@ import java.io.File;
 import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
+import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
@@ -27,7 +28,7 @@ public class ChangeDirectoryCommand extends Command {
     private final File file;
     
     public ChangeDirectoryCommand(String directoryPath) {
-        file = new File(directoryPath);
+        this.file = FileUtil.convertToCanonicalPath(new File(directoryPath));
     }
     
     @Override
