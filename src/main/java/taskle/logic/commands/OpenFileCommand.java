@@ -2,7 +2,9 @@ package taskle.logic.commands;
 
 import java.io.File;
 
+import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
+import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
@@ -18,7 +20,9 @@ public class OpenFileCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Storage File has been changed.";
     
-    public static final String MESSAGE_FAILURE = "Invalid file format detected. Unable to open file";
+    public static final String MESSAGE_FAILURE = "Failed to open file.";
+    public static final String MESSAGE_INVALID_FILE_FORMAT = "Invalid file format detected. Unable to open file";
+    public static final String MESSAGE_SAME_FILE = "You are already viewing the requested file.";
     
     private final File file;
     
@@ -29,11 +33,15 @@ public class OpenFileCommand extends Command {
     @Override
     public CommandResult execute() {
         try {
+            if (isSameFile()) {
+                return new CommandResult(MESSAGE_FAILURE, false);
+            }
+            
             StorageUtil.storeConfig(true);
             if (StorageUtil.updateFile(file)) {
                 return new CommandResult(MESSAGE_SUCCESS, true);
             } else {
-                indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
+                indicateAttemptToExecuteIncorrectCommand(MESSAGE_INVALID_FILE_FORMAT);
                 StorageUtil.resolveConfig();
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
@@ -44,6 +52,16 @@ public class OpenFileCommand extends Command {
         
     }
 
+    public boolean isSameFile() throws DataConversionException {
+        Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        if (config.getTaskManagerFilePath().equalsIgnoreCase(file.getAbsolutePath())) {
+            indicateAttemptToExecuteIncorrectCommand(MESSAGE_SAME_FILE);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     @Override
     public String getCommandWord() {
         return COMMAND_WORD;
