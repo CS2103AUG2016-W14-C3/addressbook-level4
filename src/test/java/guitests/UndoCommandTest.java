@@ -18,6 +18,7 @@ import taskle.logic.commands.DoneCommand;
 import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.OpenFileCommand;
 import taskle.logic.commands.RedoCommand;
+import taskle.logic.commands.RemindCommand;
 import taskle.logic.commands.RemoveCommand;
 import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.commands.UndoCommand;
@@ -57,6 +58,10 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         
         //Undo after reschedule command
         commandBox.runCommand(RescheduleCommand.COMMAND_WORD + " 1 18 Oct");
+        assertUndoSuccess(currentList);
+        
+        //Undo after remind command
+        commandBox.runCommand(RemindCommand.COMMAND_WORD + " 1 11 Dec 2015");
         assertUndoSuccess(currentList);
         
         //Undo after done command

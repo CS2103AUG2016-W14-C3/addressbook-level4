@@ -14,7 +14,6 @@ import taskle.logic.commands.IncorrectCommand;
  * EditCommandParser class to handle parsing of commands
  *
  */
-//@@author A0139402M
 public class EditCommandParser extends CommandParser {
 
     public EditCommandParser() {
