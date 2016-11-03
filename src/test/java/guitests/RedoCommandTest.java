@@ -34,25 +34,35 @@ public class RedoCommandTest extends TaskManagerGuiTest {
     private String taskManagerDirectory;
     private String taskManagerFileName;
     
+    //Redo when no action has been undone
     @Test
-    public void redo() {
+    public void redo_emptyHistory_messageDisplayed() {
         Task[] currentList = td.getTypicalTasks();
-        
-        //Redo when no action has been undone
         assertRedoSuccess(RedoCommand.MESSAGE_NOTHING_TO_REDO, currentList);
-        
-        //Redo after undo of mutating command
+    }
+    
+    //Redo after undo of mutating command    
+    @Test
+    public void redo_afterUndoCommand_undoRestored() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.helpFriend.getName());
         currentList = TestUtil.addTasksToList(currentList, td.helpFriend);
         commandBox.runCommand(UndoCommand.COMMAND_WORD);
         assertRedoSuccess(RedoCommand.MESSAGE_SUCCESS, currentList);
-        
-        //Redo after mutating command, should show "Nothing to Redo" message
+    }
+    
+    //Redo after mutating command, should show "Nothing to Redo" message
+    @Test
+    public void redo_afterMutatingCommand_messageDisplayed() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(RemoveCommand.COMMAND_WORD + " 1");
         currentList = TestUtil.removeTaskFromList(currentList, 1);
         assertRedoSuccess(RedoCommand.MESSAGE_NOTHING_TO_REDO, currentList);
-        
-        //Redo after undo of storage directory change
+    }
+    
+    //Redo after undo of storage directory change
+    @Test
+    public void redo_changeDirectory_directoryChanged() {
         try {
             commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER_TEMP);
             commandBox.runCommand(UndoCommand.COMMAND_WORD);
@@ -60,9 +70,12 @@ public class RedoCommandTest extends TaskManagerGuiTest {
             restoreStorage();
         } catch (DataConversionException | IOException e) {
             e.printStackTrace();
-        }
-        
-        //Redo after undo of file storage change
+        }  
+    }
+    
+    //Redo after undo of file storage change
+    @Test
+    public void redo_openFile_fileReOpened() {
         try {
             commandBox.runCommand(OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FILE);
             commandBox.runCommand(UndoCommand.COMMAND_WORD);
