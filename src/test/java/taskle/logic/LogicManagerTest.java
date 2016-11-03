@@ -274,7 +274,7 @@ public class LogicManagerTest {
     
     //@@author A0141780J
     @Test
-    public void execute_addEventTmr_successfulEventAdd() throws Exception {
+    public void executeAddCommand_addEventTmr_successfulEventAdd() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         EventTask toBeAdded = helper.tutorialTmr();
@@ -291,7 +291,8 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_addGardensByBay_successful() throws Exception {
+    public void executeAddCommand_addTaskWithByInName_byRecognizedAsPartOfName() 
+            throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         EventTask toBeAdded = helper.gardensByTheBay();
@@ -307,7 +308,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_addEventOnSingleDate_successful() throws Exception {
+    public void executeAddCommand_addEventOnSingleDate_successfulEventAdd() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         EventTask toBeAdded = helper.newYearDay();
@@ -323,7 +324,8 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_addFloatTaskWithDelimiter_successful() throws Exception {
+    public void executeAddCommand_addFloatTaskWithDelimiter_taskAddedWithDelimiter() 
+            throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.getFoodFromChinatown();
@@ -404,7 +406,7 @@ public class LogicManagerTest {
     
     //@@author A0141780J
     @Test
-    public void execute_addDeadlineTaskMorethanTwoDates_returnIncorrectCommand() 
+    public void executeAddCommand_addDeadlineTaskMorethanTwoDates_returnIncorrectCommand() 
             throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -426,7 +428,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_addDuplicate_allowed() throws Exception {
+    public void executeAddCommand_addDuplicate_allowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.buyEggs();
@@ -441,6 +443,22 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getTaskList());
+
+    }
+    
+    @Test
+    public void executeAddCommand_noArguments_returnUsageMessage() throws Exception {
+        // setup expectations
+        TaskManager expectedAB = new TaskManager();
+
+        // execute command and verify result
+        String command = "add";
+        assertCommandBehavior(
+                command,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
+                              AddCommand.MESSAGE_USAGE),
                 expectedAB,
                 expectedAB.getTaskList());
 
