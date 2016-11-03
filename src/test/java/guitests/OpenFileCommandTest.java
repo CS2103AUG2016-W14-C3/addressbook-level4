@@ -30,7 +30,6 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     private Config config;
     private String taskManagerDirectory;
     private String taskManagerFileName;
-    private String taskManagerFilePath;
     
     //Open an inexistent file
     @Test
@@ -49,7 +48,7 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     //Open the same file
     @Test
     public void openFile_sameFile_messageShown() {
-        String command = OpenFileCommand.COMMAND_WORD + " " + taskManagerFilePath;
+        String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + VALID_FILE;
         assertOpenSameFile(command);
     }
     
@@ -79,6 +78,7 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     
     private void assertOpenSameFile(String command) {
         commandBox.runCommand(command);
+        commandBox.runCommand(command);
         assertUnsuccessfulMessage(OpenFileCommand.MESSAGE_SAME_FILE);
     }
     
@@ -88,7 +88,6 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         taskManagerDirectory = config.getTaskManagerFileDirectory();
         taskManagerFileName = config.getTaskManagerFileName();
-        taskManagerFilePath = config.getTaskManagerFilePath();
     }
     
     //Restores original taskManager directory and file name
