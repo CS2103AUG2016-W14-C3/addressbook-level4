@@ -16,7 +16,6 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
@@ -68,9 +67,6 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
-
-    @FXML
-    private AnchorPane resultDisplayPlaceholder;
 
     @FXML
     private AnchorPane statusbarPlaceholder;
@@ -139,10 +135,6 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
-    }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
     }
 
     public AnchorPane getTaskListPlaceholder() {
