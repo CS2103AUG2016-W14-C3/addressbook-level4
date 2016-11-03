@@ -47,6 +47,7 @@ public class StatusDisplayPanel extends UiPart {
 
     public void configure() {
         addMainPane();
+        setupInitialChips();
         registerAsAnEventHandler(this);
     }
 
@@ -68,6 +69,13 @@ public class StatusDisplayPanel extends UiPart {
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+    
+    private void setupInitialChips() {
+        ObservableList<Node> nodes = mainPane.getChildren();
+        nodes.clear();
+        nodes.add(pendingChip);
+        nodes.add(overdueChip);
     }
 
     @Subscribe
