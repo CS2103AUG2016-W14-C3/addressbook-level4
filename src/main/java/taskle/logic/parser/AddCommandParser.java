@@ -72,13 +72,23 @@ public class AddCommandParser extends CommandParser {
         String eventDatesString = matcher.group(ADD_ARGS_DATE_EVENT_GROUP);
         String deadlineString = matcher.group(ADD_ARGS_DATE_DEADLINE_GROUP);
 
+        // Check if name argument exists
+        if (nameString == null || nameString.isEmpty()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                  AddCommand.MESSAGE_USAGE));
+        }
+        
         // Check if reminder argument is valid
         String remindDateString = matcher.group(ADD_ARGS_DATE_REMINDER_GROUP);
         Date remindDate = DateParser.parseRemindDate(remindDateString);
+        // If reminder is stated but has no date
         if (remindDateString != null && !remindDateString.isEmpty()
             && (eventDatesString != null || deadlineString != null) 
             && remindDate == null) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                  AddCommand.MESSAGE_USAGE));
         }
 
         return getCorrectCommand(args, nameString, eventDatesString, deadlineString, remindDate);

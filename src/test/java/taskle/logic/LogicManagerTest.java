@@ -498,18 +498,19 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_removeInvalidArgsFormat_errorMessageShown() throws Exception {
+    public void executeRemoveCommand_removeInvalidArgsFormat_errorMessageShown() 
+            throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("remove", expectedMessage);
     }
 
     @Test
-    public void execute_removeIndexNotFound_errorMessageShown() throws Exception {
+    public void executeRemoveCommand_removeIndexNotFound_errorMessageShown() throws Exception {
         assertIndexNotFoundBehaviorForCommand("remove");
     }
 
     @Test
-    public void execute_remove_removesCorrectTask() throws Exception {
+    public void executeRemoveCommand_removeAvailableIndex_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threePersons = helper.generateTaskList(3);
 
@@ -888,7 +889,8 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_listDoneOverdue_showsDoneAndOverdueOnly() throws Exception {
+    public void executeListCommand_listDoneOverdue_showsDoneAndOverdueOnly() 
+            throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         Task task1 = helper.generateTaskWithName("Buy groceries");
