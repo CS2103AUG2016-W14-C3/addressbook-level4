@@ -88,7 +88,7 @@ public class TaskListPanel extends UiPart {
             public void handle(MouseEvent event) {
                 ReadOnlyTask taskSelected = taskListView.getSelectionModel().getSelectedItem();
                 String dateDetails = taskSelected.getDetailsString();
-                if(dateDetails.equals("")) {
+                if(("").equals(dateDetails)) {
                     tp.setText(taskSelected.getName().fullName);
                 } else {
                     tp.setText(taskSelected.getName().fullName + "\nDate: " + dateDetails);
