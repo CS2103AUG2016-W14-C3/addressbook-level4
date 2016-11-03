@@ -109,7 +109,6 @@ public class StorageUtil {
         Config originalConfig = configHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         redoConfigHistory.push(currentConfig);
-        
         if (originalConfig == null) {
             redoConfigHistory.push(null);
             return false;
@@ -150,6 +149,11 @@ public class StorageUtil {
             updateFile(new File(redoConfig.getTaskManagerFilePath()));
         }
         return true;
+    }
+    
+    //Removes latest stored element in configHistory when storage operation checks fails
+    public static void resolveConfig() {
+        configHistory.pop();
     }
     
     //Returns true if configHistory is empty

@@ -34,6 +34,7 @@ public class OpenFileCommand extends Command {
                 return new CommandResult(MESSAGE_SUCCESS, true);
             } else {
                 indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
+                StorageUtil.resolveConfig();
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
         } catch (DataConversionException e) {
