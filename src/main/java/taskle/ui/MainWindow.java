@@ -50,6 +50,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
     private StatusBarFooter statusBarFooter;
+    private StatusDisplayPanel statusDisplayPanel;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -70,6 +71,9 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane statusDisplayPanelPlaceholder;
     
     public MainWindow() {
         super();
@@ -126,6 +130,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+        statusDisplayPanel = StatusDisplayPanel.load(primaryStage, getStatusDisplayPanelPlaceholder());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), notificationPane, logic);
     }
 
@@ -135,6 +140,10 @@ public class MainWindow extends UiPart {
 
     private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
+    }
+    
+    private AnchorPane getStatusDisplayPanelPlaceholder() {
+        return statusDisplayPanelPlaceholder;
     }
 
     public AnchorPane getTaskListPlaceholder() {

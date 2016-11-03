@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="600" styleClass="status-display-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskle.ui.StatusDisplayPanel">
+	<stylesheets>
+		<URL value="@DarkTheme.css" />
+		<URL value="@Extensions.css" />
+	</stylesheets>
+	<children>
+		<ImageView fx:id="allChip" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../images/all_chip.png" />
+			</image>
+			<HBox.margin>
+				<Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+			</HBox.margin>
+		</ImageView>
+		<ImageView fx:id="overdueChip" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../images/overdue_chip.png" />
+			</image>
+			<HBox.margin>
+				<Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+			</HBox.margin>
+		</ImageView>
+		<ImageView fx:id="pendingChip" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../images/pending_chip.png" />
+			</image>
+			<HBox.margin>
+				<Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+			</HBox.margin>
+		</ImageView>
+		<ImageView fx:id="doneChip" fitHeight="40.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+			<image>
+				<Image url="@../images/done_chip.png" />
+			</image>
+			<HBox.margin>
+				<Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+			</HBox.margin>
+		</ImageView>
+	</children>
+</HBox>

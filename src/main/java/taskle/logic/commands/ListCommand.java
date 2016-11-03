@@ -1,5 +1,7 @@
 package taskle.logic.commands;
 
+import taskle.commons.util.StatusFormatUtil;
+
 /**
  * Lists all tasks in the Task Manager to the user.
  */
@@ -33,25 +35,7 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         model.updateFilters(showPending, showDone, showOverdue);
-        
-        String[] messageArray = new String[] {
-                "Not Pending", "Not Done", "Not Overdue"
-        };
-        
-        if (showPending) {
-            messageArray[0] = "Pending";
-        }
-        
-        if (showDone) {
-            messageArray[1] = "Done";
-        }
-        
-        if (showOverdue) {
-            messageArray[2] = "Overdue";
-        }
-        
-        String message = String.join(", ", messageArray);
-        
+        String message = StatusFormatUtil.getFormattedFilters(showPending, showDone, showOverdue);
         return new CommandResult(String.format(MESSAGE_LIST_SUCCESS, message), 
                                  true);
     }

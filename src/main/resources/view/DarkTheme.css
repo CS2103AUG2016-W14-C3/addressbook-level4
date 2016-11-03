@@ -146,6 +146,10 @@
     -fx-text-fill: white;
 }
 
+.status-display-pane {
+    -fx-background-color: #37474F;
+}
+
 .grid-pane {
     -fx-background-color: #37474F;
     -fx-border-color: #37474F;

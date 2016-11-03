@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.core.UnmodifiableObservableList;
+import taskle.commons.events.model.TaskFilterChangedEvent;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageUtil;
@@ -229,13 +230,15 @@ public class ModelManager extends ComponentManager implements Model {
         this.showPending = pending;
         this.showDone = done;
         this.showOverdue = overdue;
+        raise(new TaskFilterChangedEvent(showPending, showDone, showOverdue));
         updateFilteredListWithStatuses();
     }
     
     private void resetFilters() {
         this.showPending = true;
-        this.showOverdue = true;
         this.showDone = false;
+        this.showOverdue = true;
+        raise(new TaskFilterChangedEvent(showPending, showDone, showOverdue));
         updateFilteredListWithStatuses();
     }
     
