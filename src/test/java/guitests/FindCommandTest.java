@@ -11,26 +11,38 @@ import taskle.model.task.Task;
 public class FindCommandTest extends TaskManagerGuiTest {
 
     @Test
-    public void execute_findNonEmptyList_returnsCorrectResults() {
+    public void findCommand_findNonEmptyList_returnsCorrectResults() {
         assertFindResult("find Mark"); //no results
         assertFindResult("find Milk", td.buyMilk, td.deliverGoods); //multiple results
 
-        //find after deleting one result
+        //find after removing one task
         
         commandBox.runCommand("remove 1");
         assertFindResult("find Milk", td.deliverGoods);
     }
 
     @Test
-    public void execute_findEmptyList_returnsNoResults(){
-        commandBox.runCommand("clear");
-        assertFindResult("find Jean"); //no results
+    public void findCommand_findDoneTask_returnsDoneTasks(){
+        commandBox.runCommand("done 1");
+        assertFindResult("find Charity -done", td.charityEvent); 
+    }
+    
+    @Test
+    public void findCommand_findPendingDoneTask_returnsPendingDoneTasks(){
+        commandBox.runCommand("done 1");
+        assertFindResult("find Charity -done -pending", td.charityEvent); 
     }
 
     @Test
-    public void execute_findInvalidCommand_fail() {
+    public void findCommand_findInvalidCommand_fail() {
         commandBox.runCommand("findgeorge");
         assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+    }
+    
+    @Test
+    public void findCommand_findEmptyList_returnsNoResults(){
+        commandBox.runCommand("clear");
+        assertFindResult("find Milk"); //no results
     }
 
     private void assertFindResult(String command, Task... expectedHits ) {
