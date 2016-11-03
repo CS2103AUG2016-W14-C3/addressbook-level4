@@ -8,10 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Logger;
 
-import javax.management.Notification;
-
-import org.controlsfx.control.Notifications;
-
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.Stage;
@@ -70,10 +66,6 @@ public class SystemTray {
         if (!java.awt.SystemTray.isSupported()) {
             String error = "No system tray support, application running without system tray.";
             logger.severe(error);
-            Notifications.create()
-                .title("Error")
-                .text(error)
-                .showWarning();
             return;
         }
         
