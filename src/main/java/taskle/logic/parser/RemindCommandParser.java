@@ -47,7 +47,7 @@ public class RemindCommandParser extends CommandParser{
         }
         
         if (newRemindDateTime.indexOf("clear") == 0) {
-            clearRemind(index);
+            return clearRemind(index);
         }
         
         List<Date> dates = DateParser.parse(newRemindDateTime);
