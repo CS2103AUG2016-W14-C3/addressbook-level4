@@ -68,7 +68,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      */
     @Test
     public void rescheduleCommand_inexistentTask_failure() {
-        String commandInvalidIntegerIndex = buildCommand("10", "31 Oct 10pm");
+        String commandInvalidIntegerIndex = buildCommand("99", "31 Oct 10pm");
         assertRescheduleInvalidIndex(commandInvalidIntegerIndex);
 
         String commandInvalidStringIndex = buildCommand("ABC", "31 Oct 10pm");

@@ -39,7 +39,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
      */
     @Test
     public void editCommand_inexistentTask_failure() {
-        String commandInvalidIntegerIndex = buildCommand("10", "Buy dinner home");
+        String commandInvalidIntegerIndex = buildCommand("99", "Buy dinner home");
         assertEditInvalidIndex(commandInvalidIntegerIndex);
         
         String commandInvalidStringIndex = buildCommand("ABC", "Buy dinner home");
