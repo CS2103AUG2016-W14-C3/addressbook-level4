@@ -15,48 +15,75 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
-//@@author A0141780J
+/**
+ * GUI test class for AddCommand.
+ * Tests that the commands issued to command box is successfully
+ * processed and changes are reflected in the UI.
+ * @author Abel
+ *
+ */
 public class AddCommandTest extends TaskManagerGuiTest {
-
+    
+    //@@author A0141780J
     @Test
-    public void add() {
-        //add one task
+    public void addCommand_twoConsecutiveFloatTasks_successfulTaskAdd() {
+        // add one task
         Task[] currentList = td.getTypicalTasks();
         Task taskToAdd = td.helpFriend;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add another task
+        
+        // add another different task
         taskToAdd = td.interview;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add duplicate task successful
-        taskToAdd = new FloatTask(td.helpFriend);
+    }
+    
+    @Test
+    public void addCommand_duplicateTask_successfulTaskAdd() {
+        // add one task
+        Task[] currentList = td.getTypicalTasks();
+        
+        // add duplicate task successful
+        Task taskToAdd = new FloatTask(td.attendMeeting);
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add to empty list
+    }
+    
+    @Test
+    public void addCommand_addToEmptyList_successfulTaskAdd() {
+        // Clear task list first
         commandBox.runCommand("clear");
-        currentList = new Task[0];
-        taskToAdd = td.attendMeeting;
+        
+        // add one task to the empty list
+        Task[] currentList = new Task[0];
+        Task taskToAdd = td.attendMeeting;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
+    }
+    
+    @Test
+    public void addCommand_invalidCommand_unknownCommandMsgShown() {
         //unknown command
         commandBox.runCommand("adds Johnny");
         assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
+    }
+    
+    @Test
+    public void addCommand_addDeadline_successfulDeadlineAdd() {
+        Task[] currentList = td.getTypicalTasks();
         //valid deadline add command
-        taskToAdd = td.assignmentDeadline;
+        Task taskToAdd = td.assignmentDeadline;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //valid event add command
-        taskToAdd = td.charityEvent;
+    }
+    
+    @Test
+    public void addCommand_addEvent_successfulEventAdd() {
+        Task[] currentList = td.getTypicalTasks();
+        //valid deadline add command
+        Task taskToAdd = td.charityEvent;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
+    }
+    
+    @Test
+    public void addCommand_addInvalidEvent_invalidCommandMsgShown() {
         //Invalid event add format
         commandBox.runCommand("add watch movie with friends by 7pm to 9pm");
         assertUnsuccessfulMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
