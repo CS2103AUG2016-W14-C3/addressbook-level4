@@ -47,7 +47,7 @@ public class TaskCard extends UiPart {
         setCardTexts();
         setCardStyle();
     }
-    
+ 
     private void setCardTexts() {
         name.setText(task.getName().fullName);
         details.setText(task.getDetailsString());
