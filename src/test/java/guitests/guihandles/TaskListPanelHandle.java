@@ -18,7 +18,7 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.testutil.TestUtil;
 
 /**
- * Provides a handle for the panel containing the person list.
+ * Provides a handle for the panel containing the task list.
  */
 public class TaskListPanelHandle extends GuiHandle {
 
@@ -31,9 +31,9 @@ public class TaskListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyTask> getSelectedPersons() {
-        ListView<ReadOnlyTask> personList = getListView();
-        return personList.getSelectionModel().getSelectedItems();
+    public List<ReadOnlyTask> getSelectedTasks() {
+        ListView<ReadOnlyTask> taskList = getListView();
+        return taskList.getSelectionModel().getSelectedItems();
     }
 
     public ListView<ReadOnlyTask> getListView() {
@@ -60,16 +60,16 @@ public class TaskListPanelHandle extends GuiHandle {
      * Returns true if the {@code tasks} appear as the sub list (in that order) at position {@code startPosition}.
      */
     public boolean containsInOrder(int startPosition, ReadOnlyTask... tasks) {
-        List<ReadOnlyTask> personsInList = getListView().getItems();
+        List<ReadOnlyTask> tasksInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
-        if (startPosition + tasks.length > personsInList.size()){
+        if (startPosition + tasks.length > tasksInList.size()){
             return false;
         }
 
-        // Return false if any of the persons doesn't match
+        // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
+            if (!tasksInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
                 return false;
             }
         }
@@ -112,7 +112,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Navigates the listview to display and select the person.
+     * Navigates the listview to display and select the task.
      */
     public TaskCardHandle navigateToTask(ReadOnlyTask task) {
         int index = getTaskIndex(task);
@@ -141,7 +141,7 @@ public class TaskListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Gets a person from the list by index
+     * Gets a task from the list by index
      */
     public ReadOnlyTask getTask(int index) {
         return getListView().getItems().get(index);
@@ -151,10 +151,10 @@ public class TaskListPanelHandle extends GuiHandle {
         return getTaskCardHandle(getListView().getItems().get(index).copy());
     }
 
-    public TaskCardHandle getTaskCardHandle(ReadOnlyTask person) {
+    public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(person))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSameTask(task))
                 .findFirst();
         if (taskCardNode.isPresent()) {
             return new TaskCardHandle(guiRobot, primaryStage, taskCardNode.get());

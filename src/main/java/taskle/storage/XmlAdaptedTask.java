@@ -46,7 +46,7 @@ public class XmlAdaptedTask {
      * Converts a given Task into this class for JAXB use.
      *
      * @param source futu
-     * re changes to this will not affect the created XmlAdaptedPerson
+     * re changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;

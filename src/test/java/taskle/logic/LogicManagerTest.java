@@ -480,15 +480,15 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * targeting a single task in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single task in the last shown list based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Task> taskList = helper.generateTaskList(2);
 
-        // set AB state to 2 persons
+        // set AB state to 2 tasks
         model.resetData(new TaskManager());
         for (Task p : taskList) {
             model.addTask(p);
@@ -512,11 +512,11 @@ public class LogicManagerTest {
     @Test
     public void executeRemoveCommand_removeAvailableIndex_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateTaskList(3);
+        List<Task> threeTasks = helper.generateTaskList(3);
 
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
-        expectedAB.removeTask(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
+        expectedAB.removeTask(threeTasks.get(1));
+        helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("remove 2",
                 String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, 2),
@@ -537,17 +537,17 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         TestDataHelper helperTest = new TestDataHelper();
-        List<Task> threePersons = helperTest.generateTaskList(3);
-        List<Task> threePersonsTest = helperTest.generateTaskList(3);
+        List<Task> threeTasks = helperTest.generateTaskList(3);
+        List<Task> threeTasksTest = helperTest.generateTaskList(3);
 
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
         String index = "1";
         String taskName = "Eat dinner";
         Name newName = new Name(taskName);
         Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(Integer.parseInt(index) - 1);
         String oldName = taskToEdit.getName().fullName;
         expectedAB.editTask(0, newName);
-        helperTest.addToModel(model, threePersonsTest);
+        helperTest.addToModel(model, threeTasksTest);
         // execute command and verify result
         assertCommandBehavior(
                 helperTest.generateEditCommand(index, taskName),
@@ -560,12 +560,12 @@ public class LogicManagerTest {
     public void execute_edit_duplicate() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        List<Task> threePersons = helper.generateTaskList(3);
+        List<Task> threeTasks = helper.generateTaskList(3);
 
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
         String index = "1";
         String taskName = "Task 3";
-        helper.addToModel(model, threePersons);
+        helper.addToModel(model, threeTasks);
         expectedAB.editTask(1, new Name(taskName));
         // execute command and verify result
         assertCommandBehavior(
@@ -750,10 +750,10 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         TestDataHelper helperTest = new TestDataHelper();
-        List<Task> threePersons = helperTest.generateTaskList(3);
-        List<Task> threePersonsTest = helperTest.generateTaskList(3);
+        List<Task> threeTasks = helperTest.generateTaskList(3);
+        List<Task> threeTasksTest = helperTest.generateTaskList(3);
 
-        TaskManager expectedAB = helper.generateTaskManager(threePersons);
+        TaskManager expectedAB = helper.generateTaskManager(threeTasks);
         String index = "1";
         String dateTime = "13 dec 7pm";
         int offsetIndex = Integer.parseInt(index) - 1;
@@ -763,7 +763,7 @@ public class LogicManagerTest {
         String oldDetails = taskToEdit.getRemindDetailsString();
         String name = taskToEdit.getName().fullName;
         
-        helperTest.addToModel(model, threePersonsTest);
+        helperTest.addToModel(model, threeTasksTest);
         expectedAB.editTaskRemindDate(offsetIndex, dates.get(0));
         Task editedTask = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
         String newDetails = editedTask.getRemindDetailsString();
@@ -792,10 +792,10 @@ public class LogicManagerTest {
         Task p1 = helper.generateTaskWithName("KE Y");
         Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
-        List<Task> fourPersons = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
-        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
+        List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
+        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
         List<Task> expectedList = helper.generateTaskList(pTarget1, pTarget2);
-        helper.addToModel(model, fourPersons);
+        helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),
@@ -812,10 +812,10 @@ public class LogicManagerTest {
         Task p3 = helper.generateTaskWithName("key key");
         Task p4 = helper.generateTaskWithName("KEy sduauo");
 
-        List<Task> fourPersons = helper.generateTaskList(p3, p1, p4, p2);
-        TaskManager expectedAB = helper.generateTaskManager(fourPersons);
-        List<Task> expectedList = fourPersons;
-        helper.addToModel(model, fourPersons);
+        List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
+        TaskManager expectedAB = helper.generateTaskManager(fourTasks);
+        List<Task> expectedList = fourTasks;
+        helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
                 Command.getMessageForTaskListShownSummary(expectedList.size()),

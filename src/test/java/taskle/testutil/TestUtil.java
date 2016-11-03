@@ -65,9 +65,9 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Task[] sampleTaskData = getSamplePersonData();
+    public static final Task[] sampleTaskData = getSampleTaskData();
 
-    private static Task[] getSamplePersonData() {
+    private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
                     new FloatTask(new Name("Attend Meeting")),
@@ -87,7 +87,7 @@ public class TestUtil {
         }
     }
 
-    public static List<Task> generateSamplePersonData() {
+    public static List<Task> generateSampleTaskData() {
         return Arrays.asList(sampleTaskData);
     }
 
