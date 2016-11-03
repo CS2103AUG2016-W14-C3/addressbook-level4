@@ -9,6 +9,7 @@ import org.junit.Test;
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
 import taskle.logic.commands.AddCommand;
+import taskle.logic.commands.RemindCommand;
 import taskle.logic.parser.DateParser;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
@@ -65,13 +66,13 @@ public class AddCommandTest extends TaskManagerGuiTest {
     
     //@@author A0139402M
     @Test
-    public void add_floatTaskWithReminders_success() {
+    public void addFloatTask_withReminders_success() {
         Task[] currentList = td.getTypicalTasks();
         String remindDate = "15 Oct 7pm";
         Date date = DateParser.parse(remindDate).get(0);
         Task taskToAdd = td.helpFriend;
         taskToAdd.setRemindDate(date);
-        assertAddSuccess(taskToAdd, currentList);
+        assertAddWithRemindersSuccess(taskToAdd, remindDate, currentList);
         
         commandBox.runCommand(AddCommand.COMMAND_WORD + " Buy Groceries for home " 
                 + "remind 15 Oct 7pm");
@@ -81,14 +82,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void add_deadlineTaskWithReminders_success() {
+    public void addDeadlineTask_withReminders_success() {
         commandBox.runCommand("clear");
         Task[] currentList = new Task[0];
-        String remindDate = "15 Oct 7pm";
+        String remindDate = "1 Oct 7pm";
         Date date = DateParser.parse(remindDate).get(0);
         Task taskToAdd = td.assignmentDeadline;
         taskToAdd.setRemindDate(date);
-        assertAddSuccess(taskToAdd, currentList);
+        assertAddWithRemindersSuccess(taskToAdd, remindDate, currentList);
         
         commandBox.runCommand(AddCommand.COMMAND_WORD + " Buy Groceries for home by 4pm 26 Oct "
                 + "remind 26 Oct 3pm");
@@ -98,14 +99,14 @@ public class AddCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void add_eventTaskWithReminders_success() {
+    public void addEventTask_withReminders_success() {
         commandBox.runCommand("clear");
         Task[] currentList = new Task[0];
-        String remindDate = "15 Oct 7pm";
+        String remindDate = "1 Sep 7pm";
         Date date = DateParser.parse(remindDate).get(0);
         Task taskToAdd = td.charityEvent;
         taskToAdd.setRemindDate(date);
-        assertAddSuccess(taskToAdd, currentList);
+        assertAddWithRemindersSuccess(taskToAdd, remindDate, currentList);
         
         commandBox.runCommand(AddCommand.COMMAND_WORD + " Tuition from 26 Oct 9am to 11am " 
                 + "remind 26 Oct 8am");
@@ -118,6 +119,20 @@ public class AddCommandTest extends TaskManagerGuiTest {
     private void assertAddSuccess(Task taskToAdd, Task... currentList) {
         commandBox.runCommand(AddCommand.COMMAND_WORD + " "
                 + taskToAdd.toString());
+        //confirm the new card contains the right data
+        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
+        assertMatching(taskToAdd, addedCard);
+
+        //confirm the list now contains all previous tasks plus the new task
+        Task[] expectedList = TestUtil.addTasksToList(currentList, taskToAdd);
+        assertTrue(taskListPanel.isListMatching(expectedList));
+    }
+
+    private void assertAddWithRemindersSuccess(Task taskToAdd, String reminderDate, Task... currentList) {
+        commandBox.runCommand(AddCommand.COMMAND_WORD + " "
+                + taskToAdd.toString() + " "
+                + RemindCommand.COMMAND_WORD + " "
+                + reminderDate);
         //confirm the new card contains the right data
         TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().fullName);
         assertMatching(taskToAdd, addedCard);

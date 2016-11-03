@@ -105,8 +105,8 @@ public class AddCommandParser extends CommandParser {
      * @param date
      * @return
      */
-    private boolean checkInvalidReminderDate(Date remindDate, Date date) {
-        if (remindDate.after(date)) {
+    private boolean checkInvalidReminderDate(Date remindDate, List<Date> date) {
+        if (remindDate.after(date.get(date.size() - 1))) {
             return true;
         }
         return false;
@@ -156,6 +156,12 @@ public class AddCommandParser extends CommandParser {
             return prepareFloatAdd(fullArgs, name, remindDate);
         }
 
+        if(remindDate != null) {
+            if(checkInvalidReminderDate(remindDate, dates)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
+            }
+        }
+
         try {
             return generateDeadlineAddCommand(name, dates, remindDate);
         } catch (IllegalValueException ive) {
@@ -185,6 +191,12 @@ public class AddCommandParser extends CommandParser {
         // If no dates are detected, fallback to preparing a float add
         if (dates.size() == 0) {
             return prepareFloatAdd(fullArgs, name, remindDate);
+        }
+        
+        if(remindDate != null) {
+            if(checkInvalidReminderDate(remindDate, dates)) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
+            }
         }
         
         try {
