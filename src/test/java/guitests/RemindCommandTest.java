@@ -12,7 +12,6 @@ import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.DateFormatUtil;
 import taskle.logic.commands.RemindCommand;
 import taskle.logic.parser.DateParser;
-import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 

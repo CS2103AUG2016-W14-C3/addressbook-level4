@@ -150,11 +150,10 @@ public class TaskList implements Iterable<Task> {
         }
         Task toEdit = toEditOp.get();
         
-        if(date != null) {
-            if(checkInvalidRemindDate(toEdit, date)) {
-                return Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE;
-            }
+        if(date != null && checkInvalidRemindDate(toEdit, date)) {
+            return Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE;
         }
+        
         toEdit.setRemindDate(date);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());
