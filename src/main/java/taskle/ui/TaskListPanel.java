@@ -94,6 +94,7 @@ public class TaskListPanel extends UiPart {
                     tp.setText(taskSelected.getName().fullName + "\nDate: " + dateDetails);
                 }
                 tp.show(taskListView, event.getScreenX() + 5, event.getScreenY() + 5);
+                logger.info("Tooltip shown: " + taskSelected.getName().fullName);
             }
         });
         
@@ -101,6 +102,7 @@ public class TaskListPanel extends UiPart {
             @Override
             public void handle(MouseEvent event) {
                 tp.hide();
+                logger.info("Tooltip Hidden");
             }
         });
     }
