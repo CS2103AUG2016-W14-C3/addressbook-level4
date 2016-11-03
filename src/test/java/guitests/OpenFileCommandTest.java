@@ -30,6 +30,7 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     private Config config;
     private String taskManagerDirectory;
     private String taskManagerFileName;
+    private String taskManagerFilePath;
     
     //Open an inexistent file
     @Test
@@ -43,6 +44,13 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     public void openFile_invalidFile_errorMessageShown() {
         String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + INVALID_FILE;
         assertOpenFileInvalidFile(command);
+    }
+    
+    //Open the same file
+    @Test
+    public void openFile_sameFile_messageShown() {
+        String command = OpenFileCommand.COMMAND_WORD + " " + taskManagerFilePath;
+        assertOpenSameFile(command);
     }
     
     //Open a valid file
@@ -66,7 +74,12 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     
     private void assertOpenFileInvalidFile(String command) {
         commandBox.runCommand(command);
-        assertUnsuccessfulMessage(OpenFileCommand.MESSAGE_FAILURE);
+        assertUnsuccessfulMessage(OpenFileCommand.MESSAGE_INVALID_FILE_FORMAT);
+    }
+    
+    private void assertOpenSameFile(String command) {
+        commandBox.runCommand(command);
+        assertUnsuccessfulMessage(OpenFileCommand.MESSAGE_SAME_FILE);
     }
     
     //Stores original taskManager directory and file name
@@ -75,6 +88,7 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         taskManagerDirectory = config.getTaskManagerFileDirectory();
         taskManagerFileName = config.getTaskManagerFileName();
+        taskManagerFilePath = config.getTaskManagerFilePath();
     }
     
     //Restores original taskManager directory and file name
