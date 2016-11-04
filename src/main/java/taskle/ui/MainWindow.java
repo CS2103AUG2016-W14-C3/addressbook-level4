@@ -23,6 +23,7 @@ import taskle.commons.events.ui.ExitAppRequestEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageUtil;
+import taskle.commons.util.StorageUtil.OperationType;
 import taskle.logic.Logic;
 import taskle.model.UserPrefs;
 
@@ -217,7 +218,7 @@ public class MainWindow extends UiPart {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
             ExistingFileDialog.load(notificationPane, primaryStage, selectedDirectory);
         } else {
-            StorageUtil.storeConfig(true);
+            StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
             if (StorageUtil.updateDirectory(selectedDirectory)) {
                 config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
                 notificationPane.show(String.format(CHANGE_DIRECTORY_SUCCESS, config.getTaskManagerFileDirectory()));
@@ -239,7 +240,7 @@ public class MainWindow extends UiPart {
                 new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
-            StorageUtil.storeConfig(true);
+            StorageUtil.storeConfig(OperationType.OPEN_FILE);
             if (StorageUtil.updateFile(selectedFile)) {
                 notificationPane.show(CHANGE_FILE_SUCCESS);
             } else {

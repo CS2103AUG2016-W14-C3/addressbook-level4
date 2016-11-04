@@ -89,12 +89,14 @@ public class StorageUtil {
      * @param isStorageOperation true if storage operation, false otherwise
      * @throws DataConversionException
      */
-    public static void storeConfig(boolean isStorageOperation) throws DataConversionException {
-        if (isStorageOperation) {
+    public static void storeConfig(OperationType storageOperation) throws DataConversionException {
+        if (storageOperation != null) {
             Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             configHistory.push(config);
+            operationHistory.push(storageOperation);
         } else {
             redoConfigHistory.clear();
+            redoOperationHistory.clear();
             configHistory.push(null);
         }
     }
@@ -114,12 +116,14 @@ public class StorageUtil {
         }
         Config originalConfig = configHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        OperationType operation = operationHistory.pop();
         redoConfigHistory.push(currentConfig);
+        redoOperationHistory.push(operation);
+        
         if (originalConfig == null) {
             redoConfigHistory.push(null);
             return false;
-        } else if (originalConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())
-                && !originalConfig.getTaskManagerFileDirectory().equals(currentConfig.getTaskManagerFileDirectory())) {
+        } else if (operation == OperationType.CHANGE_DIRECTORY) {
             updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
         } else {
             updateFile(new File(originalConfig.getTaskManagerFilePath()));
@@ -143,13 +147,14 @@ public class StorageUtil {
         
         Config redoConfig = redoConfigHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
+        OperationType operation = redoOperationHistory.pop();
         configHistory.push(currentConfig);
+        operationHistory.push(operation);
         
         if (redoConfig == null) {
             configHistory.push(null);
             return false;
-        } else if (redoConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())
-                && !redoConfig.getTaskManagerFileDirectory().equals(currentConfig.getTaskManagerFileDirectory())) {
+        } else if (operation == OperationType.CHANGE_DIRECTORY) {
             updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
         } else {
             updateFile(new File(redoConfig.getTaskManagerFilePath()));
