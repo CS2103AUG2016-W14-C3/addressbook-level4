@@ -7,6 +7,7 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
+import taskle.commons.util.StorageUtil.OperationType;
 
 //@@author A0140047U
 //Change directory of current storage file
@@ -38,7 +39,7 @@ public class ChangeDirectoryCommand extends Command {
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
             
-            StorageUtil.storeConfig(true);
+            StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
             if (StorageUtil.updateDirectory(file)) {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()), true);
             } else {

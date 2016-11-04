@@ -89,7 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
         redoTaskManagerHistory.clear();
         
         try {
-            StorageUtil.storeConfig(false);
+            StorageUtil.storeConfig(null);
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
