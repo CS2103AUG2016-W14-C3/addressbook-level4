@@ -116,19 +116,22 @@ public class StorageUtil {
         }
         Config originalConfig = configHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
-        OperationType operation = operationHistory.pop();
         redoConfigHistory.push(currentConfig);
-        redoOperationHistory.push(operation);
         
         if (originalConfig == null) {
             redoConfigHistory.push(null);
             return false;
-        } else if (operation == OperationType.CHANGE_DIRECTORY) {
-            updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
         } else {
-            updateFile(new File(originalConfig.getTaskManagerFilePath()));
-        }
+            OperationType operation = operationHistory.pop();
+            redoOperationHistory.push(operation);
+            
+            if (operation == OperationType.CHANGE_DIRECTORY) {
+                updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
+            } else {
+                updateFile(new File(originalConfig.getTaskManagerFilePath()));
+            }
         return true;
+        }
     }
     
     /**
@@ -147,19 +150,22 @@ public class StorageUtil {
         
         Config redoConfig = redoConfigHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
-        OperationType operation = redoOperationHistory.pop();
         configHistory.push(currentConfig);
-        operationHistory.push(operation);
         
         if (redoConfig == null) {
             configHistory.push(null);
             return false;
-        } else if (operation == OperationType.CHANGE_DIRECTORY) {
-            updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
-        } else {
-            updateFile(new File(redoConfig.getTaskManagerFilePath()));
+        } else  {
+            OperationType operation = redoOperationHistory.pop();
+            operationHistory.push(operation);
+            
+            if (operation == OperationType.CHANGE_DIRECTORY) {
+                updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
+            } else {
+                updateFile(new File(redoConfig.getTaskManagerFilePath()));
+            }
+            return true;
         }
-        return true;
     }
     
     //Removes latest stored element in configHistory when storage operation checks fails
