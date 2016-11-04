@@ -1191,7 +1191,8 @@ public class LogicManagerTest {
         EventTask newYearDay() throws Exception {
             Name name = new Name("New Year Day");
             Calendar calendar = Calendar.getInstance();
-            calendar.set(2017, 0, 1, 0, 0);
+            calendar.set(2017, 0, 1, 23, 59, 59);
+            calendar.set(Calendar.MILLISECOND, 999);
             Date onDate = calendar.getTime();
             return new EventTask(name, onDate, onDate);
         }

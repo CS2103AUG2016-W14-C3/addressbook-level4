@@ -36,7 +36,7 @@ public class DateFormatUtilTest {
 
     @Test
     public void formatDate_dateWithoutTime_returnDateOnly(){
-        String expected = "1 Jan 2016";
+        String expected = "12:00AM, 1 Jan 2016";
         calendar.set(2016, 0, 1, 0, 0);
         Date inputDate = calendar.getTime();
         String actual = DateFormatUtil.formatDate(inputDate);
@@ -77,8 +77,8 @@ public class DateFormatUtilTest {
     }
     
     @Test
-    public void formatEventDate_sameDay12Am_return(){
-        String expected = "17 Oct 2016";
+    public void formatEventDate_sameDay12Am_return12AmSingleDate(){
+        String expected = "12:00AM, 17 Oct 2016";
         calendar.set(2016, 9, 17, 00, 0);
         Date startDate = calendar.getTime();
         calendar.set(2016, 9, 17, 00, 0);
@@ -86,5 +86,29 @@ public class DateFormatUtilTest {
         String actual = DateFormatUtil.formatEventDates(startDate, endDate);
         assertEquals(expected, actual);
     }
-
+    
+    @Test
+    public void formatEventDate_differentDays2359_return12AmSingleDate(){
+        String expected = "17 Oct 2016 to 18 Oct 2016";
+        calendar.set(2016, 9, 17, 23, 59, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date startDate = calendar.getTime();
+        calendar.set(2016, 9, 18, 23, 59, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date endDate = calendar.getTime();
+        String actual = DateFormatUtil.formatEventDates(startDate, endDate);
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void formatEventDate_from2359Day1ToDay2_return12AmSingleDate(){
+        String expected = "17 Oct 2016 to 11:58PM, 18 Oct 2016";
+        calendar.set(2016, 9, 17, 23, 59, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date startDate = calendar.getTime();
+        calendar.set(2016, 9, 18, 23, 58, 00);
+        Date endDate = calendar.getTime();
+        String actual = DateFormatUtil.formatEventDates(startDate, endDate);
+        assertEquals(expected, actual);
+    }
 }
