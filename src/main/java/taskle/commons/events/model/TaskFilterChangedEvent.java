@@ -3,6 +3,7 @@ package taskle.commons.events.model;
 import taskle.commons.events.BaseEvent;
 import taskle.commons.util.StatusFormatUtil;
 
+//@@author A0141780J
 /** Indicates the filters in TaskList has changed*/
 public class TaskFilterChangedEvent extends BaseEvent {
 

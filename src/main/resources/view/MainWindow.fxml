@@ -9,9 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity"
-	minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="taskle.ui.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskle.ui.MainWindow">
 	<stylesheets>
 		<URL value="@DarkTheme.css" />
 		<URL value="@Extensions.css" />
@@ -21,27 +19,21 @@
 			<menus>
 				<Menu mnemonicParsing="false" text="File">
 					<items>
-						<MenuItem mnemonicParsing="false" onAction="#handleChangeStorageFile"
-							text="Open File" />
-						<MenuItem mnemonicParsing="false" onAction="#handleChangeDirectory"
-							text="Change Directory" />
-						<MenuItem mnemonicParsing="false" onAction="#handleExit"
-							text="Exit" />
+						<MenuItem mnemonicParsing="false" onAction="#handleChangeStorageFile" text="Open File" />
+						<MenuItem mnemonicParsing="false" onAction="#handleChangeDirectory" text="Change Directory" />
+						<MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
 					</items>
 				</Menu>
 				<Menu mnemonicParsing="false" text="Help">
 					<items>
-						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false"
-							onAction="#handleHelp" text="Help" />
+						<MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
 					</items>
 				</Menu>
 			</menus>
 		</MenuBar>
 		<AnchorPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-		<AnchorPane fx:id="statusDisplayPanelPlaceholder"
-			maxHeight="60.0" minHeight="60.0" prefHeight="60.0" VBox.vgrow="NEVER" />
-		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border"
-			VBox.vgrow="NEVER" />
+		<AnchorPane fx:id="statusDisplayPanelPlaceholder" maxHeight="60.0" minHeight="60.0" prefHeight="60.0" VBox.vgrow="NEVER" />
+		<AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border" VBox.vgrow="NEVER" />
 		<AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
 	</children>
 </VBox>

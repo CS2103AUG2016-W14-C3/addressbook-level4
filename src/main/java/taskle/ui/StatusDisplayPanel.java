@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -15,14 +16,19 @@ import taskle.commons.core.LogsCenter;
 import taskle.commons.events.model.TaskFilterChangedEvent;
 import taskle.commons.util.FxViewUtil;
 
+//@@author A0141780J
 /**
- * A ui for the status bar that is displayed at the footer of the application.
+ * A ui for the status display panel that is displayed on top of the command box
+ * in the application.
  */
 public class StatusDisplayPanel extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusDisplayPanel.class);
 
     private HBox mainPane;
 
+    @FXML
+    private Label displayLabel;
+        
     @FXML
     private ImageView allChip;
     
@@ -74,6 +80,7 @@ public class StatusDisplayPanel extends UiPart {
     private void setupInitialChips() {
         ObservableList<Node> nodes = mainPane.getChildren();
         nodes.clear();
+        nodes.add(displayLabel);
         nodes.add(pendingChip);
         nodes.add(overdueChip);
     }
@@ -83,6 +90,7 @@ public class StatusDisplayPanel extends UiPart {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         ObservableList<Node> nodes = mainPane.getChildren();
         nodes.clear();
+        nodes.add(displayLabel);
         if (event.showAll) {
             nodes.add(allChip);
             return;

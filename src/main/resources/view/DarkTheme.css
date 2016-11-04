@@ -17,6 +17,14 @@
     -fx-opacity: 1;
 }
 
+.label-status-display {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Roboto Condensed";
+	-fx-font-weight: Bold;
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
 .label-header {
     -fx-font-size: 32pt;
     -fx-font-family: "Segoe UI Light";
