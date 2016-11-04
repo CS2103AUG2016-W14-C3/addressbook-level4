@@ -9,43 +9,43 @@ import taskle.commons.util.StatusFormatUtil;
  */
 public class TaskFilterChangedEvent extends BaseEvent {
 
-    public boolean showAll;
-    public boolean showPending;
-    public boolean showDone;
-    public boolean showOverdue;
+    public boolean isAllShown;
+    public boolean isPendingShown;
+    public boolean isDoneShown;
+    public boolean isOverdueShown;
 
-    public TaskFilterChangedEvent(boolean showPending, boolean showDone,
-            boolean showOverdue){
-        if (showPending && showDone && showOverdue) {
-            showAll = true;
+    public TaskFilterChangedEvent(boolean isPendingShown, boolean isDoneShown,
+            boolean isOverdueShown){
+        if (isPendingShown && isDoneShown && isOverdueShown) {
+            isAllShown = true;
             return;
         }
         
-        this.showPending = showPending;
-        this.showDone = showDone;
-        this.showOverdue = showOverdue;
+        this.isPendingShown = isPendingShown;
+        this.isDoneShown = isDoneShown;
+        this.isOverdueShown = isOverdueShown;
     }
 
     @Override
     public String toString() {
         String message = StatusFormatUtil.getFormattedFilters(
-                showPending, showDone, showOverdue);
+                isPendingShown, isDoneShown, isOverdueShown);
         return "Filter set to: " + message;
     }
     
     public boolean isPendingShown() {
-        return showPending;
+        return isPendingShown;
     }
     
     public boolean isOverdueShown() {
-        return showOverdue;
+        return isOverdueShown;
     }
     
     public boolean isDoneShown() {
-        return showDone;
+        return isDoneShown;
     }
     
     public boolean isAllShown() {
-        return showAll;
+        return isAllShown;
     }
 }

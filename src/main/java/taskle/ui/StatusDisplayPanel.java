@@ -91,20 +91,20 @@ public class StatusDisplayPanel extends UiPart {
         ObservableList<Node> nodes = mainPane.getChildren();
         nodes.clear();
         nodes.add(displayLabel);
-        if (event.showAll) {
+        if (event.isAllShown) {
             nodes.add(allChip);
             return;
         }
         
-        if (event.showPending) {
+        if (event.isPendingShown) {
             nodes.add(pendingChip);
         }
         
-        if (event.showOverdue) {
+        if (event.isOverdueShown) {
             nodes.add(overdueChip);
         }
         
-        if (event.showDone) {
+        if (event.isDoneShown) {
             nodes.add(doneChip);
         }
         
