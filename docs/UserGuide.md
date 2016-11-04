@@ -68,9 +68,10 @@ Taskle makes it elegantly simple to manage your tasks. All of its features requi
 | `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
 
 > **`Note`**
-> * You may enter the data and time in any format that you desire, and Taskle will still be able to recognise it.
+> * You may enter the date and time in any format that you desire, and Taskle will still be able to recognise it.
 > * Only the words after the last **by** or **from** in your input will be taken as the date and time. This allows you to continue using **by** and **from** as part of your task name as long as you enter the date and times last. For example:
 > 	* "add **Gardens by the Bay** from **9am to 9pm today**" adds a task with the name "Gardens by the Bay" with the date and time to be set to "9am to 9pm today".
+> * Should the name entered be too long, it will appear truncated with ellipses on the application. However, you can still view the full name by clicking and holding down your mouse button. 
 
 
 Examples:

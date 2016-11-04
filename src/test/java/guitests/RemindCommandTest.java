@@ -42,21 +42,6 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     }
 
     /**
-     * Set a reminder for a current task inside the TypicalTestTask to
-     * test the remind function. Check if that task has been edited
-     * correctly.
-     * 
-     * @throws IllegalValueException
-     */
-    @Test
-    public void setReminder_reminderPastEndDate_failure() throws IllegalValueException {
-        String index = "1";
-        String newRemindDateString = "13 Dec 7pm";
-        assertRemindPastEndDate("remind " + index + " " + newRemindDateString);
-    }
-
-    
-    /**
      * Set a reminder with no specified time to a task
      * @throws IllegalValueException
      */
@@ -77,11 +62,56 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     }
     
     /**
+     * Set a reminder with no specified time to a task
+     * @throws IllegalValueException
+     */
+    @Test
+    public void setReminder_taskClearReminder_success() throws IllegalValueException {
+        String index = "10";
+        TaskCardHandle oldTask = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
+        
+        String name = oldTask.getFullName();
+        String clearRemindDate = "clear";
+        String oldRemindDate = oldTask.getRemindDetails();
+        assertRemindResultSuccess("remind " + index + " " + clearRemindDate, 
+                name + " " + oldRemindDate + " -> " + "");
+        TaskCardHandle addedCard = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
+        FloatTask newTask = new FloatTask(new Name(name));
+        assertMatching(newTask, addedCard);
+    }
+    
+    /**
+     * Failure when reminder set is of a date that is later than the end date
+     * of the event task
+     * @throws IllegalValueException
+     */
+    @Test
+    public void setReminder_reminderPastEventTaskEndDate_failure() throws IllegalValueException {
+        String index = "1";
+        String newRemindDateString = "13 Dec 7pm";
+        assertRemindPastEndDate("remind " + index + " " + newRemindDateString);
+    }
+
+    /**
+     * Failure when reminder set is of a date that is later than the end date
+     * of the deadline task
+     * @throws IllegalValueException
+     */
+    @Test
+    public void setReminder_reminderPastDeadlineTaskEndDate_failure() throws IllegalValueException {
+        String index = "2";
+        String newRemindDateString = "13 Dec 7pm";
+        assertRemindPastEndDate("remind " + index + " " + newRemindDateString);
+    }
+    
+   
+    
+    /**
      * Set reminder to an inexistent task
      */
     @Test
     public void setReminder_inexistentTask_failure() {
-        String commandInvalidIntegerIndex = buildCommand("10", "31 Oct 10pm");
+        String commandInvalidIntegerIndex = buildCommand("99", "31 Oct 10pm");
         assertRemindInvalidIndex(commandInvalidIntegerIndex);
 
         String commandInvalidStringIndex = buildCommand("ABC", "31 Oct 10pm");

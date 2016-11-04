@@ -15,7 +15,6 @@ import taskle.commons.core.Messages;
 import taskle.commons.util.CollectionUtil;
 import taskle.commons.util.TaskUtil;
 import taskle.ui.CommandBox;
-import taskle.ui.SystemTray;
 
 /**
  * A list of tasks that does not allow nulls.
@@ -88,14 +87,6 @@ public class TaskList implements Iterable<Task> {
         logger.info("Task " + index + " Done! ");
         refreshInternalList();
     }
-    // @@author
-
-    public void unDone(Task taskToUndo) {
-        int targetIndex = internalList.indexOf(taskToUndo);
-        taskToUndo.setTaskDone(false);
-        internalList.set(targetIndex, taskToUndo);
-        refreshInternalList();
-    }
 
     // @@author A0139402M
     /**
@@ -159,9 +150,10 @@ public class TaskList implements Iterable<Task> {
         }
         Task toEdit = toEditOp.get();
         
-        if(checkInvalidRemindDate(toEdit, date)) {
+        if(date != null && checkInvalidRemindDate(toEdit, date)) {
             return Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE;
         }
+        
         toEdit.setRemindDate(date);
         internalList.set(index, toEdit);
         logger.info("Task " + index + " edited reminder date to " + toEdit.getRemindDetailsString());

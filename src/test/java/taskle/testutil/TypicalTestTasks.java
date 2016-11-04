@@ -17,7 +17,7 @@ import taskle.model.task.Task;
 public class TypicalTestTasks {
 
     public Task attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert, helpFriend, interview,
-        charityEvent, assignmentDeadline, finalExams;
+        charityEvent, assignmentDeadline, finalExams, industryTalk;
         
     public TypicalTestTasks() {
         try {
@@ -35,6 +35,7 @@ public class TypicalTestTasks {
             
             //Events and deadlines
             prepareTimedTasks();
+            prepareRemindTasks();
         } catch (IllegalValueException e) {
             e.printStackTrace();
             assert false : "not possible";
@@ -62,6 +63,13 @@ public class TypicalTestTasks {
         finalExams = new EventTask(new Name("Final exams"), 
                 startDate, endDate);
     }
+    
+    private void prepareRemindTasks() throws IllegalValueException {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2016, 11, 01, 12, 00);
+        Date remindDate = calendar.getTime();
+        industryTalk = new FloatTask(new Name("Industry Talk"), remindDate);
+    }
 
     public void loadTaskManagerWithSampleData(TaskManager ab) {
 
@@ -74,10 +82,12 @@ public class TypicalTestTasks {
         ab.addTask(goConcert.copy());
         ab.addTask(charityEvent.copy());
         ab.addTask(assignmentDeadline.copy());
+        ab.addTask(industryTalk.copy());
     }
 
     public Task[] getTypicalTasks() {
-        return new Task[]{charityEvent, assignmentDeadline, attendMeeting, buyMilk, createPlan, deliverGoods, eatDinner, flyKite, goConcert};
+        return new Task[]{charityEvent, assignmentDeadline, attendMeeting, buyMilk, 
+                createPlan, deliverGoods, eatDinner, flyKite, goConcert, industryTalk};
     }
 
     public TaskManager getTypicalTaskManager(){
