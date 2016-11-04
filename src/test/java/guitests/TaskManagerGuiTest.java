@@ -17,7 +17,7 @@ import guitests.guihandles.MainGuiHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.NotificationPaneHandle;
 import guitests.guihandles.PopOverHandle;
-import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.StatusDisplayPanelHandle;
 import guitests.guihandles.TaskCardHandle;
 import guitests.guihandles.TaskListPanelHandle;
 import javafx.stage.Stage;
@@ -48,9 +48,9 @@ public abstract class TaskManagerGuiTest {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected TaskListPanelHandle taskListPanel;
-    protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected NotificationPaneHandle notificationPane;
+    protected StatusDisplayPanelHandle statusDisplayPanel;
     protected PopOverHandle popOver;
     private Stage stage;
 
@@ -70,10 +70,10 @@ public abstract class TaskManagerGuiTest {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             taskListPanel = mainGui.getTaskListPanel();
-            resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             notificationPane = mainGui.getNotificationPane();
             popOver = mainGui.getPopOver();
+            statusDisplayPanel = mainGui.getStatusDisplayPanel();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
@@ -88,9 +88,9 @@ public abstract class TaskManagerGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected TaskManager getInitialData() {
-        TaskManager ab = TestUtil.generateEmptyTaskManager();
-        td.loadTaskManagerWithSampleData(ab);
-        return ab;
+        TaskManager tm = TestUtil.generateEmptyTaskManager();
+        td.loadTaskManagerWithSampleData(tm);
+        return tm;
     }
 
     /**
@@ -108,7 +108,10 @@ public abstract class TaskManagerGuiTest {
     }
 
     /**
-     * Asserts the task shown in the card is same as the given task
+     * Asserts the task shown in the card is same as the given task.
+     * 
+     * @param task given task to compare
+     * @param TaskCardHandle given card to compare
      */
     public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
         assertTrue(TestUtil.compareCardAndTask(card, task));
@@ -116,6 +119,8 @@ public abstract class TaskManagerGuiTest {
 
     /**
      * Asserts the size of the task list is equal to the given number.
+     * 
+     * @param size expected size of list
      */
     protected void assertListSize(int size) {
         int numberOfTask = taskListPanel.getNumberOfTask();
@@ -124,6 +129,7 @@ public abstract class TaskManagerGuiTest {
 
     /**
      * Asserts the message shown in the notification bar area is same as the given string.
+     * 
      * @param expected expected message
      */
     protected void assertSuccessfulMessage(String expected) {
@@ -131,9 +137,25 @@ public abstract class TaskManagerGuiTest {
     }
     
     /**
-     * Asserts that notification bar area is not shown.
+     * Asserts that popover text is as expected.
+     * 
+     * @param expected expected text
      */
     protected void assertUnsuccessfulMessage(String expected) {
         assertEquals(expected, popOver.getText());
+    }
+    
+    /**
+     * Asserts that status display panel is showing the 
+     * correct chips.
+     * 
+     * @param expected expected
+     */
+    protected void assertShownStatuses(
+            boolean isPendingShown, boolean isDoneShown, 
+            boolean isOverdueShown) {
+        assertTrue(isPendingShown == statusDisplayPanel.isPendingShown());
+        assertTrue(isDoneShown == statusDisplayPanel.isDoneShown());
+        assertTrue(isOverdueShown == statusDisplayPanel.isOverdueShown());
     }
 }

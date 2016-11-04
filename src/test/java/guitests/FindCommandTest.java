@@ -25,12 +25,14 @@ public class FindCommandTest extends TaskManagerGuiTest {
     public void findCommand_findDoneTask_returnsDoneTasks(){
         commandBox.runCommand("done 1");
         assertFindResult("find Charity -done", td.charityEvent); 
+        assertShownStatuses(false, true, false);
     }
     
     @Test
     public void findCommand_findPendingDoneTask_returnsPendingDoneTasks(){
         commandBox.runCommand("done 1");
         assertFindResult("find Charity -done -pending", td.charityEvent); 
+        assertShownStatuses(true, true, false);
     }
 
     @Test
