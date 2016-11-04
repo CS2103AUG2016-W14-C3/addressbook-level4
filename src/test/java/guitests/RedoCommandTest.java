@@ -7,8 +7,6 @@ import java.io.IOException;
 import org.junit.After;
 import org.junit.Before;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Test;
 
 import taskle.commons.core.Config;
@@ -27,42 +25,57 @@ import taskle.testutil.TestUtil;
 //@@author A0140047U
 public class RedoCommandTest extends TaskManagerGuiTest {
     
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/StorageDirectoryUtilTest/");
-    private static String TEST_DATA_FILE = TEST_DATA_FOLDER + "ValidFormatTaskManager.xml";
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/");
+    private static String TEST_DATA_FOLDER_TEMP = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/temp");
+    private static String TEST_DATA_FILE_NAME = "ValidFormatTaskManager.xml";
+    private static String TEST_DATA_FILE = TEST_DATA_FOLDER + TEST_DATA_FILE_NAME;
     
     private Config config;
     private String taskManagerDirectory;
     private String taskManagerFileName;
     
+    //Redo when no action has been undone
     @Test
-    public void redo() {
+    public void redo_emptyHistory_messageDisplayed() {
         Task[] currentList = td.getTypicalTasks();
-        
-        //Redo when no action has been undone
         assertRedoSuccess(RedoCommand.MESSAGE_NOTHING_TO_REDO, currentList);
-        
-        //Redo after undo of mutating command
+    }
+    
+    //Redo after undo of mutating command    
+    @Test
+    public void redo_afterUndoCommand_undoRestored() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(AddCommand.COMMAND_WORD + " " + td.helpFriend.getName());
         currentList = TestUtil.addTasksToList(currentList, td.helpFriend);
         commandBox.runCommand(UndoCommand.COMMAND_WORD);
         assertRedoSuccess(RedoCommand.MESSAGE_SUCCESS, currentList);
-        
-        //Redo after mutating command, should show "Nothing to Redo" message
+    }
+    
+    //Redo after mutating command, should show "Nothing to Redo" message
+    @Test
+    public void redo_afterMutatingCommand_messageDisplayed() {
+        Task[] currentList = td.getTypicalTasks();
         commandBox.runCommand(RemoveCommand.COMMAND_WORD + " 1");
         currentList = TestUtil.removeTaskFromList(currentList, 1);
         assertRedoSuccess(RedoCommand.MESSAGE_NOTHING_TO_REDO, currentList);
-        
-        //Redo after undo of storage directory change
+    }
+    
+    //Redo after undo of storage directory change
+    @Test
+    public void redo_changeDirectory_directoryChanged() {
         try {
-            commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER);
+            commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER_TEMP);
             commandBox.runCommand(UndoCommand.COMMAND_WORD);
             assertRedoDirectorySuccess(RedoCommand.MESSAGE_SUCCESS);
             restoreStorage();
         } catch (DataConversionException | IOException e) {
             e.printStackTrace();
-        }
-        
-        //Redo after undo of file storage change
+        }  
+    }
+    
+    //Redo after undo of file storage change
+    @Test
+    public void redo_openFile_fileReOpened() {
         try {
             commandBox.runCommand(OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FILE);
             commandBox.runCommand(UndoCommand.COMMAND_WORD);
@@ -84,7 +97,7 @@ public class RedoCommandTest extends TaskManagerGuiTest {
     private void assertRedoDirectorySuccess(String message) throws DataConversionException {
         commandBox.runCommand(RedoCommand.COMMAND_WORD);
         Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
-        assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER.substring(0, TEST_DATA_FOLDER.length() - 1)));
+        assertTrue(config.getTaskManagerFileDirectory().contains(TEST_DATA_FOLDER_TEMP.substring(0, TEST_DATA_FOLDER_TEMP.length() - 1)));
         assertSuccessfulMessage(message);
     }
   
@@ -98,15 +111,19 @@ public class RedoCommandTest extends TaskManagerGuiTest {
     
     //Restores original taskManager directory
     public void restoreStorage() throws IOException {
-        commandBox.runCommand(ChangeDirectoryCommand.COMMAND_WORD + " " + taskManagerDirectory);
+        commandBox.runCommand(UndoCommand.COMMAND_WORD);
     }
     
     //Stores original taskManager directory and file name
     @Before
-    public void setUp() throws DataConversionException {
+    public void setUp() throws DataConversionException, IOException {
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         taskManagerDirectory = config.getTaskManagerFileDirectory();
         taskManagerFileName = config.getTaskManagerFileName();
+        
+        config.setTaskManagerFileDirectory(TEST_DATA_FOLDER);
+        config.setTaskManagerFileName(TEST_DATA_FILE);
+        ConfigUtil.saveConfig(config, Config.DEFAULT_CONFIG_FILE);
     }
     
     //Restores original taskManager directory and file name

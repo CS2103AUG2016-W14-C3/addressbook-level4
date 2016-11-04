@@ -17,6 +17,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import com.google.common.eventbus.Subscribe;
@@ -60,6 +61,9 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    
     private Model model;
     private Logic logic;
 
@@ -557,7 +561,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_edit_duplicate() throws Exception {
+    public void execute_editDuplicate_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
@@ -576,19 +580,19 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_reschedule_invalid_command() throws Exception {
+    public void execute_rescheduleInvalidCommand_errorMessage() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
         assertCommandBehavior("reschedule task", expectedMessage);
     }
     
     @Test
-    public void execute_reschedule_invalid_index() throws Exception {
+    public void execute_rescheduleInvalidIndex_errorMessage() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
         assertCommandBehavior("reschedule -1", expectedMessage);
     }
     
     @Test
-    public void execute_reschedule_with_no_date() throws Exception {
+    public void execute_rescheduleWithNoDate_errorMessage() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.getFoodFromChinatown();
@@ -605,7 +609,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_reschedule_with_more_than_2_dates() throws Exception {
+    public void execute_rescheduleWithMoreThanTwoDates_errorMessage() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.getFoodFromChinatown();
@@ -622,7 +626,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_reschedule_to_float_task_successful() throws Exception{
+    public void execute_rescheduleEventTaskToFloatTask_successful() throws Exception{
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         EventTask toBeAdded = helper.gardensByTheBay();
@@ -650,7 +654,65 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_reschedule_to_deadline_task_successful() throws Exception{
+    public void execute_rescheduleDeadlineTaskToFloatTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.finishAssignment();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+        
+        String index = "1";
+        int offsetIndex = Integer.parseInt(index) - 1;
+
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedAB.editTaskDate(offsetIndex, null);
+        Task editedTask = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " clear",
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_rescheduleDeadlineTaskToEventTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.finishAssignment();
+        TaskManager expectedAB = new TaskManager();
+        expectedAB.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+        
+        String index = "1";
+        String dateTime = "13 dec 7pm to 13 dec 9pm";
+        int offsetIndex = Integer.parseInt(index) - 1;
+        List<Date> dates = DateParser.parse(dateTime);
+
+        Task taskToEdit = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedAB.editTaskDate(offsetIndex, dates);
+        Task editedTask = expectedAB.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " " + dateTime,
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
+                expectedAB,
+                expectedAB.getTaskList());
+    }
+    
+    @Test
+    public void execute_rescheduleFloatTaskToDeadlineTask_successful() throws Exception{
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.getFoodFromChinatown();
@@ -680,7 +742,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_reschedule_to_event_task_successful() throws Exception {
+    public void execute_rescheduleFloatTaskToEventTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.getFoodFromChinatown();
@@ -710,19 +772,19 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_remind_invalid_command() throws Exception {
+    public void execute_remindInvalidCommand_errorMessage() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE);
         assertCommandBehavior("remind task", expectedMessage);
     }
     
     @Test
-    public void execute_remind_invalid_index() throws Exception {
+    public void execute_remindInvalidIndex_errorMessage() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE);
         assertCommandBehavior("remind -1", expectedMessage);
     }
     
     @Test
-    public void execute_remind_invalid_date() throws Exception {
+    public void execute_remindInvalidDate_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.getFoodFromChinatown();
         TaskManager expectedAB = new TaskManager();
@@ -734,7 +796,7 @@ public class LogicManagerTest {
     }
     
     @Test
-    public void execute_remind_more_than_1_date() throws Exception {
+    public void execute_remindMoreThanOneDate_errorMessage() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         FloatTask toBeAdded = helper.getFoodFromChinatown();
         TaskManager expectedAB = new TaskManager();

@@ -1,20 +1,23 @@
 package taskle.ui;
 
+import java.awt.Toolkit;
+import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import taskle.commons.core.LogsCenter;
-import taskle.commons.events.ui.TaskPanelSelectionChangedEvent;
 import taskle.model.task.ReadOnlyTask;
-
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of tasks.
@@ -24,6 +27,8 @@ public class TaskListPanel extends UiPart {
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
+    private static final double TOOLTIP_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 4;
+
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
@@ -71,11 +76,34 @@ public class TaskListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
     }
 
+    /**
+     * Method to listen for mouse pressed to show tooltip for more 
+     * details on the task item
+     */
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskPanelSelectionChangedEvent(newValue));
+        Tooltip tp = new Tooltip();
+        tp.setWrapText(true);
+        tp.setMaxWidth(TOOLTIP_WIDTH);
+        taskListView.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                ReadOnlyTask taskSelected = taskListView.getSelectionModel().getSelectedItem();
+                String dateDetails = taskSelected.getDetailsString();
+                if(("").equals(dateDetails)) {
+                    tp.setText(taskSelected.getName().fullName);
+                } else {
+                    tp.setText(taskSelected.getName().fullName + "\nDate: " + dateDetails);
+                }
+                tp.show(taskListView, event.getScreenX() + 5, event.getScreenY() + 5);
+                logger.info("Tooltip shown: " + taskSelected.getName().fullName);
+            }
+        });
+        
+        taskListView.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                tp.hide();
+                logger.info("Tooltip Hidden");
             }
         });
     }

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>CS2101 OP2 Presentation</name>
+        <isTaskDone>0</isTaskDone>
+    </tasks>
+    <tasks>
+        <name>CS2103T Demo</name>
+        <isTaskDone>0</isTaskDone>
+    </tasks>
+</taskmanager>

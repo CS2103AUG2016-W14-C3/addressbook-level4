@@ -30,7 +30,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
      */
     @Test
     public void done_inexistent_task() {
-        String commandInvalidIntegerIndex = buildCommand("10");
+        String commandInvalidIntegerIndex = buildCommand("99");
         assertDoneInvalidIndex(commandInvalidIntegerIndex);
 
         String commandInvalidStringIndex = buildCommand("ABC");
