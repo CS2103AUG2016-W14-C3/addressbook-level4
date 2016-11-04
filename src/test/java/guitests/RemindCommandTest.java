@@ -68,7 +68,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     @Test
     public void setReminder_taskClearReminder_success() throws IllegalValueException {
         String index = "10";
-        TaskCardHandle oldTask = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
+        TaskCardHandle oldTask = taskListPanel.navigateToTask(td.industryTalk);
         
         String name = oldTask.getFullName();
         String clearRemindDate = "clear";
