@@ -53,6 +53,8 @@ public class HelpWindow extends UiPart {
                     new CommandGuide("Listing of Tasks", "list", "[-status]"),
                     new CommandGuide("Marking Tasks as Done", "done", "task_number"),
                     new CommandGuide("Clearing of Tasks", "clear"),
+                    new CommandGuide("Changing of Save Directory", "save", "directory_path"),
+                    new CommandGuide("Opening of File", "open", "file_path"),
                     new CommandGuide("Help Window Display", "help"),
                     new CommandGuide("Exiting from Taskle", "exit")));
 
