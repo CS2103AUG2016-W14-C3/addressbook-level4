@@ -154,6 +154,11 @@ public abstract class TaskManagerGuiTest {
     protected void assertShownStatuses(
             boolean isPendingShown, boolean isDoneShown, 
             boolean isOverdueShown) {
+        if (isPendingShown && isDoneShown && isOverdueShown) {
+            assertTrue(statusDisplayPanel.isAllShown());
+            return;
+        }
+        
         assertTrue(isPendingShown == statusDisplayPanel.isPendingShown());
         assertTrue(isDoneShown == statusDisplayPanel.isDoneShown());
         assertTrue(isOverdueShown == statusDisplayPanel.isOverdueShown());

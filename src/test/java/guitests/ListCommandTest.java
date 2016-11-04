@@ -53,7 +53,7 @@ public class ListCommandTest extends TaskManagerGuiTest {
     
     @Test
     public void listCommand_listAll_returnsAllTasks(){
-        assertListResult("list -all", true, true, true, td.getTypicalTasks()); 
+        assertListResult("list -all", true, true, true, td.getTypicalTasks());
     }
 
     private void assertListResult(String command, boolean showPending, 
@@ -78,5 +78,6 @@ public class ListCommandTest extends TaskManagerGuiTest {
         assertSuccessfulMessage(
                 "Listed " + String.join(", ", msgStrings) + " tasks");
         assertTrue(taskListPanel.isListMatching(expectedHits));
+        assertShownStatuses(showPending, showDone, showOverdue);
     }
 }

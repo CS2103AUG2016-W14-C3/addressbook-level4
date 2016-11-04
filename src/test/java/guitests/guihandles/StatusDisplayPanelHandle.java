@@ -13,23 +13,25 @@ public class StatusDisplayPanelHandle extends GuiHandle {
     private static final String PENDING_CHIP_ID = "#pendingChip";
     private static final String OVERDUE_CHIP_ID = "#overdueChip";
     private static final String DONE_CHIP_ID = "#doneChip";
+    private static final String ALL_CHIP_ID = "#allChip";
 
     public StatusDisplayPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
     
+    public boolean isAllShown() {
+        return containsNode(ALL_CHIP_ID);
+    }
+    
     public boolean isDoneShown() {
-        System.out.println(containsNode(DONE_CHIP_ID));
         return containsNode(DONE_CHIP_ID);
     }
     
     public boolean isPendingShown() {
-        System.out.println(containsNode(PENDING_CHIP_ID));
         return containsNode(PENDING_CHIP_ID);
     }
     
     public boolean isOverdueShown() {
-        System.out.println(containsNode(OVERDUE_CHIP_ID));
         return containsNode(OVERDUE_CHIP_ID);
     }
 }
