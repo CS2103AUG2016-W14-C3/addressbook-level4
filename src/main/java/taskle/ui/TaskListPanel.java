@@ -27,7 +27,7 @@ public class TaskListPanel extends UiPart {
     private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
-    private static final double TOOLTIP_WIDTH = 500;
+    private static final double TOOLTIP_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 4;
 
 
     @FXML
