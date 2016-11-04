@@ -11,6 +11,7 @@ import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.core.UnmodifiableObservableList;
+import taskle.commons.events.model.TaskFilterChangedEvent;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageUtil;
@@ -35,9 +36,9 @@ public class ModelManager extends ComponentManager implements Model {
     private Stack<TaskManager> redoTaskManagerHistory = new Stack<TaskManager>();
     
     // Filter variables
-    private boolean showDone = false;
-    private boolean showPending = true;
-    private boolean showOverdue = true;
+    private boolean isDoneShown = false;
+    private boolean isPendingShown = true;
+    private boolean isOverdueShown = true;
 
     /**
      * Initializes a ModelManager with the given TaskManager
@@ -89,7 +90,7 @@ public class ModelManager extends ComponentManager implements Model {
         redoTaskManagerHistory.clear();
         
         try {
-            StorageUtil.storeConfig(false);
+            StorageUtil.storeConfig(null);
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
@@ -219,25 +220,29 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public void updateFilters(Set<String> keywords, boolean pending, boolean done, boolean overdue){
-        this.showPending = pending;
-        this.showDone = done;
-        this.showOverdue = overdue;
+    public void updateFilters(Set<String> keywords, boolean isPendingShown, 
+                              boolean isDoneShown, boolean isOverdueShown){
+        this.isPendingShown = isPendingShown;
+        this.isDoneShown = isDoneShown;
+        this.isOverdueShown = isOverdueShown;
         updateFilteredListFindKeywords(keywords);
     }
     
     @Override
-    public void updateFilters(boolean pending, boolean done, boolean overdue) {
-        this.showPending = pending;
-        this.showDone = done;
-        this.showOverdue = overdue;
+    public void updateFilters(
+            boolean isPendingShown, boolean isDoneShown, boolean isOverdueShown) {
+        this.isPendingShown = isPendingShown;
+        this.isDoneShown = isDoneShown;
+        this.isOverdueShown = isOverdueShown;
+        raise(new TaskFilterChangedEvent(isPendingShown, isDoneShown, isOverdueShown));
         updateFilteredListWithStatuses();
     }
     
     private void resetFilters() {
-        this.showPending = true;
-        this.showOverdue = true;
-        this.showDone = false;
+        this.isPendingShown = true;
+        this.isDoneShown = false;
+        this.isOverdueShown = true;
+        raise(new TaskFilterChangedEvent(isPendingShown, isDoneShown, isOverdueShown));
         updateFilteredListWithStatuses();
     }
     
@@ -260,15 +265,15 @@ public class ModelManager extends ComponentManager implements Model {
         Predicate<Task> donePred = t -> t.getStatus() == Status.DONE;
         Predicate<Task> overduePred = t -> t.getStatus() == Status.OVERDUE;
         
-        if (showPending) {
+        if (isPendingShown) {
             basePred = basePred.or(pendingPred);
         }
         
-        if (showDone) {
+        if (isDoneShown) {
             basePred = basePred.or(donePred);
         }
         
-        if (showOverdue) {
+        if (isOverdueShown) {
             basePred = basePred.or(overduePred);
         }
         

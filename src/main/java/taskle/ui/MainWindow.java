@@ -16,13 +16,13 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.commons.events.ui.ExitAppRequestEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageUtil;
+import taskle.commons.util.StorageUtil.OperationType;
 import taskle.logic.Logic;
 import taskle.model.UserPrefs;
 
@@ -51,6 +51,7 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private TaskListPanel taskListPanel;
     private StatusBarFooter statusBarFooter;
+    private StatusDisplayPanel statusDisplayPanel;
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
@@ -70,10 +71,10 @@ public class MainWindow extends UiPart {
     private AnchorPane taskListPanelPlaceholder;
 
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
-
-    @FXML
     private AnchorPane statusbarPlaceholder;
+    
+    @FXML
+    private AnchorPane statusDisplayPanelPlaceholder;
     
     public MainWindow() {
         super();
@@ -130,6 +131,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTaskManagerFilePath());
+        statusDisplayPanel = StatusDisplayPanel.load(primaryStage, getStatusDisplayPanelPlaceholder());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), notificationPane, logic);
     }
 
@@ -140,9 +142,9 @@ public class MainWindow extends UiPart {
     private AnchorPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }
-
-    private AnchorPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
+    
+    private AnchorPane getStatusDisplayPanelPlaceholder() {
+        return statusDisplayPanelPlaceholder;
     }
 
     public AnchorPane getTaskListPlaceholder() {
@@ -217,7 +219,7 @@ public class MainWindow extends UiPart {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
             ExistingFileDialog.load(notificationPane, primaryStage, selectedDirectory);
         } else {
-            StorageUtil.storeConfig(true);
+            StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
             if (StorageUtil.updateDirectory(selectedDirectory)) {
                 config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
                 notificationPane.show(String.format(CHANGE_DIRECTORY_SUCCESS, config.getTaskManagerFileDirectory()));
@@ -239,7 +241,7 @@ public class MainWindow extends UiPart {
                 new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
         if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
-            StorageUtil.storeConfig(true);
+            StorageUtil.storeConfig(OperationType.OPEN_FILE);
             if (StorageUtil.updateFile(selectedFile)) {
                 notificationPane.show(CHANGE_FILE_SUCCESS);
             } else {

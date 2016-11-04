@@ -13,7 +13,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskle.ui.TaskListPanel">
+<VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+	AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+	xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="taskle.ui.TaskListPanel" stylesheets="@DarkTheme.css">
 	<stylesheets>
 		<URL value="@DarkTheme.css" />
 		<URL value="@Extensions.css" />
@@ -21,27 +24,41 @@
 	<children>
 		<GridPane styleClass="header-grid-pane" HBox.hgrow="ALWAYS">
 			<columnConstraints>
-            <ColumnConstraints hgrow="NEVER" maxWidth="16.0" minWidth="16.0" prefWidth="16.0" />
-				<ColumnConstraints hgrow="NEVER" maxWidth="72.0" minWidth="72.0" prefWidth="72.0" />
-				<ColumnConstraints hgrow="NEVER" maxWidth="450.0" minWidth="450.0" prefWidth="450.0" />
-				<ColumnConstraints hgrow="NEVER" maxWidth="360.0" minWidth="360.0" prefWidth="360.0" />
-            <ColumnConstraints maxWidth="359.0" minWidth="359.0" prefWidth="359.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="16.0"
+					minWidth="16.0" prefWidth="16.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="72.0"
+					minWidth="72.0" prefWidth="72.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="450.0"
+					minWidth="450.0" prefWidth="450.0" />
+				<ColumnConstraints hgrow="NEVER" maxWidth="360.0"
+					minWidth="360.0" prefWidth="360.0" />
+				<ColumnConstraints maxWidth="359.0" minWidth="359.0"
+					prefWidth="359.0" />
 			</columnConstraints>
 			<rowConstraints>
-				<RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0"
+					vgrow="ALWAYS" />
 			</rowConstraints>
 			<children>
-				<Label styleClass="header_label" text="ID" GridPane.columnIndex="1" GridPane.halignment="LEFT">
-               <GridPane.margin>
-                  <Insets left="10.0" />
-               </GridPane.margin></Label>
-				<Label maxWidth="400.0" minWidth="368.0" prefHeight="23.0" prefWidth="403.0" styleClass="header_label" text="Name" GridPane.columnIndex="2" />
-				<Label minWidth="-Infinity" prefHeight="21.0" prefWidth="356.0" styleClass="header_label" text="Reminder" GridPane.columnIndex="3" GridPane.halignment="LEFT" />
-					
-				<Label minWidth="-Infinity" prefWidth="500.0" styleClass="header_label" text="Dates" GridPane.columnIndex="4" GridPane.halignment="LEFT" />
+				<Label styleClass="header_label" text="ID"
+					GridPane.columnIndex="1" GridPane.halignment="LEFT">
+					<GridPane.margin>
+						<Insets left="10.0" />
+					</GridPane.margin>
+				</Label>
+				<Label maxWidth="400.0" minWidth="368.0" prefHeight="23.0"
+					prefWidth="403.0" styleClass="header_label" text="Name"
+					GridPane.columnIndex="2" />
+				<Label minWidth="-Infinity" prefHeight="21.0" prefWidth="356.0"
+					styleClass="header_label" text="Reminder" GridPane.columnIndex="3"
+					GridPane.halignment="LEFT" />
+
+				<Label minWidth="-Infinity" prefWidth="500.0" styleClass="header_label"
+					text="Dates" GridPane.columnIndex="4" GridPane.halignment="LEFT" />
 			</children>
 		</GridPane>
-		
-		<ListView fx:id="taskListView" styleClass="anchor-pane" VBox.vgrow="ALWAYS" />
+
+		<ListView fx:id="taskListView" styleClass="anchor-pane"
+			VBox.vgrow="ALWAYS" />
 	</children>
 </VBox>

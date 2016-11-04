@@ -13,6 +13,7 @@ import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageUtil;
+import taskle.commons.util.StorageUtil.OperationType;
 
 //@@author A0140047U
 /**
@@ -33,7 +34,7 @@ public class ExistingFileDialog {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
-            StorageUtil.storeConfig(true);
+            StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
             StorageUtil.updateDirectory(selectedDirectory);
             Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             

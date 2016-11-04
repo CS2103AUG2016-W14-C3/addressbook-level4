@@ -17,10 +17,16 @@ public class StorageUtil {
     
     private static Stack<Config> configHistory = new Stack<Config>();
     private static Stack<Config> redoConfigHistory = new Stack<Config>();
+    private static Stack<OperationType> operationHistory = new Stack<OperationType>();
+    private static Stack<OperationType> redoOperationHistory = new Stack<OperationType>();
     
     private static final int INDEX_DIRECTORY = 0;
     private static final int INDEX_FILE_NAME = 1;
     private static final int FILE_PATH_ARRAY_LENGTH = 2;
+
+    public enum OperationType {
+        CHANGE_DIRECTORY, OPEN_FILE
+    }
     
     /**
      * Moves file to the selected directory and updates Config accordingly
@@ -83,12 +89,14 @@ public class StorageUtil {
      * @param isStorageOperation true if storage operation, false otherwise
      * @throws DataConversionException
      */
-    public static void storeConfig(boolean isStorageOperation) throws DataConversionException {
-        if (isStorageOperation) {
+    public static void storeConfig(OperationType storageOperation) throws DataConversionException {
+        if (storageOperation != null) {
             Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             configHistory.push(config);
+            operationHistory.push(storageOperation);
         } else {
             redoConfigHistory.clear();
+            redoOperationHistory.clear();
             configHistory.push(null);
         }
     }
@@ -109,16 +117,21 @@ public class StorageUtil {
         Config originalConfig = configHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         redoConfigHistory.push(currentConfig);
+        
         if (originalConfig == null) {
             redoConfigHistory.push(null);
             return false;
-        } else if (originalConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())
-                && !originalConfig.getTaskManagerFileDirectory().equals(currentConfig.getTaskManagerFileDirectory())) {
-            updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
         } else {
-            updateFile(new File(originalConfig.getTaskManagerFilePath()));
-        }
+            OperationType operation = operationHistory.pop();
+            redoOperationHistory.push(operation);
+            
+            if (operation == OperationType.CHANGE_DIRECTORY) {
+                updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
+            } else {
+                updateFile(new File(originalConfig.getTaskManagerFilePath()));
+            }
         return true;
+        }
     }
     
     /**
@@ -142,13 +155,17 @@ public class StorageUtil {
         if (redoConfig == null) {
             configHistory.push(null);
             return false;
-        } else if (redoConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())
-                && !redoConfig.getTaskManagerFileDirectory().equals(currentConfig.getTaskManagerFileDirectory())) {
-            updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
-        } else {
-            updateFile(new File(redoConfig.getTaskManagerFilePath()));
+        } else  {
+            OperationType operation = redoOperationHistory.pop();
+            operationHistory.push(operation);
+            
+            if (operation == OperationType.CHANGE_DIRECTORY) {
+                updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
+            } else {
+                updateFile(new File(redoConfig.getTaskManagerFilePath()));
+            }
+            return true;
         }
-        return true;
     }
     
     //Removes latest stored element in configHistory when storage operation checks fails

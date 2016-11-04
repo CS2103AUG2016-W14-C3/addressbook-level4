@@ -1,5 +1,4 @@
-/* @@author A0141780J
-*/
+/* @@author A0141780J */
 .background {
     -fx-background-color: #37474F;
 }
@@ -13,6 +12,14 @@
 .label-bright {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: white;
+    -fx-opacity: 1;
+}
+
+.label-status-display {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Roboto Condensed";
+	-fx-font-weight: Bold;
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
@@ -144,6 +151,10 @@
 
 .status-bar-with-border .label {
     -fx-text-fill: white;
+}
+
+.status-display-pane {
+    -fx-background-color: #37474F;
 }
 
 .grid-pane {

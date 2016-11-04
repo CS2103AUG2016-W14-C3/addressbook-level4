@@ -19,25 +19,25 @@ public class FindCommand extends Command {
     private final Set<String> keywords;
     
     // Fields for whether to show the corresponding statuses
-    private boolean showPending = true;
-    private boolean showDone = false;
-    private boolean showOverdue = true;
+    private boolean isPendingShown = true;
+    private boolean isDoneShown = false;
+    private boolean isOverdueShown = true;
 
     public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
     }
     
-    public FindCommand(Set<String> keywords, boolean showPending, 
-                       boolean showDone, boolean showOverdue) {
+    public FindCommand(Set<String> keywords, boolean isPendingShown, 
+                       boolean isDoneShown, boolean isOverdueShown) {
         this.keywords = keywords;
-        this.showPending = showPending;
-        this.showDone = showDone;
-        this.showOverdue = showOverdue;
+        this.isPendingShown = isPendingShown;
+        this.isDoneShown = isDoneShown;
+        this.isOverdueShown = isOverdueShown;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilters(keywords, showPending, showDone, showOverdue);
+        model.updateFilters(keywords, isPendingShown, isDoneShown, isOverdueShown);
         return new CommandResult(
                 getMessageForTaskListShownSummary(
                         model.getFilteredTaskList().size()),
