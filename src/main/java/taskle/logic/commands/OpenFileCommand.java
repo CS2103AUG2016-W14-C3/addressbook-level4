@@ -16,7 +16,7 @@ public class OpenFileCommand extends Command {
     public static final String COMMAND_WORD = "open";
 
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads data from specified file.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads data from specified existing file.\n"
             + "Format: open file_path\n"
             + "Example: " + COMMAND_WORD + " C:" + File.separator + "Users" + File.separator + "John"
             + File.separator + "desktop" + File.separator + "taskle.xml";
