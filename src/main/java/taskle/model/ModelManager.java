@@ -96,38 +96,40 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    /** Restores recently saved TaskManager state*/
+    // Restores recently saved TaskManager state
     @Override
     public synchronized boolean restoreTaskManager() {
         try {
-            if (StorageUtil.restoreConfig()) {
+            if (StorageUtil.isConfigHistoryEmpty() && taskManagerHistory.isEmpty()) {
+                return false;
+            } else if (StorageUtil.restoreConfig()) {
                 return true;
-            } else if (!taskManagerHistory.isEmpty()) {
+            } else {
                 TaskManager recentTaskManager = taskManagerHistory.pop();
                 redoTaskManagerHistory.push(new TaskManager(taskManager));
                 this.resetData(recentTaskManager);
                 return true;
             }
-            return false;
         } catch (DataConversionException e) {
             e.printStackTrace();
             return false;
         }
     }
     
-    /** Reverts changes made from restoring recently saved TaskManager state */
+    // Reverts changes made from restoring recently saved TaskManager state
     @Override
     public synchronized boolean revertTaskManager() {
         try {
-            if (StorageUtil.revertConfig()) {
+            if (StorageUtil.isRedoConfigHistoryEmpty() && redoTaskManagerHistory.isEmpty()) {
+                return false;
+            } else if (StorageUtil.revertConfig()) {
                 return true;
-            } else if (!redoTaskManagerHistory.isEmpty()) {
+            } else {
                 TaskManager redoTaskManager = redoTaskManagerHistory.pop();
                 taskManagerHistory.push(new TaskManager(taskManager));
                 this.resetData(redoTaskManager);
                 return true;
             }
-            return false;
         } catch (DataConversionException e) {
             e.printStackTrace();
             return false;

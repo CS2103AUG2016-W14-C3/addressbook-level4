@@ -29,7 +29,6 @@ public class RemindCommand extends Command {
     public final Date remindDate;
 
     public RemindCommand(int targetIndex, Date remindDate) throws IllegalValueException {
-        assert remindDate != null;
         this.targetIndex = targetIndex; 
         this.remindDate = remindDate;
     }
