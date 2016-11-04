@@ -29,6 +29,7 @@ public class TaskListPanel extends UiPart {
     private AnchorPane placeHolderPane;
     private static final double TOOLTIP_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 4;
 
+
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
