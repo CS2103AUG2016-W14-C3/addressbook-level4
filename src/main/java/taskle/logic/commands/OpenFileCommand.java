@@ -24,7 +24,7 @@ public class OpenFileCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Storage File has been changed.";
     
     public static final String MESSAGE_FAILURE = "Failed to open file.";
-    public static final String MESSAGE_INVALID_FILE_FORMAT = "Invalid file format detected. Unable to open file";
+    public static final String MESSAGE_INVALID_FILE_FORMAT = "Invalid file format detected. Unable to open file.";
     public static final String MESSAGE_SAME_FILE = "You are already viewing the requested file.";
     
     private final File file;
