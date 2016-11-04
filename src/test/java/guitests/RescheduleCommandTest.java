@@ -19,7 +19,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException
      */
     @Test
-    public void reschedule_task_to_floattask() throws IllegalValueException {
+    public void rescheduleCommand_taskToFloattask_success() throws IllegalValueException {
         String index = "3";
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
@@ -34,7 +34,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException
      */
     @Test
-    public void reschedule_task_to_deadlinetask() throws IllegalValueException {
+    public void rescheduleCommand_taskToDeadlinetask_success() throws IllegalValueException {
         String newDate = "21 Oct 3pm";
         String index = "3";
         String command = buildCommand(index, newDate);
@@ -51,7 +51,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException
      */
     @Test
-    public void reschedule_task_to_eventtask() throws IllegalValueException {
+    public void rescheduleCommand_taskToEventtask_success() throws IllegalValueException {
         String newDate = "21 Oct 3pm to 31 Oct 5pm";
         String index = "3";
         String command = buildCommand(index, newDate);
@@ -67,7 +67,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * Reschedules an inexistent task
      */
     @Test
-    public void reschedule_inexistent_task() {
+    public void rescheduleCommand_inexistentTask_failure() {
         String commandInvalidIntegerIndex = buildCommand("10", "31 Oct 10pm");
         assertRescheduleInvalidIndex(commandInvalidIntegerIndex);
 
@@ -82,7 +82,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * Reschedules a task with more than 2 dates
      */
     @Test
-    public void reschedule_more_than_2_dates() {
+    public void rescheduleCommand_moreThanTwoDates_failure() {
         String commandTooManyDates = buildCommand("1", "31 Oct 10pm to 1 Nov 11pm to 12 Dec 12pm");
         assertRescheduleInvalidCommandFormat(commandTooManyDates);
     }
@@ -91,10 +91,11 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * Reschedules a task with no date
      */
     @Test
-    public void reschedule_task_no_date() {
+    public void rescheduleCommand_taskNoDate_failure() {
         String commandNoDates = buildCommand("1", "no date");
         assertRescheduleInvalidCommandFormat(commandNoDates);
     }
+    
     private String buildCommand(String taskNumber, String date) {
         String command = RescheduleCommand.COMMAND_WORD + " " + taskNumber + " " + date;
         return command;

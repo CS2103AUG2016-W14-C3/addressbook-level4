@@ -44,9 +44,11 @@ public class EditCommand extends Command {
             indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX, false);
         }
+        
         int offsetIndex = targetIndex - 1;
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldName = taskToEdit.getName().fullName; 
+        
         try {
             model.storeTaskManager();
             model.editTask(offsetIndex, newName);
