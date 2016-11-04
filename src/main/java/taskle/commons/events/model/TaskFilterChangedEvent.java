@@ -4,7 +4,9 @@ import taskle.commons.events.BaseEvent;
 import taskle.commons.util.StatusFormatUtil;
 
 //@@author A0141780J
-/** Indicates the filters in TaskList has changed*/
+/** Indicates the filters in TaskList has changed.
+ *  When is showing all, showing pending, done and overdue are all false.
+ */
 public class TaskFilterChangedEvent extends BaseEvent {
 
     public boolean showAll;
