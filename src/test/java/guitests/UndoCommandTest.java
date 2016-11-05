@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import taskle.commons.core.Config;
+import taskle.commons.core.Messages;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
@@ -29,12 +30,14 @@ import taskle.model.task.Task;
 //@@author A0140047U
 public class UndoCommandTest extends TaskManagerGuiTest {
 
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest");
-    private static String TEST_DATA_TEMP_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/temp");
-    private static String TEST_DATA_FILE_NAME = "ValidFormatTaskManager.xml";
-    private static String TEST_DATA_ANOTHER_FILE_NAME = "AnotherValidFormatTaskManager.xml";
-    private static String TEST_DATA_FILE_PATH = TEST_DATA_TEMP_FOLDER + File.separator + TEST_DATA_ANOTHER_FILE_NAME;
-    
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest");
+    private static final String TEST_DATA_TEMP_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/temp");
+    private static final String TEST_DATA_FILE_NAME = "ValidFormatTaskManager.xml";
+    private static final String TEST_DATA_ANOTHER_FILE_NAME = "AnotherValidFormatTaskManager.xml";
+    private static final String TEST_DATA_FILE_PATH = TEST_DATA_TEMP_FOLDER + File.separator + TEST_DATA_ANOTHER_FILE_NAME;
+    private static final String INVALID_CONFIG = FileUtil.getPath("src/test/data/ConfigUtilTest/NotJasonFormatConfig.json");
+    private static final String TEMP_CONFIG = "temp.json";
+
     private Config config;
     private String taskManagerPath;
     private String taskManagerDirectory;
@@ -44,8 +47,8 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     @Test
     public void undo_emptyHistory_messageDisplayed() {
         StorageUtil.clearHistory();
-        Task[] currentList = td.getTypicalTasks();
-        assertUndoSuccess(UndoCommand.MESSAGE_EMPTY_HISTORY, currentList);
+        commandBox.runCommand(UndoCommand.COMMAND_WORD);
+        assertUnsuccessfulMessage(UndoCommand.MESSAGE_EMPTY_HISTORY);
     }
     
     //Undo after add command
@@ -127,6 +130,22 @@ public class UndoCommandTest extends TaskManagerGuiTest {
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
+    }
+    
+    //Undo storage operation when config file is invalid
+    @Test
+    public void undo_invalidConfig_dataConversionException() {
+        commandBox.runCommand(OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FILE_PATH);
+        
+        new File(Config.DEFAULT_CONFIG_FILE).renameTo(new File(TEMP_CONFIG));
+        new File(INVALID_CONFIG).renameTo(new File(Config.DEFAULT_CONFIG_FILE));
+        
+        commandBox.runCommand(UndoCommand.COMMAND_WORD);
+        assertUnsuccessfulMessage(Messages.MESSAGE_CONFIG_ERROR);
+        
+        new File(Config.DEFAULT_CONFIG_FILE).renameTo(new File(INVALID_CONFIG));
+        new File(TEMP_CONFIG).renameTo(new File(Config.DEFAULT_CONFIG_FILE));
+        commandBox.runCommand(UndoCommand.COMMAND_WORD);
     }
     
     private void assertUndoSuccess(String message, Task... expectedHits) {
