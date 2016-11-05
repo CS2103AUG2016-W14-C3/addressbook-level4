@@ -58,7 +58,7 @@ public interface Model {
     boolean revertTaskManager();
     
     /** Removes most recently stored TaskManager state upon fail in check */
-    void rollBackTaskManager();
+    void rollBackTaskManager(boolean isStorageOperation);
     
     // Handles StorageMenuItemRequestEvent to manage taskManagerHistory stack
     void handleStorageMenuItemRequestEvent(StorageMenuItemRequestEvent smire);

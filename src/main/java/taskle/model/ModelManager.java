@@ -104,6 +104,8 @@ public class ModelManager extends ComponentManager implements Model {
                 taskManagerHistory.push(new TaskManager(taskManager));
             }
             redoTaskManagerHistory.clear();
+            StorageUtil.clearRedoConfig();
+            
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
@@ -112,6 +114,7 @@ public class ModelManager extends ComponentManager implements Model {
     // Restores recently saved TaskManager state
     @Override
     public synchronized boolean restoreTaskManager() {
+        
         try {
             if (StorageUtil.isConfigHistoryEmpty() && taskManagerHistory.isEmpty()) {
                 return false;
@@ -135,7 +138,7 @@ public class ModelManager extends ComponentManager implements Model {
     // Reverts changes made from restoring recently saved TaskManager state
     @Override
     public synchronized boolean revertTaskManager() {
-        try {
+         try {
             if (StorageUtil.isRedoConfigHistoryEmpty() && redoTaskManagerHistory.isEmpty()) {
                 return false;
             } else if (!redoTaskManagerHistory.isEmpty() && redoTaskManagerHistory.peek() == null) {
@@ -156,14 +159,23 @@ public class ModelManager extends ComponentManager implements Model {
     }
     
     @Override
-    public synchronized void rollBackTaskManager() {
+    public synchronized void rollBackTaskManager(boolean isStorageOperation) {
+
         taskManagerHistory.pop();
+        if (isStorageOperation) {
+            StorageUtil.undoConfig();
+        }
     }
+    
     
     @Override
     @Subscribe
     public void handleStorageMenuItemRequestEvent(StorageMenuItemRequestEvent smire) {
-        storeTaskManager(smire.getCommand());
+        if (smire.isValid()) {
+            storeTaskManager(smire.getCommand());
+        } else {
+            rollBackTaskManager(true);
+        }
     }
     
     //@@author
