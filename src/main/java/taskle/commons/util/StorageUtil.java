@@ -97,7 +97,6 @@ public class StorageUtil {
         } else {
             redoConfigHistory.clear();
             redoOperationHistory.clear();
-            configHistory.push(null);
         }
     }
     
@@ -111,7 +110,6 @@ public class StorageUtil {
      */
     public static boolean restoreConfig() throws DataConversionException {
         if (configHistory.isEmpty()) {
-            redoConfigHistory.push(null);
             return false;
         }
         Config originalConfig = configHistory.pop();
@@ -119,7 +117,6 @@ public class StorageUtil {
         redoConfigHistory.push(currentConfig);
         
         if (originalConfig == null) {
-            redoConfigHistory.push(null);
             return false;
         } else {
             OperationType operation = operationHistory.pop();
@@ -144,7 +141,6 @@ public class StorageUtil {
      */
     public static boolean revertConfig() throws DataConversionException {
         if (redoConfigHistory.isEmpty()) {
-            configHistory.push(null);
             return false;
         }
         
@@ -153,7 +149,6 @@ public class StorageUtil {
         configHistory.push(currentConfig);
         
         if (redoConfig == null) {
-            configHistory.push(null);
             return false;
         } else  {
             OperationType operation = redoOperationHistory.pop();
