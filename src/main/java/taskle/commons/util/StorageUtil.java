@@ -17,7 +17,22 @@ public class StorageUtil {
     
     private static Stack<Config> configHistory = new Stack<Config>();
     private static Stack<Config> redoConfigHistory = new Stack<Config>();
+    private static Stack<OperationType> operationHistory = new Stack<OperationType>();
+    private static Stack<OperationType> redoOperationHistory = new Stack<OperationType>();
     
+    private static final int INDEX_DIRECTORY = 0;
+    private static final int INDEX_FILE_NAME = 1;
+    private static final int FILE_PATH_ARRAY_LENGTH = 2;
+
+    public enum OperationType {
+        CHANGE_DIRECTORY, OPEN_FILE
+    }
+    
+    /**
+     * Moves file to the selected directory and updates Config accordingly
+     * @param selectedDirectory directory to be changed to
+     * @return true upon success operation, false otherwise
+     */
     public static boolean updateDirectory(File selectedDirectory) {
         assert selectedDirectory != null;
         try {
@@ -33,6 +48,12 @@ public class StorageUtil {
         }
     }
     
+    /**
+     * Open selected file and updates Config accordingly. 
+     * New taskmanager is loaded and model will be reset.
+     * @param selectedFile file to read data from
+     * @return true upon success operation, false otherwise
+     */
     public static boolean updateFile(File selectedFile) {
         assert selectedFile != null;
         ReadOnlyTaskManager newTaskManager;
@@ -49,27 +70,48 @@ public class StorageUtil {
         }
     }
     
+    /**
+     * Splits file path to directory and fileName
+     * @param filePath path of file
+     * @return String[FILE_PATH_ARRAY_LENGTH] containing directory and fileName
+     */
     public static String[] splitFilePath(String filePath) {
         assert filePath != null;
-        String[] separatedFilePath = new String[2];
-        separatedFilePath[0] = filePath.substring(0, filePath.lastIndexOf(File.separator));
-        separatedFilePath[1] = filePath.substring(filePath.lastIndexOf(File.separator) + 1);
+        String[] separatedFilePath = new String[FILE_PATH_ARRAY_LENGTH];
+        separatedFilePath[INDEX_DIRECTORY] = filePath.substring(0, filePath.lastIndexOf(File.separator));
+        separatedFilePath[INDEX_FILE_NAME] = filePath.substring(filePath.lastIndexOf(File.separator) + 1);
         return separatedFilePath;
     }
     
-    public static void storeConfig(boolean isStorageOperation) throws DataConversionException {
-        System.out.println(isStorageOperation);
-        if (isStorageOperation) {
+    /**
+     * Saves Config state by pushing it into stack
+     * Config states only saved if it is storage command (openFile and changeDirectory)
+     * @param isStorageOperation true if storage operation, false otherwise
+     * @throws DataConversionException
+     */
+    public static void storeConfig(OperationType storageOperation) throws DataConversionException {
+        if (storageOperation != null) {
             Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
             configHistory.push(config);
+            operationHistory.push(storageOperation);
         } else {
             redoConfigHistory.clear();
+            redoOperationHistory.clear();
             configHistory.push(null);
         }
     }
     
+    /**
+     * restoreConfig undo changes done to Config
+     * If configHistory is empty or its top element is null, a mutating command is to be undo instead 
+     * and method will push null element to redoConfigHistory
+     * Else, perform corresponding commands to undo Config changes
+     * @return true if undo config, false if undo mutating command
+     * @throws DataConversionException
+     */
     public static boolean restoreConfig() throws DataConversionException {
         if (configHistory.isEmpty()) {
+            redoConfigHistory.push(null);
             return false;
         }
         Config originalConfig = configHistory.pop();
@@ -79,18 +121,33 @@ public class StorageUtil {
         if (originalConfig == null) {
             redoConfigHistory.push(null);
             return false;
-        } else if (originalConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())) {
-            updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
         } else {
-            updateFile(new File(originalConfig.getTaskManagerFilePath()));
-        }
+            OperationType operation = operationHistory.pop();
+            redoOperationHistory.push(operation);
+            
+            if (operation == OperationType.CHANGE_DIRECTORY) {
+                updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
+            } else {
+                updateFile(new File(originalConfig.getTaskManagerFilePath()));
+            }
         return true;
+        }
     }
     
+    /**
+     * revertConfig redo changes done to Config
+     * If redoConfigHistory is empty or its top element is null, a mutating command is to be redone instead 
+     * and method will push null element to configHistory
+     * Else, perform corresponding commands to redo Config changes
+     * @return true if redo config, false if redo mutating command
+     * @throws DataConversionException
+     */
     public static boolean revertConfig() throws DataConversionException {
         if (redoConfigHistory.isEmpty()) {
+            configHistory.push(null);
             return false;
         }
+        
         Config redoConfig = redoConfigHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         configHistory.push(currentConfig);
@@ -98,11 +155,31 @@ public class StorageUtil {
         if (redoConfig == null) {
             configHistory.push(null);
             return false;
-        } else if (redoConfig.getTaskManagerFileName().equals(currentConfig.getTaskManagerFileName())) {
-            updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
-        } else {
-            updateFile(new File(redoConfig.getTaskManagerFilePath()));
+        } else  {
+            OperationType operation = redoOperationHistory.pop();
+            operationHistory.push(operation);
+            
+            if (operation == OperationType.CHANGE_DIRECTORY) {
+                updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
+            } else {
+                updateFile(new File(redoConfig.getTaskManagerFilePath()));
+            }
+            return true;
         }
-        return true;
+    }
+    
+    //Removes latest stored element in configHistory when storage operation checks fails
+    public static void resolveConfig() {
+        configHistory.pop();
+    }
+    
+    //Returns true if configHistory is empty
+    public static boolean isConfigHistoryEmpty() {
+        return configHistory.isEmpty();
+    }
+    
+    //Returns true if redoConfigHistory is empty
+    public static boolean isRedoConfigHistoryEmpty() {
+        return redoConfigHistory.isEmpty();
     }
 }

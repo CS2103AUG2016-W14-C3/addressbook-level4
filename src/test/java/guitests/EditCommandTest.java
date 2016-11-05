@@ -21,7 +21,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException
      */
     @Test
-    public void edit_existing_task() throws IllegalValueException {
+    public void editCommand_existingTask_success() throws IllegalValueException {
         String newTaskName = "Buy Groceries";
         String index = "3";
         Name newName = new Name(newTaskName);
@@ -38,8 +38,8 @@ public class EditCommandTest extends TaskManagerGuiTest {
      * Edits an inexistent task
      */
     @Test
-    public void edit_inexistent_task() {
-        String commandInvalidIntegerIndex = buildCommand("10", "Buy dinner home");
+    public void editCommand_inexistentTask_failure() {
+        String commandInvalidIntegerIndex = buildCommand("99", "Buy dinner home");
         assertEditInvalidIndex(commandInvalidIntegerIndex);
         
         String commandInvalidStringIndex = buildCommand("ABC", "Buy dinner home");
@@ -50,7 +50,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
      * Edits a valid task without giving a new task name
      */
     @Test
-    public void edit_no_task_name() {
+    public void editCommand_noTaskName_failure() {
         String command = EditCommand.COMMAND_WORD + " 1";
         assertEditInvalidCommandFormat(command);
     }
@@ -59,7 +59,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
      * Invalid edit command "edits"
      */
     @Test
-    public void edit_invalid_command() {
+    public void editCommand_invalidCommand_failure() {
         String command = "edits 1 Walk dog";
         assertEditInvalidCommand(command);
     }
@@ -70,7 +70,7 @@ public class EditCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException
      */
     @Test
-    public void edit_duplicate_task() throws IllegalValueException {
+    public void editCommand_duplicateTask_success() throws IllegalValueException {
         String newName = "Go Concert";
         String command =
                 buildCommand("1", newName);

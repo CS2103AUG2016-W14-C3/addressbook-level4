@@ -1,5 +1,7 @@
 package taskle.logic.commands;
 
+import taskle.commons.util.StatusFormatUtil;
+
 /**
  * Lists all tasks in the Task Manager to the user.
  */
@@ -20,38 +22,22 @@ public class ListCommand extends Command {
             + "\nExample: " + COMMAND_WORD + " -done -pending";
     
     // Fields for whether to show the corresponding statuses
-    private final boolean showPending;
-    private final boolean showDone;
-    private final boolean showOverdue;
+    private final boolean isPendingShown;
+    private final boolean isDoneShown;
+    private final boolean isOverdueShown;
 
-    public ListCommand(boolean pending, boolean done, boolean overdue) {
-        this.showPending = pending;
-        this.showDone = done;
-        this.showOverdue = overdue;
+    public ListCommand(boolean isPendingShown, boolean isDoneShown, 
+                       boolean isOverdueShown) {
+        this.isPendingShown = isPendingShown;
+        this.isDoneShown = isDoneShown;
+        this.isOverdueShown = isOverdueShown;
     }
 
     @Override
     public CommandResult execute() {
-        model.updateFilters(showPending, showDone, showOverdue);
-        
-        String[] messageArray = new String[] {
-                "Not Pending", "Not Done", "Not Overdue"
-        };
-        
-        if (showPending) {
-            messageArray[0] = "Pending";
-        }
-        
-        if (showDone) {
-            messageArray[1] = "Done";
-        }
-        
-        if (showOverdue) {
-            messageArray[2] = "Overdue";
-        }
-        
-        String message = String.join(", ", messageArray);
-        
+        model.updateFilters(isPendingShown, isDoneShown, isOverdueShown);
+        String message = StatusFormatUtil.getFormattedFilters(
+                isPendingShown, isDoneShown, isOverdueShown);
         return new CommandResult(String.format(MESSAGE_LIST_SUCCESS, message), 
                                  true);
     }

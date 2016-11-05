@@ -87,7 +87,7 @@ public class FileUtil {
         assert pathWithForwardSlash.contains("/");
         return pathWithForwardSlash.replace("/", File.separator);
     }
-
+    
     public static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
         FileUtil.writeToFile(jsonFile, JsonUtil.toJsonString(objectToSerialize));
     }
@@ -95,5 +95,20 @@ public class FileUtil {
     public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
         return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
+    }
+    
+    //@@author A0140047U
+    /**
+     * Converts Absolute Path to Canonical Path
+     * @param file File with absolute path
+     * @return file with canonical path
+     */
+    public static File convertToCanonicalPath(File file) {
+        try {
+            file = new File(file.getCanonicalPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return file;
     }
 }

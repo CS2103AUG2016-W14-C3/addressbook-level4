@@ -68,9 +68,10 @@ Taskle makes it elegantly simple to manage your tasks. All of its features requi
 | `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
 
 > **`Note`**
-> * You may enter the data and time in any format that you desire, and Taskle will still be able to recognise it.
+> * You may enter the date and time in any format that you desire, and Taskle will still be able to recognise it.
 > * Only the words after the last **by** or **from** in your input will be taken as the date and time. This allows you to continue using **by** and **from** as part of your task name as long as you enter the date and times last. For example:
 > 	* "add **Gardens by the Bay** from **9am to 9pm today**" adds a task with the name "Gardens by the Bay" with the date and time to be set to "9am to 9pm today".
+> * Should the name entered be too long, it will appear truncated with ellipses on the application. However, you can still view the full name by clicking and holding down your mouse button. 
 
 
 Examples:
@@ -247,6 +248,47 @@ Clears all tasks from Taskle.<br><br>
 <div align="center">Figure 13: Clear all tasks from Taskle</div><br>
 <br>
 
+
+<!-- @@author A0140047U -->
+### Change Save Directory: `save`
+Changes save location of Taskle data file.<br><br>
+
+| Format  
+| :-------- 
+| `save` **`[directory_path]`**|
+
+<br>
+
+> **Thing to Note**
+> * You are also able to change your save directory from the menu option.
+
+<br>
+<img src="images/UI/Save.png" align="center">
+<div align="center">Figure 14: Save file to a different directory (Before)</div><br>
+<img src="images/UI/Save 2.png" align="center">
+<div align="center">Figure 15: Save file to a different directory (After)</div><br>
+<br>
+ 
+### Open File: `open`
+Opens a Taskle data file.<br><br>
+
+| Format  
+| :-------- 
+| `open` **`[file_path]`**|
+
+<br>
+
+> **Thing to Note**
+> * You are also able to open your file from the menu option.
+
+<br>
+<img src="images/UI/Open.png" align="center">
+<div align="center">Figure 16: Open a Taskle data file (Before)</div><br>
+<img src="images/UI/Open 2.png" align="center">
+<div align="center">Figure 17: Open a Taskle data file (After)</div><br>
+<br>
+
+<!-- @@author A0139402M -->
 ### View Help: `help`
 Displays a list of available commands.<br>
 
@@ -262,7 +304,7 @@ Displays a list of available commands.<br>
 
 <br>
 <img src="images/UI/Help.png" align="center">
-<div align="center">Figure 14: View all commands in the help list</div><br>
+<div align="center">Figure 18: View all commands in the help list</div><br>
 <br>
 
 ### Exit Taskle: `exit`
@@ -305,7 +347,7 @@ Mark as Done `d` | `done `**`task_number`**
 Undo `u` | `undo`
 Redo `r` | `redo`
 Clear | `clear`
-Change Directory `cd` | `changedirectory`
-Open Data File `of` | `open file`
+Change Directory `s` | `save`
+Open Data File `o` | `open`
 Help `h` | `help`
 Exit | `exit`

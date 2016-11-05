@@ -118,10 +118,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         tasks.done(index, targetDone);
     }
     //@@author
-     
-    public void unDoneTask(Task task) {
-        tasks.unDone(task);
-    }
+    
 
     //// util methods
 

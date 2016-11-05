@@ -15,3 +15,8 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.tooltip {
+	-fx-font-size: 12pt;
+	-fx-font-family: "Segoe UI Semibold";
+}

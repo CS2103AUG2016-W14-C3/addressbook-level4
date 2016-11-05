@@ -45,6 +45,13 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
         assertOpenFileInvalidFile(command);
     }
     
+    //Open the same file
+    @Test
+    public void openFile_sameFile_messageShown() {
+        String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + VALID_FILE;
+        assertOpenSameFile(command);
+    }
+    
     //Open a valid file
     @Test
     public void openFile_validFormat_FileOpened() throws DataConversionException {
@@ -66,7 +73,13 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     
     private void assertOpenFileInvalidFile(String command) {
         commandBox.runCommand(command);
-        assertUnsuccessfulMessage(OpenFileCommand.MESSAGE_FAILURE);
+        assertUnsuccessfulMessage(OpenFileCommand.MESSAGE_INVALID_FILE_FORMAT);
+    }
+    
+    private void assertOpenSameFile(String command) {
+        commandBox.runCommand(command);
+        commandBox.runCommand(command);
+        assertUnsuccessfulMessage(OpenFileCommand.MESSAGE_SAME_FILE);
     }
     
     //Stores original taskManager directory and file name
