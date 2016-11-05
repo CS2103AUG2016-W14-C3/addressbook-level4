@@ -30,21 +30,21 @@ public class TaskManager implements ReadOnlyTaskManager {
     }
 
     /**
-     * Tasks and Tags are copied into this taskmanager
+     * Tasks are copied into this taskmanager
      */
     public TaskManager(TaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
     }
 
     /**
-     * Tasks and Tags are copied into this taskmanager
+     * Tasks are copied into this taskmanager
      */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
     }
 
     /**
-     * Tasks and Tags are copied into this taskmanager
+     * Tasks are copied into this taskmanager
      */
     public TaskManager(TaskList tasks) {
         resetData(tasks.getInternalList());
@@ -75,9 +75,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     //// task-level operations
 
     /**
-     * Adds a task to the Task manager.
-     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the task to point to those in {@link #tags}.
+     * Adds a task to the Task manager
      * 
      * @param p task to be added
      */
