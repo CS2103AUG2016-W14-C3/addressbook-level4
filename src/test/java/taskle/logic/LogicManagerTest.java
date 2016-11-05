@@ -1101,20 +1101,20 @@ public class LogicManagerTest {
         private final String ADD_COMMAND_REMIND_PAPA = 
                 "add remind papa";
 
-        FloatTask buyEggs() throws Exception {
+        FloatTask buyEggs() {
             Name name = new Name("Buy eggs");
             return new FloatTask(name);
         }
         
         
-        FloatTask homeworkWithReminder() throws Exception {
+        FloatTask homeworkWithReminder() {
             Name name = new Name("Do homework for CS2103T");
             CALENDAR.set(2016, 8, 12, 10, 00, 00);
             Date remindDate = CALENDAR.getTime();
             return new FloatTask(name, remindDate);
         }
         
-        EventTask finalExams() throws Exception {
+        EventTask finalExams() {
             Name name = new Name("Final Exams");
             CALENDAR.set(2016, 8, 12, 10, 00, 00);
             Date startDate = CALENDAR.getTime();
@@ -1123,7 +1123,7 @@ public class LogicManagerTest {
             return new EventTask(name, startDate, endDate);
         }
         
-        EventTask finalExamsWithReminder() throws Exception {
+        EventTask finalExamsWithReminder() {
             Name name = new Name("Final Exams");
             CALENDAR.set(2016, 8, 12, 10, 00, 00);
             Date startDate = CALENDAR.getTime();
@@ -1134,7 +1134,7 @@ public class LogicManagerTest {
             return new EventTask(name, startDate, endDate, remindDate);
         }
         
-        EventTask getDocsFromBobWithReminder() throws Exception {
+        EventTask getDocsFromBobWithReminder() {
             Name name = new Name("Get documents from Bob");
             CALENDAR.set(2016, 3, 14, 00, 00, 00);
             Date startDate = CALENDAR.getTime();
@@ -1146,14 +1146,14 @@ public class LogicManagerTest {
         }
         
         
-        DeadlineTask finishAssignment() throws Exception {
+        DeadlineTask finishAssignment() {
             Name name = new Name("Finish Assignment");
             CALENDAR.set(2016, 11, 31, 23, 59, 00);
             Date byDate = CALENDAR.getTime();
             return new DeadlineTask(name, byDate);
         }
         
-        DeadlineTask finishAssignmentWithReminder() throws Exception {
+        DeadlineTask finishAssignmentWithReminder() {
             Name name = new Name("Finish Assignment");
             CALENDAR.set(2016, 11, 31, 23, 59, 00);
             Date byDate = CALENDAR.getTime();
@@ -1163,7 +1163,7 @@ public class LogicManagerTest {
         }
         
         
-        EventTask tutorialTmr() throws Exception {
+        EventTask tutorialTmr() {
             Name name = new Name("2103T tutorial");
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.MILLISECOND, 0);
@@ -1178,7 +1178,7 @@ public class LogicManagerTest {
             return new EventTask(name, startDate, endDate);
         }
         
-        EventTask gardensByTheBay() throws Exception {
+        EventTask gardensByTheBay() {
             Name name = new Name("Gardens by the Bay outing");
             Calendar calendar = Calendar.getInstance();
             calendar.set(2016, 11, 3, 12, 00);
@@ -1188,7 +1188,7 @@ public class LogicManagerTest {
             return new EventTask(name, startDate, endDate);
         }
         
-        EventTask newYearDay() throws Exception {
+        EventTask newYearDay() {
             Name name = new Name("New Year Day");
             Calendar calendar = Calendar.getInstance();
             calendar.set(2017, 0, 1, 23, 59, 59);
@@ -1197,7 +1197,7 @@ public class LogicManagerTest {
             return new EventTask(name, onDate, onDate);
         }
         
-        FloatTask getFoodFromChinatown() throws Exception {
+        FloatTask getFoodFromChinatown() {
             Name name = new Name("Get food from Chinatown");
             return new FloatTask(name);
         }
@@ -1211,7 +1211,7 @@ public class LogicManagerTest {
          *
          * @param seed used to generate the task data field values
          */
-        Task generateTask(int seed) throws Exception {
+        Task generateTask(int seed) {
             return new FloatTask(
                     new Name("Task " + seed));
         }
@@ -1244,7 +1244,7 @@ public class LogicManagerTest {
         /**
          * Generates an TaskManager with auto-generated task.
          */
-        TaskManager generateTaskManager(int numGenerated) throws Exception{
+        TaskManager generateTaskManager(int numGenerated) {
             TaskManager taskManager = new TaskManager();
             addToTaskManager(taskManager, numGenerated);
             return taskManager;
@@ -1253,7 +1253,7 @@ public class LogicManagerTest {
         /**
          * Generates an TaskManager based on the list of Tasks given.
          */
-        TaskManager generateTaskManager(List<Task> tasks) throws Exception{
+        TaskManager generateTaskManager(List<Task> tasks) {
             TaskManager taskManager = new TaskManager();
             addToTaskManager(taskManager, tasks);
             return taskManager;
@@ -1263,14 +1263,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given TaskManager
          * @param taskManager The TaskManager to which the Tasks will be added
          */
-        void addToTaskManager(TaskManager taskManager, int numGenerated) throws Exception{
+        void addToTaskManager(TaskManager taskManager, int numGenerated) {
             addToTaskManager(taskManager, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given TaskManager
          */
-        void addToTaskManager(TaskManager taskManager, List<Task> tasksToAdd) throws Exception{
+        void addToTaskManager(TaskManager taskManager, List<Task> tasksToAdd) {
             for(Task p: tasksToAdd){
                 taskManager.addTask(p);
             }
@@ -1280,14 +1280,14 @@ public class LogicManagerTest {
          * Adds auto-generated Task objects to the given model
          * @param model The model to which the Tasks will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        void addToModel(Model model, int numGenerated) {
             addToModel(model, generateTaskList(numGenerated));
         }
 
         /**
          * Adds the given list of Tasks to the given model
          */
-        void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
+        void addToModel(Model model, List<Task> tasksToAdd) {
             for(Task p: tasksToAdd){
                 model.addTask(p);
             }
@@ -1296,7 +1296,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Tasks based on the flags.
          */
-        List<Task> generateTaskList(int numGenerated) throws Exception{
+        List<Task> generateTaskList(int numGenerated) {
             List<Task> tasks = new ArrayList<>();
             for(int i = 1; i <= numGenerated; i++){
                 tasks.add(generateTask(i));
@@ -1314,7 +1314,7 @@ public class LogicManagerTest {
         /**
          * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        Task generateTaskWithName(String name) throws Exception {
+        Task generateTaskWithName(String name) {
             return new FloatTask(
                     new Name(name));
         }
