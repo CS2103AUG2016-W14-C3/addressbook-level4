@@ -11,13 +11,13 @@ import java.util.Date;
  *
  */
 public class DateFormatUtil {
-
+    //@@author A0141780J
     /**
      * Patterns for formatting. One for just the date and another with the time
      */
     private static final String DATE_DISPLAY_PATTERN = "d MMM yyyy";
     private static final String TIME_DISPLAY_PATTERN = "h:mma";
-    private static final String DATE_TIME_DISPLAY_PATTERN = "h:mma, d MMM yyyy";
+    private static final String DATE_TIME_DISPLAY_PATTERN = "d MMM yyyy, h:mma";
     private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(DATE_DISPLAY_PATTERN);
     private static final SimpleDateFormat SIMPLE_TIME_FORMAT = new SimpleDateFormat(TIME_DISPLAY_PATTERN);
     private static final SimpleDateFormat SIMPLE_DATE_TIME_FORMAT = new SimpleDateFormat(DATE_TIME_DISPLAY_PATTERN);
@@ -54,16 +54,14 @@ public class DateFormatUtil {
         int endYear = calendar.get(Calendar.YEAR);
 
         if (startDate.equals(endDate)) {
-            return formatDate(endDate);
+            return formatSingleDate(endDate);
         } else if (startDay == endDay && startYear == endYear) {
-            return SIMPLE_TIME_FORMAT.format(startDate) 
-                    + EVENT_DATES_DELIMITER
-                    + formatDate(endDate);
+            return formatSameDayEventDates(startDate, endDate);
         } else {
-            return formatDate(startDate) + EVENT_DATES_DELIMITER + formatDate(endDate);
+            return formatTwoDaysEventDates(startDate, endDate);
         }
     }
-
+    
     /**
      * Formats the date as a String such that time is not shown if its 
      * 23:59:99.
@@ -72,7 +70,7 @@ public class DateFormatUtil {
      * @param date Given date object to format
      * @return formatted date time string for display to user
      */
-    public static String formatDate(Date date) {
+    public static String formatSingleDate(Date date) {
         if (date == null) {
             return "";
         }
@@ -88,7 +86,19 @@ public class DateFormatUtil {
             return SIMPLE_DATE_TIME_FORMAT.format(date);
         }
     }
+    
+    private static String formatSameDayEventDates(Date startDate, Date endDate) {
+        return formatSingleDate(startDate) 
+               + EVENT_DATES_DELIMITER
+               + SIMPLE_TIME_FORMAT.format(endDate);
+    }
+    
+    private static String formatTwoDaysEventDates(Date startDate, Date endDate) {
+        return formatSingleDate(startDate) + EVENT_DATES_DELIMITER 
+               + formatSingleDate(endDate);
+    }
 
+    //@@author A0139402M
     /**
      * Formats the reminder date given. If no time is specified, it'll default
      * to 00:00 timing for the date specified.
@@ -100,9 +110,11 @@ public class DateFormatUtil {
         if (date == null) {
             return "";
         }
+        
         return SIMPLE_DATE_TIME_FORMAT.format(date);
     }
 
+    //@@author A0141780J
     /**
      * Used for converting a given array of dates into an add command friendly
      * format.
@@ -115,6 +127,7 @@ public class DateFormatUtil {
         for (int i = 0; i < dates.length; i++) {
             dateStrings[i] = SIMPLE_DATE_TIME_FORMAT.format(dates[i]);
         }
+        
         return String.join(EVENT_DATES_DELIMITER, dateStrings);
     }
 }

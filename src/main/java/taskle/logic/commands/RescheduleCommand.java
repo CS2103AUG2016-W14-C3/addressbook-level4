@@ -73,9 +73,9 @@ public class RescheduleCommand extends Command{
     private String getDateString(List<Date> dates) {
         String newDate = "";
         if(dates == null) {
-            newDate = DateFormatUtil.formatDate(null);
+            newDate = DateFormatUtil.formatSingleDate(null);
         } else if(dates.size() == 1) {
-            newDate = DateFormatUtil.formatDate(dates.get(0));
+            newDate = DateFormatUtil.formatSingleDate(dates.get(0));
         } else if(dates.size() == 2) {
             newDate = DateFormatUtil.formatEventDates(dates.get(0), dates.get(1));
         }

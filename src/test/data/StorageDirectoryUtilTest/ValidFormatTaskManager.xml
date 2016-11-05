@@ -1,27 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <name>task</name>
+        <name>event</name>
         <isTaskDone>0</isTaskDone>
-        <startDate>2016-11-05 09:00:00</startDate>
-        <endDate>2016-11-05 09:00:00</endDate>
+        <startDate>2016-11-06 10:00:00</startDate>
+        <endDate>2016-11-12 00:00:00</endDate>
     </tasks>
     <tasks>
-        <name>task</name>
+        <name>deadline</name>
         <isTaskDone>0</isTaskDone>
-        <startDate>2016-11-05 10:00:00</startDate>
-        <endDate>2016-11-05 00:00:00</endDate>
+        <endDate>2016-11-06 23:59:00</endDate>
     </tasks>
     <tasks>
-        <name>task</name>
+        <name>deadline</name>
         <isTaskDone>0</isTaskDone>
-        <startDate>2016-11-05 23:59:59</startDate>
         <endDate>2016-11-06 23:59:59</endDate>
-    </tasks>
-    <tasks>
-        <name>task</name>
-        <isTaskDone>0</isTaskDone>
-        <startDate>2016-11-05 23:59:59</startDate>
-        <endDate>2016-11-05 23:59:59</endDate>
     </tasks>
 </taskmanager>

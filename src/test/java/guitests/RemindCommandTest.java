@@ -32,7 +32,7 @@ public class RemindCommandTest extends TaskManagerGuiTest {
         String name = oldTask.getFullName();
         String newRemindDateString = "13 Dec 7pm";
         Date date = DateParser.parse(newRemindDateString).get(0);
-        String formattedNewDate = DateFormatUtil.formatDate(date);
+        String formattedNewDate = DateFormatUtil.formatSingleDate(date);
         String oldRemindDate = oldTask.getRemindDetails();
         assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
                 name + " " + oldRemindDate + " -> " + formattedNewDate);
