@@ -7,7 +7,6 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
-import taskle.commons.util.StorageUtil.OperationType;
 
 //@@author A0140047U
 //Opens data from specified file
