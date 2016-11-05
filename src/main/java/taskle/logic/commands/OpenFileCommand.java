@@ -3,6 +3,7 @@ package taskle.logic.commands;
 import java.io.File;
 
 import taskle.commons.core.Config;
+import taskle.commons.core.Messages;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
@@ -50,7 +51,7 @@ public class OpenFileCommand extends Command {
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
+            indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_CONFIG_ERROR);
             return new CommandResult(MESSAGE_FAILURE, false);
         }
         
