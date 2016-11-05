@@ -177,4 +177,10 @@ public class StorageUtil {
     public static boolean isRedoConfigHistoryEmpty() {
         return redoConfigHistory.isEmpty();
     }
+    
+    //Clears both config history stacks
+    public static void clearHistory() {
+        configHistory.clear();
+        redoConfigHistory.clear();
+    }
 }

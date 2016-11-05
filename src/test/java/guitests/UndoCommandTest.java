@@ -13,6 +13,7 @@ import taskle.commons.core.Config;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
+import taskle.commons.util.StorageUtil;
 import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.ChangeDirectoryCommand;
 import taskle.logic.commands.ClearCommand;
@@ -42,6 +43,7 @@ public class UndoCommandTest extends TaskManagerGuiTest {
     //Undo with an empty history
     @Test
     public void undo_emptyHistory_messageDisplayed() {
+        StorageUtil.clearHistory();
         Task[] currentList = td.getTypicalTasks();
         assertUndoSuccess(UndoCommand.MESSAGE_EMPTY_HISTORY, currentList);
     }
