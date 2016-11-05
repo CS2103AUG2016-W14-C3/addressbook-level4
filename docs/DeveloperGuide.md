@@ -89,8 +89,8 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `remove 1`.<br>
 
-<img align="center" src="images/SDforDeletePerson.png">
-<div align="center">Figure 3: Sequence Diagram for Delete Person</div><br>
+<img align="center" src="images/SDforRemoveTask.png">
+<div align="center">Figure 3: Sequence Diagram for Remove Task</div><br>
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
@@ -98,7 +98,7 @@ command `remove 1`.<br>
 <br>
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br><br>
-<img align="center" src="images/SDforDeletePersonEventHandling.png">
+<img align="center" src="images/SDforRemoveTaskEventHandling.png">
 <div align="center">Figure 4: Sequence Diagram for Handling of Events</div><br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -149,8 +149,12 @@ The `UI` component:
 6. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")` API call.<br><br>
-<img align="center" src="images/DeletePersonSdForLogic.png">
-<div align="center">Figure 7: Delete Person Logic Sequence Diagram</div><br>
+<img align="center" src="images/RemoveTaskSdForLogic.png">
+<div align="center">Figure 7: Remove Task Logic Sequence Diagram</div><br>
+
+Given below is another Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call. Notice the differences between the remove and undo commands.<br><br>
+<img align="center" src="images/UndoCommandSdForLogic.png">
+<div align="center">Figure 8: Undo Command Logic Sequence Diagram</div><br>
 
 <!-- @@author A0140047U -->
 
@@ -356,13 +360,13 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br/>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid date.
 
 >1bi. System displays an error message. <br/>
-	Use Case ends.
-	
+  Use Case ends.
+  
 #### Use case: [UC03] Add Event Task
 
 **MSS**
@@ -376,18 +380,18 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br/>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid date.
 
 >1bi. System displays an error message. <br/>
-	Use Case ends.
-	
+  Use Case ends.
+  
 1c. More than 3 dates entered.
 
 >1ci. System displays an error message. <br/>
-	Use Case ends.
-		
+  Use Case ends.
+    
 #### Use case: [UC04] Edit Task
 
 **Preconditions**
@@ -429,23 +433,23 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 1c. User enters an invalid date.
 
 >1ci.  System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 1d. More than 3 dates entered.
 
 >1di.  System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 #### Use case: [UC06] Add Reminder to Task
 
 **Preconditions**
@@ -463,18 +467,18 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 1c. User enters an invalid date and time.
 
 >1ci.  System displays an error message. <br>
- 	Use Case ends. 
-	
+  Use Case ends. 
+  
 #### Use case: [UC07] Remove Single Task
 
 **Preconditions**
@@ -590,7 +594,7 @@ Use Case ends.
 1. User enters help command.
 2. System displays list of commands available. <br/>
 Use Case ends.
-	
+  
 #### Use case: [UC13] Change Storage File Location
 
 **MSS**
