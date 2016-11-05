@@ -16,7 +16,6 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
 import taskle.logic.commands.ChangeDirectoryCommand;
-import taskle.logic.commands.OpenFileCommand;
 import taskle.logic.commands.UndoCommand;
 
 //@@author A0140047U
