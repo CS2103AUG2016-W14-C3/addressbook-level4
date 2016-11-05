@@ -161,7 +161,7 @@ Given below is another Sequence Diagram for interactions within the `Logic` comp
 ### Model component
 
 <img align="center" src="images/ModelClassDiagram.png">
-<div align="center">Figure 8: Model Class Diagram</div><br>
+<div align="center">Figure 9: Model Class Diagram</div><br>
 
 **API** : [`Model.java`](../src/main/taskle/model/Model.java)
 
@@ -177,7 +177,7 @@ The `Model`:
 ### Storage component
 
 <img align="center" src="images/StorageClassDiagram.png">
-<div align="center">Figure 9: Storage Class Diagram</div><br>
+<div align="center">Figure 10: Storage Class Diagram</div><br>
 
 **API** : [`Storage.java`](../src/main/taskle/storage/Storage.java)
 
