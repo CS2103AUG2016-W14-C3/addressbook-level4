@@ -39,11 +39,15 @@ public class AddCommand extends Command {
     
     /**
      * Convenience constructor using raw name value.
+     * 
+     * @param nameString name of task in string format
+     * @param startDate start date of task
+     * @param endDate end date of task
+     * @param remindDate reminder date of task
      */
     public AddCommand(String nameString, Date startDate, 
                       Date endDate, Date remindDate) {
         assert (nameString != null);
-        
         Name name = new Name(nameString);
         if (startDate != null && endDate != null) {
             toAdd = new EventTask(name, startDate, endDate);
