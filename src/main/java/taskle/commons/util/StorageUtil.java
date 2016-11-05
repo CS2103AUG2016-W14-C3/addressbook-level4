@@ -108,26 +108,20 @@ public class StorageUtil {
      * @return true if undo config, false if undo mutating command
      * @throws DataConversionException
      */
-    public static boolean restoreConfig() throws DataConversionException {
-        if (configHistory.isEmpty()) {
-            return false;
-        }
+    public static void restoreConfig() throws DataConversionException {
+        assert !configHistory.isEmpty();
+        
         Config originalConfig = configHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         redoConfigHistory.push(currentConfig);
         
-        if (originalConfig == null) {
-            return false;
-        } else {
-            OperationType operation = operationHistory.pop();
-            redoOperationHistory.push(operation);
+        OperationType operation = operationHistory.pop();
+        redoOperationHistory.push(operation);
             
-            if (operation == OperationType.CHANGE_DIRECTORY) {
-                updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
-            } else {
-                updateFile(new File(originalConfig.getTaskManagerFilePath()));
-            }
-        return true;
+        if (operation == OperationType.CHANGE_DIRECTORY) {
+            updateDirectory(new File(originalConfig.getTaskManagerFileDirectory()));
+        } else {
+            updateFile(new File(originalConfig.getTaskManagerFilePath()));
         }
     }
     
@@ -139,27 +133,20 @@ public class StorageUtil {
      * @return true if redo config, false if redo mutating command
      * @throws DataConversionException
      */
-    public static boolean revertConfig() throws DataConversionException {
-        if (redoConfigHistory.isEmpty()) {
-            return false;
-        }
+    public static void revertConfig() throws DataConversionException {
+        assert !redoConfigHistory.isEmpty();
         
         Config redoConfig = redoConfigHistory.pop();
         Config currentConfig = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         configHistory.push(currentConfig);
         
-        if (redoConfig == null) {
-            return false;
-        } else  {
-            OperationType operation = redoOperationHistory.pop();
-            operationHistory.push(operation);
+        OperationType operation = redoOperationHistory.pop();
+        operationHistory.push(operation);
             
-            if (operation == OperationType.CHANGE_DIRECTORY) {
-                updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
-            } else {
-                updateFile(new File(redoConfig.getTaskManagerFilePath()));
-            }
-            return true;
+        if (operation == OperationType.CHANGE_DIRECTORY) {
+            updateDirectory(new File(redoConfig.getTaskManagerFileDirectory()));
+        } else {
+            updateFile(new File(redoConfig.getTaskManagerFilePath()));
         }
     }
     
@@ -176,6 +163,16 @@ public class StorageUtil {
     //Returns true if redoConfigHistory is empty
     public static boolean isRedoConfigHistoryEmpty() {
         return redoConfigHistory.isEmpty();
+    }
+    
+    //Clears redoConfigHistory, whenever a command, besides undo, is entered
+    public static void clearRedoConfig() {
+        redoConfigHistory.clear();
+    }
+    
+    //Clears redoConfigHistory, whenever a command, besides undo, is entered
+    public static void undoConfig() {
+        configHistory.pop();
     }
     
     //Clears both config history stacks
