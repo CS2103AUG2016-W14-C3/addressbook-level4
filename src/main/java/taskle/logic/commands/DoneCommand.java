@@ -36,9 +36,10 @@ public class DoneCommand extends Command {
         }
         
         try {
-            model.storeTaskManager();
+            model.storeTaskManager(COMMAND_WORD);
             model.doneTask(targetIndex, targetDone);
         } catch (TaskNotFoundException pnfe) {
+            model.rollBackTaskManager();
             assert false : "The target task cannot be missing";
         }
         

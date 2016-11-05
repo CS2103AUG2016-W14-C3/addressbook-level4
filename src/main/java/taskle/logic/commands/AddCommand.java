@@ -65,7 +65,7 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;        
-        model.storeTaskManager();
+        model.storeTaskManager(COMMAND_WORD);
         model.addTask(toAdd);
         
         // Display reminder message only when reminder is set

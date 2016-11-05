@@ -50,9 +50,10 @@ public class EditCommand extends Command {
         String oldName = taskToEdit.getName().fullName; 
         
         try {
-            model.storeTaskManager();
+            model.storeTaskManager(COMMAND_WORD);
             model.editTask(offsetIndex, newName);
         } catch (TaskNotFoundException pnfe) {
+            model.rollBackTaskManager();
             assert false : "The target task cannot be missing";
         }
         

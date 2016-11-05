@@ -149,6 +149,11 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
+    @Override
+    public synchronized void rollBackTaskManager() {
+        taskManagerHistory.pop();
+    }
+    
     //@@author
 
     @Override
