@@ -56,7 +56,7 @@ public class RescheduleCommand extends Command{
             model.storeTaskManager(COMMAND_WORD);
             model.editTaskDate(offsetIndex, dates);
         } catch (TaskNotFoundException pnfe) {
-            model.rollBackTaskManager();
+            model.rollBackTaskManager(false);
             assert false : "The target task cannot be missing";
         }
         String newDate = getDateString(dates);

@@ -53,7 +53,7 @@ public class EditCommand extends Command {
             model.storeTaskManager(COMMAND_WORD);
             model.editTask(offsetIndex, newName);
         } catch (TaskNotFoundException pnfe) {
-            model.rollBackTaskManager();
+            model.rollBackTaskManager(false);
             assert false : "The target task cannot be missing";
         }
         

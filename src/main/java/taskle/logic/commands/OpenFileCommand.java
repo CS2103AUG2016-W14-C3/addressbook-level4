@@ -46,7 +46,7 @@ public class OpenFileCommand extends Command {
             } else {
                 indicateAttemptToExecuteIncorrectCommand(MESSAGE_INVALID_FILE_FORMAT);
                 StorageUtil.resolveConfig();
-                model.rollBackTaskManager();
+                model.rollBackTaskManager(true);
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
         } catch (DataConversionException e) {

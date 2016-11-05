@@ -64,7 +64,7 @@ public class RemoveCommand extends Command {
             try {
                  model.deleteTask(taskToDelete);
             } catch (TaskNotFoundException pnfe) {
-                model.rollBackTaskManager();
+                model.rollBackTaskManager(false);
                 assert false : "The target task cannot be missing";
             }
         }

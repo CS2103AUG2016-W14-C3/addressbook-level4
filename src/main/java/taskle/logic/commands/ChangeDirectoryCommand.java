@@ -44,7 +44,7 @@ public class ChangeDirectoryCommand extends Command {
             } else {
                 indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
                 StorageUtil.resolveConfig();
-                model.rollBackTaskManager();
+                model.rollBackTaskManager(true);
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
         } catch (DataConversionException e) {
