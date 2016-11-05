@@ -85,12 +85,19 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0140047U
     /** Stores current TaskManager state */
     @Override
-    public synchronized void storeTaskManager() {
-        taskManagerHistory.push(new TaskManager(taskManager));
-        redoTaskManagerHistory.clear();
-        
+    public synchronized void storeTaskManager(String command) {
         try {
-            StorageUtil.storeConfig(null);
+            if (command.equals(ChangeDirectoryCommand.COMMAND_WORD)) {
+                StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
+                taskManagerHistory.push(null);
+            } else if (command.equals(OpenFileCommand.COMMAND_WORD)) {
+                StorageUtil.storeConfig(OperationType.OPEN_FILE);
+                taskManagerHistory.push(null);
+            } else {
+                StorageUtil.storeConfig(null);
+                taskManagerHistory.push(new TaskManager(taskManager));
+            }
+            redoTaskManagerHistory.clear();
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
