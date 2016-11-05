@@ -583,7 +583,22 @@ Use Case ends.
 > 1ai. System displays "Nothing to Undo" message. <br>
   Use Case ends.
 
-#### Use case: [UC12] View Help
+#### Use case: [UC12] Redo Command
+
+**MSS**
+
+1. User enters redo command.
+2. System redo previous command. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. No commands to redo.
+
+> 1ai. System displays "Nothing to Redo" message. <br>
+  Use Case ends.
+
+#### Use case: [UC13] View Help
 
 **MSS**
 
@@ -591,15 +606,13 @@ Use Case ends.
 2. System displays list of commands available. <br/>
 Use Case ends.
 	
-#### Use case: [UC13] Change Storage File Location
+#### Use case: [UC14] Change Save Directory
 
 **MSS**
 
-1. User requests to change file directory.
-2. System requests for confirmation.
-3. User confirms request.
-4. User chooses file directory.
-5. System updates file directory. <br/>
+1. User requests to change save directory.
+2. User chooses file directory.
+3. System updates file directory. <br/>
 Use Case ends.
 
 **Extensions**
@@ -608,15 +621,28 @@ Use Case ends.
 
 > Use Case ends.
 
-#### Use case: [UC14] Switch storage file
+2a. Requested directory is invalid or does not exist.
+
+> 2ai. System displays error message. <br>
+  Use Case ends.
+
+2b. Requested directory is the same as current directory.
+
+> 2bi. System displays "Requested directory is the same as current" message. <br>
+  Use Case ends.
+
+2c. File with the same name as currently opened file exists in requested directory.
+
+> 2ci. System displays "Existing file found in requested directory" message. <br>
+  Use Case ends.
+
+#### Use case: [UC15] Open Storage File
 
 **MSS**
 
-1. User requests to switch storage file.
-2. System requests for confirmation.
-3. User confirms request.
-4. User chooses file to switch to.
-5. System updates storage file. <br/>
+1. User requests to open a storage file.
+2. User chooses file to open.
+3. System updates storage file. <br/>
 Use Case ends.
 
 **Extensions**
@@ -624,6 +650,16 @@ Use Case ends.
 1a. User cancels request.
 
 > Use Case ends.
+
+2a. Requested file is invalid or does not exist.
+
+> 2ai. System displays error message. <br>
+  Use Case ends.
+
+2b. Requested file is currently viewed.
+
+> 2bi. System displays "You are already viewing the requested file" message. <br>
+  Use Case ends.
 
 <!-- @@author A0139402M -->
 
