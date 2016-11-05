@@ -2,7 +2,6 @@ package taskle.logic.commands;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList.TaskNotFoundException;
@@ -32,7 +31,7 @@ public class EditCommand extends Command {
 
     public final Name newName;
 
-    public EditCommand(int targetIndex, String newName) throws IllegalValueException {
+    public EditCommand(int targetIndex, String newName) {
         this.targetIndex = targetIndex;
         this.newName = new Name(newName);
     }

@@ -26,7 +26,6 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import taskle.TestApp;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.FileUtil;
 import taskle.commons.util.XmlUtil;
 import taskle.model.TaskManager;
@@ -68,23 +67,16 @@ public class TestUtil {
     public static final Task[] sampleTaskData = getSampleTaskData();
 
     private static Task[] getSampleTaskData() {
-        try {
-            return new Task[]{
-                    new FloatTask(new Name("Attend Meeting")),
-                    new FloatTask(new Name("Buy Milk")),
-                    new FloatTask(new Name("Create Plan")),
-                    new FloatTask(new Name("Donate")),
-                    new FloatTask(new Name("Event Planning")),
-                    new FloatTask(new Name("Fetch Brother")),
-                    new FloatTask(new Name("Go To Concert")),
-                    new FloatTask(new Name("Help Friend")),
-                    new FloatTask(new Name("Interview"))
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            //not possible
-            return null;
-        }
+        return new Task[]{
+                new FloatTask(new Name("Attend Meeting")),
+                new FloatTask(new Name("Buy Milk")),
+                new FloatTask(new Name("Create Plan")),
+                new FloatTask(new Name("Donate")),
+                new FloatTask(new Name("Event Planning")),
+                new FloatTask(new Name("Fetch Brother")),
+                new FloatTask(new Name("Go To Concert")),
+                new FloatTask(new Name("Help Friend")),
+                new FloatTask(new Name("Interview"))};
     }
 
     public static List<Task> generateSampleTaskData() {

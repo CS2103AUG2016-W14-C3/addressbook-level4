@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.HelpCommand;
 import taskle.logic.commands.IncorrectCommand;
@@ -84,6 +83,7 @@ public class Parser {
     
     /**
      * Prepares commmand based on command word and arguments.
+     * 
      * @param commandWord command word from user input.
      * @param args arguments after command word from user input.
      * @return The corresponding command to the command word after parsing. 
@@ -106,8 +106,7 @@ public class Parser {
      * Extracts the new task's tags from the add command's tag arguments string.
      * Merges duplicate tag strings.
      */
-    private static Set<String> getTagsFromArgs(String tagArguments) 
-            throws IllegalValueException {
+    private static Set<String> getTagsFromArgs(String tagArguments) {
         // no tags
         if (tagArguments.isEmpty()) {
             return Collections.emptySet();

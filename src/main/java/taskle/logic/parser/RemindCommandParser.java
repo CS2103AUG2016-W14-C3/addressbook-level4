@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.RemindCommand;
@@ -54,20 +53,12 @@ public class RemindCommandParser extends CommandParser{
         if(dates.size() != 1) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemindCommand.MESSAGE_USAGE));
         }
-        try {
-            assert dates.size() == 1;
-            return new RemindCommand(index.get(), dates.get(0));
-        } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
 
+        assert dates.size() == 1;
+        return new RemindCommand(index.get(), dates.get(0));
     }
     
     private Command clearRemind(Optional<Integer> index) {
-        try {
-            return new RemindCommand(index.get(), null);
-        } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
+        return new RemindCommand(index.get(), null);
     }
 }

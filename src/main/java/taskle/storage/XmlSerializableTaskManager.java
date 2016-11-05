@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList;
@@ -41,11 +40,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     public TaskList getUniqueTaskList() {
         TaskList lists = new TaskList();
         for (XmlAdaptedTask p : tasks) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
+            lists.add(p.toModelType());
         }
         return lists;
     }
@@ -53,13 +48,7 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
     @Override
     public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
-            try {
-                return p.toModelType();
-            } catch (IllegalValueException e) {
-                e.printStackTrace();
-                //TODO: better error handling
-                return null;
-            }
+            return p.toModelType();
         }).collect(Collectors.toCollection(ArrayList::new));
     }
 

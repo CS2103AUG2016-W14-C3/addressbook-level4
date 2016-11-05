@@ -105,7 +105,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + "remind 15 Oct 7pm");
         assertSuccessfulMessage(
                 String.format(AddCommand.MESSAGE_SUCCESS,  
-                "Buy Groceries for home Reminder on: 7:00PM, 15 Oct 2016"));
+                "Buy Groceries for home Reminder on: 15 Oct 2016, 7:00PM"));
     }
     
     @Test
@@ -122,7 +122,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + "remind 26 Oct 3pm");
         assertSuccessfulMessage(
                 String.format(AddCommand.MESSAGE_SUCCESS,  
-                "Buy Groceries for home by 4:00PM, 26 Oct 2016 Reminder on: 3:00PM, 26 Oct 2016"));
+                "Buy Groceries for home by 26 Oct 2016, 4:00PM Reminder on: 26 Oct 2016, 3:00PM"));
     }
     
     @Test
@@ -139,7 +139,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + "remind 26 Oct 8am");
         assertSuccessfulMessage(
                 String.format(AddCommand.MESSAGE_SUCCESS,  
-                "Tuition from 9:00AM to 11:00AM, 26 Oct 2016 Reminder on: 8:00AM, 26 Oct 2016"));
+                "Tuition from 26 Oct 2016, 9:00AM to 11:00AM Reminder on: 26 Oct 2016, 8:00AM"));
     }
     //@@author
     

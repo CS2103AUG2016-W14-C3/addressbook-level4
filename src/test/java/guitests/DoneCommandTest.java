@@ -5,7 +5,6 @@ import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import org.junit.Test;
 
 import taskle.commons.core.Messages;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.DoneCommand;
 
 //@@author A0125509H
@@ -19,7 +18,7 @@ public class DoneCommandTest extends TaskManagerGuiTest {
      * @throws IllegalValueException
      */
     @Test
-    public void done_existing_task() throws IllegalValueException {
+    public void done_existing_task() {
         String index = "1";
         String command = buildCommand(index);
         assertDoneResultSuccess(command, index);

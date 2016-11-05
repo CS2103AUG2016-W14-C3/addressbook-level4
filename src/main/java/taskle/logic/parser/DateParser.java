@@ -27,9 +27,10 @@ public class DateParser {
      * Parses given date and time string and returns 
      * an array of date time that we are interested in capturing.
      * Usually start and end dates or just deadline date.
+     * If no dates are found, empty list is returned.
+     * 
      * @param dateTimeString String containing date and time to be parsed.
-     * @return A list of Dates found in String. If no dates are found, returns 
-     * an empty list.
+     * @return A list of Dates found in String.
      */
     public static List<Date> parse(String dateTimeString) {
         assert dateTimeString != null && !dateTimeString.isEmpty();
@@ -53,6 +54,14 @@ public class DateParser {
         return dates;
     }
     
+    /**
+     * Parses a given string as a reminder date string and 
+     * returns the corresponding date. If no date is found, 
+     * returned value is a null.
+     * 
+     * @param remindString string containing reminder date
+     * @return Date value from parsing the string.
+     */
     public static Date parseRemindDate(String remindString) {
         if (remindString == null || remindString.isEmpty()) {
             return null;
@@ -67,13 +76,15 @@ public class DateParser {
     }
     
     /**
-     * Resets the time fields in the date object to zeroes.
-     * @param dates
+     * Resets the time fields in the list of dates to zeroes.
+     * 
+     * @param dates List of dates to be reset.
      */
     private static void resetTime(List<Date> dates) {
         if (dates == null) {
             return;
         }
+        
         for (Date date: dates) {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(date);

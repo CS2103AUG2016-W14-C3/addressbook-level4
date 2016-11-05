@@ -4,7 +4,6 @@ import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Optional;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.IncorrectCommand;
@@ -56,10 +55,6 @@ public class EditCommandParser extends CommandParser {
                                   EditCommand.MESSAGE_USAGE));
         }
         
-        try {
-            return new EditCommand(index.get(), name.get());
-        } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
+        return new EditCommand(index.get(), name.get());
     }
 }
