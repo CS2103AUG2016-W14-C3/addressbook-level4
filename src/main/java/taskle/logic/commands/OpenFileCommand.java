@@ -41,12 +41,13 @@ public class OpenFileCommand extends Command {
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
             
-            StorageUtil.storeConfig(OperationType.OPEN_FILE);
+            model.storeTaskManager(COMMAND_WORD);
             if (StorageUtil.updateFile(file)) {
                 return new CommandResult(MESSAGE_SUCCESS, true);
             } else {
                 indicateAttemptToExecuteIncorrectCommand(MESSAGE_INVALID_FILE_FORMAT);
                 StorageUtil.resolveConfig();
+                model.rollBackTaskManager();
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
         } catch (DataConversionException e) {
