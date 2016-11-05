@@ -5,9 +5,11 @@ import taskle.commons.events.BaseEvent;
 public class StorageMenuItemRequestEvent extends BaseEvent {
 
     private String command;
+    private boolean isValidStatus;
     
-    public StorageMenuItemRequestEvent(String command) {
+    public StorageMenuItemRequestEvent(String command, boolean isValidStatus) {
         this.command = command;
+        this.isValidStatus = isValidStatus;
     }
     
     @Override
@@ -17,6 +19,10 @@ public class StorageMenuItemRequestEvent extends BaseEvent {
     
     public String getCommand() {
         return command;
+    }
+    
+    public boolean isValid() {
+        return isValidStatus;
     }
 
 }
