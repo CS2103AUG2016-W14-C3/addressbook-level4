@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import taskle.commons.core.UnmodifiableObservableList;
+import taskle.commons.events.storage.StorageMenuItemRequestEvent;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
@@ -58,6 +59,9 @@ public interface Model {
     
     /** Removes most recently stored TaskManager state upon fail in check */
     void rollBackTaskManager();
+    
+    // Handles StorageMenuItemRequestEvent to manage taskManagerHistory stack
+    void handleStorageMenuItemRequestEvent(StorageMenuItemRequestEvent smire);
     
     //@@author A0141780J
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */

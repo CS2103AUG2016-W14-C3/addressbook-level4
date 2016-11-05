@@ -7,15 +7,21 @@ import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.model.TaskFilterChangedEvent;
 import taskle.commons.events.model.TaskManagerChangedEvent;
+import taskle.commons.events.storage.StorageMenuItemRequestEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageUtil;
+import taskle.commons.util.StorageUtil.OperationType;
 import taskle.commons.util.StringUtil;
+import taskle.logic.commands.ChangeDirectoryCommand;
+import taskle.logic.commands.OpenFileCommand;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.ReadOnlyTask.Status;
@@ -152,6 +158,12 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void rollBackTaskManager() {
         taskManagerHistory.pop();
+    }
+    
+    @Override
+    @Subscribe
+    public void handleStorageMenuItemRequestEvent(StorageMenuItemRequestEvent smire) {
+        storeTaskManager(smire.getCommand());
     }
     
     //@@author
