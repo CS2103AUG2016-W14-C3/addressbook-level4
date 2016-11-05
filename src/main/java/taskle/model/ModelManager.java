@@ -109,7 +109,10 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             if (StorageUtil.isConfigHistoryEmpty() && taskManagerHistory.isEmpty()) {
                 return false;
-            } else if (StorageUtil.restoreConfig()) {
+            } else if (!taskManagerHistory.isEmpty() && taskManagerHistory.peek() == null) {
+                StorageUtil.restoreConfig(); 
+                taskManagerHistory.pop();
+                redoTaskManagerHistory.push(null);
                 return true;
             } else {
                 TaskManager recentTaskManager = taskManagerHistory.pop();
@@ -129,7 +132,10 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             if (StorageUtil.isRedoConfigHistoryEmpty() && redoTaskManagerHistory.isEmpty()) {
                 return false;
-            } else if (StorageUtil.revertConfig()) {
+            } else if (!redoTaskManagerHistory.isEmpty() && redoTaskManagerHistory.peek() == null) {
+                StorageUtil.revertConfig();
+                redoTaskManagerHistory.pop();
+                taskManagerHistory.push(null);
                 return true;
             } else {
                 TaskManager redoTaskManager = redoTaskManagerHistory.pop();

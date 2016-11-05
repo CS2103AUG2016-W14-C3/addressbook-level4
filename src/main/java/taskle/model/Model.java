@@ -48,7 +48,7 @@ public interface Model {
 
     //@@author A0140047U
     /** Stores current TaskManager state */
-    void storeTaskManager();
+    void storeTaskManager(String command);
     
     /** Restores most recently stored TaskManager state */
     boolean restoreTaskManager();
