@@ -15,6 +15,7 @@ import taskle.model.task.TaskList;
  * The API of the Model component.
  */
 public interface Model {
+    
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyTaskManager newData);
 
@@ -52,10 +53,10 @@ public interface Model {
     void storeTaskManager(String command);
     
     /** Restores most recently stored TaskManager state */
-    boolean restoreTaskManager();
+    int restoreTaskManager();
     
     /** Undo most recently restored TaskManager state */
-    boolean revertTaskManager();
+    int revertTaskManager();
     
     /** Removes most recently stored TaskManager state upon fail in check */
     void rollBackTaskManager(boolean isStorageOperation);

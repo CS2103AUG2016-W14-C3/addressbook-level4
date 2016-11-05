@@ -37,9 +37,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
-
     private Stack<TaskManager> taskManagerHistory = new Stack<TaskManager>();
     private Stack<TaskManager> redoTaskManagerHistory = new Stack<TaskManager>();
+    
+    public static final Integer STATUS_EMPTY_HISTORY = 0;
+    public static final Integer STATUS_AVAILABLE_HISTORY = 1;
+    public static final Integer STATUS_ERROR_HISTORY = -1;
     
     // Filter variables
     private boolean isDoneShown = false;
@@ -113,48 +116,45 @@ public class ModelManager extends ComponentManager implements Model {
     
     // Restores recently saved TaskManager state
     @Override
-    public synchronized boolean restoreTaskManager() {
-        
+    public synchronized int restoreTaskManager() {
         try {
             if (StorageUtil.isConfigHistoryEmpty() && taskManagerHistory.isEmpty()) {
-                return false;
+                return STATUS_EMPTY_HISTORY;
             } else if (!taskManagerHistory.isEmpty() && taskManagerHistory.peek() == null) {
                 StorageUtil.restoreConfig(); 
                 taskManagerHistory.pop();
                 redoTaskManagerHistory.push(null);
-                return true;
+                return STATUS_AVAILABLE_HISTORY;
             } else {
                 TaskManager recentTaskManager = taskManagerHistory.pop();
                 redoTaskManagerHistory.push(new TaskManager(taskManager));
                 this.resetData(recentTaskManager);
-                return true;
+                return STATUS_AVAILABLE_HISTORY;
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
-            return false;
+            return STATUS_ERROR_HISTORY;
         }
     }
     
     // Reverts changes made from restoring recently saved TaskManager state
     @Override
-    public synchronized boolean revertTaskManager() {
+    public synchronized int revertTaskManager() {
          try {
             if (StorageUtil.isRedoConfigHistoryEmpty() && redoTaskManagerHistory.isEmpty()) {
-                return false;
+                return STATUS_EMPTY_HISTORY;
             } else if (!redoTaskManagerHistory.isEmpty() && redoTaskManagerHistory.peek() == null) {
                 StorageUtil.revertConfig();
                 redoTaskManagerHistory.pop();
                 taskManagerHistory.push(null);
-                return true;
+                return STATUS_AVAILABLE_HISTORY;
             } else {
                 TaskManager redoTaskManager = redoTaskManagerHistory.pop();
                 taskManagerHistory.push(new TaskManager(taskManager));
                 this.resetData(redoTaskManager);
-                return true;
+                return STATUS_AVAILABLE_HISTORY;
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
-            return false;
+            return STATUS_ERROR_HISTORY;
         }
     }
     
@@ -378,5 +378,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }
