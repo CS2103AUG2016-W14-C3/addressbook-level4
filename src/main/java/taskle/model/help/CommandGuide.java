@@ -11,14 +11,8 @@ public class CommandGuide {
     // Member variables for a CommandGuide object
     private String actionName;
     private String commandWord;
+    private String shortcutCommand;
     private String[] args; 
-    
-    /**
-     * Private constructor for Command Guide so it cannot be constructed
-     * without parameters
-     */
-    private CommandGuide() {
-    }
     
     /**
      * Constructor for CommandGuide
@@ -28,11 +22,12 @@ public class CommandGuide {
      * @param commandWord command keyword
      * @param args optional arguments for command keyword
      */
-    public CommandGuide(String name, String commandWord, String... args) {
+    public CommandGuide(String name, String shortCommand, String commandWord, String... args) {
         assert name != null;
         assert commandWord != null;
         this.actionName = name;
         this.commandWord = commandWord;
+        this.shortcutCommand = shortCommand;
         this.args = args;
     }
     
@@ -44,6 +39,9 @@ public class CommandGuide {
         return commandWord;
     }
     
+    public String getShortcutCommand() {
+        return shortcutCommand;
+    }
     public String[] getArgs() {
         return args;
     }
