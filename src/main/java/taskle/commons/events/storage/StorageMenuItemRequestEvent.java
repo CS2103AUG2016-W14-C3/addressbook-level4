@@ -2,6 +2,8 @@ package taskle.commons.events.storage;
 
 import taskle.commons.events.BaseEvent;
 
+//@@author A0140047U
+//Indicates a request to change storage file/directory from clicking menu items
 public class StorageMenuItemRequestEvent extends BaseEvent {
 
     private String command;
