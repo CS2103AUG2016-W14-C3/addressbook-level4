@@ -29,7 +29,7 @@ Re-organize your life by using Taskle now!
 
 3. Double-click on the file to start the application. The Graphical User Interface (GUI) should appear in a few seconds.
 	
-	> <img src="images/UI/Base.png" align="center">
+	> <img src="images/UI/Main.png" align="center">
 	<div align="center">Figure 1: Graphical User Interface of Taskle</div>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
@@ -85,12 +85,12 @@ Examples:
 <br>
 
 <!-- @@author A0140047U -->
-### Edit a Task : `edit; reschedule; remind`
-Edits an existing task in Taskle. There are 3 types of edits possible: Edit task name, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify which task you wish to edit.<br><br>
+### Edit a Task : `rename; reschedule; remind`
+Edits an existing task in Taskle. There are 3 types of edits possible: Rename, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify which task you wish to edit.<br><br>
 
 Type | Format  
 :-------- | :-------- 
-Edit task name | `edit `**`task_number new_task_name`**  
+Rename | `rename `**`task_number new_task_name`**  
 Reschedule | `reschedule `**`task_number date`**`[`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Remind | `remind `**`task_number date`**`[`**` time`**`]`
 
@@ -103,31 +103,31 @@ Remind | `remind `**`task_number date`**`[`**` time`**`]`
 
 
 Examples:
-* `edit `**`6 Pay Abel for Chicken Rice`**
+* `rename `**`8 Pay Abel for Chicken Rice`**
 <br>
 
-<img align="center" src="images/UI/Edit.png">
-<div align="center">Figure 3: Edit Task 6 to Pay Abel for Chicken Rice (Before)</div><br><br>
+<img align="center" src="images/UI/Rename_Before.png">
+<div align="center">Figure 3: Rename Task 8 to Pay Abel for Chicken Rice (Before)</div><br><br>
 
-<img align="center" src="images/UI/Edit 2.png">
-<div align="center">Figure 4: Edit Task 6 to Pay Abel for Chicken Rice (After)</div><br><br>
+<img align="center" src="images/UI/Rename_After.png">
+<div align="center">Figure 4: Rename Task 8 to Pay Abel for Chicken Rice (After)</div><br><br>
 
-* `reschedule `**`2`**` to `**`7th October 7pm`**` remind `**`6th October 7pm`**
+* `reschedule `**`2`**` to `**`9th November 2pm`**
 
-<img align="center" src="images/UI/Reschedule.png">
-<div align="center">Figure 5: Reschedule Task 2 to 7th October 7pm and set the reminder as 6th October 7pm (Before)</div><br><br>
+<img align="center" src="images/UI/Reschedule_Before.png">
+<div align="center">Figure 5: Reschedule Task 2 to 9th November 2pm (Before)</div><br><br>
 
-<img align="center" src="images/UI/Reschedule 2.png">
-<div align="center">Figure 6: Reschedule Task 2 to 7th October 7pm and set the reminder as 6th October 7pm (After)</div><br><br>
+<img align="center" src="images/UI/Reschedule_After.png">
+<div align="center">Figure 6: Reschedule Task 2 to 9th November 2pm (After)</div><br><br>
 
 
-* `remind `**`2 clear`**
+* `remind `**`2 8th November 7pm`**
 	
-<img src="images/UI/Remind.png" align="center">
-<div align="center">Figure 7: Clear away the reminder for Task 2 (Before)</div><br><br>
+<img src="images/UI/Remind_Before.png" align="center">
+<div align="center">Figure 7: Reminding Task 2 on 8th November 7pm (Before)</div><br><br>
 
-<img src="images/UI/Remind 2.png" align="center">	
-<div align="center">Figure 8: Clear away the reminder for Task 2 (After)</div><br>
+<img src="images/UI/Remind_After.png" align="center">	
+<div align="center">Figure 8: Reminding Task 2 on 8th November 7pm (After)</div><br>
 
 <!-- @@author A0125509H -->
 ### Remove a Task: `remove`
@@ -138,10 +138,10 @@ Removes a task permanently from Taskle.<br>
 | `remove` **`task_number`** | 
 
 Examples:
-* `remove `**`6`**
+* `remove `**`8`**
 
-<img src="images/UI/Remove 2.png" align="center"/>	
-<div align="center">Figure 9: Remove Task 6 from Taskle</div><br>
+<img src="images/UI/Remove.png" align="center"/>	
+<div align="center">Figure 9: Remove Task 8 from Taskle</div><br>
 
 <!-- @@author A0139402M -->
 ### Finding a Task : `find`
@@ -165,15 +165,15 @@ tasks to be displayed are the pending and overdue ones.
 >	* find meeting task **-pending** **-overdue**
 
 Examples:
-* `find` **`books`**
+* `find` **`project`**
 
 <img src="images/UI/Find.png" align="center">
-<div align="center">Figure 10: Find all Tasks that have "books" as part of the task name</div><br>
+<div align="center">Figure 10: Find pending and overdue Tasks that have "project" in its name</div><br>
 
-* `find` **`-pending`**	
+* `find` **`project -all`**	
 	
-<img src="images/UI/Find Pending.png" align="center">
-<div align="center">Figure 11: Find all pending Tasks</div><br>
+<img src="images/UI/Find_All.png" align="center">
+<div align="center">Figure 11: Find all Tasks that have "project" in its name</div><br>
 <br>
 
 <!-- @@author A0140047U -->
@@ -207,7 +207,7 @@ Marks a task as done. Use this command when you are finished with the task.<br>
 
 | Format  
 | :-------- 
-| `done` **`[task_number]`** | 
+| `done` **`task_number`** | 
 
 Example:
 * `done` **`5`**
@@ -243,11 +243,6 @@ Clears all tasks from Taskle.<br><br>
 | :-------- 
 | `clear` | 
 
-<br>
-<img src="images/UI/Clear.png" align="center">
-<div align="center">Figure 13: Clear all tasks from Taskle</div><br>
-<br>
-
 
 <!-- @@author A0140047U -->
 ### Change Save Directory: `save`
@@ -255,38 +250,38 @@ Changes save location of Taskle data file.<br><br>
 
 | Format  
 | :-------- 
-| `save` **`[directory_path]`**|
+| `save` **`directory_path`**|
 
 <br>
 
 > **Thing to Note**
 > * You are also able to change your save directory from the menu option.
 
+Example:
+* `save` **`C:\Users\W14-C3\Dropbox`**
+
 <br>
 <img src="images/UI/Save.png" align="center">
-<div align="center">Figure 14: Save file to a different directory (Before)</div><br>
-<img src="images/UI/Save 2.png" align="center">
-<div align="center">Figure 15: Save file to a different directory (After)</div><br>
-<br>
+<div align="center">Figure 13: Change Save Directory</div><br>
  
 ### Open File: `open`
 Opens a Taskle data file.<br><br>
 
 | Format  
 | :-------- 
-| `open` **`[file_path]`**|
+| `open` **`file_path`**|
 
 <br>
 
 > **Thing to Note**
 > * You are also able to open your file from the menu option.
 
+Example:
+* `open` **`C:\Users\W14-C3\Dropbox\Taskle.xml`**
+
 <br>
 <img src="images/UI/Open.png" align="center">
-<div align="center">Figure 16: Open a Taskle data file (Before)</div><br>
-<img src="images/UI/Open 2.png" align="center">
-<div align="center">Figure 17: Open a Taskle data file (After)</div><br>
-<br>
+<div align="center">Figure 14: Open a Storage File</div><br>
 
 <!-- @@author A0139402M -->
 ### View Help: `help`
@@ -304,7 +299,7 @@ Displays a list of available commands.<br>
 
 <br>
 <img src="images/UI/Help.png" align="center">
-<div align="center">Figure 18: View all commands in the help list</div><br>
+<div align="center">Figure 15: View all commands in the help list</div><br>
 <br>
 
 ### Exit Taskle: `exit`
@@ -320,7 +315,7 @@ Exits and closes Taskle.<br><br>
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install the application in the other computer and overwrite the empty data file it creates with the file created in your previous Taskle folder.
+**A**: Install the application in the other computer and overwrite the empty data file it creates with the file created in your previous Taskle folder. You can also use Taskle’s save and open features to transfer your data.
        
 ## Command Summary
 
@@ -336,7 +331,6 @@ Add `a` | `add `**`task_name`**` [remind `**`date time`**`]`
  		| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
  		| `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
  		|`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
-
 Edit Description `rn` | `rename `**`task_number new_task_name`**
 Reschedule `rs` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
 Set Reminder `rmd` | `remind `**`task_number date time`**
