@@ -3,7 +3,7 @@
 <!-- @@author A0125509H -->
 
 ## Introduction
-Taskle is a task management application that helps users keep track of their tasks efficiently.  It comprises a Command Line Interface (CLI) for the input of all commands and a GUI for the output.  
+Taskle is a task management application that helps users to keep track of their tasks efficiently.  It comprises a Command Line Interface (CLI) for the input and a Graphical User Interface (GUI) for the output of commands respectively.
 
 This guide describes the design and implementation of Taskle. It will help you understand how Taskle works and how you can further contribute to its development. We have organised this guide in a top-down manner so that you can understand the big picture before moving on to the more detailed sections.
   
@@ -28,28 +28,28 @@ This guide describes the design and implementation of Taskle. It will help you u
 1. **JDK `1.8.0_60`**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
-    
+    This application will not work with earlier versions of Java 8.
 2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+3. **e(fx)clipse** plugin for Eclipse (Follow from Step 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
+<br>
 
-#### Importing the project into Eclipse
+#### Importing the Project into Eclipse
 
-0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+0. Fork this repo, and clone it to your computer.
+1. Open Eclipse. (Note: Ensure that you have installed the **e(fx)clipse** and **buildship** plugins as given in the prerequisites above.)
+2. Click `File` > `Import`.
+3. Click `Gradle` > `Gradle Project` > `Next` > `Next`.
+4. Click `Browse`, and locate the project's directory.
+5. Click `Finish`.
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+> * If you are asked to either 'keep' or 'overwrite' configuration files, 'keep' them.
+> * Depending on your connection speed and server load, it can take up to 30 minutes for the set-up to finish. (This is because Gradle downloads library files from servers during the set-up process of the project.)
+> * If Eclipse automatically changed any "settings" files during the import process, you can discard the changes.
+
+<br>
 
 ## Design
 
@@ -57,55 +57,48 @@ This guide describes the design and implementation of Taskle. It will help you u
 
 <img align="center" src="images/Architecture.png">
 <div align="center">Figure 1: Architecture Diagram</div><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
 
-`Main` has only one class called [`MainApp`](../src/main/java/taskle/MainApp.java). It is responsible for:
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+The **_Architecture Diagram_** given above explains the high-level design of the application. Below is a quick overview of each component:
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+`Main` only has one class called [`MainApp`](../src/main/java/taskle/MainApp.java). It is responsible for:
+* Initializing the components in the correct sequence, and connecting them up with each other, upon the launch of the application.
+* Shutting down the components and invoking cleanup method (where necessary) upon shut down.
 
-The rest of the App consists four components.
-* [**`UI`**](#ui-component) : Responsible for the User Interface of the App.
-* [**`Logic`**](#logic-component) : Executes the commands from the user.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
+[**`Commons`**](#common-classes) represents a collection of classes that is used by other multiple components. Two of them play important roles at the architecture level:
+* `EventsCentre`: This class (written using [Google's Event Bus library (https://github.com/google/guava/wiki/EventBusExplained)) is used by components to communicate with other components through the use of events (i.e. a form of _Event Driven_ design.)
+* `LogsCenter`: Used by many classes to write log messages to the application's log file.
+
+The rest of the application consists four components:
+* [**`UI`**](#ui-component) : Responsible for the User Interface of the application.
+* [**`Logic`**](#logic-component) : Executes user commands.
+* [**`Model`**](#model-component) : Holds the data of the application in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components:
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
-For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
-interface and exposes its functionality using the `LogicManager.java` class.<br><br>
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 <img align="center" src="images/LogicClassDiagram.png" >
-<div align="center">Figure 2: Logic Class Diagram Example</div><br><br>
+<div align="center">Figure 2: Logic Class Diagram Example</div><br>
 
-The four components `UI`, `Logic`, `Model` and `Storage` interact with one another to provide the functionality of the App.  
-For example, the _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `remove 1`.<br><br>
+The four components `UI`, `Logic`, `Model`, and `Storage` interact with one another to provide the functionality of the application.
+
+For example, the _Sequence Diagram_ below shows how the components interact in a scenario where the user issues a command `remove 1`.
 
 <img align="center" src="images/SDforRemoveTask.png">
 <div align="center">Figure 3: Sequence Diagram for Remove Task to show Component Interaction</div><br>
 
->Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
- instead of asking the `Storage` to save the updates to the hard disk.
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when Taskle's data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
-<br>
-The diagram below shows how the `EventsCenter` reacts to the `TaskManagerChangedEvent`, which eventually results in the updates
-being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br><br>
+The diagram below shows how the `EventsCenter` reacts to the `TaskManagerChangedEvent`. This results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+
 <img align="center" src="images/SDforRemoveTaskEventHandling.png">
 <div align="center">Figure 4: Sequence Diagram for Handling of Events</div><br>
 
-> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
-  coupling between components.
+> Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
-<br>
 The sections below give more details of each component.
 
 <!-- @@author A0125509H -->
@@ -115,22 +108,18 @@ The sections below give more details of each component.
 <img align="center" src="images/UiClassDiagram.png">
 <div align="center">Figure 5: User Interface Class Diagram</div><br>
 
+**API**: [`Ui.java`](../src/main/taskle/ui/Ui.java)
 
-**API** : [`Ui.java`](../src/main/taskle/ui/Ui.java)
+The UI consists of a `MainWindow` that is made up of parts `CommandBox`, `CommandResult`, `TaskListPanel`, `StatusBarFooter`, `StatusDisplayPanel` and `TaskCard`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class, and can be loaded through `UiPartLoader`.
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `CommandResult`, `TaskListPanel`,
-`StatusBarFooter`, `StatusDisplayPanel` and `TaskCard`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and can be loaded using the `UiPartLoader`.
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
- that are in the `src/main/resources/view` folder.<br>
- For example, the layout of the [`MainWindow`](../src/main/java/taskle/ui/MainWindow.java) is specified in
- [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
+For example, the layout of the [`MainWindow`](../src/main/java/taskle/ui/MainWindow.java) is specified in [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component:
-* Executes user commands using the `Logic` component.
+* Executes user commands through the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+* Responds to events raised from various parts of the application before updating the UI accordingly.
 
 <!-- @@author A0141780J -->
 
@@ -139,21 +128,24 @@ The `UI` component:
 <img align="center" src="images/LogicClassDiagram.png">
 <div align="center">Figure 6: Logic Class Diagram</div><br>
 
-**API** : [`Logic.java`](../src/main/taskle/logic/Logic.java)
+**API**: [`Logic.java`](../src/main/taskle/logic/Logic.java)
 
 Sequence flow of how `Logic` works:
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. `Parser` uses the CommandParser classes to parse the command.
 3. It returns a `Command` object which is executed by the `LogicManager`.
-4. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+4. The command execution can affect the `Model` and/or raise events.
+	* Example: Adding a task.
 5. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")` API call.<br><br>
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")` API call.
+
 <img align="center" src="images/RemoveTaskSdForLogic.png">
 <div align="center">Figure 7: Remove Task Logic Sequence Diagram</div><br>
 
-Given below is another Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call. Notice the differences between the remove and undo commands.<br><br>
+Given below is another Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call. Notice the differences between the remove and undo commands.
+
 <img align="center" src="images/UndoCommandSdForLogic.png">
 <div align="center">Figure 8: Undo Command Logic Sequence Diagram</div><br>
 
@@ -164,15 +156,15 @@ Given below is another Sequence Diagram for interactions within the `Logic` comp
 <img align="center" src="images/ModelClassDiagram.png">
 <div align="center">Figure 9: Model Class Diagram</div><br>
 
-**API** : [`Model.java`](../src/main/taskle/model/Model.java)
+**API**: [`Model.java`](../src/main/taskle/model/Model.java)
 
 The `Model` component:
 * Stores a `UserPref` object that represents the user's preferences.
-* Stores the Task Manager data.
-* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
-  so that the UI automatically updates when the data in the list change.
+* Stores Taskle's data.
+* Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed'.
+	* Example: The UI can be bound to this list so that it automatically updates when the data in the list changes.
 * Does not depend on any of the other three components.
-* Stores the current instance of the Task Manager should the user input a mutating command, such as `add`.
+* Stores the current instance of Taskle should the user input a mutating command, such as `add`.
 
 <!-- @@author A0139402M -->
 
@@ -181,113 +173,107 @@ The `Model` component:
 <img align="center" src="images/StorageClassDiagram.png">
 <div align="center">Figure 10: Storage Class Diagram</div><br>
 
-**API** : [`Storage.java`](../src/main/taskle/storage/Storage.java)
+**API**: [`Storage.java`](../src/main/taskle/storage/Storage.java)
 
 The `Storage` component:
-* Can save `UserPref` objects in json format and read it back.
-* Can save the Task Manager data in xml format and read it back.
+* Can save `UserPref` objects in json format before reading it back.
+* Can save Taskle's data in xml format before reading it back.
 
 <!-- @@author -->
 
 ### Common classes
 
-Classes used by multiple components are in the `taskle.commons` package.
+* Classes used by multiple components are in the `taskle.commons` package.
+
+<br>
 
 ## Implementation
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
-and logging destinations.
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and destinations.
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
-  (See [Configuration](#configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
-  the specified logging level
-* Currently log messages are output through: `Console` and to a `.log` file.
+  (See [Configuration](#configuration).)
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)`, which will log messages according to the specified logging level.
+* Log messages' current outputs are to: `Console` and a `.log` file.
 
 **Logging Levels**
 
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+* `SEVERE` : Detected a critical problem which may possibly cause the termination of the application.
+* `WARNING` : Can continue, but proceed with caution.
+* `INFO` : Information showing the noteworthy actions by the application.
+* `FINE` : Unnoteworthy details that may be useful in debugging
+	* Example: Printing of the actual list instead of its size
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
-(default: `config.json`):
+* Certain properties of the application can be controlled through the configuration file (default: `config.json`.)
+	* Example: Application name or logging level.
 
+<br>
 
 ## Testing
 
 Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-* To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
-  to run as a JUnit test.
+* To run all tests, right-click on the `src/test/java` folder and choose `Run as` > `JUnit Test`.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
 
 **Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+* See [UsingGradle.md](UsingGradle.md) on how you can run tests using Gradle.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
-   These are in the `guitests` package.
+1. **GUI Tests** - They are _System Tests_ that test the entire application by simulating user actions on the GUI. They are in the `guitests` package.
+2. **Non-GUI Tests** - They are tests that do not involve the GUI. They include:
+   1. _Unit tests_ targeting the lowest level methods/classes.
+	* Example: `taskle.commons.StorageUtilTest`
+   2. _Integration tests_ that are checking the integration of multiple code units (they are assumed to be working.)
+	* Example: `taskle.storage.StorageManagerTest`
+   3. Hybrids of unit and integration tests. They check multiple code units as well as how the are connected together.
+	* Example: `taskle.logic.LogicManagerTest`
   
-2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
-   1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `taskle.commons.StorageUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
-     (those code units are assumed to be working).<br>
-      e.g. `taskle.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
-      e.g. `taskle.logic.LogicManagerTest`
-  
-**Headless GUI Testing** :
-Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
- In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the tests are running.<br>
- See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-  
+**Headless GUI Testing**:
+* Thanks to the [TestFX](https://github.com/TestFX/TestFX) library that we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. This means that the developer can do other things on the Computer while the tests are running.
+* Check out [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+
+<br>
+
 ## Dev Ops
 
 ### Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+* See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
 ### Continuous Integration
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+* We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+* See [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
 
 Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
- 2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
-    and upload the JAR file your created.
+ 2. Tag the repo with the version number.
+ 	* Example: `v0.1`
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) and upload the JAR file that you created.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Taskle depends on the
-[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
-can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
-is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+* A project often depends on third-party libraries. For example, Taskle depends on the
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_ can be automated using Gradle.
+	* For example, Gradle can download the dependencies automatically, which is better than these alternatives.
+* Include those libraries in the repo (this bloats the repo size.)
+* Require developers to download those libraries manually (this creates extra work for developers.)
 
 <!-- @@author A0141780J -->
+
+<br>
 
 ## Appendix A : User Stories
 
@@ -330,9 +316,11 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 
 <!-- @@author A0140047U -->
 
+<br>
+
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is `Taskle` and the **Actor** is the `user`, unless specified otherwise)
+For all use cases below, the **System** is `Taskle` and the **Actor** is the `user`, unless specified otherwise.
 
 #### Use case: [UC01] Add Float Task
 
@@ -398,7 +386,7 @@ Use Case ends.
 
 **Preconditions**
 
-Task exists in system
+Task exists in system.
 
 **MSS**
 
@@ -422,7 +410,7 @@ Use Case ends.
 
 **Preconditions**
 
-Task exists in system
+Task exists in system.
 
 **MSS**
 
@@ -456,7 +444,7 @@ Use Case ends.
 
 **Preconditions**
 
-Task exists in system
+Task exists in system.
 
 **MSS**
 
@@ -485,7 +473,7 @@ Use Case ends.
 
 **Preconditions**
 
-Task exists in system
+Task exists in system.
 
 **MSS**
 
@@ -669,21 +657,24 @@ Use Case ends.
 
 <!-- @@author A0139402M -->
 
+<br>
+
 ## Appendix C : Non Functional Requirements
 
 1. Should work on Windows 7 or later.
-2. Should work on a desktop without network/Internet connection.
+2. Should work on a desktop without either a network or Internet connection.
 3. Should have minimal mouse-click actions.
 4. Should work stand-alone, not as a plug-in to another software.
 5. Should store data locally into a human editable file.
 6. Should work without requiring an installer. 
 7. Should be able to hold up to 1000 to-do items.
 8. Should come with automated unit tests and open source code.
-9. Should display command results within 100 millisecond.
+9. Should display command results within 100 milliseconds.
 10. Should favor DOS style commands over Unix-style commands.
 
-
 <!-- @@author A0125509H -->
+
+<br>
 
 ## Appendix D : Glossary
 
@@ -709,7 +700,7 @@ Use Case ends.
 
 ##### "Overdue" Task
 
-> A task which has not been completed within the expected time.
+> A task that has not been completed within the expected time.
 
 ##### "Pending" Task
 
@@ -719,30 +710,32 @@ Use Case ends.
 
 > The directory in a computer where the application stores the data of to-do items.
 
+<br>
+
 ## Appendix E : Product Survey
 
-The team has done a survey on existing products and analysed the strengths and weaknesses with respect to how well it can cater to our target audience.<br><br>
+The team has conducted a survey on existing products and analysed the strengths and weaknesses with respect to how well it can cater to our target audience.
 
 <!-- @@author A0140047U -->
 
 **Product #1: Wunderlist**<br>
 Strengths:
 
-1. Supports adding of floating tasks and deadlines → One-shot approach for Jim (floating tasks)
-2. Supports editing and deleting of existing tasks → Jim is able to reschedule and discard to-do items that cannot be completed
-3. Supports adding of deadlines and reminders → Reminder available for Jim whenever a deadline is approaching
-4. Supports searching and sorting of to-do items → Ease of finding specific to-do items
-5. Displays to-do items in a user-friendly manner
-6. Able to work offline → Jim does not have to depend on Internet access
-7. Able to view tasks that are completed → Jim is able to know what tasks are completed and yet to be completed
+1. Supports the addition of floating tasks and deadlines. → One-shot approach for Jim (floating tasks).
+2. Supports the editing and deletion of existing tasks. → Jim is able to reschedule and discard to-do items that cannot be completed.
+3. Supports the addition of deadlines and reminders. → Reminder alerts Jim whenever a deadline is approaching.
+4. Supports the searching and sorting of to-do items. → Ease of finding specific to-do items.
+5. Displays to-do items in a user-friendly manner.
+6. Able to work offline. → Jim does not have to depend on Internet access.
+7. Able to view completed tasks. → Jim is able to know what tasks are completed and not.
 
-Weakness:
+Weaknesses:
 
-1. Does not work with time slots → Jim is not able to add events
-2. Does not categorise to-do types (Events, Deadlines, Floating Tasks)
-3. Requires a few clicks to perform functions other than adding a task → Jim's one-shot approach is not fulfilled
-4. Does not support an "Undo" option → Incorrect to-do item created has to be edited/deleted instead
-5. Does not store data into local storage files. Links with user account (online) instead → Online access still required to transfer data if Jim works with different computers
+1. Does not work with time slots. → Jim is not able to add events.
+2. Does not categorise to-do types (events, deadlines, floating tasks).
+3. Requires a few clicks to perform functions other than the addition of a task. → Jim's one-shot approach is not fulfilled.
+4. Does not support an "Undo" option. → Incorrect to-do item created has to be either edited or deleted.
+5. Does not store data into local storage files. It instead links with an online user account. → Online access still required to transfer data if Jim works on different computers.
 
 <br>
 
@@ -751,17 +744,17 @@ Weakness:
 **Product #2: Google Keep**<br>
 Strengths:
 
-1. Supports adding of checklist items → Jim is able to mark as done
-2. Supports time-based reminders → Jim is able to schedule reminders for his tasks deadlines
-3. Supports searching of to-do items by description and types → Jim is able to find a to-do item quickly
-4. Displays to-do items are listed in a user-friendly manner → Jim is able to periodically review his to-do items
-5. Operates even without Internet access → Jim is able to access the application even without Internet connectivity
+1. Supports the addition of checklist items. → Jim is able to mark tasks as done.
+2. Supports time-based reminders. → Jim is able to schedule reminders for his tasks with deadlines.
+3. Supports the searching of to-do items by description and types. → Jim is able to find a to-do item quickly.
+4. Displays to-do items in a user-friendly manner. → Jim is able to periodically review his to-do items.
+5. Operates even without Internet access. → Jim is able to access the application even without Internet connectivity.
 
-Weakness:
+Weaknesses:
 
-1. Requires a few clicks to add a tasks followed by setting reminders → Jim's one-shot preference is not met
-2. Only supports reminders, does not allow Jim to block out slots for items without specific times.
-3. Does not support calendar-centric operations → Jim is not able to schedule tasks with specific start and end dates.
+1. Requires a few clicks to add a task. → Jim's one-shot preference is not met.
+2. Supports reminders only. → Jim is not able to block out slots for tasks without specific times.
+3. Does not support calendar-centric operations. → Jim is not able to schedule tasks with specific start and end dates.
 
 <br>
 
@@ -770,21 +763,20 @@ Weakness:
 **Product #3: to-doist**<br>
 Strengths:
 
-1. Supports adding of tasks that can be marked as 'done' → Jim is able to mark completed tasks as done
-2. Supports searching of tasks by its name and project → Jim is able to quickly find a task
-3. Adding of tasks is done in a one-shot manner → Jim is able to avoid taking several clicks to add a task
-4. Operates offline and only starts syncing with other devices when there is Internet connection → Jim can access the application even without internet connectivity.
-5. Supports a desktop version → Jim is able to access the application quickly.
-6. Supports adding of tasks with no specific time tagged to it → Jim is able to add tasks that do not require a specific time to be completed.
-7. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
+1. Supports the addition of tasks that can be marked as 'done'. → Jim is able to mark completed tasks as done.
+2. Supports the searching of tasks by its name and project. → Jim is able to quickly find a task.
+3. Adding of tasks is done in a one-shot manner. → Jim is able to avoid taking several clicks to add a task.
+4. Operates offline and only starts syncing with other devices when there is Internet connection. → Jim can access the application even without Internet connectivity.
+5. Supports a desktop version. → Jim is able to access the application quickly.
+6. Supports the addition of tasks with no specific time tagged to it. → Jim is able to add tasks that do not require a specific time to be completed.
+7. Allows easy and straightforward postponement of tasks. → Jim can easily postpone tasks should the need arises.
 
+Weaknesses:
 
-Weakness:
-
-1. Does not allow for block scheduling of tasks (e.g. can only schedule tasks at 3pm and not 3 - 5pm) → Jim cannot schedule tasks in block timings
-2. Does not provide a user-friendly way to look for a suitable slot to schedule an item → Jim has to go through all existing tasks to look for an empty slot to schedule a new task
-3. Unable to block multiple slots for tasks with unconfirmed timings → Jim will find it hard to schedule tasks with unconfirmed timings
-4. Syncing of data with the cloud occurs only when there is Internet connectivity → Jim will have to require Internet connectivity if he wants to use the application with all his existing tasks on another computer
+1. Does not allow for block scheduling of tasks. → Jim cannot schedule tasks in block timings.
+2. Does not provide a user-friendly way to look for a suitable slot to schedule an item. → Jim has to go through all existing tasks to look for an empty slot to schedule a new task.
+3. Unable to block multiple slots for tasks with unconfirmed timings. → Jim will find it hard to schedule tasks with unconfirmed timings.
+4. Syncing of data with the cloud occurs only when there is Internet connectivity. → Jim will require Internet connectivity if he wants to use the application (with all his existing tasks) on another computer.
 
 <br>
 
@@ -793,20 +785,18 @@ Weakness:
 **Product #4: SolCalendar**<br>
 Strengths:
 
-1. Supports marking tasks as complete
-2. Supports searching of appointments and tasks by name → Jim is able to quickly search for items in his schedule
-3. Operates even without Internet Access  Jim can access the application even without Internet connectivity
-4. Supports adding of tasks (without any due date)
-5. Allows easy and straightforward postponement of tasks → Jim can easily postpone tasks should the need arise
-6. Supports time-based reminders → Jim can schedule reminders for his deadlines
-7. Displays to-do items in a user-friendly manner → Jim can periodically review his to-do list
-8. Supports the editing and deleting of existing tasks → Jim is able to reschedule and remove any tasks
-9. Supports setting of to-do items on repeat (for routine purposes)
+1. Supports the marking of tasks as complete. → Jim is able to mark a task as done.
+2. Supports the searching of appointments and tasks by name. → Jim is able to quickly search for items in his schedule.
+3. Operates even without Internet Access. → Jim can access the application even without Internet connectivity.
+4. Supports the addition of tasks (without any due date). → Jim can add floating tasks.
+5. Allows easy and straightforward postponement of tasks. → Jim can easily postpone tasks should the need arises.
+6. Supports time-based reminders. → Jim can schedule reminders for his deadlines.
+7. Displays to-do items in a user-friendly manner. → Jim can periodically review his to-do list easily.
+8. Supports the editing and deleting of existing tasks. → Jim is able to reschedule and remove any tasks.
+9. Supports the addition of recurring tasks. → Jim can add recurring tasks to his schedule.
 
+Weaknesses:
 
-Weakness:
-
-1. Requires two clicks to add a task with its respective settings → Does not cater to Jim's one-shot preference
-2. Does not support an "Undo" option → A task has to be manually deleted upon creation
-3. Does not support blocking out specific time slots (without full information)
-
+1. Requires two clicks to add a task with its respective settings. → Jim's favoured one-shot preference is not allowed here.
+2. Does not support an "Undo" option. → Jim is able to backtrack mistakes that he has made.
+3. Does not support the blocking out of specific time slots (without full information) → Jim is not able to dynamically plan his schedule.
