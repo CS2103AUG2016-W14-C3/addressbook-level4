@@ -46,7 +46,6 @@ public class DateParserTest {
         String singleDateString = "14 Feb 2016";
         List<Date> expected =  new ArrayList<>();
         calendar.set(2016, 1, 14, 23, 59, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
         Date singleDateExpected = calendar.getTime();
         expected.add(singleDateExpected);
         List<Date> actual = DateParser.parse(singleDateString);
@@ -58,11 +57,9 @@ public class DateParserTest {
         String singleDateString = "14 Feb 2016 to 16 Feb 2016";
         List<Date> expected =  new ArrayList<>();
         calendar.set(2016, 1, 14, 23, 59, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
         Date firstDateExpected = calendar.getTime();
         expected.add(firstDateExpected);
         calendar.set(2016, 1, 16, 23, 59, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
         Date secondDateExpected = calendar.getTime();
         expected.add(secondDateExpected);
         List<Date> actual = DateParser.parse(singleDateString);
