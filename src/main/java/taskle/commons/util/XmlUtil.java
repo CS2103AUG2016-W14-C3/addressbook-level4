@@ -7,9 +7,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/**
- * Helps with reading from and writing to XML files.
- */
+// Helps with reading from and writing to XML files.
 public class XmlUtil {
 
     /**
