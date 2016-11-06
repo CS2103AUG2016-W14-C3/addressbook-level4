@@ -101,22 +101,4 @@ public class Parser {
         
         return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
     }
-
-    /**
-     * Extracts the new task's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) 
-            throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = 
-                Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
-    }
-
 }
