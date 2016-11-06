@@ -41,7 +41,7 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void removeCommand_multipleRemove_showUnsuccessfulMsg() {
+    public void removeCommand_multipleRemove_successfulRemove() {
         //remove multiple
         Task[] currentList = td.getTypicalTasks();
         String targetIndexString = "2 4 1";
