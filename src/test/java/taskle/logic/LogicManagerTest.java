@@ -653,6 +653,66 @@ public class LogicManagerTest {
     }
     
     @Test
+    public void executeRescheduleCommand_eventTaskToDeadlineTask_successful() throws Exception{
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.gardensByTheBay();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+        
+        model.addTask(toBeAdded);
+
+        String index = "1";
+        String dateTime = "31 dec 11pm";
+        int offsetIndex = Integer.parseInt(index) - 1;
+        List<Date> dates = DateParser.parse(dateTime);
+
+        Task taskToEdit = expectedTM.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedTM.editTaskDate(offsetIndex, dates);
+        Task editedTask = expectedTM.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " " + dateTime,
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
+    @Test
+    public void executeRescheduleCommand_eventTaskToEventTask_successful() throws Exception{
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.gardensByTheBay();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded.copy());
+        
+        model.addTask(toBeAdded);
+
+        String index = "1";
+        String dateTime = "28 dec 7pm to 9pm";
+        int offsetIndex = Integer.parseInt(index) - 1;
+        List<Date> dates = DateParser.parse(dateTime);
+
+        Task taskToEdit = expectedTM.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedTM.editTaskDate(offsetIndex, dates);
+        Task editedTask = expectedTM.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " " + dateTime,
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
+    @Test
     public void executeRescheduleCommand_deadlineTaskToFloatTask_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -679,6 +739,37 @@ public class LogicManagerTest {
                 expectedTM,
                 expectedTM.getTaskList());
     }
+    
+    @Test
+    public void executeRescheduleCommand_deadlineTaskToDeadlineTask_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        DeadlineTask toBeAdded = helper.finishAssignment();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded.copy());
+        
+        model.addTask(toBeAdded);
+        
+        String index = "1";
+        String dateTime = "28 dec 7am";
+        int offsetIndex = Integer.parseInt(index) - 1;
+        List<Date> dates = DateParser.parse(dateTime);
+
+        Task taskToEdit = expectedTM.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String oldDetails = taskToEdit.getDetailsString();
+        String name = taskToEdit.getName().fullName;
+        
+        expectedTM.editTaskDate(offsetIndex, dates);
+        Task editedTask = expectedTM.getUniqueTaskList().getInternalList().get(offsetIndex);
+        String newDetails = editedTask.getDetailsString();
+        // execute command and verify result
+        assertCommandBehavior(
+                "reschedule " + index + " " + dateTime,
+                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
     
     @Test
     public void executeRescheduleCommand_deadlineTaskToEventTask_successful() throws Exception {
