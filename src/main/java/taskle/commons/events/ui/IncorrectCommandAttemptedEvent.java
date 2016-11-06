@@ -2,9 +2,7 @@ package taskle.commons.events.ui;
 
 import taskle.commons.events.BaseEvent;
 
-/**
- * Indicates an attempt to execute an incorrect command
- */
+// Indicates an attempt to execute an incorrect command
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
     
     String feedbackToUser;

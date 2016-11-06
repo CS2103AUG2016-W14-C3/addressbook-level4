@@ -22,9 +22,7 @@ public abstract class Task implements ReadOnlyTask {
     
     //@@author
 
-    /**
-     * Every field must be present and not null.
-     */
+    //Every field must be present and not null.
     public Task(Name name) {
         assert !CollectionUtil.isAnyNull(name);
         this.name = name;
@@ -37,9 +35,7 @@ public abstract class Task implements ReadOnlyTask {
         this.remindDate = remindDate;
     }
 
-    /**
-     * Copy constructor.
-     */
+    // Copy constructor.
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getRemindDate());
         setTaskDone(source.isTaskDone());

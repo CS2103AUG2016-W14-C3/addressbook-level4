@@ -6,9 +6,7 @@ import taskle.commons.events.BaseEvent;
 
 import java.util.logging.Logger;
 
-/**
- * Manages the event dispatching of the app.
- */
+// Manages the event dispatching of the app.
 public class EventsCenter {
     private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
     private final EventBus eventBus;

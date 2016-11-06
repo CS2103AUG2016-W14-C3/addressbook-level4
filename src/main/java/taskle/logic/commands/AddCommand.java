@@ -8,9 +8,7 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Name;
 import taskle.model.task.Task;
 
-/**
- * Adds a task to the Task Manager.
- */
+// Adds a task to the Task Manager.
 public class AddCommand extends Command {
     //@@author A0141780J
 

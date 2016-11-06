@@ -3,9 +3,7 @@ package taskle.logic.commands;
 import taskle.commons.core.Messages;
 
 //@@author A0140047U
-/**
- * Redo recent command entered.
- */
+// Redo recent command entered.
 public class RedoCommand extends Command {
 
     public static final String COMMAND_WORD = "redo";

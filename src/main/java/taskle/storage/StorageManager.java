@@ -15,9 +15,7 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.UserPrefs;
 
-/**
- * Manages storage of Task Manager data in local storage.
- */
+// Manages storage of Task Manager data in local storage.
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);

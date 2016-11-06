@@ -19,9 +19,7 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.Task;
 import taskle.storage.Storage;
 
-/**
- * The main LogicManager of the app.
- */
+// The main LogicManager of the app.
 public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 

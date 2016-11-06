@@ -37,9 +37,7 @@ import taskle.model.task.TaskComparator;
 import taskle.model.task.TaskList;
 import taskle.storage.XmlSerializableTaskManager;
 
-/**
- * A utility class for test cases.
- */
+// A utility class for test cases.
 public class TestUtil {
 
     public static String LS = System.lineSeparator();
@@ -59,9 +57,8 @@ public class TestUtil {
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
 
-    /**
-     * Folder used for temp files created during testing. Ignored by Git.
-     */
+    
+    // Folder used for temp files created during testing. Ignored by Git.
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static final Task[] sampleTaskData = getSampleTaskData();

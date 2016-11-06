@@ -12,9 +12,7 @@ import javafx.stage.Window;
 import taskle.TestApp;
 import taskle.commons.core.LogsCenter;
 
-/**
- * Base class for all GUI Handles used in testing.
- */
+// Base class for all GUI Handles used in testing.
 public class GuiHandle {
     protected final GuiRobot guiRobot;
     protected final Stage primaryStage;

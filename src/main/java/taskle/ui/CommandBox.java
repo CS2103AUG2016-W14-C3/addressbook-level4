@@ -67,9 +67,7 @@ public class CommandBox extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
     
-    /**
-     * Creates a pop over with content layout and style specified.
-     */
+    // Creates a pop over with content layout and style specified.
     private void createPopOver() {
         popOver = new PopOver();
         popOver.setId(POP_OVER_ID);
@@ -77,9 +75,7 @@ public class CommandBox extends UiPart {
         setPopOverStyle();
     }
     
-    /**
-     * Sets up the layout inside popover.
-     */
+    // Sets up the layout inside popover.
     private void setPopOverLayout() {
         popOverText = new Text();
         popOverText.setId(POP_OVER_TEXT_ID);
@@ -90,9 +86,7 @@ public class CommandBox extends UiPart {
         popOver.setContentNode(vBox);
     }
     
-    /**
-     * Sets up the style for popover and how it is displayed.
-     */
+    // Sets up the style for popover and how it is displayed.
     private void setPopOverStyle() {
         popOver.setArrowLocation(ArrowLocation.BOTTOM_CENTER);
         popOver.setFadeInDuration(new Duration(300));

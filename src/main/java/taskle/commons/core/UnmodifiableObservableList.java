@@ -13,9 +13,7 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
-/**
- * Unmodifiable view of an observable list
- */
+// Unmodifiable view of an observable list
 public class UnmodifiableObservableList<E> implements ObservableList<E> {
 
     public static final String MUTATION_OP_EXCEPTION_MESSAGE = "Attempted to modify an unmodifiable view";

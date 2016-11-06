@@ -9,9 +9,7 @@ import taskle.commons.core.Config;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.exceptions.DataConversionException;
 
-/**
- * A class for accessing the Config File.
- */
+// A class for accessing the Config File.
 public class ConfigUtil {
 
     private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);

@@ -14,9 +14,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import java.io.IOException;
 import java.util.logging.Level;
 
-/**
- * Converts a Java object instance to JSON and vice versa
- */
+// Converts a Java object instance to JSON and vice versa
 public class JsonUtil {
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 

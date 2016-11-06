@@ -4,9 +4,7 @@ import java.util.Objects;
 
 import taskle.commons.core.GuiSettings;
 
-/**
- * Represents User's preferences.
- */
+// Represents User's preferences.
 public class UserPrefs {
 
     public GuiSettings guiSettings;

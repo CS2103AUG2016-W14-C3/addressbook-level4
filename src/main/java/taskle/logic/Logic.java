@@ -21,18 +21,19 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of tasks */
+    // Returns the filtered list of tasks
     ObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    //@@author A0140047U
-    /** Updates directory to given filePath */
-    void changeDirectory(String filePath);
-    
+    //@@author A0139402M
     List<Task> verifyReminder(Date currentDateTime);
     
     void dismissReminder(Date currentDateTime);
+    
+    //@@author A0140047U
+    // Updates directory to given filePath
+    void changeDirectory(String filePath);
 
-    /** Resets Model based on given data */
+    // Resets Model based on given data
     void resetModel(ReadOnlyTaskManager taskManager);
     
     //Changes directory and reset model, if necessary

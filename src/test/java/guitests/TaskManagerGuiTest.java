@@ -28,9 +28,7 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.testutil.TestUtil;
 import taskle.testutil.TypicalTestTasks;
 
-/**
- * A GUI Test class for TaskManager.
- */
+// A GUI Test class for TaskManager.
 public abstract class TaskManagerGuiTest {
 
     /* The TestName Rule makes the current test name available inside test methods */

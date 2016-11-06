@@ -20,9 +20,7 @@ import taskle.commons.util.StringUtil;
 import taskle.logic.Logic;
 import taskle.model.UserPrefs;
 
-/**
- * The manager of the UI component.
- */
+// The manager of the UI component.
 public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/ic_task_manager.png";

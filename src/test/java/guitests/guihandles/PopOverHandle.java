@@ -6,9 +6,7 @@ import javafx.stage.Stage;
 import taskle.TestApp;
 //@author A0141780J
 
-/**
- * A handler for the PopOver of the UI
- */
+// A handler for the PopOver of the UI
 public class PopOverHandle extends GuiHandle {
 
     public static final String POP_OVER_TEXT_ID = "#popOverText";

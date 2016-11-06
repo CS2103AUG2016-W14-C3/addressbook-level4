@@ -9,13 +9,10 @@ import taskle.storage.XmlSerializableTaskManager;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-/**
- * Stores task manager data in an XML file
- */
+// Stores task manager data in an XML file
 public class XmlFileStorage {
-    /**
-     * Saves the given task manager data to the specified file.
-     */
+
+    // Saves the given task manager data to the specified file.
     public static void saveDataToFile(File file, XmlSerializableTaskManager taskManager)
             throws FileNotFoundException {
         try {
@@ -25,9 +22,7 @@ public class XmlFileStorage {
         }
     }
 
-    /**
-     * Returns task manager in the file or an empty task manager
-     */
+    // Returns task manager in the file or an empty task manager
     public static XmlSerializableTaskManager loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {
         try {

@@ -16,9 +16,7 @@ import org.controlsfx.control.StatusBar;
 import java.util.Date;
 import java.util.logging.Logger;
 
-/**
- * A ui for the status bar that is displayed at the footer of the application.
- */
+// A ui for the status bar that is displayed at the footer of the application.
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
     private StatusBar syncStatus;

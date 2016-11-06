@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-/**
- * Writes and reads file
- */
+// Writes and reads file
 public class FileUtil {
     private static final String CHARSET = "UTF-8";
 

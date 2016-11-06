@@ -12,9 +12,7 @@ import java.util.Date;
  */
 public class DateFormatUtil {
     //@@author A0141780J
-    /**
-     * Patterns for formatting. One for just the date and another with the time
-     */
+    // Patterns for formatting. One for just the date and another with the time
     private static final String DATE_DISPLAY_PATTERN = "d MMM yyyy";
     private static final String TIME_DISPLAY_PATTERN = "h:mma";
     private static final String DATE_TIME_DISPLAY_PATTERN = "d MMM yyyy, h:mma";

@@ -162,9 +162,7 @@ public class MainWindow extends UiPart {
         primaryStage.setTitle(appTitle);
     }
 
-    /**
-     * Sets the default size based on user preferences.
-     */
+    // Sets the default size based on user preferences.
     protected void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
@@ -180,9 +178,7 @@ public class MainWindow extends UiPart {
         primaryStage.setMinWidth(MIN_WIDTH);
     }
 
-    /**
-     * Returns the current size and the position of the main Window.
-     */
+    // Returns the current size and the position of the main Window.
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
@@ -199,9 +195,7 @@ public class MainWindow extends UiPart {
         primaryStage.show();
     }
 
-    /**
-     * Closes the application.
-     */
+    // Closes the application.
     @FXML
     private void handleExit() {
         raise(new ExitAppRequestEvent());
@@ -256,13 +250,13 @@ public class MainWindow extends UiPart {
             }
         }
     }
-    
+
+    //@@author
     private void setupNotificationPane() {
         notificationPane = new NotificationPane(rootLayout);
         notificationPane.setId(NOTIFICATION_PANE_ID);
     }
 
-    //@@author
     public TaskListPanel getTaskListPanel() {
         return this.taskListPanel;
     }

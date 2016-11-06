@@ -3,9 +3,7 @@ package taskle.logic.commands;
 import taskle.commons.core.Messages;
 
 //@@author A0140047U
-/**
- * Undo recent command entered.
- */
+// Undo recent command entered.
 public class UndoCommand extends Command {
 
     public static final String COMMAND_WORD = "undo";

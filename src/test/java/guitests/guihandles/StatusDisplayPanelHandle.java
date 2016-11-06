@@ -5,9 +5,7 @@ import javafx.stage.Stage;
 import taskle.TestApp;
 //@author A0141780J
 
-/**
- * A handler for the PopOver of the UI
- */
+// A handler for the PopOver of the UI
 public class StatusDisplayPanelHandle extends GuiHandle {
 
     private static final String PENDING_CHIP_ID = "#pendingChip";

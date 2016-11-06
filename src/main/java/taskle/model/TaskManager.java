@@ -29,23 +29,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     public TaskManager() {
     }
 
-    /**
-     * Tasks are copied into this taskmanager
-     */
+    // Tasks are copied into this taskmanager
     public TaskManager(TaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
     }
 
-    /**
-     * Tasks are copied into this taskmanager
-     */
+    // Tasks are copied into this taskmanager
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
     }
 
-    /**
-     * Tasks are copied into this taskmanager
-     */
+    // Tasks are copied into this taskmanager
     public TaskManager(TaskList tasks) {
         resetData(tasks.getInternalList());
     }
@@ -54,8 +48,7 @@ public class TaskManager implements ReadOnlyTaskManager {
         return new TaskManager();
     }
 
-    //// list overwrite operations
-
+    // list overwrite operations
     public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
@@ -118,7 +111,7 @@ public class TaskManager implements ReadOnlyTaskManager {
     //@@author
     
 
-    //// util methods
+    // util methods
 
     @Override
     public String toString() {

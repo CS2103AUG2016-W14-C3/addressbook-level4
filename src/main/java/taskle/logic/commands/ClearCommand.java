@@ -2,9 +2,7 @@ package taskle.logic.commands;
 
 import taskle.model.TaskManager;
 
-/**
- * Clears the task manager.
- */
+// Clears the task manager.
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";

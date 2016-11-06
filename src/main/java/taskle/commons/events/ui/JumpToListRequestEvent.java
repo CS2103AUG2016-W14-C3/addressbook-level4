@@ -2,9 +2,7 @@ package taskle.commons.events.ui;
 
 import taskle.commons.events.BaseEvent;
 
-/**
- * Indicates a request to jump to the list of tasks
- */
+// Indicates a request to jump to the list of tasks
 public class JumpToListRequestEvent extends BaseEvent {
 
     public final int targetIndex;
