@@ -319,6 +319,9 @@ Exits and closes Taskle.<br><br>
 **Q**: How do I transfer my data to another computer?<br>
 **A**: You can install Taskle in the other computer and overwrite its empty data file with the file that was created in your previous Taskle folder. You can also use Taskle's save and open features to transfer your data.
 
+**Q**: I can't seem to key in a date!<br>
+**A**: You may have forgotten to include the keywords **for** or **by**!
+
 <br>
        
 ## Command Summary
