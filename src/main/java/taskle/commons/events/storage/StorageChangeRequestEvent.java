@@ -4,7 +4,9 @@ import taskle.commons.events.BaseEvent;
 import taskle.model.ReadOnlyTaskManager;
 
 //@@author A0140047U
-// Indicates a request to change storage file/directory
+/**
+ *  Indicates a request to change storage file/directory
+ */
 public class StorageChangeRequestEvent extends BaseEvent {
 
     private String directory;
