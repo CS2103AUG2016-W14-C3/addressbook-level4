@@ -14,6 +14,8 @@ Taskle is here to help you with all of that! It is a task management application
 
 Reorganize your life now by using Taskle!
 
+<br>
+
 <!-- @@author A0139402M -->
 ## Quick Start
 
@@ -40,7 +42,9 @@ Reorganize your life now by using Taskle!
    * `clear`: Clears all tasks from Taskle.
    * `exit` : Exits from Taskle.
    
-6. Refer to the [Features](#features) section for details of each command.<br>
+6. Refer to the [Features](#features) section for details of each command.
+
+<br>
 
 <!-- @@author A0141780J -->
 ## Features
@@ -134,7 +138,7 @@ Removes a task from Taskle permanently.<br><br>
 | :-------- 
 | `remove` **`task_number`** | 
 
-Examples:
+Example:
 * `remove` **`8`**
 
 <img src="images/UI/Remove.png" align="center"/>	
@@ -143,7 +147,7 @@ Examples:
 <br>
 
 <!-- @@author A0139402M -->
-### Find a Task : `find`
+### Find Tasks : `find`
 Finds all the tasks in Taskle that match the list of keywords and specified statuses.<br><br>
 
 | Format  
@@ -158,42 +162,40 @@ Finds all the tasks in Taskle that match the list of keywords and specified stat
 >	* **-overdue**: Tasks that are overdue (only applicable to deadlines.)
 > * All the tasks that match the list of keywords and specified statuses will be displayed.
 > * You must specify **at least one keyword** when using find.
-> * It is optional to specify the status. If no status was specified, the default
-tasks (pending and overdue) would be displayed. 
-> * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
->	* find meeting task **-pending** **-overdue**
+> * It is optional to specify the status. If no status was specified, the default tasks (pending and overdue) will be displayed. 
+> * You may specify more than one status. All tasks that fulfill any of these statuses will be displayed. 
+>	* Example:  "`find` `meeting` `task` **`-pending`** **`-overdue`**"
 
-Examples:
+Example:
 * `find` **`project`**
 
 <img src="images/UI/Find.png" align="center">
-<div align="center">Figure 10: Find pending and overdue Tasks that have "project" in its name</div><br>
+<div align="center">Figure 10: Finds "pending and overdue" tasks that have "project" in their names</div><br>
 
-* `find` **`project -all`**	
+* `find` **`project`** **`-all`**	
 	
 <img src="images/UI/Find_All.png" align="center">
-<div align="center">Figure 11: Find all Tasks that have "project" in its name</div><br>
+<div align="center">Figure 11: Finds all tasks that have "project" in their names</div><br>
+
 <br>
 
 <!-- @@author A0140047U -->
-### Listing tasks: `list`
-Lists tasks according to specified statuses. Use this command to view your tasks
-according to whether they are done, overdue or pending. <br>
+### List Tasks: `list`
+Lists tasks according to specified statuses (done, overdue, or pending.)<br><br>
 
 | Format  
 | :-------- 
 | `list` **`[-status]`**| 
 
 > **Things to Note**
-> * The following statues are available:
->	* **-all**: All tasks in Taskle
->	* **-pending**: Tasks that are still pending.
->	* **-done**: Tasks that are marked as done.
->	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
-> * It is optional to specify the status. If no status is specified, the default
-tasks to be displayed are the pending and overdue ones. (Done tasks are not shown).
-> * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
->	* list **-pending** **-overdue**
+> * The following statuses are available:
+>	* **-all**: All the tasks in Taskle.
+>	* **-pending**: Pending tasks.
+>	* **-done**: Tasks that have been marked as done.
+>	* **-overdue**: Tasks that are overdue (only applicable to deadlines.)
+> * It is optional to specify the status. If no status was specified, the default tasks (pending and overdue) will be displayed. 
+> * You may specify more than one status. All tasks that fulfill any of these statuses will be displayed. 
+>	* Example:  "`list` **`-pending`** **`-overdue`**"
 
 Example:
 * `list` **`-all`**
@@ -202,7 +204,7 @@ Example:
 
 <!-- @@author A0125509H -->
 ### Mark a Task as Done: `done`
-Marks a task as done. Use this command when you are finished with the task.<br>
+Marks a task as done (when it is completed.)<br><br>
 
 | Format  
 | :-------- 
@@ -212,12 +214,13 @@ Example:
 * `done` **`5`**
 
 <img src="images/UI/Done.png" align="center">
-<div align="center">Figure 12: Mark Task 5 as done</div><br>
+<div align="center">Figure 12: Marks Task 5 as done</div><br>
+
 <br>
 
 <!-- @@author A0140047U -->
-### Undoing a Recent Command: `undo`
-Undo a previous command. This command is used when you wish to revert from the most recently issued command.<br><br>
+### Undo a Recent Command: `undo`
+Undoes a previous command. It can be called multiple times to return Taskle to a previous state.<br><br>
 
 | Format  
 | :-------- 
@@ -225,8 +228,8 @@ Undo a previous command. This command is used when you wish to revert from the m
 
 <br>
 
-### Redoing a Undo: `redo`
-Redo a previous command. This command is used when you wish to revert a wrongly issued undo command<br><br>
+### Redo a Undo: `redo`
+Redoes a previous command. This command is used when you wish to revert a wrongly issued undo command.<br><br>
 
 | Format  
 | :-------- 
@@ -235,17 +238,18 @@ Redo a previous command. This command is used when you wish to revert a wrongly 
 <br>
 
 <!-- @@author A0139402M -->
-### Clearing all Tasks: `clear`
+### Clear all Tasks: `clear`
 Clears all tasks from Taskle.<br><br>
 
 | Format  
 | :-------- 
 | `clear` | 
 
+<br>
 
 <!-- @@author A0140047U -->
 ### Change Save Directory: `save`
-Changes save location of Taskle data file.<br><br>
+Changes the save directory of Taskle's data file.<br><br>
 
 | Format  
 | :-------- 
@@ -259,9 +263,10 @@ Changes save location of Taskle data file.<br><br>
 Example:
 * `save` **`C:\Users\W14-C3\Dropbox`**
 
-<br>
 <img src="images/UI/Save.png" align="center">
-<div align="center">Figure 13: Change Save Directory</div><br>
+<div align="center">Figure 13: Changes the Save Directory of Taskle's data file</div><br>
+
+<br>
  
 ### Open File: `open`
 Opens a Taskle data file.<br><br>
@@ -270,17 +275,16 @@ Opens a Taskle data file.<br><br>
 | :-------- 
 | `open` **`file_path`**|
 
-<br>
-
 > **Thing to Note**
 > * You are also able to open your file from the menu option.
 
 Example:
 * `open` **`C:\Users\W14-C3\Dropbox\Taskle.xml`**
 
-<br>
 <img src="images/UI/Open.png" align="center">
-<div align="center">Figure 14: Open a Storage File</div><br>
+<div align="center">Figure 14: Opens a Taskle data file</div><br>
+
+<br>
 
 <!-- @@author A0139402M -->
 ### View Help: `help`
@@ -290,15 +294,14 @@ Displays a list of available commands.<br>
 | :-------- 
 | `help` | 
 
-<br>
-
 > **Things to Note**
-> * Help is also shown if you enter an incorrect command. For example: `abcd`.
-> * A list of available commands is shown in a separate window so you can refer to it while using Taskle.
+> * Help is also shown if you enter an incorrect command.
+>	* Example: "abcd"
+> * A list of available commands is shown in a separate window so that you can refer to it while using Taskle.
 
-<br>
 <img src="images/UI/Help.png" align="center">
-<div align="center">Figure 15: View all commands in the help list</div><br>
+<div align="center">Figure 15: Help Window</div><br>
+
 <br>
 
 ### Exit Taskle: `exit`
@@ -308,7 +311,7 @@ Exits and closes Taskle.<br><br>
 | :-------- 
 | `exit` |
  
-<br><br>
+<br>
 
 <!-- @@author A0141780J -->
 ## FAQ
