@@ -42,7 +42,7 @@ We are from team W14-C3.
 
 #### [Hamsyari](http://github.com/hamsyari) 
 <img src="images/Hamsyari.jpg" width="150"><br>
-* Role: Code Quality & Documentation <br>  
+* Role: Code Quality & Documentation<br>
 * Components in charge of: Model
 * Aspects/tools in charge of: Code review, documentation content.
 * Features implemented:
