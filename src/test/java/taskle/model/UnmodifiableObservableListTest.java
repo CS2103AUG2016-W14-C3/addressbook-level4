@@ -35,6 +35,27 @@ public class UnmodifiableObservableListTest {
     }
 
     @Test
+    public void testFunctionality() {
+        assertSame(list.equals(backing), true);
+        assertSame(list.hashCode(), backing.hashCode());
+        assertSame(list.indexOf(10), 0);
+        assertSame(list.lastIndexOf(10), 0);
+        assertSame(list.contains(10), backing.contains(10));
+        assertSame(list.containsAll(new ArrayList<Integer>()), backing.containsAll(new ArrayList<Integer>()));
+        assertSame(Arrays.equals(list.toArray(), backing.toArray()), true);
+        assertSame(Arrays.equals(list.toArray(new Integer[]{}), backing.toArray(new Integer[]{})), true);
+        
+        
+        ListIterator<Integer> iter = list.listIterator();
+        ListIterator<? extends Integer> backIter = backing.listIterator();
+        assertSame(iter.hasPrevious(), backIter.hasPrevious());
+        assertSame(iter.next(), backIter.next());
+        assertSame(iter.previous(), backIter.previous());
+        assertSame(iter.nextIndex(), backIter.nextIndex());
+        assertSame(iter.previousIndex(), backIter.previousIndex());
+    }
+    
+    @Test
     public void mutatingMethods_disabled() {
 
         final Class<UnsupportedOperationException> ex = UnsupportedOperationException.class;
@@ -50,6 +71,7 @@ public class UnmodifiableObservableListTest {
 
         assertThrows(ex, () -> list.setAll(new ArrayList<Number>()));
         assertThrows(ex, () -> list.setAll(1, 2));
+        assertThrows(ex, () -> list.setAll(new ArrayList<Double>()));
 
         assertThrows(ex, () -> list.remove(0, 1));
         assertThrows(ex, () -> list.remove(null));

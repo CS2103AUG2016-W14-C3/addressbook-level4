@@ -112,4 +112,17 @@ public class DateFormatUtilTest {
         String actual = DateFormatUtil.formatEventDates(startDate, endDate);
         assertEquals(expected, actual);
     }
+    
+    @Test
+    public void formatForAddCommand_from2359Day1ToDay2_returnSingleDateToDateTime(){
+        String expected = "17 Oct 2016, 11:59PM to 18 Oct 2016, 11:58PM";
+        calendar.set(2016, 9, 17, 23, 59, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date startDate = calendar.getTime();
+        calendar.set(2016, 9, 18, 23, 58, 00);
+        Date endDate = calendar.getTime();
+        String actual = DateFormatUtil.getDateArgString(startDate, endDate);
+        assertEquals(expected, actual);
+    }
+    
 }

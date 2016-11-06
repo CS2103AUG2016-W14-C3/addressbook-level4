@@ -24,7 +24,7 @@ import taskle.ui.CommandBox;
  * @see Task#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class TaskList implements Iterable<Task> {
+public class TaskList {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
 
@@ -41,15 +41,6 @@ public class TaskList implements Iterable<Task> {
      * Constructs empty TaskList.
      */
     public TaskList() {
-    }
-
-    /**
-     * Returns true if the list contains an equivalent task as the given
-     * argument.
-     */
-    public boolean contains(ReadOnlyTask toCheck) {
-        assert toCheck != null;
-        return internalList.contains(toCheck);
     }
 
     /**
@@ -313,19 +304,10 @@ public class TaskList implements Iterable<Task> {
     }
 
     @Override
-    public Iterator<Task> iterator() {
-        return internalList.iterator();
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskList // instanceof handles nulls
                         && this.internalList.equals(((TaskList) other).internalList));
     }
 
-    @Override
-    public int hashCode() {
-        return internalList.hashCode();
-    }
 }
