@@ -18,9 +18,7 @@ public class FloatTask extends Task {
         super(name, remindDate);
     }
     
-    /**
-     * Copy constructor.
-     */
+    // Copy constructor.
     public FloatTask(ReadOnlyTask source) {
         super(source);
     }

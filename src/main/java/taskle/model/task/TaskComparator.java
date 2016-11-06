@@ -5,10 +5,7 @@ import java.util.Comparator;
 import taskle.model.task.ReadOnlyTask.Status;
 
 //@@author A0140047U
-/**
- * Custom Comparator that compares tasks when being sorted in internalList
- *
- */
+// Custom Comparator that compares tasks when being sorted in internalList
 public class TaskComparator implements Comparator<Task> {
     
     private static final int PRIORITY_OVERDUE = 3;
@@ -16,14 +13,14 @@ public class TaskComparator implements Comparator<Task> {
     private static final int PRIORITY_FLOAT = 1;
     private static final int PRIORITY_DONE = 0;
 
+    /**
+     * Compare by Type followed by Name/Date
+     * Priority of Type: Overdue > Pending > FloatTask > Done
+     */
     @Override
     public int compare(Task mainTask, Task taskToCompare) {
-        assert mainTask != null && taskToCompare != null;
-        
-        /**
-         * Compare by Type followed by Name/Date
-         * Priority of Type: Overdue > Pending > FloatTask > Done
-         */
+        assert mainTask != null && taskToCompare != null; 
+
         Status mainStatus = mainTask.getStatus();
         Status otherStatus = taskToCompare.getStatus();
         int mainPriority = getPriority(mainStatus);
@@ -38,6 +35,10 @@ public class TaskComparator implements Comparator<Task> {
         }
     }
     
+    /**
+     * Comparison of Tasks with equal priority (e.g. Float&Float, Deadline&Deadline)
+     * Floating Tasks are sorted alphabetically while Deadlines and Events are sorted by their deadline/start date
+     */
     private int compareEqualPriorities(Task mainTask, Task taskToCompare) {
         if (mainTask instanceof FloatTask && taskToCompare instanceof FloatTask) {
             return mainTask.getName().fullName.toLowerCase().compareTo(taskToCompare.getName().fullName.toLowerCase());

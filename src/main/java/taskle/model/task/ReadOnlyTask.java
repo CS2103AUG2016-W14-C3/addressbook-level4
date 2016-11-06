@@ -16,9 +16,7 @@ public interface ReadOnlyTask {
     
     Date getRemindDate();
 
-    /**
-     * Returns true if both have the same state. (interfaces cannot override .equals)
-     */
+    // Returns true if both have the same state. (interfaces cannot override .equals)
     default boolean isSameStateAs(ReadOnlyTask other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
