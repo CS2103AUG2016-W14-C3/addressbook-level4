@@ -28,12 +28,12 @@ Reorganize your life now by using Taskle!
 2. Copy the file to the folder where you want to use Taskle.
 
 3. Double-click on the file to start the application. The Graphical User Interface (GUI) should appear in a few seconds.
-	
-	> <img src="images/UI/Main.png" align="center">
-	<div align="center">Figure 1: GUI of Taskle</div>
+   
+   > <img src="images/UI/Main.png" align="center">
+   <div align="center">Figure 1: GUI of Taskle</div>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
-	> Example: Typing **`help`** and pressing <kbd>Enter</kbd> will open up the help window.
+   > Example: Typing **`help`** and pressing <kbd>Enter</kbd> will open up the help window.
  
 5. Some commands that you can try:
    * `add` **`Buy Milk`** : Adds a "Buy Milk" task into Taskle.
@@ -63,17 +63,17 @@ Taskle makes managing your tasks both simple and elegant as all of its features 
    * A reminder time can be set for tasks / events.
    * The time parameter is optional.<br><br>
 
-| Format  
-| :-------- 
-| `add` **`task_name`** `remind` [**`date time`**] | 
-| `add` **`task_name`** `by` [**`date time`**] `remind` [**`date time`**] |
-| `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
+| Format  |
+|:--------|
+| `add` **`task_name`** [**`remind` `date time`**] |
+| `add` **`task_name`** `by` [**`date time`**] [**`remind` `date time`**] |
+| `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] [**`remind` `date time`**] |
 
 > **Things to Note**
 > * You may enter the date and time in any format that you desire, and Taskle will still be able to recognise it.
->	* Example: "add Do Homework by **tmr**" adds a task with the name "Do Homework" with the deadline to be set to tomorrow (tmr is recognised as tomorrow.)
+>  * Example: "add Do Homework by **tmr**" adds a task with the name "Do Homework" with the deadline to be set to tomorrow (tmr is recognised as tomorrow.)
 > * Only the words after the last **by** or **from** in your input will be accepted as the date and time. This allows you to continue using **by** and **from** as part of your task name as long as you enter the date and times last.
-> 	* Example: "add Gardens by the Bay **from** 9am to 9pm today" adds a task with the name "Gardens by the Bay" with the date and time to be set to "today, 9am to 9pm".
+>  * Example: "add Gardens by the Bay **from** 9am to 9pm today" adds a task with the name "Gardens by the Bay" with the date and time to be set to "today, 9am to 9pm".
 > * Should the entered name be too long, it will appear truncated with ellipses on the application. However, you can still view the full name by clicking and holding down your mouse button. 
 
 Examples:
@@ -83,25 +83,25 @@ Examples:
 
 <img align="center" src="images/UI/Add.png" >
 <div align="center">Figure 2: Adds a task with the name "Pay Phone Bills" into Taskle</div><br>
-	
+   
 <br>
 
 <!-- @@author A0140047U -->
 ### Edit a Task: `rename; reschedule; remind`
 Edits an existing task in Taskle. There are three types of possible edits: Rename, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify the task that you wish to edit.<br><br>
 
-Type | Format  
-:-------- | :-------- 
-Rename | `rename` **`task_number`** **`new_task_name`**  
-Reschedule | `reschedule` **`task_number`** [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
-Remind | `remind` **`task_number`** [**`date time`**]
+|Type      | Format  |
+|:-------- |:--------|
+|Rename    | `rename` **`task_number`** **`new_task_name`** |
+|Reschedule| `reschedule` **`task_number`** `date` [**`time`**] [**`to` `date time`**]  [**`remind` `date time`**] |
+|Remind    | `remind` **`task_number`** `date` [**`time`**] |
 
 > **Things to Note**
 > * A  task can only have **one reminder**. The date and time that were specified in the "remind" command will replace any existing reminder.
 > * If **no time** was specified for the reminder, Taskle will automatically assign 00:00 of the specified reminder date to it.
 > * To remove a reminder or deadline from a task, you will have to type **"clear"** after typing the task number. For example:
->	* remind **2 clear**
->	* reschedule **2 clear**
+>  * remind **2 clear**
+>  * reschedule **2 clear**
 
 Examples:
 * `rename` **`8 Pay Abel for Chicken Rice`**
@@ -121,11 +121,11 @@ Examples:
 <div align="center">Figure 6: Reschedules Task 2 to "9th November 2pm" (After)</div><br>
 
 * `remind` **`2 8th November 7pm`**
-	
+   
 <img src="images/UI/Remind_Before.png" align="center">
 <div align="center">Figure 7: Sets a Reminder for Task 2 on "8th November 7pm" (Before)</div><br>
 
-<img src="images/UI/Remind_After.png" align="center">	
+<img src="images/UI/Remind_After.png" align="center"> 
 <div align="center">Figure 8: Sets a Reminder for Task 2 on "8th November 7pm" (After)</div><br>
 
 <br>
@@ -134,14 +134,14 @@ Examples:
 ### Remove a Task: `remove`
 Removes a task from Taskle permanently.<br><br>
 
-| Format  
-| :-------- 
-| `remove` **`task_number`** | 
+| Format  |
+|:--------|
+| `remove` **`task_number`** |
 
 Example:
 * `remove` **`8`**
 
-<img src="images/UI/Remove.png" align="center"/>	
+<img src="images/UI/Remove.png" align="center"/>   
 <div align="center">Figure 9: Removes Task 8 from Taskle</div><br>
 
 <br>
@@ -156,15 +156,15 @@ Finds all the tasks in Taskle that match the list of keywords and specified stat
 
 > **Things to Note**
 > * The following statuses are available:
->	* **-all**: All the tasks in Taskle.
->	* **-pending**: Pending tasks.
->	* **-done**: Tasks that have been marked as done.
->	* **-overdue**: Tasks that are overdue (only applicable to deadlines.)
+>  * **-all**: All the tasks in Taskle.
+>  * **-pending**: Pending tasks.
+>  * **-done**: Tasks that have been marked as done.
+>  * **-overdue**: Tasks that are overdue (only applicable to deadlines.)
 > * All the tasks that match the list of keywords and specified statuses will be displayed.
 > * You must specify **at least one keyword** when using find.
 > * It is optional to specify the status. If no status was specified, the default tasks (pending and overdue) will be displayed. 
 > * You may specify more than one status. All tasks that fulfill any of these statuses will be displayed. 
->	* Example:  "`find` `meeting` `task` **`-pending`** **`-overdue`**"
+>  * Example:  "`find` `meeting` `task` **`-pending`** **`-overdue`**"
 
 Example:
 * `find` **`project`**
@@ -172,8 +172,8 @@ Example:
 <img src="images/UI/Find.png" align="center">
 <div align="center">Figure 10: Finds "pending and overdue" tasks that have "project" in their names</div><br>
 
-* `find` **`project`** **`-all`**	
-	
+* `find` **`project`** **`-all`**   
+   
 <img src="images/UI/Find_All.png" align="center">
 <div align="center">Figure 11: Finds all tasks that have "project" in their names</div><br>
 
@@ -189,13 +189,13 @@ Lists tasks according to specified statuses (done, overdue, or pending.)<br><br>
 
 > **Things to Note**
 > * The following statuses are available:
->	* **-all**: All the tasks in Taskle.
->	* **-pending**: Pending tasks.
->	* **-done**: Tasks that have been marked as done.
->	* **-overdue**: Tasks that are overdue (only applicable to deadlines.)
+>  * **-all**: All the tasks in Taskle.
+>  * **-pending**: Pending tasks.
+>  * **-done**: Tasks that have been marked as done.
+>  * **-overdue**: Tasks that are overdue (only applicable to deadlines.)
 > * It is optional to specify the status. If no status was specified, the default tasks (pending and overdue) will be displayed. 
 > * You may specify more than one status. All tasks that fulfill any of these statuses will be displayed. 
->	* Example:  "`list` **`-pending`** **`-overdue`**"
+>  * Example:  "`list` **`-pending`** **`-overdue`**"
 
 Example:
 * `list` **`-all`**
@@ -296,7 +296,7 @@ Displays a list of available commands.<br>
 
 > **Things to Note**
 > * Help is also shown if you enter an incorrect command.
->	* Example: "abcd"
+>  * Example: "abcd"
 > * A list of available commands is shown in a separate window so that you can refer to it while using Taskle.
 
 <img src="images/UI/Help.png" align="center">
@@ -335,22 +335,24 @@ The table below shows the overall list of commands used in the application.
 
 <br>
 
-Command `(Shortcut)` | Format  
-:-------- | :-------- 
-Add `a` | `add` **`task_name`** `remind` [**`date time`**]
- 		| `add` **`task_name`** `by` [**`date time`**] `remind` [**`date time`**] 
- 		| `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
-Rename `rn` | `rename` **`task_number`** **`new_task_name`** 
-Reschedule `rs` | `reschedule` **`task_number`** [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
-Remind `rmd` | `remind` **`task_number`** [**`date time`**]
-Remove `rm` | `remove` **`task_number`**
-Find `f` | `find` **`keywords [-status]`**
-List `l` | `list` **`[-status]`**
-Mark as Done `d` | `done` **`task_number`**
-Undo `u` | `undo`
-Redo `r` | `redo`
-Clear | `clear`
-Change Directory `s` | `save`
-Open Data File `o` | `open`
-View Help `h` | `help`
-Exit | `exit`
+|Command   | Shortcut | Format  |
+|:-------- |:---------|:--------|
+|Add       | a        | `add` **`task_name`** [**`remind` `date time`**] |
+|        |          | `add` **`task_name`** `by` [**`date time`**] [**`remind` `date time`**] |
+|         |          | `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] [**`remind` `date time`**] |
+|Rename    | rn       | `rename` **`task_number`** **`new_task_name`** |
+|Reschedule| rs       | `reschedule` **`task_number`** `date` [**`time`**] [**`to` `date time`**]  [**`remind` `date time`**] |
+|Reschedule|          | `reschedule` `clear`|
+|Remind    | rmd      | `remind` **`task_number`** `date` [**`time`**] |
+|Remind    |          | `remind` `clear`|
+|Remove    | rm       | `remove` **`task_number`** |
+|Find      | f        | `find` **`keywords [-status]`** |
+|List      |l         | `list` **`[-status]`** |
+|Mark as Done| d      | `done` **`task_number`** |
+|Undo      |u         | `undo` |
+|Redo      |r         | `redo` |
+|Clear     |          | `clear`|
+|Change Directory | s | `save` |
+|Open Data File   | o | `open` |
+|View Help |h         | `help` |
+|Exit      |          | `exit` |
