@@ -143,23 +143,23 @@ Examples:
 <br>
 
 <!-- @@author A0139402M -->
-### Finding a Task : `find`
-Finds all tasks in Taskle that contains the keywords and fulfills the status as specified.<br><br>
+### Find a Task : `find`
+Finds all the tasks in Taskle that match the list of keywords and specified statuses.<br><br>
 
 | Format  
 | :-------- 
 | `find` **`keywords [-status]`** | 
 
 > **Things to Note**
-> * The following statues are available:
->	* **-all**: All tasks in Taskle
->	* **-pending**: Tasks that are still pending.
->	* **-done**: Tasks that are marked as done.
->	* **-overdue**: Tasks that are overdue (applicable for deadlines only.)
-> * All tasks that match the list of keywords and the statuses specified would be displayed.
-> * You must specify at least one keyword when using find.
-> * It is optional to specify the status. If no status is specified, the default
-tasks to be displayed are the pending and overdue ones. 
+> * The following statuses are available:
+>	* **-all**: All the tasks in Taskle.
+>	* **-pending**: Pending tasks.
+>	* **-done**: Tasks that have been marked as done.
+>	* **-overdue**: Tasks that are overdue (only applicable to deadlines.)
+> * All the tasks that match the list of keywords and specified statuses will be displayed.
+> * You must specify **at least one keyword** when using find.
+> * It is optional to specify the status. If no status was specified, the default
+tasks (pending and overdue) would be displayed. 
 > * You may specify more than one status. In that case all tasks that fulfill any of the flags would be displayed. For example:
 >	* find meeting task **-pending** **-overdue**
 
