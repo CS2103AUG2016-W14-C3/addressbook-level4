@@ -7,7 +7,6 @@ import taskle.model.task.ReadOnlyTask.Status;
 //@@author A0140047U
 /**
  * Custom Comparator that compares tasks when being sorted in internalList
- *
  */
 public class TaskComparator implements Comparator<Task> {
     
@@ -61,9 +60,10 @@ public class TaskComparator implements Comparator<Task> {
     }
         
     /**
-     * Maps status values to their priority for sorting
+     * Maps status values to their priority for sorting.
+     * 
      * @param status Status enum as defined in ReadOnlyTask
-     * @return
+     * @return a priority integer
      */
     private int getPriority(Status status) {
         switch (status) {

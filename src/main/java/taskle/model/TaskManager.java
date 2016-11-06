@@ -29,23 +29,17 @@ public class TaskManager implements ReadOnlyTaskManager {
     public TaskManager() {
     }
 
-    /**
-     * Tasks are copied into this taskmanager
-     */
+    /** Tasks are copied into this taskmanager */
     public TaskManager(TaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
     }
 
-    /**
-     * Tasks are copied into this taskmanager
-     */
+    /** Tasks are copied into this taskmanager */
     public TaskManager(ReadOnlyTaskManager toBeCopied) {
         this(toBeCopied.getUniqueTaskList());
     }
 
-    /**
-     * Tasks are copied into this taskmanager
-     */
+    /** Tasks are copied into this taskmanager */
     public TaskManager(TaskList tasks) {
         resetData(tasks.getInternalList());
     }

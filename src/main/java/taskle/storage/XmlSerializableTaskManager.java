@@ -24,14 +24,13 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         tasks = new ArrayList<>();
     }
 
-    /**
-     * Empty constructor required for marshalling
-     */
+    /** Empty constructor required for marshalling */
     public XmlSerializableTaskManager() {}
 
-    /**
-     * Conversion
-     */
+    /** Conversion method from given read only task manager
+     * 
+     * @param src task manager to use for conversion
+     * */
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }

@@ -13,9 +13,7 @@ public interface ReadOnlyTaskManager {
 
     TaskList getUniqueTaskList();
 
-    /**
-     * Returns an unmodifiable view of tasks list
-     */
+    /** Returns an unmodifiable view of tasks list */
     List<ReadOnlyTask> getTaskList();
 
 }

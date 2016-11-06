@@ -6,7 +6,9 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
 //@author A0125509H
-
+/**
+ * Marks a task as Done in the Task Manager.
+ */
 public class DoneCommand extends Command {
     
     public static final String COMMAND_WORD = "done";

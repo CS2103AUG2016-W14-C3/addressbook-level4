@@ -17,9 +17,7 @@ import taskle.commons.util.StorageUtil.OperationType;
 
 //@@author A0140047U
 /**
- * 
  * Confirmation dialog to replace existing file
- *
  */
 public class ExistingFileDialog {
 

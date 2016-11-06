@@ -9,9 +9,7 @@ import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.RemoveCommand;
 
 /**
- * RemoveCommandParser to handle parsing of command arguments.
- * @author Abel
- *
+ * RemoveCommandParser to handle parsing of command arguments. *
  */
 public class RemoveCommandParser extends CommandParser {
 

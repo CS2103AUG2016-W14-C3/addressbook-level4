@@ -6,6 +6,7 @@ import taskle.commons.util.StatusFormatUtil;
 //@@author A0141780J
 /** Indicates the filters in TaskList has changed.
  *  When is showing all, showing pending, done and overdue are all false.
+ *  
  */
 public class TaskFilterChangedEvent extends BaseEvent {
 
@@ -14,6 +15,13 @@ public class TaskFilterChangedEvent extends BaseEvent {
     public boolean isDoneShown;
     public boolean isOverdueShown;
 
+    /**
+     * Constructs a TaskFilterChangedEvent, given parameters represents
+     * the new filters after the change.
+     * @param isPendingShown whether to show pending tasks
+     * @param isDoneShown whether to show done tasks
+     * @param isOverdueShown whether to show overdue tasks
+     */
     public TaskFilterChangedEvent(boolean isPendingShown, boolean isDoneShown,
             boolean isOverdueShown){
         if (isPendingShown && isDoneShown && isOverdueShown) {

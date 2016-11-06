@@ -16,6 +16,7 @@ import taskle.model.task.Task;
 public interface Logic {
     /**
      * Executes the command and returns the result.
+     * 
      * @param commandText The command as entered by the user.
      * @return the result of the command execution.
      */
@@ -28,10 +29,12 @@ public interface Logic {
     /** Updates directory to given filePath */
     void changeDirectory(String filePath);
     
+    //@@author A0139402M
     List<Task> verifyReminder(Date currentDateTime);
     
     void dismissReminder(Date currentDateTime);
 
+    //@@author A0140047U
     /** Resets Model based on given data */
     void resetModel(ReadOnlyTaskManager taskManager);
     

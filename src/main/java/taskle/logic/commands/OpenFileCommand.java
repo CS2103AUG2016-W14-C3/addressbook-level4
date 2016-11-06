@@ -10,7 +10,9 @@ import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
-//Opens data from specified file
+/**
+ * Opens data from specified file
+ */
 public class OpenFileCommand extends Command {
     
     public static final String COMMAND_WORD_SHORT = "o";

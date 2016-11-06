@@ -2,9 +2,7 @@ package taskle.model.help;
 //@@author A0141780J
 /**
  * Model class to encapsulate the information provided
- * by each row in the help window.
- * @author Abel
- *
+ * by each row in the help window. *
  */
 public class CommandGuide {
     
@@ -18,6 +16,7 @@ public class CommandGuide {
      * Constructor for CommandGuide
      * Asserts that name and commandWord are non-null because it is
      * constructed by custom parameters in HelpWindow always.
+     * 
      * @param name Name of the action and command
      * @param commandWord command keyword
      * @param args optional arguments for command keyword

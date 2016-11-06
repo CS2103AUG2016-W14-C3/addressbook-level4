@@ -11,6 +11,9 @@ import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.RemindCommand;
 
 //@@author A0139402M
+/**
+ * RemindCommandParser class to handle parsing of remind commands *
+ */
 public class RemindCommandParser extends CommandParser{
     
 

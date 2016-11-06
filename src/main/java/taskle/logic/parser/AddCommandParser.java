@@ -90,6 +90,16 @@ public class AddCommandParser extends CommandParser {
         return getCorrectCommand(args, nameString, eventDatesString, deadlineString, remindDate);
     }
 
+    /**
+     * Gets the correct command based on parameters supplied.
+     * 
+     * @param args full argument string
+     * @param nameString name argument string
+     * @param eventDatesString event dates argument string
+     * @param deadlineString deadline dates argument string
+     * @param remindDate reminder dates argument string
+     * @return The correct command based on given arguments.
+     */
     private Command getCorrectCommand(
             String args, String nameString, String eventDatesString, 
             String deadlineString, Date remindDate) {

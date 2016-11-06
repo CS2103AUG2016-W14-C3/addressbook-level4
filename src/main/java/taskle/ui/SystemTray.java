@@ -175,6 +175,7 @@ public class SystemTray {
     private void dismissReminders() {
         logic.dismissReminder(currentDateTime);
     }
+    
     /**
      * Shows the application stage and ensures that it is brought ot the front
      * of all stages.

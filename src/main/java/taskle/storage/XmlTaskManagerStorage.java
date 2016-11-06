@@ -29,7 +29,8 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     /**
-     * Similar to {@link #readTaskManager()}
+     * Similar to {@link #readTaskManager()}.
+     * 
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
@@ -49,7 +50,8 @@ public class XmlTaskManagerStorage implements TaskManagerStorage {
     }
 
     /**
-     * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}
+     * Similar to {@link #saveTaskManager(ReadOnlyTaskManager)}.
+     * 
      * @param filePath location of the data. Cannot be null
      */
     public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {

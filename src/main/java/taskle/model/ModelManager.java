@@ -44,14 +44,17 @@ public class ModelManager extends ComponentManager implements Model {
     public static final Integer STATUS_AVAILABLE_HISTORY = 1;
     public static final Integer STATUS_ERROR_HISTORY = -1;
     
-    // Filter variables
+    /** Filter variables */
     private boolean isDoneShown = false;
     private boolean isPendingShown = true;
     private boolean isOverdueShown = true;
 
     /**
      * Initializes a ModelManager with the given TaskManager
-     * TaskManager and its variables should not be null
+     * TaskManager and its variables should not be null.
+     * 
+     * @param src Source task manager to initialize with
+     * @param userPrefs User preferences file to use
      */
     public ModelManager(TaskManager src, UserPrefs userPrefs) {
         super();
@@ -114,7 +117,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    // Restores recently saved TaskManager state
+    /** Restores recently saved TaskManager state */
     @Override
     public synchronized int restoreTaskManager() {
         try {
@@ -136,7 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     
-    // Reverts changes made from restoring recently saved TaskManager state
+    /** Reverts changes made from restoring recently saved TaskManager state */
     @Override
     public synchronized int revertTaskManager() {
          try {
@@ -324,6 +327,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
     //@@author
 
+    /**
+     * Used to update filtered task list with an expression.
+     * @param expression Expression to be used
+     */
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }

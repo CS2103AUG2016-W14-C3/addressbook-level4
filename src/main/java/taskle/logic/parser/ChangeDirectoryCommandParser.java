@@ -10,7 +10,9 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 
 //@@author A0140047U
-//ChangeDirectoryParser class to handle parsing of change directory commands
+/**
+ * ChangeDirectoryParser class to handle parsing of change directory commands *
+ */
 public class ChangeDirectoryCommandParser extends CommandParser {
 
     @Override
@@ -19,7 +21,8 @@ public class ChangeDirectoryCommandParser extends CommandParser {
     }
     
     /**
-     * Checks if argument is a directory and the directory exists
+     * Checks if argument is a directory and the directory exists.
+     * 
      * @param directory path of the directory
      * @return ChangeDirectoryCommand if directory is valid, IncorrectCommand otherwise
      */

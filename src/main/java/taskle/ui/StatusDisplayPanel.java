@@ -77,6 +77,10 @@ public class StatusDisplayPanel extends UiPart {
         return FXML;
     }
     
+    /**
+     * Prepares the initial chips, namely the pending and overdue chips and
+     * the display label.
+     */
     private void setupInitialChips() {
         ObservableList<Node> nodes = mainPane.getChildren();
         nodes.clear();
@@ -94,6 +98,12 @@ public class StatusDisplayPanel extends UiPart {
         updateNodes(nodes, event);
     }
     
+    /**
+     * Updates the nodes to reflect the TaskFilterChangedEvent.
+     * 
+     * @param nodes List of nodes used.
+     * @param event Event that reflects the new filters.
+     */
     private void updateNodes(
             ObservableList<Node> nodes, TaskFilterChangedEvent event) {
         if (event.isAllShown) {
