@@ -872,9 +872,39 @@ public class LogicManagerTest {
 
         Date currentDateTime = new Date();
         logic.dismissReminder(currentDateTime);
-        assertEquals(1, model.getTaskManager().getTaskList().size());
-        
+        int numReminders = 0;
+        List<ReadOnlyTask> taskList = model.getTaskManager().getTaskList();
+        for(int i = 0; i < taskList.size(); i++) {
+            if(!("").equals(taskList.get(i).getRemindDetailsString())) {
+                numReminders++;
+            }
+        }
+        assertEquals(1, numReminders);        
     }
+    
+    @Test
+    public void executeDismissReminder_dismissAllReminders_returnZeroReminders() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.finalExamsWithReminder();
+        FloatTask toBeAdded2 = helper.homeworkWithReminder();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded2);
+        expectedTM.addTask(toBeAdded);
+        model.addTask(toBeAdded2);
+        model.addTask(toBeAdded);
+
+        Date currentDateTime = new Date();
+        logic.dismissReminder(currentDateTime);
+        int numReminders = 0;
+        List<ReadOnlyTask> taskList = model.getTaskManager().getTaskList();
+        for(int i = 0; i < taskList.size(); i++) {
+            if(!("").equals(taskList.get(i).getRemindDetailsString())) {
+                numReminders++;
+            }
+        }
+        assertEquals(0, numReminders);        
+    }
+    
     
 
     //@@author A0141780J
