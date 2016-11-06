@@ -280,14 +280,6 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListWithStatuses();
     }
     
-    private void resetFilters() {
-        this.isPendingShown = true;
-        this.isDoneShown = false;
-        this.isOverdueShown = true;
-        raise(new TaskFilterChangedEvent(isPendingShown, isDoneShown, isOverdueShown));
-        updateFilteredListWithStatuses();
-    }
-    
     private void updateFilteredListFindKeywords(Set<String> keywords) {
         Expression keywordExpression = new PredicateExpression(new NameQualifier(keywords));
         Predicate<Task> statusPred = getStatusPredicate();
