@@ -8,9 +8,7 @@ import taskle.commons.core.UnmodifiableObservableList;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
-/**
- * Deletes a task identified using it's last displayed index from the task manager.
- */
+// Deletes a task identified using it's last displayed index from the task manager.
 
 public class RemoveCommand extends Command {
 

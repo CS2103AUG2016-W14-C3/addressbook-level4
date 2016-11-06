@@ -3,9 +3,7 @@ package taskle.logic.commands;
 import taskle.commons.util.StatusFormatUtil;
 
 //@@author A0141780J
-/**
- * Lists all tasks in the Task Manager to the user.
- */
+// Lists all tasks in the Task Manager to the user.
 public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";

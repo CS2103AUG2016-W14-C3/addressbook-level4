@@ -1,12 +1,9 @@
 package taskle.logic.commands;
 
-
 import taskle.commons.core.EventsCenter;
 import taskle.commons.events.ui.ShowHelpRequestEvent;
 
-/**
- * Format full help instructions for every command for display.
- */
+// Format full help instructions for every command for display.
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";

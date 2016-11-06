@@ -9,9 +9,7 @@ import taskle.model.Model;
 import taskle.model.TaskManager;
 import taskle.model.task.Task;
 
-/**
- * Represents a command with hidden internal logic and the ability to be executed.
- */
+// Represents a command with hidden internal logic and the ability to be executed.
 public abstract class Command {
     protected Model model;
     protected TaskManager taskManager;

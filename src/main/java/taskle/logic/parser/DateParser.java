@@ -17,9 +17,7 @@ import com.joestelmach.natty.Parser;
  */
 public class DateParser {
     
-    /**
-     * Private constructor to prevent instantiation.
-     */
+    // Private constructor to prevent instantiation.
     private DateParser() {
     }
 

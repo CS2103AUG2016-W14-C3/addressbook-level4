@@ -13,9 +13,7 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 
 //@author A0141780J
-/**
- * AddCommandParser class to handle parsing of add commands.
- */
+// AddCommandParser class to handle parsing of add commands.
 public class AddCommandParser extends CommandParser {
 
     private static final String ADD_ARGS_NAME_GROUP = "name";

@@ -1,8 +1,6 @@
 package taskle.logic.commands;
 
-/**
- * Represents the result of a command execution.
- */
+// Represents the result of a command execution.
 public class CommandResult {
 
     private final String feedbackToUser;
