@@ -44,15 +44,6 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
-     * Returns true if the list contains an equivalent task as the given
-     * argument.
-     */
-    public boolean contains(ReadOnlyTask toCheck) {
-        assert toCheck != null;
-        return internalList.contains(toCheck);
-    }
-
-    /**
      * Adds a task to the list.
      *
      */
