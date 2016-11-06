@@ -35,6 +35,7 @@ import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
+import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.ListCommand;
 import taskle.logic.commands.RemindCommand;
 import taskle.logic.commands.RemoveCommand;
@@ -240,6 +241,24 @@ public class LogicManagerTest {
                 expectedTM.getTaskList());
     }
     
+    @Test
+    public void executeAddCommand_addEventWithDatesAndReminderAfterEndDate_returnIncorrectCommand() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.finalExams();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+
+        model.addTask(toBeAdded);
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_UNSUCCESSFUL_EVENT_INVALID_REMINDER,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                        Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
     //@@author A0141780J
     @Test
     public void executeAddCommand_addDeadlineWithDates_successfulDeadlineAdd() throws Exception {
@@ -272,6 +291,24 @@ public class LogicManagerTest {
                 helper.generateAddCommandWithDate(toBeAdded, 
                         helper.ADD_SUCCESSFUL_DEADLINE_REMINDER),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded + " Reminder on: " + toBeAdded.getRemindDetailsString()),
+                expectedTM,
+                expectedTM.getTaskList());
+    }
+    
+    @Test
+    public void executeAddCommand_addDeadlineWithDatesAndReminderAfterEndDate_returnIncorrectCommand() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        EventTask toBeAdded = helper.finalExams();
+        TaskManager expectedTM = new TaskManager();
+        expectedTM.addTask(toBeAdded);
+
+        model.addTask(toBeAdded);
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.ADD_UNSUCCESSFUL_DEADLINE_INVALID_REMINDER,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                        Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE),
                 expectedTM,
                 expectedTM.getTaskList());
     }
@@ -1248,6 +1285,10 @@ public class LogicManagerTest {
         private final String ADD_SUCCESSFUL_DEADLINE_DATE = " by 31st Dec 2016 2359hours";
         private final String ADD_SUCCESSFUL_DEADLINE_REMINDER = " by 31st Dec 2016 2359hours remind 29th Dec 2016 2359hours";
         private final String ADD_TMR_SUCCESSFUL_DATE = " from tmr 1 to 2pm";
+        private final String ADD_UNSUCCESSFUL_EVENT_INVALID_REMINDER = 
+                "add event from 12 sep 2016 10am to 12 sep 2016 1pm remind 10 oct 2016 10am";
+        private final String ADD_UNSUCCESSFUL_DEADLINE_INVALID_REMINDER = 
+                "add event by 12 sep 2016 1pm remind 10 oct 2016 10am";
         private final String ADD_COMMAND_GARDENS_BY_BAY = 
                 "add Gardens by the Bay outing from 12pm to 2pm 3 December";
         private final String ADD_COMMAND_NEW_YEAR_DAY = 
@@ -1290,6 +1331,17 @@ public class LogicManagerTest {
             CALENDAR.set(2016, 8, 12, 13, 00, 00);
             Date endDate = CALENDAR.getTime();
             CALENDAR.set(2016, 8, 10, 10, 00, 00);
+            Date remindDate = CALENDAR.getTime();
+            return new EventTask(name, startDate, endDate, remindDate);
+        }
+        
+        EventTask finalExamsWithInvalidReminder() {
+            Name name = new Name("Final Exams");
+            CALENDAR.set(2016, 8, 12, 10, 00, 00);
+            Date startDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 8, 12, 13, 00, 00);
+            Date endDate = CALENDAR.getTime();
+            CALENDAR.set(2016, 9, 10, 10, 00, 00);
             Date remindDate = CALENDAR.getTime();
             return new EventTask(name, startDate, endDate, remindDate);
         }

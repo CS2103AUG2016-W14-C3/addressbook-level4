@@ -50,6 +50,7 @@ public class UnmodifiableObservableListTest {
 
         assertThrows(ex, () -> list.setAll(new ArrayList<Number>()));
         assertThrows(ex, () -> list.setAll(1, 2));
+        assertThrows(ex, () -> list.setAll(new ArrayList<Double>()));
 
         assertThrows(ex, () -> list.remove(0, 1));
         assertThrows(ex, () -> list.remove(null));
