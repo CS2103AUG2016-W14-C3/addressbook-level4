@@ -61,9 +61,9 @@ Taskle makes managing your tasks both simple and elegant as all of its features 
 
 | Format  
 | :-------- 
-| `add` **`task_name`** `remind ` [**`date time`**] | 
-| `add` **`task_name`** `by ` [**`date time`**] `remind ` [**`date time`**] |
-| `add` **`task_name`** `from ` [**`date time`**] `to ` [**`date time`**] `remind ` [**`date time`**]
+| `add` **`task_name`** `remind` [**`date time`**] | 
+| `add` **`task_name`** `by` [**`date time`**] `remind` [**`date time`**] |
+| `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
 
 > **Things to Note**
 > * You may enter the date and time in any format that you desire, and Taskle will still be able to recognise it.
@@ -73,24 +73,24 @@ Taskle makes managing your tasks both simple and elegant as all of its features 
 > * Should the entered name be too long, it will appear truncated with ellipses on the application. However, you can still view the full name by clicking and holding down your mouse button. 
 
 Examples:
-* `add ` **`Pay Phone Bills`**
-* `add ` **`Do CS2101 Assignment`** ` by ` **`12 Oct`**
-* `add ` **`Business Trip`** ` from ` **`4 Oct`** ` to ` **`5 Oct`** ` remind ` **`3 Oct 2pm`**
+* `add` **`Pay Phone Bills`**
+* `add` **`Do CS2101 Assignment`** `by` **`12 Oct`**
+* `add` **`Business Trip`** `from` **`4 Oct`** `to` **`5 Oct`** `remind` **`3 Oct 2pm`**
 
 <img align="center" src="images/UI/Add.png" >
-<div align="center">Figure 2: Adding a task with the name "Pay Phone Bills" into Taskle</div><br>
+<div align="center">Figure 2: Adds a task with the name "Pay Phone Bills" into Taskle</div><br>
 	
 <br>
 
 <!-- @@author A0140047U -->
-### Edit a Task : `rename; reschedule; remind`
+### Edit a Task: `rename; reschedule; remind`
 Edits an existing task in Taskle. There are three types of possible edits: Rename, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify the task that you wish to edit.<br><br>
 
 Type | Format  
 :-------- | :-------- 
-Rename | `rename ` **`task_number`** **`new_task_name`**  
-Reschedule | `reschedule ` **`task_number`** [**`date time`**] ` to ` [**`date time`**] `remind ` [**`date time`**]
-Remind | `remind ` **`task_number`** [**`date time`**]
+Rename | `rename` **`task_number`** **`new_task_name`**  
+Reschedule | `reschedule` **`task_number`** [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
+Remind | `remind` **`task_number`** [**`date time`**]
 
 > **Things to Note**
 > * A  task can only have **one reminder**. The date and time that were specified in the "remind" command will replace any existing reminder.
@@ -99,45 +99,48 @@ Remind | `remind ` **`task_number`** [**`date time`**]
 >	* remind **2 clear**
 >	* reschedule **2 clear**
 
-
 Examples:
-* `rename `**`8 Pay Abel for Chicken Rice`**
+* `rename` **`8 Pay Abel for Chicken Rice`**
 
 <img align="center" src="images/UI/Rename_Before.png">
-<div align="center">Figure 3: Rename Task 8 to "Pay Abel for Chicken Rice" (Before)</div><br>
+<div align="center">Figure 3: Renames Task 8 to "Pay Abel for Chicken Rice" (Before)</div><br>
 
 <img align="center" src="images/UI/Rename_After.png">
-<div align="center">Figure 4: Rename Task 8 to "Pay Abel for Chicken Rice" (After)</div><br>
+<div align="center">Figure 4: Renames Task 8 to "Pay Abel for Chicken Rice" (After)</div><br>
 
-* `reschedule `**`2`**` to `**`9th November 2pm`**
+* `reschedule` **`2`** `to` **`9th November 2pm`**
 
 <img align="center" src="images/UI/Reschedule_Before.png">
-<div align="center">Figure 5: Reschedule Task 2 to "9th November 2pm" (Before)</div><br>
+<div align="center">Figure 5: Reschedules Task 2 to "9th November 2pm" (Before)</div><br>
 
 <img align="center" src="images/UI/Reschedule_After.png">
-<div align="center">Figure 6: Reschedule Task 2 to "9th November 2pm" (After)</div><br>
+<div align="center">Figure 6: Reschedules Task 2 to "9th November 2pm" (After)</div><br>
 
-* `remind `**`2 8th November 7pm`**
+* `remind` **`2 8th November 7pm`**
 	
 <img src="images/UI/Remind_Before.png" align="center">
-<div align="center">Figure 7: Reminding Task 2 on "8th November 7pm" (Before)</div><br>
+<div align="center">Figure 7: Sets a Reminder for Task 2 on "8th November 7pm" (Before)</div><br>
 
 <img src="images/UI/Remind_After.png" align="center">	
-<div align="center">Figure 8: Reminding Task 2 on "8th November 7pm" (After)</div><br>
+<div align="center">Figure 8: Sets a Reminder for Task 2 on "8th November 7pm" (After)</div><br>
+
+<br>
 
 <!-- @@author A0125509H -->
 ### Remove a Task: `remove`
-Removes a task permanently from Taskle.<br>
+Removes a task from Taskle permanently.<br><br>
 
 | Format  
 | :-------- 
 | `remove` **`task_number`** | 
 
 Examples:
-* `remove `**`8`**
+* `remove` **`8`**
 
 <img src="images/UI/Remove.png" align="center"/>	
-<div align="center">Figure 9: Remove Task 8 from Taskle</div><br>
+<div align="center">Figure 9: Removes Task 8 from Taskle</div><br>
+
+<br>
 
 <!-- @@author A0139402M -->
 ### Finding a Task : `find`
