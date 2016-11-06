@@ -1,9 +1,6 @@
 package guitests.guihandles;
 
-import java.util.List;
 import java.util.logging.Logger;
-
-import org.testfx.service.query.NodeQuery;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
@@ -50,6 +47,10 @@ public class GuiHandle {
 
     protected Node getNode(String query) {
         return guiRobot.lookup(query).tryQuery().get();
+    }
+    
+    protected boolean containsNode(String query) {
+        return guiRobot.lookup(query).tryQuery().isPresent();
     }
     
     protected Window getWindow(String query) {

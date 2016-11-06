@@ -5,7 +5,6 @@ import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import org.junit.Test;
 
 import taskle.commons.core.Messages;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.RescheduleCommand;
 
 //@@author A0139402M
@@ -16,10 +15,9 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * test the reschedule function. Check if that task has been edited
      * correctly.
      * 
-     * @throws IllegalValueException
      */
     @Test
-    public void rescheduleCommand_taskToFloattask_success() throws IllegalValueException {
+    public void rescheduleCommand_taskToFloattask_success() {
         String index = "3";
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
@@ -31,16 +29,15 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * to test the reschedule function. Check if that task has been edited
      * correctly.
      * 
-     * @throws IllegalValueException
      */
     @Test
-    public void rescheduleCommand_taskToDeadlinetask_success() throws IllegalValueException {
+    public void rescheduleCommand_taskToDeadlinetask_success() {
         String newDate = "21 Oct 3pm";
         String index = "3";
         String command = buildCommand(index, newDate);
         String name = td.attendMeeting.getName().fullName;
         String oldDate = td.attendMeeting.getDetailsString();
-        assertRescheduleResultSuccess(command, name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016");
+        assertRescheduleResultSuccess(command, name + " " + oldDate + " -> " + "21 Oct 2016, 3:00PM");
     }
 
     /**
@@ -48,10 +45,9 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
      * test the reschedule function. Check if that task has been edited
      * correctly.
      * 
-     * @throws IllegalValueException
      */
     @Test
-    public void rescheduleCommand_taskToEventtask_success() throws IllegalValueException {
+    public void rescheduleCommand_taskToEventtask_success() {
         String newDate = "21 Oct 3pm to 31 Oct 5pm";
         String index = "3";
         String command = buildCommand(index, newDate);
@@ -59,7 +55,7 @@ public class RescheduleCommandTest extends TaskManagerGuiTest {
         String oldDate = td.attendMeeting.getDetailsString();
 
         assertRescheduleResultSuccess(command,
-                name + " " + oldDate + " -> " + "3:00PM, 21 Oct 2016 to 5:00PM, 31 Oct 2016");
+                name + " " + oldDate + " -> " + "21 Oct 2016, 3:00PM to 31 Oct 2016, 5:00PM");
 
     }
 

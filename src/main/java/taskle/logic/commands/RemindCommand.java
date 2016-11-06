@@ -4,7 +4,6 @@ import java.util.Date;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
@@ -28,7 +27,7 @@ public class RemindCommand extends Command {
 
     public final Date remindDate;
 
-    public RemindCommand(int targetIndex, Date remindDate) throws IllegalValueException {
+    public RemindCommand(int targetIndex, Date remindDate) {
         this.targetIndex = targetIndex; 
         this.remindDate = remindDate;
     }

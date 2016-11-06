@@ -91,23 +91,42 @@ public class StatusDisplayPanel extends UiPart {
         ObservableList<Node> nodes = mainPane.getChildren();
         nodes.clear();
         nodes.add(displayLabel);
+        updateNodes(nodes, event);
+    }
+    
+    private void updateNodes(
+            ObservableList<Node> nodes, TaskFilterChangedEvent event) {
         if (event.isAllShown) {
             nodes.add(allChip);
             return;
         }
         
+        updatePendingNode(nodes, event);
+        updateDoneNode(nodes, event);
+        updateOverdueNode(nodes, event);
+    }
+    
+    private void updatePendingNode(ObservableList<Node> nodes, 
+                                   TaskFilterChangedEvent event) {
         if (event.isPendingShown) {
             nodes.add(pendingChip);
         }
-        
+    }
+    
+    private void updateDoneNode(ObservableList<Node> nodes, 
+                                TaskFilterChangedEvent event) {
+        if (event.isDoneShown) {
+            nodes.add(doneChip);
+        } 
+    }
+    
+    private void updateOverdueNode(ObservableList<Node> nodes, 
+                                   TaskFilterChangedEvent event) {
         if (event.isOverdueShown) {
             nodes.add(overdueChip);
         }
-        
-        if (event.isDoneShown) {
-            nodes.add(doneChip);
-        }
-        
     }
+    
+    
     
 }

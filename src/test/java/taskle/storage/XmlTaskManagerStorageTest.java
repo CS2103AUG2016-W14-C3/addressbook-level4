@@ -96,7 +96,7 @@ public class XmlTaskManagerStorageTest {
     }
 
     @Test
-    public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
+    public void saveTaskManager_nullFilePath_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
         saveTaskManager(new TaskManager(), null);
     }
