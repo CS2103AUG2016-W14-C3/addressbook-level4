@@ -2,9 +2,7 @@ package taskle.commons.events.storage;
 
 import taskle.commons.events.BaseEvent;
 
-/**
- * Indicates an exception during a file saving
- */
+// Indicates an exception during a file saving
 public class DataSavingExceptionEvent extends BaseEvent {
 
     public Exception exception;

@@ -1,8 +1,6 @@
 package taskle.commons.core;
 
-/**
- * Container for user visible messages.
- */
+// Container for user visible messages.
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command entered, type \"help\" to get more information";

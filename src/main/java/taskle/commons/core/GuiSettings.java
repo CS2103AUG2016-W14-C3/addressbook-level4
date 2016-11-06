@@ -4,9 +4,7 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * A Serializable class that contains the GUI settings.
- */
+// A Serializable class that contains the GUI settings.
 public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
