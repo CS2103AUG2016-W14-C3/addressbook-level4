@@ -7,15 +7,21 @@ import java.util.Stack;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.transformation.FilteredList;
 import taskle.commons.core.ComponentManager;
 import taskle.commons.core.LogsCenter;
 import taskle.commons.core.UnmodifiableObservableList;
 import taskle.commons.events.model.TaskFilterChangedEvent;
 import taskle.commons.events.model.TaskManagerChangedEvent;
+import taskle.commons.events.storage.StorageMenuItemRequestEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.StorageUtil;
+import taskle.commons.util.StorageUtil.OperationType;
 import taskle.commons.util.StringUtil;
+import taskle.logic.commands.ChangeDirectoryCommand;
+import taskle.logic.commands.OpenFileCommand;
 import taskle.model.task.Name;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.ReadOnlyTask.Status;
@@ -31,9 +37,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final TaskManager taskManager;
     private final FilteredList<Task> filteredTasks;
-
     private Stack<TaskManager> taskManagerHistory = new Stack<TaskManager>();
     private Stack<TaskManager> redoTaskManagerHistory = new Stack<TaskManager>();
+    
+    public static final Integer STATUS_EMPTY_HISTORY = 0;
+    public static final Integer STATUS_AVAILABLE_HISTORY = 1;
+    public static final Integer STATUS_ERROR_HISTORY = -1;
     
     // Filter variables
     private boolean isDoneShown = false;
@@ -85,12 +94,21 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author A0140047U
     /** Stores current TaskManager state */
     @Override
-    public synchronized void storeTaskManager() {
-        taskManagerHistory.push(new TaskManager(taskManager));
-        redoTaskManagerHistory.clear();
-        
+    public synchronized void storeTaskManager(String command) {
         try {
-            StorageUtil.storeConfig(null);
+            if (command.equals(ChangeDirectoryCommand.COMMAND_WORD)) {
+                StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
+                taskManagerHistory.push(null);
+            } else if (command.equals(OpenFileCommand.COMMAND_WORD)) {
+                StorageUtil.storeConfig(OperationType.OPEN_FILE);
+                taskManagerHistory.push(null);
+            } else {
+                StorageUtil.storeConfig(null);
+                taskManagerHistory.push(new TaskManager(taskManager));
+            }
+            redoTaskManagerHistory.clear();
+            StorageUtil.clearRedoConfig();
+            
         } catch (DataConversionException e) {
             e.printStackTrace();
         }
@@ -98,41 +116,65 @@ public class ModelManager extends ComponentManager implements Model {
     
     // Restores recently saved TaskManager state
     @Override
-    public synchronized boolean restoreTaskManager() {
+    public synchronized int restoreTaskManager() {
         try {
             if (StorageUtil.isConfigHistoryEmpty() && taskManagerHistory.isEmpty()) {
-                return false;
-            } else if (StorageUtil.restoreConfig()) {
-                return true;
+                return STATUS_EMPTY_HISTORY;
+            } else if (!taskManagerHistory.isEmpty() && taskManagerHistory.peek() == null) {
+                StorageUtil.restoreConfig(); 
+                taskManagerHistory.pop();
+                redoTaskManagerHistory.push(null);
+                return STATUS_AVAILABLE_HISTORY;
             } else {
                 TaskManager recentTaskManager = taskManagerHistory.pop();
                 redoTaskManagerHistory.push(new TaskManager(taskManager));
                 this.resetData(recentTaskManager);
-                return true;
+                return STATUS_AVAILABLE_HISTORY;
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
-            return false;
+            return STATUS_ERROR_HISTORY;
         }
     }
     
     // Reverts changes made from restoring recently saved TaskManager state
     @Override
-    public synchronized boolean revertTaskManager() {
-        try {
+    public synchronized int revertTaskManager() {
+         try {
             if (StorageUtil.isRedoConfigHistoryEmpty() && redoTaskManagerHistory.isEmpty()) {
-                return false;
-            } else if (StorageUtil.revertConfig()) {
-                return true;
+                return STATUS_EMPTY_HISTORY;
+            } else if (!redoTaskManagerHistory.isEmpty() && redoTaskManagerHistory.peek() == null) {
+                StorageUtil.revertConfig();
+                redoTaskManagerHistory.pop();
+                taskManagerHistory.push(null);
+                return STATUS_AVAILABLE_HISTORY;
             } else {
                 TaskManager redoTaskManager = redoTaskManagerHistory.pop();
                 taskManagerHistory.push(new TaskManager(taskManager));
                 this.resetData(redoTaskManager);
-                return true;
+                return STATUS_AVAILABLE_HISTORY;
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
-            return false;
+            return STATUS_ERROR_HISTORY;
+        }
+    }
+    
+    @Override
+    public synchronized void rollBackTaskManager(boolean isStorageOperation) {
+
+        taskManagerHistory.pop();
+        if (isStorageOperation) {
+            StorageUtil.undoConfig();
+        }
+    }
+    
+    
+    @Override
+    @Subscribe
+    public void handleStorageMenuItemRequestEvent(StorageMenuItemRequestEvent smire) {
+        if (smire.isValid()) {
+            storeTaskManager(smire.getCommand());
+        } else {
+            rollBackTaskManager(true);
         }
     }
     
@@ -337,5 +379,4 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-
 }

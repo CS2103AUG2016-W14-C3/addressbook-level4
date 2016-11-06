@@ -3,11 +3,11 @@ package taskle.logic.commands;
 import java.io.File;
 
 import taskle.commons.core.Config;
+import taskle.commons.core.Messages;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
-import taskle.commons.util.StorageUtil.OperationType;
 
 //@@author A0140047U
 //Opens data from specified file
@@ -41,16 +41,17 @@ public class OpenFileCommand extends Command {
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
             
-            StorageUtil.storeConfig(OperationType.OPEN_FILE);
+            model.storeTaskManager(COMMAND_WORD);
             if (StorageUtil.updateFile(file)) {
                 return new CommandResult(MESSAGE_SUCCESS, true);
             } else {
                 indicateAttemptToExecuteIncorrectCommand(MESSAGE_INVALID_FILE_FORMAT);
                 StorageUtil.resolveConfig();
+                model.rollBackTaskManager(true);
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
+            indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_CONFIG_ERROR);
             return new CommandResult(MESSAGE_FAILURE, false);
         }
         

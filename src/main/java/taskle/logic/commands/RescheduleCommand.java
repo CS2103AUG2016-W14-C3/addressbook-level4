@@ -52,9 +52,10 @@ public class RescheduleCommand extends Command{
         ReadOnlyTask taskToEdit = lastShownList.get(offsetIndex);
         String oldDetails = taskToEdit.getDetailsString();
         try {
-            model.storeTaskManager();
+            model.storeTaskManager(COMMAND_WORD);
             model.editTaskDate(offsetIndex, dates);
         } catch (TaskNotFoundException pnfe) {
+            model.rollBackTaskManager(false);
             assert false : "The target task cannot be missing";
         }
         String newDate = getDateString(dates);

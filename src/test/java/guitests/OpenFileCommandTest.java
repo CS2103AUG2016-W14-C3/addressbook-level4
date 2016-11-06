@@ -12,8 +12,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import taskle.commons.core.Config;
+import taskle.commons.core.Messages;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
+import taskle.commons.util.FileUtil;
 import taskle.logic.commands.OpenFileCommand;
 
 //@@author A0140047U
@@ -22,6 +24,9 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     
     private static final String TEST_DATA_FOLDER = "src" + File.separator + "test" +
             File.separator + "data" + File.separator + "StorageDirectoryUtilTest" + File.separator;
+    
+    private static final String INVALID_CONFIG = FileUtil.getPath("src/test/data/ConfigUtilTest/NotJasonFormatConfig.json");
+    private static final String TEMP_CONFIG = "temp.json";
     
     private static final String INEXISTENT_FILE = " Inexistent.xml";
     private static final String INVALID_FILE = "InvalidFormatTaskManager.xml";
@@ -57,6 +62,20 @@ public class OpenFileCommandTest extends TaskManagerGuiTest {
     public void openFile_validFormat_FileOpened() throws DataConversionException {
         String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + VALID_FILE;
         assertOpenFileSuccess(command);
+    }
+    
+    //Open a file while the config file is invalid
+    @Test
+    public void openFile_invalidConfig_dataConversionException() {
+        new File(Config.DEFAULT_CONFIG_FILE).renameTo(new File(TEMP_CONFIG));
+        new File(INVALID_CONFIG).renameTo(new File(Config.DEFAULT_CONFIG_FILE));
+        
+        String command = OpenFileCommand.COMMAND_WORD + " " + TEST_DATA_FOLDER + VALID_FILE;
+        commandBox.runCommand(command);
+        assertUnsuccessfulMessage(Messages.MESSAGE_CONFIG_ERROR);
+        
+        new File(Config.DEFAULT_CONFIG_FILE).renameTo(new File(INVALID_CONFIG));
+        new File(TEMP_CONFIG).renameTo(new File(Config.DEFAULT_CONFIG_FILE));
     }
     
     private void assertOpenFileSuccess(String command) throws DataConversionException {

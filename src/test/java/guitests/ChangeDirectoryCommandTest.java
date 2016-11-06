@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import taskle.commons.core.Config;
+import taskle.commons.core.Messages;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
@@ -25,6 +26,9 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
     private static final String TEST_DATA_TEMP_FOLDER = FileUtil.getPath("src/test/data/StorageDirectoryUtilTest/temp");
     private static final String TEST_DATA_FILE_VALID_NAME = "ValidFormatTaskManager.xml";
     private static final String TEST_DATA_FILE_EXISTING_NAME = "ExistingTaskManager.xml";
+    
+    private static final String INVALID_CONFIG = FileUtil.getPath("src/test/data/ConfigUtilTest/NotJasonFormatConfig.json");
+    private static final String TEMP_CONFIG = "temp.json";
     
     private Config config;
     private File tempDirectory;
@@ -64,6 +68,20 @@ public class ChangeDirectoryCommandTest extends TaskManagerGuiTest {
     public void changeDirectory_validFormat_directoryChanged() throws DataConversionException, IOException {   
         String command = ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_TEMP_FOLDER;
         assertChangeDirectorySuccess(command);
+    }
+    
+    //Change a directory while the config file is invalid
+    @Test
+    public void openFile_invalidConfig_dataConversionException() {
+        new File(Config.DEFAULT_CONFIG_FILE).renameTo(new File(TEMP_CONFIG));
+        new File(INVALID_CONFIG).renameTo(new File(Config.DEFAULT_CONFIG_FILE));
+        
+        String command = ChangeDirectoryCommand.COMMAND_WORD + " " + TEST_DATA_TEMP_FOLDER;
+        commandBox.runCommand(command);
+        assertUnsuccessfulMessage(Messages.MESSAGE_CONFIG_ERROR);
+        
+        new File(Config.DEFAULT_CONFIG_FILE).renameTo(new File(INVALID_CONFIG));
+        new File(TEMP_CONFIG).renameTo(new File(Config.DEFAULT_CONFIG_FILE));
     }
     
     private void assertChangeDirectorySuccess(String command) throws DataConversionException, IOException {

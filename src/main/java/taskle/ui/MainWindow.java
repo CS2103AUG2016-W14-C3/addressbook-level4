@@ -17,13 +17,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import taskle.commons.core.Config;
+import taskle.commons.core.EventsCenter;
 import taskle.commons.core.GuiSettings;
+import taskle.commons.events.storage.StorageMenuItemRequestEvent;
 import taskle.commons.events.ui.ExitAppRequestEvent;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageUtil;
-import taskle.commons.util.StorageUtil.OperationType;
 import taskle.logic.Logic;
+import taskle.logic.commands.ChangeDirectoryCommand;
+import taskle.logic.commands.OpenFileCommand;
 import taskle.model.UserPrefs;
 
 /**
@@ -214,16 +217,18 @@ public class MainWindow extends UiPart {
         config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File selectedDirectory = directoryChooser.showDialog(primaryStage);
+        
         if (selectedDirectory == null) {
         } else if ((selectedDirectory.getAbsolutePath()).equals(config.getTaskManagerFileDirectory())) {
         } else if (new File(selectedDirectory.getAbsolutePath(), config.getTaskManagerFileName()).exists()) {
             ExistingFileDialog.load(notificationPane, primaryStage, selectedDirectory);
         } else {
-            StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
+            EventsCenter.getInstance().post(new StorageMenuItemRequestEvent(ChangeDirectoryCommand.COMMAND_WORD, true));
             if (StorageUtil.updateDirectory(selectedDirectory)) {
                 config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
                 notificationPane.show(String.format(CHANGE_DIRECTORY_SUCCESS, config.getTaskManagerFileDirectory()));
             } else {
+                EventsCenter.getInstance().post(new StorageMenuItemRequestEvent(ChangeDirectoryCommand.COMMAND_WORD, false));
                 notificationPane.show(CHANGE_DIRECTORY_FAILURE);
             }
         }
@@ -240,12 +245,14 @@ public class MainWindow extends UiPart {
         fileChooser.getExtensionFilters().add(
                 new ExtensionFilter(FILE_CHOOSER_NAME, FILE_CHOOSER_TYPE));
         File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        
         if (selectedFile != null && !selectedFile.getAbsolutePath().equals(config.getTaskManagerFilePath())) {
-            StorageUtil.storeConfig(OperationType.OPEN_FILE);
+            EventsCenter.getInstance().post(new StorageMenuItemRequestEvent(OpenFileCommand.COMMAND_WORD, true));
             if (StorageUtil.updateFile(selectedFile)) {
                 notificationPane.show(CHANGE_FILE_SUCCESS);
             } else {
                 notificationPane.show(CHANGE_FILE_ERROR);
+                EventsCenter.getInstance().post(new StorageMenuItemRequestEvent(OpenFileCommand.COMMAND_WORD, false));
             }
         }
     }

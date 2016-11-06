@@ -3,11 +3,11 @@ package taskle.logic.commands;
 import java.io.File;
 
 import taskle.commons.core.Config;
+import taskle.commons.core.Messages;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
-import taskle.commons.util.StorageUtil.OperationType;
 
 //@@author A0140047U
 //Change directory of current storage file
@@ -39,20 +39,22 @@ public class ChangeDirectoryCommand extends Command {
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
             
-            StorageUtil.storeConfig(OperationType.CHANGE_DIRECTORY);
+            model.storeTaskManager(COMMAND_WORD);    
             if (StorageUtil.updateDirectory(file)) {
                 return new CommandResult(String.format(MESSAGE_SUCCESS, file.getAbsolutePath()), true);
             } else {
                 indicateAttemptToExecuteIncorrectCommand(MESSAGE_FAILURE);
                 StorageUtil.resolveConfig();
+                model.rollBackTaskManager(true);
                 return new CommandResult(MESSAGE_FAILURE, false);
             }
         } catch (DataConversionException e) {
-            e.printStackTrace();
+            indicateAttemptToExecuteIncorrectCommand(Messages.MESSAGE_CONFIG_ERROR);
             return new CommandResult(MESSAGE_FAILURE, false);
         }
     }
     
+    //Checks if requested directory contains a conflicting file or points to the current directory
     public boolean isConflict() throws DataConversionException {
         Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         if (config.getTaskManagerFileDirectory().equalsIgnoreCase(file.getAbsolutePath())) {
