@@ -71,8 +71,8 @@ Two of those classes play important roles at the architecture level.
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of the App.
-* [**`Logic`**](#logic-component) : The command executor.
+* [**`UI`**](#ui-component) : Responsible for the User Interface of the App.
+* [**`Logic`**](#logic-component) : Executes the commands from the user.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
@@ -86,19 +86,19 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img align="center" src="images/LogicClassDiagram.png" >
 <div align="center">Figure 2: Logic Class Diagram Example</div><br><br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `remove 1`.<br>
+The four components `UI`, `Logic`, `Model` and `Storage` interact with one another to provide the functionality of the App.  
+For example, the _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `remove 1`.<br><br>
 
-<img align="center" src="images/SDforDeletePerson.png">
-<div align="center">Figure 3: Sequence Diagram for Delete Person</div><br>
+<img align="center" src="images/SDforRemoveTask.png">
+<div align="center">Figure 3: Sequence Diagram for Remove Task to show Component Interaction</div><br>
 
 >Note how the `Model` simply raises a `TaskManagerChangedEvent` when the Task Manager data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 <br>
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+The diagram below shows how the `EventsCenter` reacts to the `TaskManagerChangedEvent`, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br><br>
-<img align="center" src="images/SDforDeletePersonEventHandling.png">
+<img align="center" src="images/SDforRemoveTaskEventHandling.png">
 <div align="center">Figure 4: Sequence Diagram for Handling of Events</div><br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
@@ -118,9 +118,9 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/taskle/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
-`StatusBarFooter` and `TaskCard`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
-and they can be loaded using the `UiPartLoader`.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `CommandResult`, `TaskListPanel`,
+`StatusBarFooter`, `StatusDisplayPanel` and `TaskCard`. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
+and can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
@@ -141,39 +141,45 @@ The `UI` component:
 
 **API** : [`Logic.java`](../src/main/taskle/logic/Logic.java)
 
+Sequence flow of how `Logic` works:
+
 1. `Logic` uses the `Parser` class to parse the user command.
-2. `History` saves the commands that `LogicManager` executes.
-3. `Parser` uses the CommandParser classes to parse the command.
-4. It returns a `Command` object which is executed by the `LogicManager`.
-5. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
-6. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+2. `Parser` uses the CommandParser classes to parse the command.
+3. It returns a `Command` object which is executed by the `LogicManager`.
+4. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
+5. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("remove 1")` API call.<br><br>
-<img align="center" src="images/DeletePersonSdForLogic.png">
-<div align="center">Figure 7: Delete Person Logic Sequence Diagram</div><br>
+<img align="center" src="images/RemoveTaskSdForLogic.png">
+<div align="center">Figure 7: Remove Task Logic Sequence Diagram</div><br>
+
+Given below is another Sequence Diagram for interactions within the `Logic` component for the `execute("undo")` API call. Notice the differences between the remove and undo commands.<br><br>
+<img align="center" src="images/UndoCommandSdForLogic.png">
+<div align="center">Figure 8: Undo Command Logic Sequence Diagram</div><br>
 
 <!-- @@author A0140047U -->
 
 ### Model component
 
 <img align="center" src="images/ModelClassDiagram.png">
-<div align="center">Figure 8: Model Class Diagram</div><br>
+<div align="center">Figure 9: Model Class Diagram</div><br>
 
 **API** : [`Model.java`](../src/main/taskle/model/Model.java)
 
-The `Model`:
+The `Model` component:
 * Stores a `UserPref` object that represents the user's preferences.
 * Stores the Task Manager data.
 * Exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * Does not depend on any of the other three components.
+* Stores the current instance of the Task Manager should the user input a mutating command, such as `add`.
 
 <!-- @@author A0139402M -->
 
 ### Storage component
 
 <img align="center" src="images/StorageClassDiagram.png">
-<div align="center">Figure 9: Storage Class Diagram</div><br>
+<div align="center">Figure 10: Storage Class Diagram</div><br>
 
 **API** : [`Storage.java`](../src/main/taskle/storage/Storage.java)
 
@@ -237,7 +243,7 @@ We have two types of tests:
   
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
-      e.g. `taskle.commons.UrlUtilTest`
+      e.g. `taskle.commons.StorageUtilTest`
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `taskle.storage.StorageManagerTest`
@@ -356,13 +362,13 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br/>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid date.
 
 >1bi. System displays an error message. <br/>
-	Use Case ends.
-	
+  Use Case ends.
+  
 #### Use case: [UC03] Add Event Task
 
 **MSS**
@@ -376,18 +382,18 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br/>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid date.
 
 >1bi. System displays an error message. <br/>
-	Use Case ends.
-	
+  Use Case ends.
+  
 1c. More than 3 dates entered.
 
 >1ci. System displays an error message. <br/>
-	Use Case ends.
-		
+  Use Case ends.
+    
 #### Use case: [UC04] Edit Task
 
 **Preconditions**
@@ -429,23 +435,23 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 1c. User enters an invalid date.
 
 >1ci.  System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 1d. More than 3 dates entered.
 
 >1di.  System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 #### Use case: [UC06] Add Reminder to Task
 
 **Preconditions**
@@ -463,18 +469,18 @@ Use Case ends.
 1a. Incorrect command format.
 
 > 1ai. System displays an error message. <br>
-	Use Case ends.
+  Use Case ends.
 
 1b. User enters an invalid task number.
 
 > 1bi. System displays an error message. <br>
- 	Use Case ends.
- 	
+  Use Case ends.
+  
 1c. User enters an invalid date and time.
 
 >1ci.  System displays an error message. <br>
- 	Use Case ends. 
-	
+  Use Case ends. 
+  
 #### Use case: [UC07] Remove Single Task
 
 **Preconditions**
