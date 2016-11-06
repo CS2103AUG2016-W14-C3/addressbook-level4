@@ -268,7 +268,7 @@ Example:
 
 <br>
  
-### Open File: `open`
+### Open Data File: `open`
 Opens a Taskle data file.<br><br>
 
 | Format  
@@ -317,33 +317,37 @@ Exits and closes Taskle.<br><br>
 ## FAQ
 
 **Q**: How do I transfer my data to another computer?<br>
-**A**: Install the application in the other computer and overwrite the empty data file it creates with the file created in your previous Taskle folder. You can also use Taskle’s save and open features to transfer your data.
+**A**: You can install Taskle in the other computer and overwrite its empty data file with the file that was created in your previous Taskle folder. You can also use Taskle's save and open features to transfer your data.
+
+<br>
        
 ## Command Summary
 
-The table below shows the overall list of commands used in the application.<br>
-Note the following conventions used:
-* **`BOLDED`** words are parameters.
-* Items in `[SQUARE_BRACKETS]` are optional.
-* The order of parameters is fixed.
+The table below shows the overall list of commands used in the application.
+
+> **Note that the following conventions are used for all command formats:**
+> * **`BOLDED`** words are parameters.
+> * Items in `[SQUARE_BRACKETS]` are optional.
+> * The order of parameters is fixed.
+
+<br>
 
 Command `(Shortcut)` | Format  
 :-------- | :-------- 
-Add `a` | `add `**`task_name`**` [remind `**`date time`**`]`
- 		| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` 
- 		| `add `**`event_name`**` on ` **`date`**` [`**`time`**`] [remind `**`date time`**`]`|
- 		|`add ` **`event_name`**` from `**`date`** ` [`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`  
-Edit Description `rn` | `rename `**`task_number new_task_name`**
-Reschedule `rs` | `reschedule `**`task_number` `date`**` [`**`time`**`] to ` **`date`**`[`**`time`**`] [remind `**`date time`**`]`
-Set Reminder `rmd` | `remind `**`task_number date time`**
-Remove `rm` | `remove `**`task_number`**
-Find `f` | `find `**`search_query`**` [`**`-status`**`]`
-List `l` | `list [`**`-status`**`]`
-Mark as Done `d` | `done `**`task_number`**
+Add `a` | `add` **`task_name`** `remind` [**`date time`**]
+ 		| `add` **`task_name`** `by` [**`date time`**] `remind` [**`date time`**] 
+ 		| `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
+Rename `rn` | `rename` **`task_number`** **`new_task_name`** 
+Reschedule `rs` | `reschedule` **`task_number`** [**`date time`**] `to` [**`date time`**] `remind` [**`date time`**]
+Remind `rmd` | `remind` **`task_number`** [**`date time`**]
+Remove `rm` | `remove` **`task_number`**
+Find `f` | `find` **`keywords [-status]`**
+List `l` | `list` **`[-status]`**
+Mark as Done `d` | `done` **`task_number`**
 Undo `u` | `undo`
 Redo `r` | `redo`
 Clear | `clear`
 Change Directory `s` | `save`
 Open Data File `o` | `open`
-Help `h` | `help`
+View Help `h` | `help`
 Exit | `exit`
