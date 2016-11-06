@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -13,13 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import taskle.TestApp;
-import taskle.model.task.FloatTask;
 import taskle.model.task.ReadOnlyTask;
 import taskle.testutil.TestUtil;
 
-/**
- * Provides a handle for the panel containing the task list.
- */
+// Provides a handle for the panel containing the task list.
 public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;

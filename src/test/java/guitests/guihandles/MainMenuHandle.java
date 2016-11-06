@@ -7,9 +7,7 @@ import taskle.TestApp;
 
 import java.util.Arrays;
 
-/**
- * Provides a handle to the main menu of the app.
- */
+// Provides a handle to the main menu of the app.
 public class MainMenuHandle extends GuiHandle {
     public MainMenuHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);

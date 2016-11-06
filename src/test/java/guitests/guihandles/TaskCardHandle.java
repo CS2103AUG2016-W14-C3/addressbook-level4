@@ -5,9 +5,7 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 import taskle.model.task.ReadOnlyTask;
 
-/**
- * Provides a handle to a task card in the task list panel.
- */
+// Provides a handle to a task card in the task list panel.
 public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String DETAILS_FIELD_ID = "#details";

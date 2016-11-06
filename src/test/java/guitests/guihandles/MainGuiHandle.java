@@ -4,9 +4,7 @@ import guitests.GuiRobot;
 import javafx.stage.Stage;
 import taskle.TestApp;
 
-/**
- * Provides a handle for the main GUI.
- */
+// Provides a handle for the main GUI.
 public class MainGuiHandle extends GuiHandle {
 
     public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {

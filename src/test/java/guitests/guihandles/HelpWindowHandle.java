@@ -3,9 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 
-/**
- * Provides a handle to the help window of the app.
- */
+// Provides a handle to the help window of the app.
 public class HelpWindowHandle extends GuiHandle {
 
     private static final String HELP_WINDOW_TITLE = "Help";
