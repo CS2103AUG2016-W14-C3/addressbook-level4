@@ -9,9 +9,7 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.UserPrefs;
 
-/**
- * API of the Storage component
- */
+// API of the Storage component
 public interface Storage extends TaskManagerStorage, UserPrefsStorage {
 
     @Override

@@ -10,9 +10,7 @@ import taskle.commons.exceptions.DataConversionException;
 import taskle.commons.util.FileUtil;
 import taskle.model.UserPrefs;
 
-/**
- * A class to access TaskPref stored in the hard disk as a json file
- */
+// A class to access TaskPref stored in the hard disk as a json file
 public class JsonTaskPrefsStorage implements UserPrefsStorage{
 
     private static final Logger logger = LogsCenter.getLogger(JsonTaskPrefsStorage.class);

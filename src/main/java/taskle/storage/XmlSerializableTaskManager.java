@@ -11,9 +11,7 @@ import taskle.model.ReadOnlyTaskManager;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList;
 
-/**
- * An Immutable TaskManager that is serializable to XML format
- */
+// An Immutable TaskManager that is serializable to XML format
 @XmlRootElement(name = "taskmanager")
 public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
 
@@ -24,14 +22,10 @@ public class XmlSerializableTaskManager implements ReadOnlyTaskManager {
         tasks = new ArrayList<>();
     }
 
-    /**
-     * Empty constructor required for marshalling
-     */
+    // Empty constructor required for marshalling
     public XmlSerializableTaskManager() {}
 
-    /**
-     * Conversion
-     */
+    // Conversion
     public XmlSerializableTaskManager(ReadOnlyTaskManager src) {
         tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
     }

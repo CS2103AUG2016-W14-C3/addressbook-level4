@@ -6,14 +6,10 @@ import java.util.Optional;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.model.ReadOnlyTaskManager;
 
-/**
- * Represents a storage for {@link taskle.model.TaskManager}.
- */
+// Represents a storage for {@link taskle.model.TaskManager}.
 public interface TaskManagerStorage {
 
-    /**
-     * Returns the file path of the data file.
-     */
+    // Returns the file path of the data file.
     String getTaskManagerFilePath();
 
     void setTaskManagerFilePath(String filePath);

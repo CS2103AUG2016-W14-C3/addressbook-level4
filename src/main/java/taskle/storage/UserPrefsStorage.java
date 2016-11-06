@@ -6,9 +6,7 @@ import java.util.Optional;
 import taskle.commons.exceptions.DataConversionException;
 import taskle.model.UserPrefs;
 
-/**
- * Represents a storage for {@link taskle.model.UserPrefs}.
- */
+// Represents a storage for {@link taskle.model.UserPrefs}.
 public interface UserPrefsStorage {
 
     /**
