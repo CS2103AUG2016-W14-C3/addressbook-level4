@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<taskmanager>
+    <tasks>
+        <name>Submit proposal</name>
+        <isTaskDone>0</isTaskDone>
+        <endDate>2016-11-06 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Buy Snacks for picnic</name>
+        <isTaskDone>0</isTaskDone>
+        <endDate>2016-11-18 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Gardens by the Bay Picnic</name>
+        <isTaskDone>0</isTaskDone>
+        <startDate>2016-12-05 10:00:00</startDate>
+        <endDate>2016-12-05 17:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Buy Bread &amp; Cookies</name>
+        <isTaskDone>0</isTaskDone>
+        <endDate>2016-12-12 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Holiday in Taiwan</name>
+        <isTaskDone>0</isTaskDone>
+        <startDate>2016-12-15 23:59:59</startDate>
+        <endDate>2016-12-31 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Learn Baking</name>
+        <isTaskDone>0</isTaskDone>
+        <remindDate>2016-11-18 23:59:59</remindDate>
+    </tasks>
+    <tasks>
+        <name>Get notes from boss</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-05-07 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Backup hard drive</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-05-16 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Visit Grandma in Hospital</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-05-17 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Bring Grandma home</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-05-20 11:00:00</startDate>
+        <endDate>2016-05-20 14:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Pick up parcel at Singpost</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-05-20 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Company Dinner &amp; Dance</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-06-01 17:00:00</startDate>
+        <endDate>2016-06-01 22:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Prepare promotion materials</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-06-01 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Prepare presentation for meeting</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-06-16 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Backup hard drive</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-06-17 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Write Birthday card for Claire</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-06-19 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Pay the bills</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-06-29 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Group discussion meeting</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-07-01 18:00:00</startDate>
+        <endDate>2016-07-01 22:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Train for 2.4km run IPPT</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-07-10 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Friend's wedding dinner</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-07-13 17:00:00</startDate>
+        <endDate>2016-07-13 22:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Attend Reservist Training</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-07-13 23:59:59</startDate>
+        <endDate>2016-07-29 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Finish watching TV series</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-07-14 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Check mailbox for new mail</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-07-16 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Clear email inbox</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-07-17 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Finish assignment 0</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-08-01 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Sign up for Yoga classes</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-08-02 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Attend health briefing</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-08-05 14:00:00</startDate>
+        <endDate>2016-08-05 15:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Buy Groceries</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-08-16 22:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Backup hard drive</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-08-18 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Read Algorithms Textbook</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-08-19 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Attend Programming Contest</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-08-21 10:00:00</startDate>
+        <endDate>2016-08-22 10:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Wash clothes</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-08-21 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Update Resume</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-08-25 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Finish Assignment 1</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-09-01 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Apply for Job at Google</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-09-01 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Attend Concert At Esplanade</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-09-10 18:30:00</startDate>
+        <endDate>2016-09-10 22:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Submit research findings</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-09-11 14:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Group project meeting</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-09-13 14:00:00</startDate>
+        <endDate>2016-09-13 15:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Finish Assignment 2</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-09-13 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Doctor's appointment</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-09-15 13:00:00</startDate>
+        <endDate>2016-09-15 17:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Attend Prize Presentation</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-09-16 13:00:00</startDate>
+        <endDate>2016-09-16 19:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Buy Milk and Cheese</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-09-18 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Pay the bills</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-09-29 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Interview with Google</name>
+        <isTaskDone>1</isTaskDone>
+        <startDate>2016-10-02 01:00:00</startDate>
+        <endDate>2016-10-02 02:00:00</endDate>
+    </tasks>
+    <tasks>
+        <name>Buy gifts for Malaysian Friend</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-10-10 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Visit old friend in Malaysia</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-10-15 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Purchase Air tickets to Taiwan</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-11-01 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Buy Eggs and Milk</name>
+        <isTaskDone>1</isTaskDone>
+        <endDate>2016-11-06 23:59:59</endDate>
+    </tasks>
+    <tasks>
+        <name>Read Game of Thrones</name>
+        <isTaskDone>1</isTaskDone>
+    </tasks>
+    <tasks>
+        <name>Sign up for dance classes</name>
+        <isTaskDone>1</isTaskDone>
+    </tasks>
+    <tasks>
+        <name>Watch Inception on Netflix</name>
+        <isTaskDone>1</isTaskDone>
+    </tasks>
+</taskmanager>
