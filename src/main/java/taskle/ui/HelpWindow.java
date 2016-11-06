@@ -21,6 +21,21 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import taskle.commons.core.LogsCenter;
+import taskle.logic.commands.AddCommand;
+import taskle.logic.commands.ChangeDirectoryCommand;
+import taskle.logic.commands.ClearCommand;
+import taskle.logic.commands.DoneCommand;
+import taskle.logic.commands.EditCommand;
+import taskle.logic.commands.ExitCommand;
+import taskle.logic.commands.FindCommand;
+import taskle.logic.commands.HelpCommand;
+import taskle.logic.commands.ListCommand;
+import taskle.logic.commands.OpenFileCommand;
+import taskle.logic.commands.RedoCommand;
+import taskle.logic.commands.RemindCommand;
+import taskle.logic.commands.RemoveCommand;
+import taskle.logic.commands.RescheduleCommand;
+import taskle.logic.commands.UndoCommand;
 import taskle.model.help.CommandGuide;
 //@author A0141780J
 /**
@@ -31,32 +46,45 @@ public class HelpWindow extends UiPart {
     private static final String SPACE_STRING = " ";
     private static final String COLUMN_NAME_FORMAT = "Command Format";
     private static final String COLUMN_NAME_ACTION = "Action";
+    private static final String COLUMN_NAME_SHORTCUT = "Shortcut";
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final List<CommandGuide> LIST_COMMAND_GUIDES = new ArrayList<>(
-            Arrays.asList(new CommandGuide("Addition of Tasks", "add", "task_name", "[remind date time]"),
-                    new CommandGuide("", "add", "deadline_name", "by", 
+            Arrays.asList(new CommandGuide("Addition of Tasks", AddCommand.COMMAND_WORD_SHORT, AddCommand.COMMAND_WORD,
+                            "task_name", "[remind date time]"),
+                    new CommandGuide("", AddCommand.COMMAND_WORD_SHORT, AddCommand.COMMAND_WORD, "deadline_name", "by", 
                             "[date time]", "[remind date time]"),
-                    new CommandGuide("", "add", "event_name", "from", 
+                    new CommandGuide("", AddCommand.COMMAND_WORD_SHORT, AddCommand.COMMAND_WORD, "event_name", "from", 
                             "[date time]", "to", "[date time]", "[remind date time]"),
-                    new CommandGuide("Editing of Tasks", "edit", "task_number", "new_task_name"),
-                    new CommandGuide("", "reschedule", "task_number", "to", "[date time]", "[remind date time]"),
-                    new CommandGuide("", "reschedule", "task_number", "clear"),
-                    new CommandGuide("", "remind", "task_number", "[date time]"),
-                    new CommandGuide("", "remind", "task_number", "clear"),
-                    new CommandGuide("Removal of Tasks", "remove", "task_number"), 
-                    new CommandGuide("Undo Previous Command", "undo"),
-                    new CommandGuide("Redo Previous Command", "redo"),
-                    new CommandGuide("Finding of Tasks", "find", "keywords", "[-status]"),
-                    new CommandGuide("Listing of Tasks", "list", "[-status]"),
-                    new CommandGuide("Marking Tasks as Done", "done", "task_number"),
-                    new CommandGuide("Clearing of Tasks", "clear"),
-                    new CommandGuide("Changing of Save Directory", "save", "directory_path"),
-                    new CommandGuide("Opening of File", "open", "file_path"),
-                    new CommandGuide("Help Window Display", "help"),
-                    new CommandGuide("Exiting from Taskle", "exit")));
+                    new CommandGuide("Editing of Tasks", EditCommand.COMMAND_WORD_SHORT, EditCommand.COMMAND_WORD, 
+                            "task_number", "new_task_name"),
+                    new CommandGuide("", RescheduleCommand.COMMAND_WORD_SHORT, RescheduleCommand.COMMAND_WORD,
+                            "task_number", "to", "[date time]", "[remind date time]"),
+                    new CommandGuide("", RescheduleCommand.COMMAND_WORD_SHORT, RescheduleCommand.COMMAND_WORD, 
+                            "task_number", "clear"),
+                    new CommandGuide("", RemindCommand.COMMAND_WORD_SHORT, RemindCommand.COMMAND_WORD, 
+                            "task_number", "[date time]"),
+                    new CommandGuide("", RemindCommand.COMMAND_WORD_SHORT, RemindCommand.COMMAND_WORD,
+                            "task_number", "clear"),
+                    new CommandGuide("Removal of Tasks", RemoveCommand.COMMAND_WORD_SHORT, RemoveCommand.COMMAND_WORD,
+                            "task_number"), 
+                    new CommandGuide("Undo Previous Command", UndoCommand.COMMAND_WORD_SHORT, UndoCommand.COMMAND_WORD),
+                    new CommandGuide("Redo Previous Command", RedoCommand.COMMAND_WORD_SHORT, RedoCommand.COMMAND_WORD),
+                    new CommandGuide("Finding of Tasks", FindCommand.COMMAND_WORD_SHORT, FindCommand.COMMAND_WORD, 
+                            "keywords", "[-status]"),
+                    new CommandGuide("Listing of Tasks", ListCommand.COMMAND_WORD_SHORT, ListCommand.COMMAND_WORD, 
+                            "[-status]"),
+                    new CommandGuide("Marking Tasks as Done", DoneCommand.COMMAND_WORD_SHORT, DoneCommand.COMMAND_WORD, 
+                            "task_number"),
+                    new CommandGuide("Clearing of Tasks", "", ClearCommand.COMMAND_WORD),
+                    new CommandGuide("Changing of Save Directory", ChangeDirectoryCommand.COMMAND_WORD_SHORT,
+                            ChangeDirectoryCommand.COMMAND_WORD, "directory_path"),
+                    new CommandGuide("Opening of File", OpenFileCommand.COMMAND_WORD_SHORT, OpenFileCommand.COMMAND_WORD,
+                            "file_path"),
+                    new CommandGuide("Help Window Display", HelpCommand.COMMAND_WORD_SHORT, HelpCommand.COMMAND_WORD),
+                    new CommandGuide("Exiting from Taskle", "", ExitCommand.COMMAND_WORD)));
 
     private AnchorPane mainPane;
     private Stage dialogStage;
@@ -99,6 +127,7 @@ public class HelpWindow extends UiPart {
 
     private void setupHelpColumns() {
         setupNameCol();
+        setupShortcutCol();
         setupFormatCol();
     }
 
@@ -111,6 +140,15 @@ public class HelpWindow extends UiPart {
         helpTable.getColumns().add(nameCol);
     }
 
+    private void setupShortcutCol() {
+        TableColumn<CommandGuide, String> shortcutCol = 
+                new TableColumn<>(COLUMN_NAME_SHORTCUT);
+        bindShortcutColString(shortcutCol);
+        setShortcutColStyle(shortcutCol);
+        shortcutCol.setSortable(false);
+        helpTable.getColumns().add(shortcutCol);
+    }
+    
     private void setupFormatCol() {
         TableColumn<CommandGuide, String> formatCol = 
                 new TableColumn<>(COLUMN_NAME_FORMAT);
@@ -142,6 +180,24 @@ public class HelpWindow extends UiPart {
      * objects.
      * @param formatCol Format Column for help window
      */
+    private void bindShortcutColString(TableColumn<CommandGuide, String> formatCol) {
+        formatCol.setCellValueFactory(
+                new Callback<CellDataFeatures<CommandGuide, String>, 
+                ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(CellDataFeatures<CommandGuide, String> param) {
+                CommandGuide commandGuide = param.getValue();
+                String shortcutCommand = commandGuide.getShortcutCommand();
+                return getShortcutColString(shortcutCommand);
+            }
+        });
+    }
+    
+    /**
+     * This method binds the Strings for format columns to the CommandGuide
+     * objects.
+     * @param formatCol Format Column for help window
+     */
     private void bindFormatColString(TableColumn<CommandGuide, String> formatCol) {
         formatCol.setCellValueFactory(
                 new Callback<CellDataFeatures<CommandGuide, String>, 
@@ -157,12 +213,17 @@ public class HelpWindow extends UiPart {
     }
 
     private void setNameColStyle(TableColumn<CommandGuide, String> nameCol) {
-        nameCol.prefWidthProperty().bind(helpTable.widthProperty().multiply(0.3));
+        nameCol.prefWidthProperty().bind(helpTable.widthProperty().multiply(0.27));
         nameCol.setResizable(false);
+    }
+    
+    private void setShortcutColStyle(TableColumn<CommandGuide, String> shortcutCol) {
+        shortcutCol.prefWidthProperty().bind(helpTable.widthProperty().multiply(0.13));
+        shortcutCol.setResizable(false);
     }
 
     private void setFormatColStyle(TableColumn<CommandGuide, String> formatCol) {
-        formatCol.prefWidthProperty().bind(helpTable.widthProperty().multiply(0.7));
+        formatCol.prefWidthProperty().bind(helpTable.widthProperty().multiply(0.6));
         formatCol.setResizable(false);
         formatCol.setCellFactory(
                 new Callback<TableColumn<CommandGuide, String>, 
@@ -182,6 +243,10 @@ public class HelpWindow extends UiPart {
         return new SimpleStringProperty(String.join(SPACE_STRING, commandWord, argsStrings));
     }
 
+    private ObservableValue<String> getShortcutColString(String shortcutCommand) {
+        return new SimpleStringProperty(shortcutCommand);
+    }
+    
     public void show() {
         dialogStage.showAndWait();
     }
