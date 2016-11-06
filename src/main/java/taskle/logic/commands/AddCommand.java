@@ -17,7 +17,7 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_WORD_SHORT = "a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task into Taskle.\n"
+    public static final String MESSAGE_USAGE = "\n" + COMMAND_WORD + ": Adds a task / event into Taskle (with its respective deadline or end-date.)\n"
             + "\nFormat: add task_name by [date + time] [remind date + time]\n"
             + "or\nadd task_name from [date + time] to [date + time] [remind date + time]\n"
             + "\nExample: " + "add Business Trip from 4 Oct to 5 Oct remind 3 Oct 2pm";
