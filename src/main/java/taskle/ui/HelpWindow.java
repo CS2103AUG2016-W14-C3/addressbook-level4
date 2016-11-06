@@ -38,9 +38,7 @@ import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.help.CommandGuide;
 //@author A0141780J
-/**
- * Controller for a help page
- */
+// Controller for a help page
 public class HelpWindow extends UiPart {
 
     private static final String SPACE_STRING = " ";

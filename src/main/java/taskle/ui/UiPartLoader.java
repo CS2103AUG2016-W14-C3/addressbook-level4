@@ -6,9 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import taskle.MainApp;
 
-/**
- * A utility class to load UiParts from FXML files.
- */
+// A utility class to load UiParts from FXML files.
 public class UiPartLoader {
     private final static String FXML_FILE_FOLDER = "/view/";
 

@@ -15,12 +15,8 @@ import taskle.commons.util.ConfigUtil;
 import taskle.commons.util.StorageUtil;
 import taskle.commons.util.StorageUtil.OperationType;
 
-//@@author A0140047U
-/**
- * 
- * Confirmation dialog to replace existing file
- *
- */
+//@@author A0140047U 
+// Confirmation dialog to replace existing file
 public class ExistingFileDialog {
 
     private static final String DIALOG_HEADER = "A Taskle data file currently exists in the specified folder.";

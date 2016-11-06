@@ -19,9 +19,7 @@ import javafx.stage.Stage;
 import taskle.commons.core.LogsCenter;
 import taskle.model.task.ReadOnlyTask;
 
-/**
- * Panel containing the list of tasks.
- */
+// Panel containing the list of tasks.
 public class TaskListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "TaskListPanel.fxml";

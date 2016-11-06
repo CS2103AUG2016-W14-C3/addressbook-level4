@@ -2,15 +2,13 @@ package taskle.ui;
 
 import javafx.stage.Stage;
 
-/**
- * API of UI component
- */
+// API of UI component
 public interface Ui {
 
-    /** Starts the UI (and the App).  */
+    // Starts the UI (and the App).
     void start(Stage primaryStage);
 
-    /** Stops the UI. */
+    // Stops the UI.
     void stop();
 
 }
