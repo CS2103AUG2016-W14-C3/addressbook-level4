@@ -28,10 +28,10 @@ Reorganize your life now by using Taskle!
 3. Double-click on the file to start the application. The Graphical User Interface (GUI) should appear in a few seconds.
 	
 	> <img src="images/UI/Main.png" align="center">
-	<div align="center">Figure 1: Graphical User Interface of Taskle</div>
+	<div align="center">Figure 1: GUI of Taskle</div>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
-	> E.g. Typing **`help`** and pressing <kbd>Enter</kbd> will open up the help window.
+	> Example: Typing **`help`** and pressing <kbd>Enter</kbd> will open up the help window.
  
 5. Some commands that you can try:
    * `add` **`Buy Milk`** : Adds a "Buy Milk" task into Taskle.
@@ -45,7 +45,7 @@ Reorganize your life now by using Taskle!
 <!-- @@author A0141780J -->
 ## Features
 
-Taskle makes it elegantly simple to manage your tasks. All of its features require only a single line of command, making it a hassle-free experience to keep track of your tasks!
+Taskle makes managing your tasks both simple and elegant as all of its features can be accessed with a single line of command!
 
 > **Note that the following conventions are used for all command formats:**
 > * **`BOLDED`** words are parameters.
@@ -61,24 +61,24 @@ Taskle makes it elegantly simple to manage your tasks. All of its features requi
 
 | Format  
 | :-------- 
-| `add `**`task_name`**` [remind `**`date time`**`]` | 
-| `add `**`deadline_name`**` by `**`date`**` [`**`time`**`] [remind `**`date time`**`]` |
-| `add `**`event_name`**` from `**`date`**`[`**`time`**`] to `**`date`**` [`**`time`**`] [remind `**`date time`**`]`
+| `add` **`task_name`** `remind ` [**`date time`**] | 
+| `add` **`task_name`** `by ` [**`date time`**] `remind ` [**`date time`**] |
+| `add` **`task_name`** `from ` [**`date time`**] `to ` [**`date time`**] `remind ` [**`date time`**]
 
 > **`Note`**
 > * You may enter the date and time in any format that you desire, and Taskle will still be able to recognise it.
-> * Only the words after the last **by** or **from** in your input will be taken as the date and time. This allows you to continue using **by** and **from** as part of your task name as long as you enter the date and times last. For example:
-> 	* "add **Gardens by the Bay** from **9am to 9pm today**" adds a task with the name "Gardens by the Bay" with the date and time to be set to "9am to 9pm today".
-> * Should the name entered be too long, it will appear truncated with ellipses on the application. However, you can still view the full name by clicking and holding down your mouse button. 
-
+>	* Example: "add Do Homework by **tmr**" adds a task with the name "Do Homework" with the deadline to be set to tomorrow (tmr is recognised as tomorrow.)
+> * Only the words after the last **by** or **from** in your input will be accepted as the date and time. This allows you to continue using **by** and **from** as part of your task name as long as you enter the date and times last.
+> 	* Example: "add Gardens by the Bay **from** 9am to 9pm today" adds a task with the name "Gardens by the Bay" with the date and time to be set to "today, 9am to 9pm".
+> * Should the entered name be too long, it will appear truncated with ellipses on the application. However, you can still view the full name by clicking and holding down your mouse button. 
 
 Examples:
-* `add `**`Pay Phone Bills`**
-* `add `**`Do CS2101 Assignment`**` by `**`12 Oct`**
-* `add `**`Business Trip`**` from `**`4 Oct`**` to `**`5 Oct`**` remind `**`3 Oct 2pm`**
+* `add ` **`Pay Phone Bills`**
+* `add ` **`Do CS2101 Assignment`** ` by ` **`12 Oct`**
+* `add ` **`Business Trip`** ` from ` **`4 Oct`** ` to ` **`5 Oct`** ` remind ` **`3 Oct 2pm`**
 
 <img align="center" src="images/UI/Add.png" >
-<div align="center">Figure 2: Adding Pay Phone Bills Task into Taskle</div>
+<div align="center">Figure 2: Adding a task with the name "Pay Phone Bills" into Taskle</div>
 	
 <br>
 
