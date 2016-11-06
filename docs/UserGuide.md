@@ -10,16 +10,14 @@
 ## About
 Do you have so many tasks to do every day that you simply cannot keep track of them anymore? Don't you wish that there was an easier way to stay on top of your daily tasks without feeling stressed out?
 
-Taskle is here to help you with all of that!
+Taskle is here to help you with all of that! It is a task management application with a single text box for all your commands. Coupled with its simplicity, managing your tasks has never been this easy!
 
-It is a task management application with a single text box for all your commands. Coupled with short commands, managing your tasks has never been this easy!
-
-Re-organize your life by using Taskle now!
+Reorganize your life now by using Taskle!
 
 <!-- @@author A0139402M -->
 ## Quick Start
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your computer.<br>
+0. Ensure that you have Java version `1.8.0_60` or later installed in your computer.<br>
    > Having any Java 8 version is not enough. <br>
    This application will not work with earlier versions of Java 8.
    
@@ -33,12 +31,12 @@ Re-organize your life by using Taskle now!
 	<div align="center">Figure 1: Graphical User Interface of Taskle</div>
 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
-	> e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window.
+	> E.g. Typing **`help`** and pressing <kbd>Enter</kbd> will open up the help window.
  
 5. Some commands that you can try:
    * `add` **`Buy Milk`** : Adds a "Buy Milk" task into Taskle.
    * `add` **`Submit Proposal by 7 Nov`** : Adds a "Submit Proposal" task which is to be completed by 7 Nov.
-   * `remove` **`5`** : Removes the task with index 5 from the currently shown list.
+   * `remove` **`5`** : Removes the task with index 5 from the current list.
    * `clear`: Clears all tasks from Taskle.
    * `exit` : Exits from Taskle.
    
