@@ -52,6 +52,7 @@ public class FindCommandParser extends CommandParser {
      * @return the prepared command
      */
     private Command prepareFind(String args) {
+        // Check if number of arguments given are correct
         String[] argParams = args.trim().split("-", 2);
         if (argParams[0].isEmpty()) {
             return new IncorrectCommand(
@@ -68,6 +69,7 @@ public class FindCommandParser extends CommandParser {
         Matcher keywordMatcher = FIND_KEYWORDS_ARG_FORMAT.matcher(keywordsParam);
         Matcher statusMatcher = FIND_STATUS_ARGS_FORMAT.matcher(statusesParam);
         
+        // Check keywords and params
         if (!keywordsParam.isEmpty() && !keywordMatcher.matches() 
             || !statusesParam.isEmpty() && !statusMatcher.matches()) {
             return new IncorrectCommand(
@@ -75,10 +77,15 @@ public class FindCommandParser extends CommandParser {
                                   FindCommand.MESSAGE_USAGE));
         }
         
-        // keywords delimited by whitespace
+        // get keywords delimited by whitespace
         final String[] keywords = keywordMatcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         
+        return generateFindCommand(statusesParam, keywordSet, statusMatcher);
+    }
+    
+    private FindCommand generateFindCommand(
+            String statusesParam, Set<String> keywordSet, Matcher statusMatcher) {
         if (statusesParam.isEmpty()) {
             return new FindCommand(keywordSet);
         }

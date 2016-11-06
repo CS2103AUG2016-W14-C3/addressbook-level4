@@ -3,7 +3,6 @@ package taskle.testutil;
 import java.util.Calendar;
 import java.util.Date;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.TaskManager;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
@@ -20,29 +19,24 @@ public class TypicalTestTasks {
         charityEvent, assignmentDeadline, finalExams, industryTalk;
         
     public TypicalTestTasks() {
-        try {
-            attendMeeting =  new FloatTask(new Name("Attend Meeting"));
-            buyMilk = new FloatTask(new Name("Buy milk"));
-            createPlan = new FloatTask(new Name("Create Plan"));
-            deliverGoods = new FloatTask(new Name("Deliver milk"));
-            eatDinner = new FloatTask(new Name("Eat dinner"));
-            flyKite = new FloatTask(new Name("Fly kite"));
-            goConcert = new FloatTask(new Name("Go Concert"));
+        attendMeeting =  new FloatTask(new Name("Attend Meeting"));
+        buyMilk = new FloatTask(new Name("Buy milk"));
+        createPlan = new FloatTask(new Name("Create Plan"));
+        deliverGoods = new FloatTask(new Name("Deliver milk"));
+        eatDinner = new FloatTask(new Name("Eat dinner"));
+        flyKite = new FloatTask(new Name("Fly kite"));
+        goConcert = new FloatTask(new Name("Go Concert"));
 
-            //Manually added
-            helpFriend = new FloatTask(new Name("Help friend"));
-            interview = new FloatTask(new Name("Interview with Google"));
-            
-            //Events and deadlines
-            prepareTimedTasks();
-            prepareRemindTasks();
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
-        }
+        //Manually added
+        helpFriend = new FloatTask(new Name("Help friend"));
+        interview = new FloatTask(new Name("Interview with Google"));
+        
+        //Events and deadlines
+        prepareTimedTasks();
+        prepareRemindTasks();
     }
     
-    private void prepareTimedTasks() throws IllegalValueException {
+    private void prepareTimedTasks() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016, 9, 10, 17, 0);
         Date startDate = calendar.getTime();
@@ -64,7 +58,7 @@ public class TypicalTestTasks {
                 startDate, endDate);
     }
     
-    private void prepareRemindTasks() throws IllegalValueException {
+    private void prepareRemindTasks() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(2016, 11, 01, 12, 00);
         Date remindDate = calendar.getTime();

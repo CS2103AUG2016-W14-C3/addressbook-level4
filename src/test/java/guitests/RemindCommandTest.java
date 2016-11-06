@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.DateFormatUtil;
 import taskle.logic.commands.RemindCommand;
 import taskle.logic.parser.DateParser;
@@ -23,16 +22,15 @@ public class RemindCommandTest extends TaskManagerGuiTest {
      * test the remind function. Check if that task has been edited
      * correctly.
      * 
-     * @throws IllegalValueException
      */
     @Test
-    public void setReminder_normalDateSet_success() throws IllegalValueException {
+    public void setReminder_normalDateSet_success() {
         String index = "3";
         TaskCardHandle oldTask = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         String name = oldTask.getFullName();
         String newRemindDateString = "13 Dec 7pm";
         Date date = DateParser.parse(newRemindDateString).get(0);
-        String formattedNewDate = DateFormatUtil.formatDate(date);
+        String formattedNewDate = DateFormatUtil.formatSingleDate(date);
         String oldRemindDate = oldTask.getRemindDetails();
         assertRemindResultSuccess("remind " + index + " " + newRemindDateString, 
                 name + " " + oldRemindDate + " -> " + formattedNewDate);
@@ -43,10 +41,9 @@ public class RemindCommandTest extends TaskManagerGuiTest {
 
     /**
      * Set a reminder with no specified time to a task
-     * @throws IllegalValueException
      */
     @Test
-    public void setReminder_taskNoInputTime_success() throws IllegalValueException {
+    public void setReminder_taskNoInputTime_success() {
         String index = "3";
         TaskCardHandle oldTask = taskListPanel.getTaskCardHandle(Integer.parseInt(index) - 1);
         String name = oldTask.getFullName();
@@ -63,10 +60,9 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     
     /**
      * Set a reminder with no specified time to a task
-     * @throws IllegalValueException
      */
     @Test
-    public void setReminder_taskClearReminder_success() throws IllegalValueException {
+    public void setReminder_taskClearReminder_success() {
         String index = "10";
         TaskCardHandle oldTask = taskListPanel.navigateToTask(td.industryTalk);
         
@@ -83,10 +79,9 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     /**
      * Failure when reminder set is of a date that is later than the end date
      * of the event task
-     * @throws IllegalValueException
      */
     @Test
-    public void setReminder_reminderPastEventTaskEndDate_failure() throws IllegalValueException {
+    public void setReminder_reminderPastEventTaskEndDate_failure() {
         String index = "1";
         String newRemindDateString = "13 Dec 7pm";
         assertRemindPastEndDate("remind " + index + " " + newRemindDateString);
@@ -95,10 +90,9 @@ public class RemindCommandTest extends TaskManagerGuiTest {
     /**
      * Failure when reminder set is of a date that is later than the end date
      * of the deadline task
-     * @throws IllegalValueException
      */
     @Test
-    public void setReminder_reminderPastDeadlineTaskEndDate_failure() throws IllegalValueException {
+    public void setReminder_reminderPastDeadlineTaskEndDate_failure() {
         String index = "2";
         String newRemindDateString = "13 Dec 7pm";
         assertRemindPastEndDate("remind " + index + " " + newRemindDateString);

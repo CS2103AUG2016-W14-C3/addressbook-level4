@@ -15,48 +15,75 @@ import taskle.model.task.FloatTask;
 import taskle.model.task.Task;
 import taskle.testutil.TestUtil;
 
-//@@author A0141780J
+/**
+ * GUI test class for AddCommand.
+ * Tests that the commands issued to command box is successfully
+ * processed and changes are reflected in the UI.
+ * @author Abel
+ *
+ */
 public class AddCommandTest extends TaskManagerGuiTest {
-
+    
+    //@@author A0141780J
     @Test
-    public void add() {
-        //add one task
+    public void addCommand_twoConsecutiveFloatTasks_successfulTaskAdd() {
+        // add one task
         Task[] currentList = td.getTypicalTasks();
         Task taskToAdd = td.helpFriend;
         assertAddSuccess(taskToAdd, currentList);
         currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add another task
+        
+        // add another different task
         taskToAdd = td.interview;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add duplicate task successful
-        taskToAdd = new FloatTask(td.helpFriend);
+    }
+    
+    @Test
+    public void addCommand_duplicateTask_successfulTaskAdd() {
+        // add one task
+        Task[] currentList = td.getTypicalTasks();
+        
+        // add duplicate task successful
+        Task taskToAdd = new FloatTask(td.attendMeeting);
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
-        //add to empty list
+    }
+    
+    @Test
+    public void addCommand_addToEmptyList_successfulTaskAdd() {
+        // Clear task list first
         commandBox.runCommand("clear");
-        currentList = new Task[0];
-        taskToAdd = td.attendMeeting;
+        
+        // add one task to the empty list
+        Task[] currentList = new Task[0];
+        Task taskToAdd = td.attendMeeting;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
+    }
+    
+    @Test
+    public void addCommand_invalidCommand_unknownCommandMsgShown() {
         //unknown command
         commandBox.runCommand("adds Johnny");
         assertUnsuccessfulMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
-        
+    }
+    
+    @Test
+    public void addCommand_addDeadline_successfulDeadlineAdd() {
+        Task[] currentList = td.getTypicalTasks();
         //valid deadline add command
-        taskToAdd = td.assignmentDeadline;
+        Task taskToAdd = td.assignmentDeadline;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-        
-        //valid event add command
-        taskToAdd = td.charityEvent;
+    }
+    
+    @Test
+    public void addCommand_addEvent_successfulEventAdd() {
+        Task[] currentList = td.getTypicalTasks();
+        //valid deadline add command
+        Task taskToAdd = td.charityEvent;
         assertAddSuccess(taskToAdd, currentList);
-        currentList = TestUtil.addTasksToList(currentList, taskToAdd);
-
+    }
+    
+    @Test
+    public void addCommand_addInvalidEvent_invalidCommandMsgShown() {
         //Invalid event add format
         commandBox.runCommand("add watch movie with friends by 7pm to 9pm");
         assertUnsuccessfulMessage(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, 
@@ -78,7 +105,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + "remind 15 Oct 7pm");
         assertSuccessfulMessage(
                 String.format(AddCommand.MESSAGE_SUCCESS,  
-                "Buy Groceries for home Reminder on: 7:00PM, 15 Oct 2016"));
+                "Buy Groceries for home Reminder on: 15 Oct 2016, 7:00PM"));
     }
     
     @Test
@@ -95,7 +122,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + "remind 26 Oct 3pm");
         assertSuccessfulMessage(
                 String.format(AddCommand.MESSAGE_SUCCESS,  
-                "Buy Groceries for home by 4:00PM, 26 Oct 2016 Reminder on: 3:00PM, 26 Oct 2016"));
+                "Buy Groceries for home by 26 Oct 2016, 4:00PM Reminder on: 26 Oct 2016, 3:00PM"));
     }
     
     @Test
@@ -112,7 +139,7 @@ public class AddCommandTest extends TaskManagerGuiTest {
                 + "remind 26 Oct 8am");
         assertSuccessfulMessage(
                 String.format(AddCommand.MESSAGE_SUCCESS,  
-                "Tuition from 9:00AM to 11:00AM, 26 Oct 2016 Reminder on: 8:00AM, 26 Oct 2016"));
+                "Tuition from 26 Oct 2016, 9:00AM to 11:00AM Reminder on: 26 Oct 2016, 8:00AM"));
     }
     //@@author
     

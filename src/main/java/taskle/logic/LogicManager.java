@@ -54,7 +54,8 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[CHANGE DIRECTORY][" + filePath + "]");
         storage.setTaskManagerFilePath(filePath);
     }
-
+    
+    //@@author A0139402M
     @Override
     public List<Task> verifyReminder(Date currentDateTime) {
         return model.verifyRemindDate(currentDateTime);
@@ -64,6 +65,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public void dismissReminder(Date currentDateTime) {
         model.dismissReminder(currentDateTime);
     }
+    //@@author A0140047U
     
     @Override
     public void resetModel(ReadOnlyTaskManager taskManager) {

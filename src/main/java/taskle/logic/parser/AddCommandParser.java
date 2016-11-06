@@ -8,7 +8,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import taskle.commons.core.Messages;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
@@ -16,9 +15,6 @@ import taskle.logic.commands.IncorrectCommand;
 //@author A0141780J
 /**
  * AddCommandParser class to handle parsing of add commands.
- * 
- * @author Abel
- *
  */
 public class AddCommandParser extends CommandParser {
 
@@ -27,6 +23,9 @@ public class AddCommandParser extends CommandParser {
     private static final String ADD_ARGS_DATE_EVENT_GROUP = "dateEvent";
     private static final String ADD_ARGS_DATE_REMINDER_GROUP = "dateRemind";
 
+    public AddCommandParser() {
+    }
+    
     /**
      * Regex pattern that groups into name (all words until last by|from),
      * dateFrom (all words after from containing from at the start) or dateBy
@@ -38,9 +37,6 @@ public class AddCommandParser extends CommandParser {
             + "(?<dateEvent>(?=from)(?:.+\\s(?=remind)|.+$))*"
             + "(?<dateDeadline>(?=by)(?:.+\\s(?=remind)|.+$))*" 
             + "(?<dateRemind>(?=remind).*)*");
-
-    public AddCommandParser() {
-    }
 
     @Override
     public boolean canParse(String commandWord) {
@@ -72,21 +68,31 @@ public class AddCommandParser extends CommandParser {
         String eventDatesString = matcher.group(ADD_ARGS_DATE_EVENT_GROUP);
         String deadlineString = matcher.group(ADD_ARGS_DATE_DEADLINE_GROUP);
 
+        // Check if name argument exists
+        if (nameString == null || nameString.isEmpty()) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                  AddCommand.MESSAGE_USAGE));
+        }
+        
         // Check if reminder argument is valid
         String remindDateString = matcher.group(ADD_ARGS_DATE_REMINDER_GROUP);
         Date remindDate = DateParser.parseRemindDate(remindDateString);
+        // If reminder is stated but has no date
         if (remindDateString != null && !remindDateString.isEmpty()
             && (eventDatesString != null || deadlineString != null) 
             && remindDate == null) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                  AddCommand.MESSAGE_USAGE));
         }
 
         return getCorrectCommand(args, nameString, eventDatesString, deadlineString, remindDate);
     }
 
     private Command getCorrectCommand(
-            String args, String nameString, String eventDatesString, String deadlineString,
-            Date remindDate) {
+            String args, String nameString, String eventDatesString, 
+            String deadlineString, Date remindDate) {
         // Parse accordingly using DateParser and return the right command
         if (deadlineString != null && !deadlineString.isEmpty()) {
             List<Date> deadlineDates = DateParser.parse(deadlineString);
@@ -100,19 +106,6 @@ public class AddCommandParser extends CommandParser {
     }
 
     /**
-     * Method to check if the reminder date is after the end date of the task 
-     * @param remindDate
-     * @param date
-     * @return
-     */
-    private boolean checkInvalidReminderDate(Date remindDate, List<Date> date) {
-        if (remindDate.after(date.get(date.size() - 1))) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * Prepares a float task with reminder.
      * 
      * @param args Full string for the argument.
@@ -122,18 +115,10 @@ public class AddCommandParser extends CommandParser {
      */
     private Command prepareFloatAdd(String args, String name, Date remindDate) {
         if (remindDate == null) {
-            try {
-                return new AddCommand(args);
-            } catch (IllegalValueException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
+            return new AddCommand(args);
         }
 
-        try {
-            return new AddCommand(name, null, null, remindDate);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+        return new AddCommand(name, null, null, remindDate);
     }
 
     /**
@@ -145,28 +130,26 @@ public class AddCommandParser extends CommandParser {
      * @return a valid add deadline or float command or an incorrectCommand
      */
     private Command prepareDeadlineAdd(String fullArgs, String name, Date remindDate, List<Date> dates) {
-
+        // Check if number of dates given are valid
         if (dates == null || dates.size() > 1) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                                   AddCommand.MESSAGE_USAGE));
         }
-
+        
+        // No dates means we should fallback to adding a float
         if (dates.size() == 0) {
             return prepareFloatAdd(fullArgs, name, remindDate);
         }
 
-        if(remindDate != null) {
-            if(checkInvalidReminderDate(remindDate, dates)) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
-            }
+        // Check if reminder was specified but reminder is invalid
+        if(remindDate != null && checkInvalidReminderDate(remindDate, dates)) {
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                                  Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
         }
 
-        try {
-            return generateDeadlineAddCommand(name, dates, remindDate);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+        return generateDeadlineAddCommand(name, dates, remindDate);
 
     }
 
@@ -182,30 +165,43 @@ public class AddCommandParser extends CommandParser {
      */
     private Command prepareEventAdd(
             String fullArgs, String name, Date remindDate, List<Date> dates) {
+        // Check if number of dates given are valid
         if (dates == null || dates.size() > 2) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
                                   AddCommand.MESSAGE_USAGE));
         }
 
-        // If no dates are detected, fallback to preparing a float add
+        // No dates given, fallback to preparing a float add
         if (dates.size() == 0) {
             return prepareFloatAdd(fullArgs, name, remindDate);
         }
         
-        if(remindDate != null) {
-            if(checkInvalidReminderDate(remindDate, dates)) {
-                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
-            }
+        // Check if reminder was specified but reminder is invalid
+        if(remindDate != null && checkInvalidReminderDate(remindDate, dates)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Messages.MESSAGE_REMINDER_AFTER_FINAL_DATE));
         }
         
-        try {
-            return generateEventAddCommand(name, dates, remindDate);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
+        return generateEventAddCommand(name, dates, remindDate);
     }
-
+    
+    //@@author A0139402M
+    /**
+     * Method to check if the reminder date is after the end date of the task 
+     * 
+     * @param remindDate given remind date
+     * @param dates list of dates
+     * @return
+     */
+    private boolean checkInvalidReminderDate(Date remindDate, List<Date> dates) {
+        if (remindDate.after(dates.get(dates.size() - 1))) {
+            return true;
+        }
+        
+        return false;
+    }
+    
+    //@@author A0141780J
     /**
      * Generates a deadline add command with reminder date
      * 
@@ -213,10 +209,9 @@ public class AddCommandParser extends CommandParser {
      * @param dates List of dates to be used to generate deadline. Should be 1.
      * @param remindDate reminder date. Nullable.
      * @return a valid deadline add command with reminder date
-     * @throws IllegalValueException
      */
-    private AddCommand generateDeadlineAddCommand(String nameString, List<Date> dates, Date remindDate)
-            throws IllegalValueException {
+    private AddCommand generateDeadlineAddCommand(
+            String nameString, List<Date> dates, Date remindDate) {
         assert dates.size() == 1;
         return new AddCommand(nameString, null, dates.get(0), remindDate);
     }
@@ -229,12 +224,12 @@ public class AddCommandParser extends CommandParser {
      * @param dates List of dates to be used to generate deadline. Should be 1.
      * @param remindDate List of dates to be used for reminder date. Should be 1.
      * @return a valid event add command with reminder date
-     * @throws IllegalValueException
      */
-    private AddCommand generateEventAddCommand(String name, List<Date> dates, Date remindDate)
-            throws IllegalValueException {
+    private AddCommand generateEventAddCommand(
+            String name, List<Date> dates, Date remindDate) {
         assert dates.size() == 1 || dates.size() == 2;
 
+        // There are either 2 or 1 dates given, generate accordingly
         if (dates.size() == 2) {
             return new AddCommand(name, dates.get(0), dates.get(1), remindDate);
         } else {

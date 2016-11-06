@@ -6,7 +6,6 @@ import org.junit.Test;
 
 import guitests.guihandles.TaskCardHandle;
 import taskle.commons.core.Messages;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.EditCommand;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
@@ -17,11 +16,9 @@ public class EditCommandTest extends TaskManagerGuiTest {
     /**
      * Edits a current task inside the TypicalTestTask to test the edit
      * function. Check if that task has been edited correctly.
-     * 
-     * @throws IllegalValueException
      */
     @Test
-    public void editCommand_existingTask_success() throws IllegalValueException {
+    public void editCommand_existingTask_success() {
         String newTaskName = "Buy Groceries";
         String index = "3";
         Name newName = new Name(newTaskName);
@@ -67,10 +64,9 @@ public class EditCommandTest extends TaskManagerGuiTest {
     /**
      * Edits a task such that the new name is a duplicate of another task
      * 
-     * @throws IllegalValueException
      */
     @Test
-    public void editCommand_duplicateTask_success() throws IllegalValueException {
+    public void editCommand_duplicateTask_success() {
         String newName = "Go Concert";
         String command =
                 buildCommand("1", newName);

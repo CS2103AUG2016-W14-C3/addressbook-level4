@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.RescheduleCommand;
@@ -50,23 +49,15 @@ public class RescheduleCommandParser extends CommandParser {
         }
         
         if (newDateTime.indexOf("clear") == 0) {
-            try {
-                return new RescheduleCommand(index.get(), null);
-            } catch (IllegalValueException e) {
-                return new IncorrectCommand(e.getMessage());
-            }
+            return new RescheduleCommand(index.get(), null);
         }
         
         List<Date> dates = DateParser.parse(newDateTime);
         if(dates.size() == 0 || dates.size() > 2) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE));
         }
-        try {
-            return new RescheduleCommand(index.get(), dates);
-        } catch (IllegalValueException e) {
-            return new IncorrectCommand(e.getMessage());
-        }
 
+        return new RescheduleCommand(index.get(), dates);
     }
 
 }

@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.model.task.DeadlineTask;
 import taskle.model.task.EventTask;
 import taskle.model.task.FloatTask;
@@ -46,7 +45,7 @@ public class XmlAdaptedTask {
      * Converts a given Task into this class for JAXB use.
      *
      * @param source futu
-     * re changes to this will not affect the created XmlAdaptedPerson
+     * re changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
@@ -70,9 +69,8 @@ public class XmlAdaptedTask {
     /**
      * Converts this jaxb-friendly adapted task object into the model's task object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
-    public Task toModelType() throws IllegalValueException {
+    public Task toModelType() {
         final Name name = new Name(this.name);
         Task task;
         if (startDate != null && endDate != null) {

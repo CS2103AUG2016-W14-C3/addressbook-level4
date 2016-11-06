@@ -5,7 +5,6 @@ import java.util.List;
 
 import taskle.commons.core.Messages;
 import taskle.commons.core.UnmodifiableObservableList;
-import taskle.commons.exceptions.IllegalValueException;
 import taskle.commons.util.DateFormatUtil;
 import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList.TaskNotFoundException;
@@ -36,7 +35,7 @@ public class RescheduleCommand extends Command{
 
     public final List<Date> dates;
 
-    public RescheduleCommand(int targetIndex, List<Date> dates) throws IllegalValueException {
+    public RescheduleCommand(int targetIndex, List<Date> dates) {
         this.targetIndex = targetIndex; 
         this.dates = dates;
     }
@@ -74,9 +73,9 @@ public class RescheduleCommand extends Command{
     private String getDateString(List<Date> dates) {
         String newDate = "";
         if(dates == null) {
-            newDate = DateFormatUtil.formatDate(null);
+            newDate = DateFormatUtil.formatSingleDate(null);
         } else if(dates.size() == 1) {
-            newDate = DateFormatUtil.formatDate(dates.get(0));
+            newDate = DateFormatUtil.formatSingleDate(dates.get(0));
         } else if(dates.size() == 2) {
             newDate = DateFormatUtil.formatEventDates(dates.get(0), dates.get(1));
         }

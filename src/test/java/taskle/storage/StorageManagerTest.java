@@ -71,7 +71,7 @@ public class StorageManagerTest {
         storageManager.saveTaskManager(original);
         ReadOnlyTaskManager retrieved = storageManager.readTaskManager().get();
         assertEquals(original, new TaskManager(retrieved));
-        //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+        //More extensive testing of TaskManager saving/reading is done in XmlTaskManagerStorageTest
     }
 
     @Test
@@ -115,7 +115,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveTaskManager(ReadOnlyTaskManager addressBook, String filePath) throws IOException {
+        public void saveTaskManager(ReadOnlyTaskManager taskManager, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

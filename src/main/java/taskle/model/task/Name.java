@@ -1,34 +1,30 @@
 package taskle.model.task;
 
-import taskle.commons.exceptions.IllegalValueException;
-
 /**
- * Represents a Person's name in the address book.
+ * Represents a Tasks's name in the Task Manager.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Task name should be in alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
 
     /**
-     * Validates given name.
+     * Constructor for name
      *
-     * @throws IllegalValueException if given name string is invalid.
+     * @param name String for the name object
      */
-    public Name(String name) throws IllegalValueException {
+    public Name(String name) {
         assert name != null;
         name = name.trim();
-        if (!isValidName(name)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
-        }
         this.fullName = name;
     }
 
     /**
-     * Returns true if a given string is a valid person name.
+     * Returns true if a given string is a valid task name.
+     * 
+     * @param test given string
      */
     public static boolean isValidName(String test) {
         return test.matches(NAME_VALIDATION_REGEX);

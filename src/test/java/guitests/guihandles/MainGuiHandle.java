@@ -17,10 +17,6 @@ public class MainGuiHandle extends GuiHandle {
         return new TaskListPanelHandle(guiRobot, primaryStage);
     }
 
-    public ResultDisplayHandle getResultDisplay() {
-        return new ResultDisplayHandle(guiRobot, primaryStage);
-    }
-
     public CommandBoxHandle getCommandBox() {
         return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
@@ -35,6 +31,10 @@ public class MainGuiHandle extends GuiHandle {
     
     public PopOverHandle getPopOver() {
         return new PopOverHandle(guiRobot, primaryStage);
+    }
+    
+    public StatusDisplayPanelHandle getStatusDisplayPanel() {
+        return new StatusDisplayPanelHandle(guiRobot, primaryStage);
     }
 
 }

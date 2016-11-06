@@ -267,6 +267,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.isPendingShown = isPendingShown;
         this.isDoneShown = isDoneShown;
         this.isOverdueShown = isOverdueShown;
+        raise(new TaskFilterChangedEvent(isPendingShown, isDoneShown, isOverdueShown));
         updateFilteredListFindKeywords(keywords);
     }
     

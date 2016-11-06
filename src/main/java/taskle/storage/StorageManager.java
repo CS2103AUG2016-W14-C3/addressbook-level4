@@ -16,7 +16,7 @@ import taskle.model.ReadOnlyTaskManager;
 import taskle.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Task Manager data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 

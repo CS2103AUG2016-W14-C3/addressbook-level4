@@ -37,7 +37,7 @@ public class DeadlineTask extends Task {
 
     @Override
     public String getDetailsString() {
-        return DateFormatUtil.formatDate(deadlineDate);
+        return DateFormatUtil.formatSingleDate(deadlineDate);
     }
 
     public Date getDeadlineDate() {

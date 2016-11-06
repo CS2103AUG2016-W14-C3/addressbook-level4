@@ -30,19 +30,17 @@ public class RemoveCommandParser extends CommandParser {
         return prepareRemove(args);
     }
     
+    //@@author A0125509H
     /**
      * Parses arguments in the context of the remove task command.
      *
-     * @param args
-     *            full command args string
+     * @param args full command args string
      * @return the prepared command
      */
-    //@@author A0125509H
     private Command prepareRemove(String args) {
         String argsTrim = args.trim();
         String []s = argsTrim.split(" ");
-        for(int i=0; i<s.length; i++)
-        {
+        for(int i = 0; i < s.length; i++) {
             Optional<Integer> index = parseIndex(s[i]);
             if (!index.isPresent()) {
                 return new IncorrectCommand(

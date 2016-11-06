@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.ListCommand;
-//@author A0141780J
 
+//@author A0141780J
 /**
  * ListCommandParser class to handle parsing of list commands.
  * @author Abel
@@ -55,6 +55,18 @@ public class ListCommandParser extends CommandParser {
                                   ListCommand.MESSAGE_USAGE));
         }
         
+        return generateListCommand(args, matcher);
+    }
+    
+    /**
+     * Generates a list command according to the given args parameters
+     * and the groups as matched by the given matcher.
+     * 
+     * @param args full command argument string
+     * @param matcher Matcher on argument string
+     * @return Corresponding List Command
+     */
+    private Command generateListCommand(String args, Matcher matcher) {
         if (args.isEmpty()) {
             return new ListCommand(true, false, true);
         }

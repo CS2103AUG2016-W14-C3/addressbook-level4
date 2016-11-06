@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <taskmanager>
     <tasks>
-        <name>buy groceries</name>
+        <name>event</name>
         <isTaskDone>0</isTaskDone>
+        <startDate>2016-11-06 10:00:00</startDate>
+        <endDate>2016-11-12 00:00:00</endDate>
     </tasks>
     <tasks>
-        <name>get battery for graphic calculator</name>
+        <name>deadline</name>
         <isTaskDone>0</isTaskDone>
+        <endDate>2016-11-06 23:59:00</endDate>
     </tasks>
     <tasks>
-        <name>do 2103T</name>
+        <name>deadline</name>
         <isTaskDone>0</isTaskDone>
-    </tasks>
-    <tasks>
-        <name>complete hackathon prototype</name>
-        <isTaskDone>0</isTaskDone>
-    </tasks>
-    <tasks>
-        <name>dance around</name>
-        <isTaskDone>0</isTaskDone>
+        <endDate>2016-11-06 23:59:59</endDate>
     </tasks>
 </taskmanager>
