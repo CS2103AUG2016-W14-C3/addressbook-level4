@@ -233,7 +233,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) {
         taskManager.addTask(task);
-        resetFilters();
         updateFilteredListWithStatuses();
         indicateTaskManagerChanged();
     }
