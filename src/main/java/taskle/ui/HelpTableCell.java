@@ -10,7 +10,6 @@ import taskle.model.help.CommandGuide;
 /**
  * Custom Help Table Cell that uses TextFlow to set custom 
  * colors for Help Window texts.
- * @author Abel
  *
  */
 public class HelpTableCell extends TableCell<CommandGuide, String> {
@@ -34,6 +33,7 @@ public class HelpTableCell extends TableCell<CommandGuide, String> {
     
     /**
      * This method sets the style of the command word in format rows.
+     * 
      * @param flow TextFlow for the row.
      * @param strings Strings to be binded to row.
      */
@@ -45,6 +45,7 @@ public class HelpTableCell extends TableCell<CommandGuide, String> {
     
     /**
      * This method sets the style of the arguments in format rows.
+     * 
      * @param flow TextFlow for the row.
      * @param strings Strings to be binded to row.
      */

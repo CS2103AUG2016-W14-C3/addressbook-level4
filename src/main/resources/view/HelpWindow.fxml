@@ -12,7 +12,7 @@
 		<URL value="@Extensions.css" />
 	</stylesheets>
 	<children>
-		<TableView fx:id="helpTable" minHeight="600" minWidth="880"
+		<TableView fx:id="helpTable" minHeight="650" minWidth="880"
 			AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
 			AnchorPane.rightAnchor="0.0" AnchorPane.leftAnchor="0.0">
 		</TableView>

@@ -22,6 +22,12 @@ public abstract class CommandParser {
     private static final Pattern TASK_INDEX_ARGS_FORMAT = 
             Pattern.compile("(?<targetIndex>.+)");
     
+    /**
+     * Returns whether this command parser can parse the command with the given
+     * command word.
+     * 
+     * @param commandWord Given command word.
+     */
     public abstract boolean canParse(String commandWord);
     
     public abstract Command parseCommand(String args);
@@ -30,6 +36,8 @@ public abstract class CommandParser {
      * Returns the specified index in the {@code command} IF a positive unsigned
      * integer is given as the index. Returns an {@code Optional.empty()}
      * otherwise.
+     * 
+     * @param command Full command string
      */
     protected Optional<Integer> parseIndex(String command) {
         final Matcher matcher = TASK_INDEX_ARGS_FORMAT.matcher(command.trim());
@@ -48,8 +56,8 @@ public abstract class CommandParser {
     /**
      * Returns the specified name in the command
      * 
-     * @param command
-     * @return
+     * @param command full command string
+     * @return the name as specified in command
      */
     protected Optional<String> parseName(String command) {
         final Matcher matcher = TASK_NAME_ARGS_FORMAT.matcher(command.trim());

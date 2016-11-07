@@ -8,7 +8,6 @@ import java.util.Date;
  * Utilities method for formatting Dates into Strings for display.
  * 
  * @author Abel
- *
  */
 public class DateFormatUtil {
     //@@author A0141780J
@@ -26,9 +25,7 @@ public class DateFormatUtil {
 
     private static final Calendar calendar = Calendar.getInstance();
 
-    /**
-     * Private constructor to prevent instantiation.
-     */
+    /** Private constructor to prevent instantiation. */
     private DateFormatUtil() {
     }
 

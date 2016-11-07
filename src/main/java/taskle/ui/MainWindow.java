@@ -209,7 +209,8 @@ public class MainWindow extends UiPart {
 
     //@@author A0140047U
     /**
-     * Change storage file location
+     * Change storage file location.
+     * 
      * @throws DataConversionException 
      */
     @FXML
@@ -235,7 +236,8 @@ public class MainWindow extends UiPart {
     }
     
     /**
-     * Change storage file
+     * Change storage file.
+     * 
      * @throws DataConversionException 
      */
     @FXML

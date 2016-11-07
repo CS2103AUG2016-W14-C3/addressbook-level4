@@ -8,6 +8,9 @@ import taskle.model.task.ReadOnlyTask;
 import taskle.model.task.TaskList.TaskNotFoundException;
 
 //@@author A0139402M
+/**
+ * Sets a reminder for an existing task.
+ */
 public class RemindCommand extends Command {
     
     public static final String COMMAND_WORD = "remind";

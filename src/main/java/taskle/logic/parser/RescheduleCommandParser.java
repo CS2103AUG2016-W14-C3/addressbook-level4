@@ -11,6 +11,11 @@ import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.RescheduleCommand;
 
 //@@author A0139402M
+/**
+ * RescheduleCommandParser class to handle parsing of reschedule commands.
+ * @author Abel
+ *
+ */
 public class RescheduleCommandParser extends CommandParser {
 
     public RescheduleCommandParser() {

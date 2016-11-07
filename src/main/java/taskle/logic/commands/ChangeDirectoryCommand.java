@@ -10,7 +10,9 @@ import taskle.commons.util.FileUtil;
 import taskle.commons.util.StorageUtil;
 
 //@@author A0140047U
-//Change directory of current storage file
+/**
+ * Change directory of current storage file
+ */
 public class ChangeDirectoryCommand extends Command {
 
     public static final String COMMAND_WORD_SHORT = "s";
@@ -54,7 +56,11 @@ public class ChangeDirectoryCommand extends Command {
         }
     }
     
-    //Checks if requested directory contains a conflicting file or points to the current directory
+    /** Checks if requested directory contains a conflicting file or 
+     * points to the current directory.
+     * 
+     * @throws DataConversionException thrown when failed to convert data
+     * */
     public boolean isConflict() throws DataConversionException {
         Config config = ConfigUtil.readConfig(Config.DEFAULT_CONFIG_FILE).get();
         if (config.getTaskManagerFileDirectory().equalsIgnoreCase(file.getAbsolutePath())) {

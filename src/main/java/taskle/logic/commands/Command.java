@@ -38,6 +38,8 @@ public abstract class Command {
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
+     * 
+     * @param model Model to be used for dependency
      */
     public void setData(Model model) {
         this.model = model;

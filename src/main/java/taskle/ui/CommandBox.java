@@ -67,9 +67,7 @@ public class CommandBox extends UiPart {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
     
-    /**
-     * Creates a pop over with content layout and style specified.
-     */
+    /** Creates a pop over with content layout and style specified. */
     private void createPopOver() {
         popOver = new PopOver();
         popOver.setId(POP_OVER_ID);
@@ -77,9 +75,7 @@ public class CommandBox extends UiPart {
         setPopOverStyle();
     }
     
-    /**
-     * Sets up the layout inside popover.
-     */
+    /** Sets up the layout inside popover. */
     private void setPopOverLayout() {
         popOverText = new Text();
         popOverText.setId(POP_OVER_TEXT_ID);
@@ -90,9 +86,7 @@ public class CommandBox extends UiPart {
         popOver.setContentNode(vBox);
     }
     
-    /**
-     * Sets up the style for popover and how it is displayed.
-     */
+    /** Sets up the style for popover and how it is displayed. */
     private void setPopOverStyle() {
         popOver.setArrowLocation(ArrowLocation.BOTTOM_CENTER);
         popOver.setFadeInDuration(new Duration(300));
@@ -134,7 +128,8 @@ public class CommandBox extends UiPart {
      * Displays command feedback based on results.
      * If result is not successful, no feedback is displayed.
      * If successful, feedback is displayed.
-     * @param commandResult
+     * 
+     * @param commandResult Command result to use for display.
      */
     private void displayCommandFeedback(CommandResult commandResult) {
         assert commandResult != null;
@@ -156,6 +151,7 @@ public class CommandBox extends UiPart {
 
     /**
      * Shows the UI elements for incorrect command.
+     * 
      * @param feedback feedback message to user to incorrect command.
      */
     private void showIncorrectCommand(String feedback) {
@@ -166,6 +162,7 @@ public class CommandBox extends UiPart {
     
     /**
      * Shows the UI elements for correct command.
+     * 
      * @param feedback feedback message to user for correct command.
      */
     private void showCorrectCommand(String feedback) {

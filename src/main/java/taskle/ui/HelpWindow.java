@@ -51,22 +51,24 @@ public class HelpWindow extends UiPart {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
+    
+    // List of command guides to be used for help page
     private static final List<CommandGuide> LIST_COMMAND_GUIDES = new ArrayList<>(
             Arrays.asList(new CommandGuide("Addition of Tasks", AddCommand.COMMAND_WORD_SHORT, AddCommand.COMMAND_WORD,
                             "task_name", "[remind date time]"),
-                    new CommandGuide("", AddCommand.COMMAND_WORD_SHORT, AddCommand.COMMAND_WORD, "deadline_name", "by", 
+                    new CommandGuide("", "", AddCommand.COMMAND_WORD, "task_name", "by", 
                             "[date time]", "[remind date time]"),
-                    new CommandGuide("", AddCommand.COMMAND_WORD_SHORT, AddCommand.COMMAND_WORD, "event_name", "from", 
+                    new CommandGuide("", "", AddCommand.COMMAND_WORD, "task_name", "from", 
                             "[date time]", "to", "[date time]", "[remind date time]"),
                     new CommandGuide("Editing of Tasks", EditCommand.COMMAND_WORD_SHORT, EditCommand.COMMAND_WORD, 
                             "task_number", "new_task_name"),
                     new CommandGuide("", RescheduleCommand.COMMAND_WORD_SHORT, RescheduleCommand.COMMAND_WORD,
-                            "task_number", "to", "[date time]", "[remind date time]"),
-                    new CommandGuide("", RescheduleCommand.COMMAND_WORD_SHORT, RescheduleCommand.COMMAND_WORD, 
+                            "task_number", "date [time]", "[to date time]", "[remind date time]"),
+                    new CommandGuide("", "", RescheduleCommand.COMMAND_WORD, 
                             "task_number", "clear"),
                     new CommandGuide("", RemindCommand.COMMAND_WORD_SHORT, RemindCommand.COMMAND_WORD, 
-                            "task_number", "[date time]"),
-                    new CommandGuide("", RemindCommand.COMMAND_WORD_SHORT, RemindCommand.COMMAND_WORD,
+                            "task_number", "date [time]"),
+                    new CommandGuide("", "" , RemindCommand.COMMAND_WORD,
                             "task_number", "clear"),
                     new CommandGuide("Removal of Tasks", RemoveCommand.COMMAND_WORD_SHORT, RemoveCommand.COMMAND_WORD,
                             "task_number"), 
@@ -161,6 +163,7 @@ public class HelpWindow extends UiPart {
     /**
      * This method binds the Strings for name columns to the CommandGuide 
      * objects.
+     * 
      * @param nameCol Name Column for help window
      */
     private void bindNameColString(TableColumn<CommandGuide, String> nameCol) {
@@ -178,6 +181,7 @@ public class HelpWindow extends UiPart {
     /**
      * This method binds the Strings for format columns to the CommandGuide
      * objects.
+     * 
      * @param formatCol Format Column for help window
      */
     private void bindShortcutColString(TableColumn<CommandGuide, String> formatCol) {
@@ -196,6 +200,7 @@ public class HelpWindow extends UiPart {
     /**
      * This method binds the Strings for format columns to the CommandGuide
      * objects.
+     * 
      * @param formatCol Format Column for help window
      */
     private void bindFormatColString(TableColumn<CommandGuide, String> formatCol) {

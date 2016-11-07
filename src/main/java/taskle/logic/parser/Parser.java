@@ -20,9 +20,7 @@ import taskle.logic.commands.IncorrectCommand;
  */
 public class Parser {
 
-    /**
-     * Used for initial separation of command word and args.
-     */
+    /** Used for initial separation of command word and args. */
     private static final Pattern BASIC_COMMAND_FORMAT = 
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
         
@@ -32,6 +30,11 @@ public class Parser {
         setupParsers();
     }
 
+    /**
+     * Sets up the list of command parsers required.
+     * All commands have to implement a command parser and instantiate it
+     * in this method for parser to parse it as a command.
+     */
     private void setupParsers() {
         // Generate a list of command parsers here, every new 
         // command added must be added to the commandParsers list here
@@ -52,8 +55,8 @@ public class Parser {
                               new OpenFileCommandParser(),
                               new ChangeDirectoryCommandParser()));
         
-        // Parse a date using date parser on start up to reduce
-        // command delay on first parse. (Natty library constraints)
+        /** Parse a date using date parser on start up to reduce
+         * command delay on first parse. (Natty library constraints) */
         DateParser.parse("today");
     }
 

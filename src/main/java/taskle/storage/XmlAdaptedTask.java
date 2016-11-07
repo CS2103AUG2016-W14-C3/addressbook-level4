@@ -35,9 +35,7 @@ public class XmlAdaptedTask {
     @XmlJavaTypeAdapter(XmlDateAdapter.class)
     private Date remindDate;
 
-    /**
-     * No-arg constructor for JAXB use.
-     */
+    /** No-arg constructor for JAXB use. */
     public XmlAdaptedTask() {}
 
 
@@ -67,8 +65,8 @@ public class XmlAdaptedTask {
     }
 
     /**
-     * Converts this jaxb-friendly adapted task object into the model's task object.
-     *
+     * Converts this jaxb-friendly adapted task object 
+     * into the model's task object.
      */
     public Task toModelType() {
         final Name name = new Name(this.name);

@@ -4,8 +4,8 @@ import java.util.Set;
 
 //@@author A0141780J
 /**
- * Finds and lists all tasks in task manager whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Finds and lists all tasks in task manager whose name contains any 
+ * of the argument keywords. Keyword matching is case sensitive.
  */
 public class FindCommand extends Command {
     
