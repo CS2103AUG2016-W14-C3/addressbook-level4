@@ -64,8 +64,8 @@ Adds a task / event into Taskle (with its respective deadline or start-date and 
 | Format  |
 |:--------|
 | `add` **`task_name`** [**`remind` `date time`**] |
-| `add` **`task_name`** `by` [**`date time`**] [**`remind` `date time`**] |
-| `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] [**`remind` `date time`**] |
+| `add` **`task_name`** `by` **`date`** [**`time`**] [**`remind` `date time`**] |
+| `add` **`task_name`** `from` **`date`** [**`time`**] `to` **`date`** [**`time`**] [**`remind` `date time`**] |
 
 > **Things to Note**
 > * You may enter the date and time in any format that you desire, and Taskle will still be able to recognise it.
