@@ -24,4 +24,6 @@
 
 * The sample project was created by [SE-EDU initiative](https://github.com/se-edu/)
 
+* This project utilizes the [Natty Date Parser](http://natty.joestelmach.com/) library for parsing date and times
+
 #### Licence : [MIT](LICENSE)
