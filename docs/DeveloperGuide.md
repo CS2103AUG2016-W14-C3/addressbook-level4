@@ -25,28 +25,28 @@ This guide describes the design and implementation of Taskle. It will help you u
 
 #### Prerequisites
 
-1. **JDK `1.8.0_60`**  or later<br>
+1. **JDK `1.8.0_60`**  or later.<br>
 
     > Having any Java 8 version is not enough. <br>
     This application will not work with earlier versions of Java 8.
-2. **Eclipse** IDE
+2. **Eclipse** IDE.
 3. **e(fx)clipse** plugin for Eclipse (Follow from Step 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious)).
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace.
 
 <br>
 
 #### Importing the Project into Eclipse
 
 0. Fork this repo, and clone it to your computer.
-1. Open Eclipse. (Note: Ensure that you have installed the **e(fx)clipse** and **buildship** plugins as given in the prerequisites above.)
+1. Open Eclipse. (Note: Ensure that you have installed the **e(fx)clipse** and **buildship** plugins as given in the prerequisites above).
 2. Click `File` > `Import`.
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`.
-4. Click `Browse`, and locate the project's directory.
+4. Click `Browse` and locate the project's directory.
 5. Click `Finish`.
 
 > * If you are asked to either 'keep' or 'overwrite' configuration files, 'keep' them.
-> * Depending on your connection speed and server load, it can take up to 30 minutes for the set-up to finish. (This is because Gradle downloads library files from servers during the set-up process of the project.)
+> * Depending on your connection speed and server load, it can take up to 30 minutes for the set-up to finish. (This is because Gradle downloads library files from servers during the set-up process of the project).
 > * If Eclipse automatically changed any "settings" files during the import process, you can discard the changes.
 
 <br>
@@ -58,14 +58,14 @@ This guide describes the design and implementation of Taskle. It will help you u
 <img align="center" src="images/Architecture.png">
 <div align="center">Figure 1: Architecture Diagram</div><br>
 
-The **_Architecture Diagram_** given above explains the high-level design of the application. Below is a quick overview of each component:
+The **_Architecture Diagram_** given above explains the high-level design of the application. Below is a quick overview of each component.
 
 `Main` only has one class called [`MainApp`](../src/main/java/taskle/MainApp.java). It is responsible for:
 * Initializing the components in the correct sequence, and connecting them up with each other, upon the launch of the application.
 * Shutting down the components and invoking cleanup method (where necessary) upon shut down.
 
 [**`Commons`**](#common-classes) represents a collection of classes that is used by other multiple components. Two of them play important roles at the architecture level:
-* `EventsCentre`: This class (written using [Google's Event Bus library (https://github.com/google/guava/wiki/EventBusExplained)) is used by components to communicate with other components through the use of events (i.e. a form of _Event Driven_ design.)
+* `EventsCentre`: This class (written using [Google's Event Bus library] (https://github.com/google/guava/wiki/EventBusExplained)) is used by components to communicate with other components through the use of events (i.e. a form of _Event Driven_ design).
 * `LogsCenter`: Used by many classes to write log messages to the application's log file.
 
 The rest of the application consists four components:
@@ -130,7 +130,7 @@ The `UI` component:
 
 **API**: [`Logic.java`](../src/main/taskle/logic/Logic.java)
 
-Sequence flow of how `Logic` works:
+The sequence flow of how `Logic` works is as follows.
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. `Parser` uses the CommandParser classes to parse the command.
@@ -191,7 +191,7 @@ The `Storage` component:
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and destinations.
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and destinations through the following:
 
 * The logging level can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration).)
@@ -203,12 +203,12 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `SEVERE` : Detected a critical problem which may possibly cause the termination of the application.
 * `WARNING` : Can continue, but proceed with caution.
 * `INFO` : Information showing the noteworthy actions by the application.
-* `FINE` : Unnoteworthy details that may be useful in debugging
-	* Example: Printing of the actual list instead of its size
+* `FINE` : Unnoteworthy details that may be useful in debugging.
+	* Example: Printing of the actual list instead of its size.
 
 ### Configuration
 
-* Certain properties of the application can be controlled through the configuration file (default: `config.json`.)
+* Certain properties of the application can be controlled through the configuration file (default: `config.json`).
 	* Example: Application name or logging level.
 
 <br>
@@ -232,7 +232,7 @@ We have two types of tests:
 2. **Non-GUI Tests** - They are tests that do not involve the GUI. They include:
    1. _Unit tests_ targeting the lowest level methods/classes.
 	* Example: `taskle.commons.StorageUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units (they are assumed to be working.)
+   2. _Integration tests_ that are checking the integration of multiple code units (they are assumed to be working).
 	* Example: `taskle.storage.StorageManagerTest`
    3. Hybrids of unit and integration tests. They check multiple code units as well as how the are connected together.
 	* Example: `taskle.logic.LogicManagerTest`
@@ -268,8 +268,8 @@ Here are the steps to create a new release.
 * A project often depends on third-party libraries. For example, Taskle depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_ can be automated using Gradle.
 	* For example, Gradle can download the dependencies automatically, which is better than these alternatives.
-* Include those libraries in the repo (this bloats the repo size.)
-* Require developers to download those libraries manually (this creates extra work for developers.)
+* Include those libraries in the repo (this bloats the repo size).
+* Require developers to download those libraries manually (this creates extra work for developers).
 
 <!-- @@author A0141780J -->
 
@@ -534,7 +534,7 @@ Use Case ends.
 >1ci.  System displays an error message. <br>
   Use Case ends.
   
-1d. More than 3 dates entered.
+1d. User enters more than 2 dates.
 
 >1di.  System displays an error message. <br>
   Use Case ends.
