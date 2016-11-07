@@ -541,7 +541,6 @@ Use Case ends.
 
 <br>
   
-
 #### Use case: [UC09] Remove Date(s) associated with Task
 
 **Preconditions**
@@ -880,7 +879,7 @@ Use Case ends.
 9. Should display command results within 100 milliseconds.
 10. Should favor DOS style commands over Unix-style commands.
 
-<!-- @@author A0125509H -->
+<!-- @@author A0140047U -->
 
 <br>
 
@@ -924,26 +923,24 @@ Use Case ends.
 
 The team has conducted a survey on existing products and analysed the strengths and weaknesses with respect to how well it can cater to our target audience.
 
-<!-- @@author A0140047U -->
-
 **Product #1: Wunderlist**<br>
 Strengths:
 
-1. Supports the addition of floating tasks and deadlines. → One-shot approach for Jim (floating tasks).
-2. Supports the editing and deletion of existing tasks. → Jim is able to reschedule and discard to-do items that cannot be completed.
-3. Supports the addition of deadlines and reminders. → Reminder alerts Jim whenever a deadline is approaching.
-4. Supports the searching and sorting of to-do items. → Ease of finding specific to-do items.
-5. Displays to-do items in a user-friendly manner.
-6. Able to work offline. → Jim does not have to depend on Internet access.
-7. Able to view completed tasks. → Jim is able to know what tasks are completed and not.
+1. Supports adding of floating tasks and deadlines. User’s one-shot approach is met when adding floating tasks.
+2. Supports editing and deleting of existing tasks. User is able to not only reschedule, but also discard tasks that cannot be completed.
+3. Supports adding of deadlines and reminders. User will be reminded when a deadline is approaching.
+4. Supports searching and sorting of to-do items. User is able to find specific tasks easily.
+5. Supports viewing of tasks that are completed. User is able to know which tasks are completed and which are yet to be completed. 
+6. Supports offline work. User does not have to depend on Internet connectivity to use application.
+7. Displays tasks in a user-friendly manner.
 
 Weaknesses:
 
-1. Does not work with time slots. → Jim is not able to add events.
-2. Does not categorise to-do types (events, deadlines, floating tasks).
-3. Requires a few clicks to perform functions other than the addition of a task. → Jim's one-shot approach is not fulfilled.
-4. Does not support an "Undo" option. → Incorrect to-do item created has to be either edited or deleted.
-5. Does not store data into local storage files. It instead links with an online user account. → Online access still required to transfer data if Jim works on different computers.
+1. Does not work with time slots. User is not able to manage events.
+2. Does not categorise tasks. User may find it hard to differentiate floating tasks from deadlines.
+3. Does not support an "Undo" option. Tasks that were incorrectly added has to be edited or deleted manually.
+4. Does not store data into local storage files but links to an online user account instead. Internet connectivity is still dependent if user wants to work from different computers.
+5. Requires a few clicks to perform functions other than adding a floating task. User’s one-shot approach is not met.
 
 <br>
 
@@ -952,17 +949,17 @@ Weaknesses:
 **Product #2: Google Keep**<br>
 Strengths:
 
-1. Supports the addition of checklist items. → Jim is able to mark tasks as done.
-2. Supports time-based reminders. → Jim is able to schedule reminders for his tasks with deadlines.
-3. Supports the searching of to-do items by description and types. → Jim is able to find a to-do item quickly.
-4. Displays to-do items in a user-friendly manner. → Jim is able to periodically review his to-do items.
-5. Operates even without Internet access. → Jim is able to access the application even without Internet connectivity.
+1. Supports adding of checklist items. User is able to mark tasks as done.
+2. Supports time-based reminders. User is able to schedule reminders for his deadlines.
+3. Supports searching of tasks by description and types. User is able to find a task quickly.
+4. Displays tasks in a user-friendly manner. User is able to periodically review his tasks.
+5. Operates even without Internet access. User is able to access the application even without Internet connectivity.
 
 Weaknesses:
 
-1. Requires a few clicks to add a task. → Jim's one-shot preference is not met.
-2. Supports reminders only. → Jim is not able to block out slots for tasks without specific times.
-3. Does not support calendar-centric operations. → Jim is not able to schedule tasks with specific start and end dates.
+1. Does not support calendar-centric operations. User is not able to schedule tasks with specific start and end dates.
+2. Requires a few clicks to add tasks followed by setting reminders. User’s one-shot preference is not met.
+3. Supports reminders only. User is not allowed to block out slots for tasks without specific times.
 
 <br>
 
@@ -971,20 +968,20 @@ Weaknesses:
 **Product #3: to-doist**<br>
 Strengths:
 
-1. Supports the addition of tasks that can be marked as 'done'. → Jim is able to mark completed tasks as done.
-2. Supports the searching of tasks by its name and project. → Jim is able to quickly find a task.
-3. Adding of tasks is done in a one-shot manner. → Jim is able to avoid taking several clicks to add a task.
-4. Operates offline and only starts syncing with other devices when there is Internet connection. → Jim can access the application even without Internet connectivity.
-5. Supports a desktop version. → Jim is able to access the application quickly.
-6. Supports the addition of tasks with no specific time tagged to it. → Jim is able to add tasks that do not require a specific time to be completed.
-7. Allows easy and straightforward postponement of tasks. → Jim can easily postpone tasks should the need arises.
+1. Supports adding of tasks that can be marked as 'done'. User is able to mark completed tasks as done.
+2. Supports adding of tasks in a one-shot approach. User can avoid taking several clicks to add a task.
+3. Supports adding of tasks with no specific time tagged to it. User is able to add tasks that do not require a specific time to be completed.
+4. Supports searching of tasks by its name and project. User is able to find a task quickly. 
+5. Supports a desktop version. User is able to access the application quickly from his computer.
+6. Operates offline and only starts syncing with other devices when there is Internet connection. User can access the application without internet connectivity.
+7. Allows easy and straightforward postponement of tasks. User can easily postpone tasks should the need arise.
 
 Weaknesses:
 
-1. Does not allow for block scheduling of tasks. → Jim cannot schedule tasks in block timings.
-2. Does not provide a user-friendly way to look for a suitable slot to schedule an item. → Jim has to go through all existing tasks to look for an empty slot to schedule a new task.
-3. Does not support blocking multiple slots for tasks with unconfirmed timings. → Jim will find it hard to schedule tasks with unconfirmed timings.
-4. Does not support syncing of data on the cloud when there is no Internet connectivity. → Jim will require Internet connectivity if he wants to use the application (with all his existing tasks) on another computer.
+1. Does not allow for block scheduling of tasks (e.g. Tasks can only be scheduled at 3pm, not 3 - 5pm). User cannot schedule tasks in block timings.
+2. Does not provide a user-friendly way to look for a suitable slot to schedule an item. User has to go through all existing tasks to look for an empty slot to schedule a new task.
+3. Does not support blocking of multiple slots for tasks with unconfirmed timings. User will find it hard to schedule tasks with unconfirmed timings.
+4. Syncs data with the cloud only when there is Internet connectivity. User requires Internet connectivity if he wants to use the application with all his existing tasks on another computer.
 
 <br>
 
@@ -993,18 +990,19 @@ Weaknesses:
 **Product #4: SolCalendar**<br>
 Strengths:
 
-1. Supports the marking of tasks as complete. → Jim is able to mark a task as done.
-2. Supports the searching of appointments and tasks by name. → Jim is able to quickly search for items in his schedule.
-3. Operates even without Internet Access. → Jim can access the application even without Internet connectivity.
-4. Supports the addition of tasks (without any due date). → Jim can add floating tasks.
-5. Allows easy and straightforward postponement of tasks. → Jim can easily postpone tasks should the need arises.
-6. Supports time-based reminders. → Jim can schedule reminders for his deadlines.
-7. Displays to-do items in a user-friendly manner. → Jim can periodically review his to-do list easily.
-8. Supports the editing and deleting of existing tasks. → Jim is able to reschedule and remove any tasks.
-9. Supports the addition of recurring tasks. → Jim can add recurring tasks to his schedule.
+1. Supports adding of tasks without any due dates. 
+2. Supports editing and deleting of existing tasks. User is able to reschedule and remove tasks.
+3. Supports marking tasks as ‘done’.
+4. Supports searching of tasks by name. User is able to quickly search for items in his schedule. 
+5. Supports time-based reminders. User can schedule reminders for his deadlines.
+6. Supports setting of tasks on repeat, for routine purposes.
+7. Operates even without Internet connectivity. User can access the application even without Internet connectivity.
+8. Allows easy and straightforward postponement of tasks. User can easily postpone tasks should the need arise.
+9. Displays to-do items in a user-friendly manner. User can periodically review his to-do list.
+
 
 Weaknesses:
 
-1. Requires two clicks to add a task with its respective settings. → Jim's favoured one-shot preference is not allowed here.
-2. Does not support an "Undo" option. → Jim is able to backtrack mistakes that he has made.
-3. Does not support the blocking out of specific time slots (without full information) → Jim is not able to dynamically plan his schedule.
+1. Does not support an "Undo" option. A task has to be manually deleted upon creation.
+2. Does not support blocking out specific time slots.
+3. Requires two clicks to add a task with respective settings. User’s one-shot preference is not catered to.
