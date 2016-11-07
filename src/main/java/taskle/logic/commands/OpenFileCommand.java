@@ -18,10 +18,11 @@ public class OpenFileCommand extends Command {
     public static final String COMMAND_WORD_SHORT = "o";
     public static final String COMMAND_WORD = "open";
 
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads data from specified existing file.\n"
-            + "Format: open file_path\n"
-            + "Example: " + COMMAND_WORD + " C:" + File.separator + "Users" + File.separator + "John"
+    public static final String MESSAGE_USAGE = "\n" 
+            + COMMAND_WORD 
+            + ": Reads data from specified existing file.\n"
+            + "\nFormat: open file_path\n"
+            + "\nExample: " + COMMAND_WORD + " C:" + File.separator + "Users" + File.separator + "John"
             + File.separator + "desktop" + File.separator + "taskle.xml";
 
     public static final String MESSAGE_SUCCESS = "Storage File has been changed.";

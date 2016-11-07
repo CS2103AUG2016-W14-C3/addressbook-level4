@@ -17,9 +17,11 @@ public class ChangeDirectoryCommand extends Command {
 
     public static final String COMMAND_WORD_SHORT = "s";
     public static final String COMMAND_WORD = "save";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Reads data from specified file.\n"
-            + "Format: " + COMMAND_WORD + " directory_path\n"
-            + "Example: " + COMMAND_WORD + " C:" + File.separator + "Users" + File.separator + "John"
+    public static final String MESSAGE_USAGE = "\n" 
+            + COMMAND_WORD 
+            + ": Reads data from specified file.\n"
+            + "\nFormat: " + COMMAND_WORD + " directory_path\n"
+            + "\nExample: " + COMMAND_WORD + " C:" + File.separator + "Users" + File.separator + "John"
             + File.separator + "desktop";
 
     public static final String MESSAGE_SUCCESS = "Storage Directory has been changed to %1$s";

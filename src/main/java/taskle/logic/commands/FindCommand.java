@@ -12,7 +12,8 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
     public static final String COMMAND_WORD_SHORT ="f";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all tasks in Taskle that both contain the keywords and fulfill the specific status."
+    public static final String MESSAGE_USAGE = "\n" 
+            + COMMAND_WORD + ": Finds all tasks in Taskle that both contain the keywords and fulfill the specific status."
             + "\n\nFormat: " + COMMAND_WORD + " keywords [-status]\n"
             + "\nExample: " + COMMAND_WORD + " books";
 
