@@ -32,7 +32,7 @@ Reorganize your life now by using Taskle!
    > <img src="images/UI/Main.png" align="center">
    <div align="center">Figure 1: GUI of Taskle</div>
 
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.
+4. Type a command in the command box and press <kbd>Enter</kbd> to execute it.
    > Example: Typing **`help`** and pressing <kbd>Enter</kbd> will open up the help window.
  
 5. Some commands that you can try:
