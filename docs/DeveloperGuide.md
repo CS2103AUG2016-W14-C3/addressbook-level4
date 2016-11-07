@@ -321,12 +321,12 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 
 For all use cases below, the **System** is `Taskle` and the **User** is the `user`, unless specified otherwise.
 <br><br>
-#### Use case: [UC01] Add Float Task
+#### Use case: [UC01] Add Floating Task
 
 **MSS**
 
-1. User enters command to add a new float task.
-2. System adds new float task. <br/>
+1. User enters command to add a new floating task.
+2. System adds new floating task. <br/>
 Use Case ends.
 
 **Extensions**
