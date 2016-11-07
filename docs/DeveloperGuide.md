@@ -434,7 +434,7 @@ Use Case ends.
 >1bi. System displays an error message. <br/>
   Use Case ends.
   
-1c. More than 3 dates entered.
+1c. More than 2 dates entered.
 
 >1ci. System displays an error message. <br/>
   Use Case ends.
