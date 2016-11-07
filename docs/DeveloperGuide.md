@@ -810,8 +810,8 @@ Use Case ends.
 **MSS**
 
 1. User requests to change save directory.
-2. User chooses file directory.
-3. System updates file directory. <br/>
+2. User chooses save directory.
+3. System updates save directory. <br/>
 Use Case ends.
 
 **Extensions**
