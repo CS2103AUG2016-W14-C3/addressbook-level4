@@ -80,19 +80,14 @@ public class TypicalTestTasks {
         ab.addTask(eatDinner.copy());
         ab.addTask(flyKite.copy());
         ab.addTask(goConcert.copy());
-        //ab.addTask(charityEvent.copy());
-        //ab.addTask(assignmentDeadline.copy());
-        //ab.addTask(industryTalk.copy());
+        ab.addTask(charityEvent.copy());
+        ab.addTask(assignmentDeadline.copy());
+        ab.addTask(industryTalk.copy());
     }
 
-    /*public Task[] getTypicalTasks() {
+    public Task[] getTypicalTasks() {
         return new Task[]{charityEvent, assignmentDeadline, attendMeeting, buyMilk, 
                 createPlan, deliverGoods, eatDinner, flyKite, goConcert, industryTalk};
-    }*/
-    
-    public Task[] getTypicalTasks() {
-        return new Task[]{attendMeeting, buyMilk, 
-                createPlan, deliverGoods, eatDinner, flyKite, goConcert};
     }
 
     public TaskManager getTypicalTaskManager(){
