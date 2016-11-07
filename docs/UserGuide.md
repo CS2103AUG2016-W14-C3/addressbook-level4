@@ -99,9 +99,9 @@ Edits an existing task in Taskle. There are three types of possible edits: Renam
 > **Things to Note**
 > * A  task can only have **one reminder**. The date and time that were specified in the "remind" command will replace any existing reminder.
 > * If **no time** was specified for the reminder, Taskle will automatically assign 00:00 of the specified reminder date to it.
-> * To remove a reminder or deadline from a task, you will have to type **"clear"** after typing the task number. For example:
->  * remind **2 clear**
->  * reschedule **2 clear**
+> * To remove a reminder or deadline / event date from a task, you will have to type **"clear"** after typing the task number. For example:
+>  * remind 2**clear**
+>  * reschedule 2 **clear**
 
 Examples:
 * `rename` **`8 Pay Abel for Chicken Rice`**
