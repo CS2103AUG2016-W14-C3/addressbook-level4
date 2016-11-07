@@ -41,7 +41,7 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void removeCommand_multipleRemove_showUnsuccessfulMsg() {
+    public void removeCommand_multipleRemove_successfulRemove() {
         //remove multiple
         Task[] currentList = td.getTypicalTasks();
         String targetIndexString = "2 4 1";
@@ -49,11 +49,21 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
     }
     
     @Test
-    public void removeCommand_removeFromMiddle_showUnsuccessfulMsg() {
+    public void removeCommand_removeFromMiddle_successfulRemove() {
         // middle index
         Task[] currentList = td.getTypicalTasks();
         int targetIndex = currentList.length/2;
         assertRemoveSuccess(targetIndex, currentList);
+    }
+    
+    @Test
+    public void removeCommand_multipleRemoveWithInvalidIndex_showUnsuccessfulMsg() {
+        //remove multiple
+        Task[] currentList = td.getTypicalTasks();
+        String targetIndexString = "2 4 1 index";
+        //assertRemoveSuccessString(targetIndexString, currentList);
+        commandBox.runCommand("remove " + targetIndexString);
+        assertUnsuccessfulMessage("Invalid command format!");
     }
 
     /**
@@ -97,7 +107,6 @@ public class RemoveCommandTest extends TaskManagerGuiTest {
         Collections.reverse(targetIndexOneIndexed);
         
         commandBox.runCommand("remove " + targetIndexOneIndexedString);
-        //int counter = 0;
         
         for(int j = 0; j < s.length; j++) {
             expectedRemainder = TestUtil.removeTaskFromList(expectedRemainder, targetIndexOneIndexed.get(j));
