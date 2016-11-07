@@ -93,7 +93,7 @@ Edits an existing task in Taskle. There are three types of possible edits: Renam
 |Type      | Format  |
 |:-------- |:--------|
 |Rename    | `rename` **`task_number`** **`new_task_name`** |
-|Reschedule| `reschedule` **`task_number`** `date` [**`time`**] [**`to` `date time`**]  [**`remind` `date time`**] |
+|Reschedule| `reschedule` **`task_number`** `date` [**`time`**] [**`to` `date time`**] |
 |Remind    | `remind` **`task_number`** `date` [**`time`**] |
 
 > **Things to Note**
