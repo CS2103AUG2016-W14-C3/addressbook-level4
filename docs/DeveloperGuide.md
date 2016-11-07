@@ -541,7 +541,34 @@ Use Case ends.
 
 <br>
   
-#### Use case: [UC09] Set Reminder for Task
+
+#### Use case: [UC09] Remove Date(s) associated with Task
+
+**Preconditions**
+
+Task exists in system.
+
+**MSS**
+
+1. User enters command to clear the date(s) associated with a task.
+2. System removes the date. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+  Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+  Use Case ends.
+  
+<br>
+
+#### Use case: [UC10] Set Reminder for Task
 
 **Preconditions**
 
@@ -575,8 +602,34 @@ Use Case ends.
   Use Case ends. 
   
 <br>
+
+#### Use case: [UC11] Remove Reminder for Task
+
+**Preconditions**
+
+Task exists in system.
+
+**MSS**
+
+1. User enters command to remove reminder for task.
+2. System removes the reminder for task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+  Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+  Use Case ends.
   
-#### Use case: [UC10] Remove Single Task
+<br>
+  
+#### Use case: [UC12] Remove Single Task
 
 **Preconditions**
 
@@ -602,7 +655,7 @@ Use Case ends.
 
 <br>
 
-#### Use case: [UC11] Remove Multiple Tasks
+#### Use case: [UC13] Remove Multiple Tasks
 
 **Preconditions**
 
@@ -628,7 +681,7 @@ Use Case ends.
 
 <br>
 
-#### Use case: [UC12] Clear All Tasks
+#### Use case: [UC14] Clear All Tasks
 
 **MSS**
 
@@ -638,7 +691,7 @@ Use Case ends.
 
 <br>
 
-#### Use case: [UC13] Mark Task as Done
+#### Use case: [UC15] Mark Task as Done
 
 **Preconditions**
 
@@ -664,7 +717,7 @@ Use Case ends.
     
 <br>
 
-#### Use case: [UC14] Find Task
+#### Use case: [UC16] Find Task
 
 **Preconditions**
 
@@ -689,7 +742,28 @@ Use Case ends.
 
 <br>
 
-#### Use case: [UC15] Undo Command
+#### Use case: [UC17] List Tasks
+
+**Preconditions**
+
+Tasks exists in system.
+
+**MSS**
+
+1. User enters command to list a tasks.
+2. System displays list of pending and overdue tasks by default unless otherwise stated by the User. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+  Use Case ends.
+
+<br>
+
+#### Use case: [UC18] Undo Command
 
 **MSS**
 
@@ -706,7 +780,7 @@ Use Case ends.
 
 <br>
 
-#### Use case: [UC16] Redo Command
+#### Use case: [UC19] Redo Command
 
 **MSS**
 
@@ -723,7 +797,7 @@ Use Case ends.
 
 <br>
 
-#### Use case: [UC17] View Help
+#### Use case: [UC20] View Help
 
 **MSS**
 
@@ -733,7 +807,7 @@ Use Case ends.
 
 <br>
 	
-#### Use case: [UC18] Change Save Directory
+#### Use case: [UC21] Change Save Directory
 
 **MSS**
 
@@ -741,8 +815,6 @@ Use Case ends.
 2. User chooses file directory.
 3. System updates file directory. <br/>
 Use Case ends.
-
-<br>
 
 **Extensions**
 
@@ -767,7 +839,7 @@ Use Case ends.
 
 <br>
 
-#### Use case: [UC19] Open Storage File
+#### Use case: [UC22] Open Storage File
 
 **MSS**
 
