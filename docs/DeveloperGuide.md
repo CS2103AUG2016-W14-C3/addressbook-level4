@@ -320,8 +320,8 @@ Priorities: High (Very likely) - `* * *`, Medium (Likely) - `* *`, Low (Unlikely
 
 ## Appendix B : Use Cases
 
-For all use cases below, the **System** is `Taskle` and the **Actor** is the `user`, unless specified otherwise.
-
+For all use cases below, the **System** is `Taskle` and the **User** is the `user`, unless specified otherwise.
+<br><br>
 #### Use case: [UC01] Add Float Task
 
 **MSS**
@@ -337,7 +337,31 @@ Use Case ends.
 > 1ai. System displays an error message. <br/>
   Use Case ends.
 
-#### Use case: [UC02] Add Deadline Task
+<br>
+
+#### Use case: [UC02] Add Float Task with Reminder
+
+**MSS**
+
+1. User enters command to add a new float task with a reminder date and time.
+2. System adds new float task with reminder. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br/>
+  Use Case ends.
+
+1b. User enters invalid reminder date.
+
+> 1bi. System displays an error message. <br/>
+  Use Case ends.
+  
+<br>
+  
+#### Use case: [UC03] Add Deadline Task
 
 **MSS**
 
@@ -356,8 +380,42 @@ Use Case ends.
 
 >1bi. System displays an error message. <br/>
   Use Case ends.
+
+<br>
+
+#### Use case: [UC04] Add Deadline Task with Reminder
+
+**MSS**
+
+1. User enters command to add a new deadline task with a specified date along with a reminder date and time.
+2. System adds new deadline task with reminder. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br/>
+  Use Case ends.
+
+1b. User enters an invalid date.
+
+>1bi. System displays an error message. <br/>
+  Use Case ends.
+
+1c. User enters an invalid reminder date.
+
+>1ci. System displays an error message. <br/>
+  Use Case ends.
   
-#### Use case: [UC03] Add Event Task
+1d. User enters a reminder date after deadline date.
+
+>1di. System displays an error message. <br/>
+  Use Case ends.
+
+<br>
+  
+#### Use case: [UC05] Add Event Task
 
 **MSS**
 
@@ -382,7 +440,46 @@ Use Case ends.
 >1ci. System displays an error message. <br/>
   Use Case ends.
     
-#### Use case: [UC04] Edit Task
+<br>
+   
+#### Use case: [UC06] Add Event Task with Reminder
+
+**MSS**
+
+1. User enters command to add a new event task with 2 specified dates (from and to) along with a reminder date and time.
+2. System adds new event task with reminder. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br/>
+  Use Case ends.
+
+1b. User enters an invalid date.
+
+>1bi. System displays an error message. <br/>
+  Use Case ends.
+  
+1c. More than 3 dates entered.
+
+>1ci. System displays an error message. <br/>
+  Use Case ends.
+
+1d. User enters an invalid reminder date.
+
+>1di. System displays an error message. <br/>
+  Use Case ends.
+  
+1e. User enters a reminder date after the end date of the event.
+
+>1ei. System displays an error message. <br/>
+  Use Case ends.
+    
+<br>
+     
+#### Use case: [UC07] Rename Task
 
 **Preconditions**
 
@@ -390,8 +487,8 @@ Task exists in system.
 
 **MSS**
 
-1. User enters command to edit a task.
-2. System edits task. <br/>
+1. User enters command to rename a task.
+2. System renames task. <br/>
 Use Case ends.
 
 **Extensions**
@@ -406,7 +503,9 @@ Use Case ends.
 > 1bi. System displays an error message. <br>
   Use Case ends.
 
-#### Use case: [UC05] Reschedule Task
+<br>
+
+#### Use case: [UC08] Reschedule Task
 
 **Preconditions**
 
@@ -414,8 +513,8 @@ Task exists in system.
 
 **MSS**
 
-1. User enters command to reschedule a task.
-2. System edits task. <br/>
+1. User enters command to reschedule a task to the specified date.
+2. System reschedules task. <br/>
 Use Case ends.
 
 **Extensions**
@@ -439,8 +538,11 @@ Use Case ends.
 
 >1di.  System displays an error message. <br>
   Use Case ends.
+
+<br>
   
-#### Use case: [UC06] Add Reminder to Task
+
+#### Use case: [UC09] Remove Date(s) associated with Task
 
 **Preconditions**
 
@@ -448,8 +550,34 @@ Task exists in system.
 
 **MSS**
 
-1. User enters command to edit a task.
-2. System edits task. <br/>
+1. User enters command to clear the date(s) associated with a task.
+2. System removes the date. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+  Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+  Use Case ends.
+  
+<br>
+
+#### Use case: [UC10] Set Reminder for Task
+
+**Preconditions**
+
+Task exists in system.
+
+**MSS**
+
+1. User enters command to set reminder for task.
+2. System sets the reminder for task. <br/>
 Use Case ends.
 
 **Extensions**
@@ -469,7 +597,39 @@ Use Case ends.
 >1ci.  System displays an error message. <br>
   Use Case ends. 
   
-#### Use case: [UC07] Remove Single Task
+1d. User enters a reminder date after the end date of the current task
+>1ci.  System displays an error message. <br>
+  Use Case ends. 
+  
+<br>
+
+#### Use case: [UC11] Remove Reminder for Task
+
+**Preconditions**
+
+Task exists in system.
+
+**MSS**
+
+1. User enters command to remove reminder for task.
+2. System removes the reminder for task. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+  Use Case ends.
+
+1b. User enters an invalid task number.
+
+> 1bi. System displays an error message. <br>
+  Use Case ends.
+  
+<br>
+  
+#### Use case: [UC12] Remove Single Task
 
 **Preconditions**
 
@@ -478,7 +638,7 @@ Task exists in system.
 **MSS**
 
 1. User enters command to remove a task.
-2. System edits task. <br/>
+2. System removes task. <br/>
 Use Case ends.
 
 **Extensions**
@@ -493,28 +653,45 @@ Use Case ends.
 > 1bi. System displays an error message. <br>
   Use Case ends.
 
-#### Use case: [UC08] Remove All Tasks
+<br>
+
+#### Use case: [UC13] Remove Multiple Tasks
+
+**Preconditions**
+
+Task exists in system.
 
 **MSS**
 
-1. User enters command to remove all tasks.
-2. System requests to confirm command. 
-3. User confirms request. 
-4. System removes all tasks. <br/>
+1. User enters command to remove multiple tasks.
+2. System removes multiple tasks. <br/>
 Use Case ends.
 
 **Extensions**
 
-1a. There are no pending tasks.
+1a. Incorrect command format.
 
-> 1ai. System displays "No Pending Tasks" message. <br>
+> 1ai. System displays an error message. <br>
   Use Case ends.
 
-3a. User cancels request.
+1b. User enters an invalid task number.
 
-> Use Case ends.
+> 1bi. System displays an error message. <br>
+  Use Case ends.
 
-#### Use case: [UC09] Mark Task as Done
+<br>
+
+#### Use case: [UC14] Clear All Tasks
+
+**MSS**
+
+1. User enters command to clear all tasks.
+2. System clear all tasks. <br/>
+Use Case ends.
+
+<br>
+
+#### Use case: [UC15] Mark Task as Done
 
 **Preconditions**
 
@@ -538,8 +715,9 @@ Use Case ends.
 > 1bi. System displays an error message. <br>
   Use Case ends.
     
+<br>
 
-#### Use case: [UC10] Find Task
+#### Use case: [UC16] Find Task
 
 **Preconditions**
 
@@ -562,7 +740,30 @@ Use Case ends.
 
 > Use Case ends.
 
-#### Use case: [UC11] Undo Command
+<br>
+
+#### Use case: [UC17] List Tasks
+
+**Preconditions**
+
+Tasks exists in system.
+
+**MSS**
+
+1. User enters command to list a tasks.
+2. System displays list of pending and overdue tasks by default unless otherwise stated by the User. <br/>
+Use Case ends.
+
+**Extensions**
+
+1a. Incorrect command format.
+
+> 1ai. System displays an error message. <br>
+  Use Case ends.
+
+<br>
+
+#### Use case: [UC18] Undo Command
 
 **MSS**
 
@@ -577,7 +778,9 @@ Use Case ends.
 > 1ai. System displays "Nothing to Undo" message. <br>
   Use Case ends.
 
-#### Use case: [UC12] Redo Command
+<br>
+
+#### Use case: [UC19] Redo Command
 
 **MSS**
 
@@ -592,15 +795,19 @@ Use Case ends.
 > 1ai. System displays "Nothing to Redo" message. <br>
   Use Case ends.
 
-#### Use case: [UC13] View Help
+<br>
+
+#### Use case: [UC20] View Help
 
 **MSS**
 
 1. User enters help command.
 2. System displays list of commands available. <br/>
 Use Case ends.
+
+<br>
 	
-#### Use case: [UC14] Change Save Directory
+#### Use case: [UC21] Change Save Directory
 
 **MSS**
 
@@ -630,7 +837,9 @@ Use Case ends.
 > 2ci. System displays "Existing file found in requested directory" message. <br>
   Use Case ends.
 
-#### Use case: [UC15] Open Storage File
+<br>
+
+#### Use case: [UC22] Open Storage File
 
 **MSS**
 
@@ -656,7 +865,6 @@ Use Case ends.
   Use Case ends.
 
 <!-- @@author A0139402M -->
-
 <br>
 
 ## Appendix C : Non Functional Requirements
@@ -678,25 +886,25 @@ Use Case ends.
 
 ## Appendix D : Glossary
 
-##### "Completed" Task
-
-> A task that has been marked as done.
-
-##### Deadline
-
-> A task that has to be completed before a certain date or time.
-
-##### Event
-
-> A task that occurs over a period of time.
-
 ##### Floating Task
 
 > A stand-alone task that does not need to be completed by a certain date or time.
 
+##### Deadline Task
+
+> A task that has to be completed before a certain date or time.
+
+##### Event Task
+
+> A task that occurs over a period of time.
+
 ##### Human-Editable File
 
 > A file that can be easily read and edited by a human. For example: `.txt`
+
+##### "Completed" Task
+
+> A task that has been marked as done.
 
 ##### "Overdue" Task
 
@@ -775,8 +983,8 @@ Weaknesses:
 
 1. Does not allow for block scheduling of tasks. → Jim cannot schedule tasks in block timings.
 2. Does not provide a user-friendly way to look for a suitable slot to schedule an item. → Jim has to go through all existing tasks to look for an empty slot to schedule a new task.
-3. Unable to block multiple slots for tasks with unconfirmed timings. → Jim will find it hard to schedule tasks with unconfirmed timings.
-4. Syncing of data with the cloud occurs only when there is Internet connectivity. → Jim will require Internet connectivity if he wants to use the application (with all his existing tasks) on another computer.
+3. Does not support blocking multiple slots for tasks with unconfirmed timings. → Jim will find it hard to schedule tasks with unconfirmed timings.
+4. Does not support syncing of data on the cloud when there is no Internet connectivity. → Jim will require Internet connectivity if he wants to use the application (with all his existing tasks) on another computer.
 
 <br>
 
