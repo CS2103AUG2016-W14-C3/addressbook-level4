@@ -323,11 +323,11 @@ Exits and closes Taskle.<br><br>
 **Q**: My task name is too long and I cannot view it on Taskle!<br>
 **A**: You can click and hold your mouse button down to view the whole task name.
 
-**Q**: The reminder notification is getting too annoying, can I increase the interval at which it pops up?<br>
+**Q**: The reminder notification is getting too annoying; can I increase the interval at which it pops up?<br>
 **A**: We have fixed the interval for the pop up at 1 minute. However, if you find it too annoying, you can dismiss the reminders (which removes them from Taskle) by right-clicking the icon in the bottom right tray.
 
-**Q**: Am I able the customize the colors on Taskle?<br>
-**A**: No, the color scheme is fixed.
+**Q**: Am I able the customize the colours on Taskle?<br>
+**A**: No, the colour scheme is fixed.
 
 **Q**: How are you able to intelligently recognize the date and time in any format?<br>
 **A**: Thankfully, there are third party libraries that provide this sort of functionality for free! The one we used for Taskle is called "Natty".
@@ -347,14 +347,14 @@ The table below shows the overall list of commands used in the application.
 
 |Command   | Shortcut | Format  |
 |:-------- |:---------|:--------|
-|Add       | a        | `add` **`task_name`** [**`remind` `date time`**] |
-|        |          | `add` **`task_name`** `by` [**`date time`**] [**`remind` `date time`**] |
-|         |          | `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] [**`remind` `date time`**] |
+|Add       | a        | `add` **`task_name`** [`remind` **`date time`**] |
+|          |          | `add` **`task_name`** `by` **`date`** [**`time`**] [`remind` **`date time`**] |
+|          |          | `add` **`task_name`** `from` **`date`** [**`time`**] `to` **`date`** [**`time`**] [`remind` **`date time`**] |
 |Rename    | rn       | `rename` **`task_number`** **`new_task_name`** |
-|Reschedule| rs       | `reschedule` **`task_number`** **`date`** [**`time`**] [**`to` `date time`**]  [**`remind` `date time`**] |
-|Reschedule|          | `reschedule` `clear`|
+|Reschedule| rs       | `reschedule` **`task_number`** **`date`** [**`time`**] [**`to` `date time`**]  [`remind` **`date time`**] |
+|Reschedule|          | `reschedule` **`task_number`** `clear`|
 |Remind    | rmd      | `remind` **`task_number`** **`date`** [**`time`**] |
-|Remind    |          | `remind` `clear`|
+|Remind    |          | `remind` **`task_number`** `clear`|
 |Remove    | rm       | `remove` **`task_number`** |
 |Find      | f        | `find` **`keywords [-status]`** |
 |List      |l         | `list` **`[-status]`** |
