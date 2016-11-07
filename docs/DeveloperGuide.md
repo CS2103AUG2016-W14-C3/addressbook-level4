@@ -742,13 +742,9 @@ Use Case ends.
 
 #### Use case: [UC17] List Tasks
 
-**Preconditions**
-
-Tasks exists in system.
-
 **MSS**
 
-1. User enters command to list a tasks.
+1. User enters command to list all tasks.
 2. System displays list of pending and overdue tasks by default unless otherwise stated by the User. <br/>
 Use Case ends.
 
