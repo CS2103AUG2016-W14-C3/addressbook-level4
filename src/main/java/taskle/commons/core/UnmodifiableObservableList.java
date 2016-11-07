@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Stream;
 
+//@@author A0125509H
 /**
  * Unmodifiable view of an observable list
  */

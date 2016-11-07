@@ -6,8 +6,6 @@ import static taskle.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static taskle.commons.core.Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX;
 import static taskle.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -37,12 +35,10 @@ import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
 import taskle.logic.commands.HelpCommand;
-import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.ListCommand;
 import taskle.logic.commands.RemindCommand;
 import taskle.logic.commands.RemoveCommand;
 import taskle.logic.commands.RescheduleCommand;
-import taskle.logic.commands.UndoCommand;
 import taskle.logic.parser.DateParser;
 import taskle.model.Model;
 import taskle.model.ModelManager;
@@ -390,7 +386,7 @@ public class LogicManagerTest {
             throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Task toBeAdded = helper.generateFloatWithName("remind papa");
+        Task toBeAdded = helper.generateTaskWithName("remind papa");
         TaskManager expectedTM = new TaskManager();
         expectedTM.addTask(toBeAdded);
 
@@ -1049,10 +1045,10 @@ public class LogicManagerTest {
     public void executeFindCommand_findKeywordInMultipleTasks_onlyMatchesFullWordsInNames() 
             throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateFloatWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateFloatWithName("bla KEY bla bceofeia");
-        Task p1 = helper.generateFloatWithName("KE Y");
-        Task p2 = helper.generateFloatWithName("KEYKEYKEY sduauo");
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p1 = helper.generateTaskWithName("KE Y");
+        Task p2 = helper.generateTaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p1, pTarget1, p2, pTarget2);
         TaskManager expectedTM = helper.generateTaskManager(fourTasks);
@@ -1069,10 +1065,10 @@ public class LogicManagerTest {
     public void executeFindCommand_findCaseSensitive_returnCaseSensitiveResults() 
             throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task p1 = helper.generateFloatWithName("bla bla KEY bla");
-        Task p2 = helper.generateFloatWithName("bla KEY bla bceofeia");
-        Task p3 = helper.generateFloatWithName("key key");
-        Task p4 = helper.generateFloatWithName("KEy sduauo");
+        Task p1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task p2 = helper.generateTaskWithName("bla KEY bla bceofeia");
+        Task p3 = helper.generateTaskWithName("key key");
+        Task p4 = helper.generateTaskWithName("KEy sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(p3, p1, p4, p2);
         TaskManager expectedTM = helper.generateTaskManager(fourTasks);
@@ -1089,10 +1085,10 @@ public class LogicManagerTest {
     public void executeFindCommand_findMultipleKeywords_matchesIfAnyKeywordPresent() 
             throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task pTarget1 = helper.generateFloatWithName("bla bla KEY bla");
-        Task pTarget2 = helper.generateFloatWithName("bla rAnDoM bla bceofeia");
-        Task pTarget3 = helper.generateFloatWithName("key key");
-        Task p1 = helper.generateFloatWithName("sduauo");
+        Task pTarget1 = helper.generateTaskWithName("bla bla KEY bla");
+        Task pTarget2 = helper.generateTaskWithName("bla rAnDoM bla bceofeia");
+        Task pTarget3 = helper.generateTaskWithName("key key");
+        Task p1 = helper.generateTaskWithName("sduauo");
 
         List<Task> fourTasks = helper.generateTaskList(pTarget1, p1, pTarget2, pTarget3);
         TaskManager expectedTM = helper.generateTaskManager(fourTasks);
@@ -1108,8 +1104,8 @@ public class LogicManagerTest {
     @Test
     public void executeFindCommand_findPendingStatus_onlyListPendingTasks() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task task1 = helper.generateFloatWithName("Get fruits from supermarket");
-        Task task2 = helper.generateFloatWithName("Get David a burger");
+        Task task1 = helper.generateTaskWithName("Get fruits from supermarket");
+        Task task2 = helper.generateTaskWithName("Get David a burger");
         task2.setTaskDone(true);
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
@@ -1132,11 +1128,11 @@ public class LogicManagerTest {
     @Test
     public void executeListCommand_emptyArgs_showPendingAndOverdue() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Task task1 = helper.generateFloatWithName("Buy groceries");
+        Task task1 = helper.generateTaskWithName("Buy groceries");
         task1.setTaskDone(true);
-        Task task2 = helper.generateFloatWithName("Do homework");
-        Task task3 = helper.generateFloatWithName("Conduct meeting");
-        Task task4 = helper.generateFloatWithName("Finish O levels");
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
+        Task task4 = helper.generateTaskWithName("Finish O levels");
 
         List<Task> fourTasks = helper.generateTaskList(task1, task2, task3, task4);
         helper.addToModel(model, fourTasks);
@@ -1155,10 +1151,10 @@ public class LogicManagerTest {
             throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        Task task1 = helper.generateFloatWithName("Buy groceries");
+        Task task1 = helper.generateTaskWithName("Buy groceries");
         task1.setTaskDone(true);
-        Task task2 = helper.generateFloatWithName("Do homework");
-        Task task3 = helper.generateFloatWithName("Conduct meeting");
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(2010, 11, 01);
@@ -1184,10 +1180,10 @@ public class LogicManagerTest {
             throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        Task task1 = helper.generateFloatWithName("Buy groceries");
+        Task task1 = helper.generateTaskWithName("Buy groceries");
         task1.setTaskDone(true);
-        Task task2 = helper.generateFloatWithName("Do homework");
-        Task task3 = helper.generateFloatWithName("Conduct meeting");
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
         calendar.set(2010, 11, 01);
@@ -1212,11 +1208,11 @@ public class LogicManagerTest {
     public void executeShortCommand_validList_returnsList() throws Exception {
         // prepare 1 done task, 2 pending task, 1 deadline task
         TestDataHelper helper = new TestDataHelper();
-        Task task1 = helper.generateFloatWithName("Buy groceries");
+        Task task1 = helper.generateTaskWithName("Buy groceries");
         task1.setTaskDone(true);
         
-        Task task2 = helper.generateFloatWithName("Do homework");
-        Task task3 = helper.generateFloatWithName("Conduct meeting");
+        Task task2 = helper.generateTaskWithName("Do homework");
+        Task task3 = helper.generateTaskWithName("Conduct meeting");
         
         Calendar calendar = Calendar.getInstance();
         calendar.clear();
@@ -1242,7 +1238,7 @@ public class LogicManagerTest {
     public void executeShortCommand_validAdd_addsSuccessfully() throws Exception {
         // prepare 1 task for add
         TestDataHelper helper = new TestDataHelper();
-        Task toAdd = helper.generateFloatWithName("Buy eggs");
+        Task toAdd = helper.generateTaskWithName("Buy eggs");
         
         TaskManager expectedTM = new TaskManager();
         expectedTM.addTask(toAdd);
@@ -1258,7 +1254,7 @@ public class LogicManagerTest {
     public void executeShortCommand_validRemove_removesSuccessfully() throws Exception {
         // prepare 1 task for add
         TestDataHelper helper = new TestDataHelper();
-        Task toRemove = helper.generateFloatWithName("Buy eggs");
+        Task toRemove = helper.generateTaskWithName("Buy eggs");
         
         List<Task> allTasks = helper.generateTaskList(toRemove);
         
@@ -1268,92 +1264,6 @@ public class LogicManagerTest {
 
         assertCommandBehavior("rm 1",
                 String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, 1),
-                expectedTM,
-                expectedList);
-    }
-    
-    @Test
-    public void executeMultipleCommands_validCommands_executeSuccessfully() 
-                throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Task defaultTask = helper.generateFloatWithName("Get groceries");
-        List<Task> allTasks = helper.generateTaskList(defaultTask);
-        TaskManager expectedTM = helper.generateTaskManager(allTasks);
-        helper.addToModel(model, allTasks);
-        executeFloatAdd(helper, expectedTM);
-        executeDeadlineAdd(helper, expectedTM);
-        executeReschedule(helper, expectedTM);
-        executeUndo(helper, expectedTM);
-    }
-    
-    private void executeFloatAdd(TestDataHelper helper, TaskManager expectedTM) throws Exception {
-        // add 1 float task
-        Task toAdd = helper.generateFloatWithName("Buy eggs");
-        expectedTM.addTask(toAdd);
-        
-        // set up expectations
-        List<ReadOnlyTask> expectedList = expectedTM.getTaskList();
-
-        assertCommandBehavior("add Buy eggs",
-                String.format(AddCommand.MESSAGE_SUCCESS, toAdd),
-                expectedTM,
-                expectedList);
-    }
-    
-    private void executeDeadlineAdd(TestDataHelper helper, TaskManager expectedTM) throws Exception {
-        // add 1 deadline task
-        DeadlineTask toAdd = 
-                helper.generateDeadlineWithNameAndDate(
-                        "Buy groceries from supermarket", 
-                        "251216, 235959");
-        expectedTM.addTask(toAdd);
-        
-        // set up expectations
-        List<ReadOnlyTask> expectedList = expectedTM.getTaskList();
-
-        assertCommandBehavior("add Buy groceries from supermarket by 25 dec",
-                String.format(AddCommand.MESSAGE_SUCCESS, toAdd),
-                expectedTM,
-                expectedList);
-    }
-    
-    private void executeReschedule(TestDataHelper helper, TaskManager expectedTM) throws Exception {
-        // reschedule 1st task
-        DeadlineTask toAdd = 
-                helper.generateDeadlineWithNameAndDate(
-                        "Buy groceries from supermarket", 
-                        "201117, 203000");
-        
-        // set up expectations
-        List<ReadOnlyTask> expectedList = expectedTM.getTaskList();
-        DeadlineTask oldTask = (DeadlineTask) expectedList.get(0);
-        expectedTM.removeTask(oldTask);
-        expectedTM.addTask(toAdd);
-        String name = toAdd.getName().toString();
-        String oldDetails = oldTask.getDetailsString();
-        String newDetails = toAdd.getDetailsString();
-
-        assertCommandBehavior("reschedule 1 20 nov 2017 8.30pm",
-                String.format(RescheduleCommand.MESSAGE_EDIT_TASK_SUCCESS, name + " " + oldDetails + " -> " + newDetails),
-                expectedTM,
-                expectedList);
-    }
-    
-    private void executeUndo(TestDataHelper helper, TaskManager expectedTM) throws Exception {
-        // undo last command, assumed to be reschedule
-        DeadlineTask beforeTask = 
-                helper.generateDeadlineWithNameAndDate(
-                        "Buy groceries from supermarket", 
-                        "251216, 235959");
-        
-        // Set up expectations
-        List<ReadOnlyTask> expectedList = expectedTM.getTaskList();
-        DeadlineTask oldTask = (DeadlineTask) expectedList.get(0);
-        expectedTM.removeTask(oldTask);
-        expectedTM.addTask(beforeTask);
-        
-        assertCommandBehavior("undo",
-                UndoCommand.MESSAGE_SUCCESS,
                 expectedTM,
                 expectedList);
     }
@@ -1368,10 +1278,6 @@ public class LogicManagerTest {
         
         //@@author A0141780J
         private final Calendar CALENDAR = Calendar.getInstance();
-        private final String TEST_DATE_FORMAT_PATTERN = "ddMMyy, HHmmss";
-        private final SimpleDateFormat TEST_DATE_FORMAT = new SimpleDateFormat(TEST_DATE_FORMAT_PATTERN);
-        
-        // Predefined Strings for command tests
         private final String ADD_SUCCESSFUL_FLOAT_REMINDER = " remind 12 sep 2016 10am";
         private final String ADD_SUCCESSFUL_EVENT_DATE = " from 12 sep 2016 10am to 12 sep 2016 1pm";
         private final String ADD_SUCCESSFUL_EVENT_REMINDER = " from 12 sep 2016 10am to 12 sep 2016 1pm remind 10 sep 2016 10am";
@@ -1626,48 +1532,13 @@ public class LogicManagerTest {
             taskList.sort(new TaskComparator());
             return taskList;
         }
-        
-        //@@author A0141780J
 
         /**
-         * Generates a Task object with given name. Other fields will have some
-         * dummy values.
-         * 
-         * @param name Name of task to be generated.
-         * @return Float task as generated
+         * Generates a Task object with given name. Other fields will have some dummy values.
          */
-        FloatTask generateFloatWithName(String name) {
-            return new FloatTask(new Name(name));
-        }
-        
-        /**
-         * Generates a Task object with given name. Other fields will have some
-         * dummy values.
-         * 
-         * @param name Name of deadline task to be generated.
-         * @param dateString date of deadline task to be generated in DDMMYY, HHMMss string
-         * @throws ParseException when date specified is not correct format
-         * @return deadline task as generated.
-         */
-        DeadlineTask generateDeadlineWithNameAndDate(String name, String dateString) throws ParseException {
-            Date deadlineDate = TEST_DATE_FORMAT.parse(dateString);
-            return new DeadlineTask(new Name(name), deadlineDate);
-        }
-        
-        /**
-         * Generates a Task object with given name. Other fields will have some
-         * dummy values.
-         * 
-         * @param name Name of deadline task to be generated.
-         * @param startDateString start date of deadline task to be generated in DDMMYY, HHMMss string
-         * @param endDateString end date of deadline task to be generated in DDMMYY, HHMMss string
-         * @throws ParseException when date specified is not correct format
-         * @return event task as generated
-         */
-        EventTask generateEventWithNameAndDate(String name, String startDateString, String endDateString) throws ParseException {
-            Date startDate = TEST_DATE_FORMAT.parse(startDateString);
-            Date endDate = TEST_DATE_FORMAT.parse(endDateString);
-            return new EventTask(new Name(name), startDate, endDate);
+        Task generateTaskWithName(String name) {
+            return new FloatTask(
+                    new Name(name));
         }
     }
 }
