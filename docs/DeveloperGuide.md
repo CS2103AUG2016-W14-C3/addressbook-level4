@@ -755,6 +755,10 @@ Use Case ends.
 > 1ai. System displays an error message. <br>
   Use Case ends.
 
+1b. No task available.
+
+> Use Case ends.
+
 <br>
 
 #### Use case: [UC18] Undo Command
