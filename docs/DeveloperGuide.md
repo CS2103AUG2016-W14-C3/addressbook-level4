@@ -684,7 +684,7 @@ Use Case ends.
 **MSS**
 
 1. User enters command to clear all tasks.
-2. System clear all tasks. <br/>
+2. System clears all tasks. <br/>
 Use Case ends.
 
 <br>
