@@ -325,7 +325,7 @@ For all use cases below, the **System** is `Taskle` and the **User** is the `use
 
 **MSS**
 
-1. User enters command to add a new task.
+1. User enters command to add a new float task.
 2. System adds new float task. <br/>
 Use Case ends.
 
