@@ -27,10 +27,12 @@ import taskle.commons.core.Messages;
 import taskle.commons.events.model.TaskManagerChangedEvent;
 import taskle.commons.events.ui.JumpToListRequestEvent;
 import taskle.commons.events.ui.ShowHelpRequestEvent;
+import taskle.commons.util.TaskUtil;
 import taskle.logic.commands.AddCommand;
 import taskle.logic.commands.ClearCommand;
 import taskle.logic.commands.Command;
 import taskle.logic.commands.CommandResult;
+import taskle.logic.commands.DoneCommand;
 import taskle.logic.commands.EditCommand;
 import taskle.logic.commands.ExitCommand;
 import taskle.logic.commands.FindCommand;
@@ -562,6 +564,45 @@ public class LogicManagerTest {
                 String.format(RemoveCommand.MESSAGE_DELETE_TASK_SUCCESS, 2),
                 expectedTM,
                 expectedTM.getTaskList());
+    }
+    
+    //@@author A0125509H
+    @Test
+    public void executeDoneCommand_doneAvailableIndex_completesCorrectTask() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Get fruits from supermarket");
+        Task task2 = helper.generateTaskWithName("Get David a burger");
+
+        List<Task> allTasks = helper.generateTaskList(task1, task2);
+        List<Task> expectedTasks = helper.generateTaskList(task1.copy(), 
+                task2.copy());
+        List<Task> expectedList = helper.generateTaskList(task1);
+        TaskManager expectedTM = helper.generateTaskManager(expectedTasks);
+        expectedTM.doneTask(0, true);
+        helper.addToModel(model, allTasks);
+
+        assertCommandBehavior("done 1",
+                DoneCommand.MESSAGE_DONE_TASK_SUCCESS,
+                expectedTM,
+                expectedList);
+        
+    }
+    
+    @Test
+    public void executeDoneCommand_doneInvalidIndex_showsErrorMessage() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Task task1 = helper.generateTaskWithName("Get fruits from supermarket");
+        Task task2 = helper.generateTaskWithName("Get David a burger");
+
+        List<Task> allTasks = helper.generateTaskList(task1, task2);
+        TaskManager expectedTM = helper.generateTaskManager(allTasks);
+        helper.addToModel(model, allTasks);
+
+        assertCommandBehavior("done 2016",
+                MESSAGE_INVALID_TASK_DISPLAYED_INDEX,
+                expectedTM,
+                allTasks);
+        
     }
     
     //@@author A0139402M
