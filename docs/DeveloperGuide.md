@@ -68,7 +68,7 @@ The **_Architecture Diagram_** given above explains the high-level design of the
 * `EventsCentre`: This class (written using [Google's Event Bus library] (https://github.com/google/guava/wiki/EventBusExplained)) is used by components to communicate with other components through the use of events (i.e. a form of _Event Driven_ design).
 * `LogsCenter`: Used by many classes to write log messages to the application's log file.
 
-The rest of the application consists four components:
+The rest of the application consists of four components:
 * [**`UI`**](#ui-component) : Responsible for the User Interface of the application.
 * [**`Logic`**](#logic-component) : Executes user commands.
 * [**`Model`**](#model-component) : Holds the data of the application in-memory.
@@ -90,7 +90,7 @@ For example, the _Sequence Diagram_ below shows how the components interact in a
 <img align="center" src="images/SDforRemoveTask.png">
 <div align="center">Figure 3: Sequence Diagram for Remove Task to show Component Interaction</div><br>
 
->Note how the `Model` simply raises a `TaskManagerChangedEvent` when Taskle's data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+>Note how the `Model` simply raises a `TaskManagerChangedEvent` when Taskle's data is changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to the `TaskManagerChangedEvent`. This results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -99,7 +99,7 @@ The diagram below shows how the `EventsCenter` reacts to the `TaskManagerChanged
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
-The sections below give more details of each component.
+The sections below provides more details of each component.
 
 <!-- @@author A0125509H -->
 
@@ -118,7 +118,7 @@ For example, the layout of the [`MainWindow`](../src/main/java/taskle/ui/MainWin
 
 The `UI` component:
 * Executes user commands through the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` changes.
 * Responds to events raised from various parts of the application before updating the UI accordingly.
 
 <!-- @@author A0141780J -->
