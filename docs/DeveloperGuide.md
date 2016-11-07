@@ -595,7 +595,7 @@ Use Case ends.
 >1ci.  System displays an error message. <br>
   Use Case ends. 
   
-1d. User enters a reminder date after the end date of the current task
+1d. User enters a reminder date after the end date of the current task.
 >1ci.  System displays an error message. <br>
   Use Case ends. 
   
