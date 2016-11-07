@@ -8,12 +8,11 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.DoneCommand;
 import taskle.logic.commands.IncorrectCommand;
 
+//@@author A0125509H
 /**
  * Command Parser for done commands.
- * @author Abel
  *
  */
-//@@author A0125509H
 public class DoneCommandParser extends CommandParser {
 
     @Override
