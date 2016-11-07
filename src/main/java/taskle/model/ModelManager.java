@@ -236,7 +236,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addTask(Task task) {
         taskManager.addTask(task);
-        resetFilters();
         updateFilteredListWithStatuses();
         indicateTaskManagerChanged();
     }
@@ -280,14 +279,6 @@ public class ModelManager extends ComponentManager implements Model {
         this.isPendingShown = isPendingShown;
         this.isDoneShown = isDoneShown;
         this.isOverdueShown = isOverdueShown;
-        raise(new TaskFilterChangedEvent(isPendingShown, isDoneShown, isOverdueShown));
-        updateFilteredListWithStatuses();
-    }
-    
-    private void resetFilters() {
-        this.isPendingShown = true;
-        this.isDoneShown = false;
-        this.isOverdueShown = true;
         raise(new TaskFilterChangedEvent(isPendingShown, isDoneShown, isOverdueShown));
         updateFilteredListWithStatuses();
     }

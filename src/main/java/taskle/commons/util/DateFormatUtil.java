@@ -77,7 +77,7 @@ public class DateFormatUtil {
         int min = calendar.get(Calendar.MINUTE);
         int sec = calendar.get(Calendar.SECOND);
         int msec = calendar.get(Calendar.MILLISECOND);
-        if (hour == 23 && min == 59 && sec == 59 && msec == 999) {
+        if (hour == 23 && min == 59 && sec == 59) {
             return SIMPLE_DATE_FORMAT.format(date);
         } else {
             return SIMPLE_DATE_TIME_FORMAT.format(date);
