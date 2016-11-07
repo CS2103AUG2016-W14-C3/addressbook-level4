@@ -59,9 +59,7 @@ Taskle makes managing your tasks both simple and elegant as all of its features 
 <br>
 
 ### Add a Task / Event: `add`
-   * Adds a task / event into Taskle (with its respective deadline or end-date.)
-   * A reminder time can be set for tasks / events.
-   * The time parameter is optional.<br><br>
+Adds a task / event into Taskle (with its respective deadline or start-date and end-date.)<br><br>
 
 | Format  |
 |:--------|
@@ -71,10 +69,12 @@ Taskle makes managing your tasks both simple and elegant as all of its features 
 
 > **Things to Note**
 > * You may enter the date and time in any format that you desire, and Taskle will still be able to recognise it.
->  * Example: "add Do Homework by **tmr**" adds a task with the name "Do Homework" with the deadline to be set to tomorrow (tmr is recognised as tomorrow.)
+>  * Example: "add Do Homework by **tmr**" adds a task with the name "Do Homework" with the deadline to be set to tomorrow (tmr is recognised as tomorrow).
 > * Only the words after the last **by** or **from** in your input will be accepted as the date and time. This allows you to continue using **by** and **from** as part of your task name as long as you enter the date and times last.
 >  * Example: "add Gardens by the Bay **from** 9am to 9pm today" adds a task with the name "Gardens by the Bay" with the date and time to be set to "today, 9am to 9pm".
 > * Should the entered name be too long, it will appear truncated with ellipses on the application. However, you can still view the full name by clicking and holding down your mouse button. 
+> * A reminder time can be set for your tasks / events.
+> * The time parameter is optional.
 
 Examples:
 * `add` **`Pay Phone Bills`**
@@ -88,7 +88,7 @@ Examples:
 
 <!-- @@author A0140047U -->
 ### Edit a Task: `rename; reschedule; remind`
-Edits an existing task in Taskle. There are three types of possible edits: Rename, Reschedule and Remind. You are required to input the **task_number** (as indicated in Figure 3) in order for Taskle to identify the task that you wish to edit.<br><br>
+Edits an existing task in Taskle. There are three types of possible edits: Rename, Reschedule and Remind. You are required to input the **task_number** (as indicated in the ID column of Figure 3) in order for Taskle to identify the task that you wish to edit.<br><br>
 
 |Type      | Format  |
 |:-------- |:--------|
@@ -112,7 +112,7 @@ Examples:
 <img align="center" src="images/UI/Rename_After.png">
 <div align="center">Figure 4: Renames Task 8 to "Pay Abel for Chicken Rice" (After)</div><br>
 
-* `reschedule` **`2`** `to` **`9th November 2pm`**
+* `reschedule` **`2 9th November 2pm`**
 
 <img align="center" src="images/UI/Reschedule_Before.png">
 <div align="center">Figure 5: Reschedules Task 2 to "9th November 2pm" (Before)</div><br>
@@ -181,7 +181,7 @@ Example:
 
 <!-- @@author A0140047U -->
 ### List Tasks: `list`
-Lists tasks according to specified statuses (done, overdue, or pending.)<br><br>
+Lists tasks according to specified statuses (done, overdue, or pending).<br><br>
 
 | Format  
 | :-------- 
@@ -204,7 +204,7 @@ Example:
 
 <!-- @@author A0125509H -->
 ### Mark a Task as Done: `done`
-Marks a task as done (when it is completed.)<br><br>
+Marks a task as done (when it is completed).<br><br>
 
 | Format  
 | :-------- 
@@ -255,8 +255,6 @@ Changes the save directory of Taskle's data file.<br><br>
 | :-------- 
 | `save` **`directory_path`**|
 
-<br>
-
 > **Thing to Note**
 > * You are also able to change your save directory from the menu option.
 
@@ -288,7 +286,7 @@ Example:
 
 <!-- @@author A0139402M -->
 ### View Help: `help`
-Displays a list of available commands.<br>
+Displays a list of available commands.<br><br>
 
 | Format  
 | :-------- 
@@ -320,7 +318,19 @@ Exits and closes Taskle.<br><br>
 **A**: You can install Taskle in the other computer and overwrite its empty data file with the file that was created in your previous Taskle folder. You can also use Taskle's save and open features to transfer your data.
 
 **Q**: I can't seem to key in a date!<br>
-**A**: You may have forgotten to include the keywords **for** or **by**!
+**A**: You may have forgotten to include the keywords **from** or **by**!
+
+**Q**: My task name is too long and I cannot view it on Taskle!<br>
+**A**: You can click and hold your mouse button down to view the whole task name.
+
+**Q**: The reminder notification is getting too annoying, can I increase the interval at which it pops up?<br>
+**A**: We have fixed the interval for the pop up at 1 minute. However, if you find it too annoying, you can dismiss the reminders (which removes them from Taskle) by right-clicking the icon in the bottom right tray.
+
+**Q**: Am I able the customize the colors on Taskle?<br>
+**A**: No, the color scheme is fixed.
+
+**Q**: How are you able to intelligently recognize the date and time in any format?<br>
+**A**: Thankfully, there are third party libraries that provide this sort of functionality for free! The one we used for Taskle is called "Natty".
 
 <br>
        
@@ -341,9 +351,9 @@ The table below shows the overall list of commands used in the application.
 |        |          | `add` **`task_name`** `by` [**`date time`**] [**`remind` `date time`**] |
 |         |          | `add` **`task_name`** `from` [**`date time`**] `to` [**`date time`**] [**`remind` `date time`**] |
 |Rename    | rn       | `rename` **`task_number`** **`new_task_name`** |
-|Reschedule| rs       | `reschedule` **`task_number`** `date` [**`time`**] [**`to` `date time`**]  [**`remind` `date time`**] |
+|Reschedule| rs       | `reschedule` **`task_number`** **`date`** [**`time`**] [**`to` `date time`**]  [**`remind` `date time`**] |
 |Reschedule|          | `reschedule` `clear`|
-|Remind    | rmd      | `remind` **`task_number`** `date` [**`time`**] |
+|Remind    | rmd      | `remind` **`task_number`** **`date`** [**`time`**] |
 |Remind    |          | `remind` `clear`|
 |Remove    | rm       | `remove` **`task_number`** |
 |Find      | f        | `find` **`keywords [-status]`** |
