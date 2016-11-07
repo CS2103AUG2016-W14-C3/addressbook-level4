@@ -43,9 +43,7 @@ public class RemoveCommandParser extends CommandParser {
         for(int i = 0; i < s.length; i++) {
             Optional<Integer> index = parseIndex(s[i]);
             if (!index.isPresent()) {
-                return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
-                                      RemoveCommand.MESSAGE_USAGE));
+                return new IncorrectCommand(MESSAGE_INVALID_COMMAND_FORMAT);
             }
         }
         
