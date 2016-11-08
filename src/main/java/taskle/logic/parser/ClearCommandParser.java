@@ -2,7 +2,7 @@ package taskle.logic.parser;
 
 import taskle.logic.commands.ClearCommand;
 import taskle.logic.commands.Command;
-//@author A0141780J
+//@@author A0141780J
 
 /**
  * Clear command parser class to handle parsing of clear commands.

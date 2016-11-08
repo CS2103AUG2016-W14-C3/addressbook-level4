@@ -3,7 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 import taskle.TestApp;
-//@author A0141780J
+//@@author A0141780J
 
 /**
  * A handler for the PopOver of the UI

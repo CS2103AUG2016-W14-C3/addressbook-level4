@@ -9,7 +9,7 @@ import taskle.logic.commands.Command;
 import taskle.logic.commands.IncorrectCommand;
 import taskle.logic.commands.ListCommand;
 
-//@author A0141780J
+//@@author A0141780J
 /**
  * ListCommandParser class to handle parsing of list commands.
  * @author Abel

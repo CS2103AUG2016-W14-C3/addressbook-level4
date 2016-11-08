@@ -37,7 +37,7 @@ import taskle.logic.commands.RemoveCommand;
 import taskle.logic.commands.RescheduleCommand;
 import taskle.logic.commands.UndoCommand;
 import taskle.model.help.CommandGuide;
-//@author A0141780J
+//@@author A0141780J
 /**
  * Controller for a help page
  */

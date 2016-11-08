@@ -7,7 +7,7 @@ import guitests.GuiRobot;
 import javafx.stage.Stage;
 import taskle.TestApp;
 
-//@author A0141780J
+//@@author A0141780J
 /**
  * Provides a handle for the notification pane.
  */
