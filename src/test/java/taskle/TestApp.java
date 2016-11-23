@@ -1,16 +1,16 @@
 package taskle;
 
+import java.awt.Toolkit;
+import java.util.function.Supplier;
+
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import taskle.MainApp;
 import taskle.commons.core.Config;
 import taskle.commons.core.GuiSettings;
 import taskle.model.ReadOnlyTaskManager;
 import taskle.model.UserPrefs;
 import taskle.storage.XmlSerializableTaskManager;
 import taskle.testutil.TestUtil;
-
-import java.util.function.Supplier;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -25,6 +25,8 @@ public class TestApp extends MainApp {
     protected static final String TASK_MANAGER_NAME = "Test";
     protected Supplier<ReadOnlyTaskManager> initialDataSupplier = () -> null;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    private static final double width = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+    private static final double height = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
 
     public TestApp() {
     }
@@ -58,7 +60,7 @@ public class TestApp extends MainApp {
         UserPrefs userPrefs = super.initPrefs(config);
         double x = Screen.getPrimary().getVisualBounds().getMinX();
         double y = Screen.getPrimary().getVisualBounds().getMinY();
-        userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
+        userPrefs.updateLastUsedGuiSetting(new GuiSettings(width, height, (int) x, (int) y));
         return userPrefs;
     }
 
